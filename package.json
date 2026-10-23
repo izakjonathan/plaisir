@@ -1,1 +1,24 @@
-{"name":"plaisir","version":"0.1.0","private":true,"scripts":{"dev":"node scripts/dev.mjs","build":"next build --webpack","start":"next start --hostname 0.0.0.0","typecheck":"tsc --noEmit"},"dependencies":{"next":"16.4.2","react":"19.2.3","react-dom":"19.2.3"},"devDependencies":{"@types/node":"^24","@types/react":"^19","@types/react-dom":"^19","typescript":"^5.9.3"}}
+{
+  "name": "plaisir",
+  "version": "0.2.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node scripts/dev.mjs",
+    "build": "next build --webpack",
+    "start": "next start --hostname 0.0.0.0",
+    "typecheck": "tsc --noEmit",
+    "test": "node --experimental-strip-types --test tests/finance.test.ts"
+  },
+  "dependencies": {
+    "next": "16.4.2",
+    "react": "19.2.3",
+    "react-dom": "19.2.3"
+  },
+  "devDependencies": {
+    "@types/node": "^24",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "typescript": "^5.9.3"
+  }
+}

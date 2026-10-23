@@ -1,43 +1,55 @@
-# Plaisir
+# Plaisir · coffee & wine
 
-First-version Next.js App Router website for the Plaisir casual wine bar concept.
+Next.js App Router brand and investor overview, aligned with the supplied corrected business deck.
 
 ## Run
 
-Requires Node.js 20.9 or later.
+Use Node.js 22 or later (Node 24 recommended).
 
 ```sh
 npm ci
 npm run dev
 ```
 
-Open http://localhost:3000. To verify the production build:
+Open http://localhost:3000. No environment variables or external services are required.
 
 ```sh
-npm run build
+npm test
 npm run typecheck
+npm run build
 npm start
 ```
 
-Ready to import as a standard Next.js project on Vercel. No environment variables or external services are required.
+Import the repository into Vercel as a standard Next.js project. No custom build or output-directory settings are needed.
 
-## Included
+## This version
 
-- Responsive forest-green, warm-gold and cream editorial design.
-- Wordmark extracted from the supplied brand reference, plus a matching bottle motif.
-- Concept introduction, food and atmosphere sections, and opening-information placeholder.
-- Interactive wine flavour compass, keyboard-operable buttons and mobile navigation.
-- Reduced-motion support, focus indicators, skip link, semantic landmarks and live announcements for compass updates.
-- All images served locally; no analytics, cookies, forms or remote font requests.
+- Textured forest green and warm amber, using the deck's embedded wordmark, bottle artwork and concept renderings.
+- Coffee/wine dayparts, guest groups, brand experience, proposed East Village flagship, leadership and opening sequence.
+- Interactive annual P&L, earnings waterfall, gross-margin break-even chart and exact monthly/annual values.
+- Source baseline plus explicitly labelled stress-test presets and editable assumptions.
+- Funding allocation and 12-month opening-reserve explorer, with delay and sales-ramp controls.
+- Demand reconciliation showing why 220 × $25 × 351 does not equal $833k.
+- Keyboard-operable charts and tabs, accessible data tables, responsive navigation and scenario CSV download.
+- Six meaningful financial tests covering reconciliation, cost behaviour, break-even, cash arithmetic, delay/shortfall and demand.
 
-## Before launch
+## Important model limits
 
-The venue address, opening date, hours, contact details, booking provider and approved final menu were not supplied. The page intentionally avoids inventing these details. Replace the closing section when they are confirmed.
+Figures reproduce a source-derived illustration, not an approved forecast. Other operating expenses of $37.1k are implied. The $72k proposed annual rent and $216k occupancy budget have not been reconciled. Labour and other operating expenses stay fixed until edited.
 
-The wine compass is an illustrative taste guide, not a live wine inventory or verified recommendation engine. Its flavour mapping follows the concept's four-quadrant diagram.
+Opening cash uses EBITDA as a simplified operating cash proxy. It excludes capital spending beyond the assumed funding allocations, deposits, inventory/supplier timing, taxes, debt and contingencies. It does not establish runway, payback or investment returns. The default ramp assumptions are additional explorer inputs, not deck forecasts.
 
-Images are crops from the supplied Plaisir concept moodboards and are identified as concept inspiration on the page. They must not be presented as photographs of the finished venue. Confirm usage rights and replace with commissioned/cleared photography before public launch. Small source crops limit image sharpness at very large display sizes.
+Site, seating, lease, opening hours/date, costed menu, benefits and final funding terms remain subject to confirmation. Brand images are supplied concepts and renderings, not evidence of an operating venue or produced merchandise.
 
-## Content and styling
+See `docs/brand-and-model.md` for the brand analysis, source-slide mapping and complete model assumptions.
 
-Edit `app/page.tsx` for copy and compass content, `app/globals.css` for theme and responsive layouts, and `app/layout.tsx` for page metadata. Optimised local assets are in `public/images`.
+## Editing
+
+- `app/page.tsx`: brand narrative and content
+- `app/FinancialDashboard.tsx`: controls, charts, tables and CSV
+- `lib/finance.ts`: pure financial calculations and source inputs
+- `app/globals.css`: responsive brand and chart styling
+- `public/brand`: assets adapted directly from the supplied deck
+- `tests/finance.test.ts`: financial verification
+
+All assets load locally. The page uses no analytics, remote fonts or external data requests. Scenarios remain in browser memory until reload.

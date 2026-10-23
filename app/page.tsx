@@ -1,70 +1,490 @@
-'use client';
+"use client";
+import { useState } from "react";
+import FinancialDashboard from "./FinancialDashboard";
 
-import { useState } from 'react';
-
-const tastes = {
-  fresh: { name: 'Light & fresh', note: 'Bright acidity, delicate fruit, a refreshing finish.', suggestion: 'Start with a crisp white or a light, lively red.', x: 68, y: 28, label: 'Something lively' },
-  dry: { name: 'Crisp & dry', note: 'Clean, mineral and a little more restrained.', suggestion: 'Explore a mineral white or a dry, textured orange wine.', x: 29, y: 27, label: 'Keep it crisp' },
-  rich: { name: 'Rich & rounded', note: 'Fuller texture, deeper fruit and a lingering finish.', suggestion: 'Try a rounded white or a generous, full-bodied red.', x: 28, y: 71, label: 'A little more depth' },
-  soft: { name: 'Soft & fruity', note: 'Gentle edges, expressive fruit and an easy-going feel.', suggestion: 'Look for a fruit-forward red or a softly aromatic white.', x: 69, y: 70, label: 'Fruit comes first' },
+const team = [
+  ["Kevin Murph", "Founder & CEO", "Concept, culture and strategy"],
+  ["Oliwier Papadopoulos", "Partner & CFO", "Budget, cash flow and reporting"],
+  ["Jose Sidoa", "Partner & CWO", "Wine buying and service standards"],
+  ["Mohammed Diomande", "Partner & COO", "Staffing, training and operations"],
+];
+const dayparts = {
+  Morning: {
+    heading: "Coffee in the morning",
+    text: "Good coffee, pastries and an easy start to the day. A familiar stop for the neighbourhood, whether guests settle in or take their coffee with them.",
+    image: "takeaway",
+    caption: "Takeaway family · Brand concept rendering",
+  },
+  Evening: {
+    heading: "Approachable wine later in the day",
+    text: "Wine, simple food and time for conversation. An approachable by-the-glass list, bottles and food made for sharing. The experience stays relaxed.",
+    image: "table",
+    caption: "Wine and table service · Brand concept rendering",
+  },
 };
-type Taste = keyof typeof tastes;
-
-function Bottle({ className = '' }: { className?: string }) {
-  return <svg className={className} viewBox="0 0 170 440" fill="none" aria-hidden="true"><path d="M70 18c-6-3-7-10 5-10 17 0 30 4 28 8-2 4-29 6-33 2Zm4 3 1 83c1 20-24 27-35 47-9 17-6 51-6 70l-4 173c0 29 103 31 105 4l-7-190c-1-24 1-44-11-58-14-17-26-28-25-47l1-81M36 399c15-19 65-22 92-1M49 390c14-8 42-12 64-2" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" /></svg>;
-}
-
 export default function Home() {
-  const [navOpen, setNavOpen] = useState(false);
-  const [taste, setTaste] = useState<Taste>('fresh');
-  const selected = tastes[taste];
-  return <>
-    <a className="skip-link" href="#main">Skip to content</a>
-    <header className="header">
-      <a href="#" aria-label="Plaisir home" className="brand"><img src="/images/wordmark.png" alt="Plaisir" width="170" height="56" /></a>
-      <button className="menu-toggle" aria-expanded={navOpen} aria-controls="navigation" onClick={() => setNavOpen(!navOpen)}>{navOpen ? 'Close −' : 'Explore +'}</button>
-      <nav id="navigation" className={navOpen ? 'navigation open' : 'navigation'} aria-label="Main navigation">
-        {[['The idea', '#about'], ['Wine compass', '#wine'], ['Little plates', '#food'], ['What’s next', '#visit']].map(([title, href]) => <a key={href} href={href} onClick={() => setNavOpen(false)}>{title}</a>)}
-      </nav>
-      <span className="header-note">A casual wine bar</span>
-    </header>
-    <main id="main">
-      <section className="hero" aria-labelledby="hero-title">
-        <div className="hero-grain" />
-        <div className="hero-topline"><span>Wine. Food. Good company.</span><span>Simple pleasures, shared.</span></div>
-        <div className="hero-center">
-          <p className="eyebrow">Make yourself at home</p>
-          <h1 id="hero-title"><span className="sr-only">Plaisir — a little everyday pleasure</span><img src="/images/wordmark.png" alt="" width="970" height="320" /></h1>
-          <p className="hero-subtitle">A little everyday <em>pleasure.</em></p>
-          <a className="text-link" href="#about">Get to know Plaisir <span aria-hidden="true">↗</span></a>
-        </div>
-        <Bottle className="hero-bottle" />
-        <div className="hero-bottom"><span>Good wine. No occasion needed.</span><a href="#about" aria-label="Discover the concept">Scroll a little <span aria-hidden="true">↓</span></a></div>
-      </section>
-
-      <section id="about" className="intro section-pad">
-        <p className="eyebrow">01 / The idea</p>
-        <div className="intro-grid"><h2>Come for a glass.<br />Stay for the <em>feeling.</em></h2><div className="intro-copy"><p>That first sip. Something delicious in the middle of the table. A conversation that runs a little longer.</p><p>Plaisir is a casual wine bar concept built around the pleasure of being together. Thoughtful wine, simple food, and a warm welcome — without making things complicated.</p><a className="text-link dark" href="#wine">Find your kind of wine <span aria-hidden="true">↗</span></a></div></div>
-        <div className="values"><span>Uncomplicated wine</span><span>Plates for sharing</span><span>Time well spent</span></div>
-      </section>
-
-      <section id="wine" className="wine section-pad" aria-labelledby="wine-title">
-        <div className="section-heading"><p className="eyebrow">02 / Follow your taste</p><span className="small-note">A little curiosity goes a long way.</span></div>
-        <div className="wine-grid"><div className="wine-copy"><h2 id="wine-title">Less guessing.<br />More <em>discovering.</em></h2><p>You don’t need the right words to find a wine you love. Start with what you like, and let our wine compass point you somewhere new.</p><p className="selector-label" id="taste-label">What are you in the mood for?</p><div className="taste-options" role="group" aria-labelledby="taste-label">{(Object.keys(tastes) as Taste[]).map(key => <button key={key} onClick={() => setTaste(key)} aria-pressed={taste === key}>{tastes[key].name}<span aria-hidden="true">↗</span></button>)}</div></div>
-        <div className="compass-panel"><div className="compass" aria-hidden="true"><span className="axis axis-top">dry</span><span className="axis axis-right">light</span><span className="axis axis-bottom">sweet</span><span className="axis axis-left">full</span><div className="ring ring-one"/><div className="ring ring-two"/><div className="ring ring-three"/><div className="cross horizontal"/><div className="cross vertical"/><span className="compass-center">p.</span><span className="compass-point" style={{left:`${selected.x}%`,top:`${selected.y}%`}}><span>✦</span></span></div><div className="wine-result" aria-live="polite" aria-atomic="true"><span className="eyebrow">{selected.label}</span><h3>{selected.name}</h3><p>{selected.note} {selected.suggestion}</p></div><p className="compass-footnote">A guide to flavour, rather than a live wine list.</p></div></div>
-      </section>
-
-      <section id="food" className="food section-pad">
-        <div className="section-heading"><p className="eyebrow">03 / A little something alongside</p><span className="small-note">Better in the middle of the table.</span></div>
-        <div className="food-intro"><h2>A glass in hand.<br /><em>A little to share.</em></h2><p>Good bread, seasonal flavours, cheese and charcuterie. Food that belongs next to a glass of wine, and between friends.</p></div>
-        <div className="food-images"><figure className="food-large"><img src="/images/sharing-board.webp" alt="Concept inspiration: a board of cheese, charcuterie and accompaniments" width="477" height="288" loading="lazy"/><figcaption><span>01 — A little of everything</span><span>Made for sharing</span></figcaption></figure><figure className="food-small"><img src="/images/seasonal-plate.webp" alt="Concept inspiration: a colourful seasonal salad" width="355" height="393" loading="lazy"/><figcaption>02 — Something fresh</figcaption></figure></div>
-        <p className="image-note">Food imagery from the Plaisir concept moodboard. Final menu to follow.</p>
-      </section>
-
-      <section className="atmosphere section-pad" aria-labelledby="atmosphere-title"><div className="atmosphere-image"><img src="/images/interior-study.webp" alt="Interior moodboard: natural textures, soft light and relaxed seating" width="845" height="630" loading="lazy"/><span>From the Plaisir moodboard</span></div><div className="atmosphere-copy"><p className="eyebrow">04 / The feeling</p><h2 id="atmosphere-title">A place to<br /><em>settle in.</em></h2><p>Natural textures. Warm light. A little character. We imagine a space that feels familiar from the moment you walk in.</p><p>Raw, authentic and timeless. Somewhere to slow down, find your corner, and enjoy the company.</p><Bottle className="small-bottle"/></div></section>
-
-      <section id="visit" className="closing section-pad"><p className="eyebrow">Something good is taking shape</p><h2>See you over<br /><em>a glass.</em></h2><p>The Plaisir story is just beginning.<br />Location, opening details and the final menu will follow.</p><a href="#wine" className="outline-link">Explore your taste <span aria-hidden="true">↗</span></a><span className="closing-word">plaisir <i>n.</i> / pleasure</span></section>
-    </main>
-    <footer><a href="#" aria-label="Back to top"><img src="/images/wordmark.png" alt="Plaisir" width="145" height="48"/></a><span>A casual wine bar concept</span><a href="#">Back to the top ↑</a></footer>
-  </>;
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [daypart, setDaypart] = useState<keyof typeof dayparts>("Morning");
+  const selected = dayparts[daypart];
+  return (
+    <>
+      <a className="skip-link" href="#main">
+        Skip to content
+      </a>
+      <header className="site-header">
+        <a className="brand-lockup" href="#" aria-label="Plaisir home">
+          <strong>Plaisir</strong>
+          <span>coffee & wine</span>
+        </a>
+        <button
+          className="menu-toggle"
+          aria-expanded={menuOpen}
+          aria-controls="site-navigation"
+          onClick={() => setMenuOpen(!menuOpen)}
+        >
+          {menuOpen ? "Close" : "Menu"}
+        </button>
+        <nav
+          id="site-navigation"
+          aria-label="Main navigation"
+          className={menuOpen ? "open" : ""}
+        >
+          {[
+            ["Concept", "#concept"],
+            ["Experience", "#experience"],
+            ["Flagship", "#flagship"],
+            ["Financial model", "#financials"],
+            ["Team", "#team"],
+            ["Launch", "#launch"],
+          ].map(([text, href]) => (
+            <a key={href} href={href} onClick={() => setMenuOpen(false)}>
+              {text}
+            </a>
+          ))}
+        </nav>
+      </header>
+      <main id="main">
+        <section className="cover" aria-labelledby="cover-title">
+          <img
+            className="cover-bottle decorative"
+            src="/brand/bottle.webp"
+            alt=""
+            width="320"
+            height="1000"
+          />
+          <div className="cover-center">
+            <h1 id="cover-title">
+              <span className="sr-only">Plaisir coffee & wine</span>
+              <img
+                src="/brand/wordmark.webp"
+                alt=""
+                width="900"
+                height="380"
+                fetchPriority="high"
+              />
+            </h1>
+            <p>coffee & wine</p>
+          </div>
+          <div className="cover-footer">
+            <a href="#concept">Discover the concept</a>
+            <span>Brand & flagship proposal</span>
+            <a href="#financials">Explore the financial illustration</a>
+          </div>
+        </section>
+        <section
+          id="concept"
+          className="section concept"
+          aria-labelledby="concept-title"
+        >
+          <p className="section-kicker">01 / Concept overview</p>
+          <div className="concept-content">
+            <div className="concept-lockup">
+              <img
+                src="/brand/wordmark.webp"
+                alt="Plaisir"
+                width="225"
+                height="95"
+              />
+              <span>is…</span>
+            </div>
+            <h2 id="concept-title">
+              French café influences, an outgoing New York personality
+              <br className="desktop-break" /> and a warm, authentic room shaped
+              by Danish design.
+            </h2>
+            <p>
+              Coffee in the morning. Approachable wine later in the day.
+              <br />
+              Thoughtful hospitality that turns familiar faces into regulars.
+            </p>
+          </div>
+          <p className="source-note">
+            Concept consolidated in the business deck, slides 2–3.
+          </p>
+        </section>
+        <section className="brand-philosophy" aria-label="Brand philosophy">
+          <div>
+            <p>Not intimidating</p>
+            <p>Not boring</p>
+            <h2>Atmosphere over wine</h2>
+          </div>
+          <img
+            className="philosophy-bottle decorative"
+            src="/brand/bottle-neck.webp"
+            alt=""
+            width="440"
+            height="780"
+          />
+        </section>
+        <section
+          id="experience"
+          className="section experience"
+          aria-labelledby="experience-title"
+        >
+          <div className="section-top">
+            <p className="section-kicker">02 / Coffee and wine</p>
+            <h2 id="experience-title" className="serif-heading">
+              A familiar place, through the day
+            </h2>
+          </div>
+          <div
+            className="daypart-tabs"
+            role="group"
+            aria-label="Explore the dayparts"
+          >
+            {(Object.keys(dayparts) as (keyof typeof dayparts)[]).map(
+              (name) => (
+                <button
+                  key={name}
+                  aria-pressed={daypart === name}
+                  onClick={() => setDaypart(name)}
+                >
+                  {name}
+                </button>
+              ),
+            )}
+          </div>
+          <div className="experience-layout">
+            <figure>
+              <img
+                src={`/brand/${selected.image}.webp`}
+                alt={
+                  daypart === "Morning"
+                    ? "Plaisir branded coffee cups, pastry bag and takeaway box concept"
+                    : "Plaisir wine glasses, green menu and coasters concept"
+                }
+                width="1536"
+                height="1024"
+                loading="lazy"
+              />
+              <figcaption>{selected.caption}</figcaption>
+            </figure>
+            <div className="experience-copy" aria-live="polite">
+              <h3>{selected.heading}</h3>
+              <p>{selected.text}</p>
+              <p className="serif-label">A small menu</p>
+              <p>
+                Coffee and pastries.
+                <br />
+                Wine by the glass and bottle.
+                <br />
+                Boards, small bites and light food.
+              </p>
+              <p className="small-copy">
+                Shared ingredients. Simple assembly. Consistent portions and
+                clear prices. Launch selection and pricing remain subject to
+                costing.
+              </p>
+            </div>
+          </div>
+          <div className="guest-row">
+            <div>
+              <h3>Daily regulars</h3>
+              <p>Nearby residents and workers with a morning coffee habit.</p>
+            </div>
+            <div>
+              <h3>After work</h3>
+              <p>Friends and colleagues looking for an easy place to meet.</p>
+            </div>
+            <div>
+              <h3>Evenings together</h3>
+              <p>Couples and small groups sharing wine and food.</p>
+            </div>
+            <div>
+              <h3>A slower afternoon</h3>
+              <p>Daytime visitors during the quieter hours.</p>
+            </div>
+          </div>
+          <p className="source-note">
+            Proposed guest groups, not validated market research. Deck slides
+            5–10.
+          </p>
+        </section>
+        <section
+          className="section hospitality"
+          aria-labelledby="hospitality-title"
+        >
+          <div>
+            <p className="section-kicker">Wine guidance</p>
+            <h2 id="hospitality-title" className="serif-heading">
+              “What do you usually enjoy?”
+            </h2>
+            <p>
+              A familiar question opens the conversation. Staff can then suggest
+              a few relevant options.
+            </p>
+            <div className="wine-prompts">
+              <span>Lighter or fuller</span>
+              <span>Dry or some sweetness</span>
+              <span>With food or a glass on its own</span>
+            </div>
+          </div>
+          <p className="hospitality-close">The experience stays relaxed.</p>
+        </section>
+        <section
+          className="section brand-world"
+          aria-labelledby="brand-world-title"
+        >
+          <div className="section-top">
+            <p className="section-kicker">03 / Brand experience</p>
+            <h2 id="brand-world-title" className="serif-heading">
+              Familiar in every detail
+            </h2>
+          </div>
+          <div className="brand-images">
+            <figure>
+              <img
+                src="/brand/coffee.webp"
+                alt="Green Plaisir coffee-cup branding concept"
+                width="774"
+                height="908"
+                loading="lazy"
+              />
+              <figcaption>Coffee, carried into the neighbourhood</figcaption>
+            </figure>
+            <figure>
+              <img
+                src="/brand/merchandise.webp"
+                alt="Plaisir staff clothing and canvas tote brand concept"
+                width="1536"
+                height="1024"
+                loading="lazy"
+              />
+              <figcaption>The identity beyond the counter</figcaption>
+            </figure>
+          </div>
+          <div className="brand-description">
+            <h3>
+              Forest green. Warm amber.
+              <br />
+              The original bottle and script.
+            </h3>
+            <p>
+              Natural textures and a considered set of details connect the
+              counter, the table and the street. Staff clothing comes first. A
+              limited retail selection follows demand and a reliable supply
+              process.
+            </p>
+          </div>
+          <p className="source-note">
+            Supplied branding concepts and AI-generated renderings from the
+            deck. These do not depict produced packaging or launched
+            merchandise. No merchandise revenue enters the financial model.
+          </p>
+        </section>
+        <section
+          id="flagship"
+          className="section flagship"
+          aria-labelledby="flagship-title"
+        >
+          <div className="section-top">
+            <p className="section-kicker">04 / The proposed flagship</p>
+            <h2 id="flagship-title" className="serif-heading">
+              East Village, New York
+            </h2>
+          </div>
+          <div className="flagship-layout">
+            <figure>
+              <img
+                src="/brand/facade.webp"
+                alt="Architectural brand concept for a Plaisir coffee and wine frontage"
+                width="1536"
+                height="1024"
+                loading="lazy"
+              />
+              <figcaption>
+                Architectural brand concept. No confirmed site is depicted.
+              </figcaption>
+            </figure>
+            <div>
+              <div className="site-stat">
+                <strong>500 sq ft</strong>
+                <span>plus a basement in the source proposal</span>
+              </div>
+              <div className="site-stat">
+                <strong>$6,000 / month</strong>
+                <span>proposed rent, before a full occupancy budget</span>
+              </div>
+              <p>
+                A clear window identity. A small projecting sign. Warmth from
+                within.
+              </p>
+              <p className="small-copy">
+                The lease, usable area, seating capacity and permissions remain
+                unconfirmed. Fit-out, operating hours and the full occupancy
+                cost must align with the actual premises.
+              </p>
+              <details className="site-question">
+                <summary>What still needs reconciliation?</summary>
+                <p>
+                  Other source modelling assumes 900–1,200 sq ft and 35–45
+                  seats. The proposed rent annualises to $72,000, while the
+                  annual financial illustration uses $216,000 for occupancy. The
+                  additional $144,000 has not been explained. The dashboard
+                  keeps the deck’s $216,000 baseline visible and editable.
+                </p>
+              </details>
+            </div>
+          </div>
+          <p className="source-note">
+            Source proposal and unresolved site assumptions: deck slides 22–23.
+          </p>
+        </section>
+        <section
+          id="team"
+          className="section team"
+          aria-labelledby="team-title"
+        >
+          <div className="section-top">
+            <p className="section-kicker">05 / People</p>
+            <h2 id="team-title" className="serif-heading">
+              A culture of hospitality
+            </h2>
+          </div>
+          <div className="team-intro">
+            <p>
+              We hire for warmth and judgement.
+              <br />
+              We build product knowledge through practice.
+            </p>
+            <p>
+              Clear recipes and service standards give the team confidence. Paid
+              learning, feedback and progression support consistency.
+            </p>
+          </div>
+          <div className="team-list">
+            {team.map(([name, role, responsibility]) => (
+              <div key={name}>
+                <h3>{name}</h3>
+                <span>{role}</span>
+                <p>{responsibility}</p>
+              </div>
+            ))}
+          </div>
+          <p className="source-note">
+            Leadership roles as reported in the source deck, slide 13.
+            Availability, compensation and decision rights require confirmation.
+          </p>
+        </section>
+        <section
+          id="financials"
+          className="section financials"
+          aria-label="Interactive financial illustration"
+        >
+          <FinancialDashboard />
+        </section>
+        <section
+          id="launch"
+          className="section launch"
+          aria-labelledby="launch-title"
+        >
+          <div className="section-top">
+            <p className="section-kicker">07 / Launch and growth</p>
+            <h2 id="launch-title" className="serif-heading">
+              A proven flagship first
+            </h2>
+          </div>
+          <div className="launch-steps">
+            {[
+              [
+                "01",
+                "Agreement",
+                "Site, capacity, costed menu, hours and a complete budget.",
+              ],
+              [
+                "02",
+                "Readiness",
+                "Suppliers, paid rota, service standards and practical training.",
+              ],
+              [
+                "03",
+                "Soft opening",
+                "Service trials and a controlled opening period.",
+              ],
+              [
+                "04",
+                "Trading review",
+                "Margin, labour, waste, cash and repeat visits.",
+              ],
+            ].map(([n, title, text]) => (
+              <div key={n}>
+                <span>{n}</span>
+                <h3>{title}</h3>
+                <p>{text}</p>
+              </div>
+            ))}
+          </div>
+          <div className="growth">
+            <div>
+              <h3>Growth after evidence</h3>
+              <p>
+                Expansion follows sustained cash generation, repeat demand and
+                reliable manager-led service.
+              </p>
+              <p>
+                Three sites at $1.2–1.5m annual sales each would imply $3.6–4.5m
+                combined annual revenue. This is an illustration, with no
+                validated timetable or profitability assumption.
+              </p>
+            </div>
+            <div>
+              <h3>Before launch commitment</h3>
+              <p>
+                One site and operating capacity.
+                <br />
+                One costed menu and staffing plan.
+                <br />
+                One financial model and cash reserve.
+                <br />
+                Clear terms for rewards, benefits and investor perks.
+              </p>
+            </div>
+          </div>
+          <p className="source-note">
+            Deck slides 27–31. Opening dates follow readiness. No lease, opening
+            date or approved forecast has been supplied.
+          </p>
+        </section>
+        <section className="closing" aria-label="Plaisir brand closing">
+          <img
+            src="/brand/wordmark.webp"
+            alt="Plaisir"
+            width="900"
+            height="380"
+            loading="lazy"
+          />
+          <p>coffee & wine</p>
+          <a href="#financials">Return to the financial model</a>
+        </section>
+      </main>
+      <footer>
+        <a className="brand-lockup" href="#">
+          <strong>Plaisir</strong>
+          <span>coffee & wine</span>
+        </a>
+        <p>Leadership draft · Concept and investor overview</p>
+        <p>Financial illustrations require validation and approval.</p>
+      </footer>
+    </>
+  );
 }
