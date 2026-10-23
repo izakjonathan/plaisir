@@ -704,7 +704,7 @@ export default function FinancialDashboard() {
                   {ALLOCATIONS.map((a) => (
                     <tr key={a.name}>
                       <th scope="row">{a.name}</th>
-                      <td>{a.share * 100}%</td>
+                      <td>{Math.round(a.share * 100)}%</td>
                       <td>{money(funding * a.share)}</td>
                     </tr>
                   ))}

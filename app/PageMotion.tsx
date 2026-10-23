@@ -1,109 +1,97 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export default function PageMotion() {
+  const [motionOff, setMotionOff] = useState(false);
+  const [systemReduced, setSystemReduced] = useState(false);
+  useEffect(() => {
+    const preference = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const sync = () => setSystemReduced(preference.matches);
+    sync();
+    preference.addEventListener("change", sync);
+    return () => preference.removeEventListener("change", sync);
+  }, []);
   useEffect(() => {
     const root = document.documentElement;
-    const preference = window.matchMedia("(prefers-reduced-motion: reduce)");
-    let observer: IntersectionObserver | undefined;
-    let navigation: IntersectionObserver | undefined;
+    const reduce =
+      motionOff ||
+      systemReduced ||
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    root.toggleAttribute("data-motion-off", reduce);
     let frame = 0;
-    const revealSelector =
-      ".concept-content, .section-top, .experience-layout, .guest-row > div, .hospitality > div, .brand-images > figure, .brand-description, .flagship-layout > *, .team-intro, .team-list > div, .dashboard-intro, .launch-steps > div, .growth > div";
+    let heroVisible = true;
+    const hero = document.querySelector<HTMLElement>(".pl-hero");
     const targets = Array.from(
-      document.querySelectorAll<HTMLElement>(revealSelector),
+      document.querySelectorAll<HTMLElement>("[data-reveal]"),
     );
-    const animate = () => {
-      observer?.disconnect();
-      root.classList.remove("motion-ready");
-      if (preference.matches || !("IntersectionObserver" in window)) return;
-      observer = new IntersectionObserver(
-        (entries) => {
+    let reveal: IntersectionObserver | undefined;
+    let scenes: IntersectionObserver | undefined;
+    if (!reduce && "IntersectionObserver" in window) {
+      reveal = new IntersectionObserver(
+        (entries) =>
           entries.forEach((entry) => {
             if (entry.isIntersecting) {
               entry.target.setAttribute("data-in-view", "");
-              observer?.unobserve(entry.target);
+              reveal?.unobserve(entry.target);
             }
-          });
-        },
-        { threshold: 0.06, rootMargin: "0px 0px -24px 0px" },
+          }),
+        { threshold: 0.08, rootMargin: "0px 0px -24px 0px" },
       );
-      targets.forEach((target, i) => {
-        target.setAttribute("data-reveal", "");
-        target.style.setProperty(
-          "--reveal-delay",
-          `${target.parentElement?.matches(".team-list, .guest-row, .launch-steps") ? (i % 4) * 65 : 0}ms`,
-        );
-        const rect = target.getBoundingClientRect();
-        if (rect.top < window.innerHeight && rect.bottom > 0)
+      targets.forEach((target) => {
+        if (target.getBoundingClientRect().top < window.innerHeight)
           target.setAttribute("data-in-view", "");
-        observer?.observe(target);
+        reveal?.observe(target);
       });
-      root.classList.add("motion-ready");
-    };
-    const paintScroll = () => {
+      scenes = new IntersectionObserver((entries) => {
+        heroVisible = entries[0]?.isIntersecting ?? false;
+      });
+      if (hero) scenes.observe(hero);
+      root.classList.add("pl-motion-ready");
+    }
+    const paint = () => {
       frame = 0;
-      const scroll = window.scrollY;
-      const total = root.scrollHeight - window.innerHeight;
+      const top = window.scrollY;
+      const range = root.scrollHeight - window.innerHeight;
       root.style.setProperty(
         "--reading-progress",
-        `${total > 0 ? Math.min(1, scroll / total) : 0}`,
+        `${range > 0 ? Math.min(1, top / range) : 0}`,
       );
-      root.style.setProperty(
-        "--hero-shift",
-        `${preference.matches ? 0 : Math.min(scroll * 0.12, 95)}px`,
-      );
-      root.toggleAttribute("data-scrolled", scroll > 36);
+      if (heroVisible)
+        root.style.setProperty(
+          "--scene-shift",
+          `${reduce ? 0 : Math.min(top * 0.07, 36)}px`,
+        );
+      root.toggleAttribute("data-scrolled", top > 40);
     };
-    const scroll = () => {
-      if (!frame) frame = requestAnimationFrame(paintScroll);
+    const schedule = () => {
+      if (!frame) frame = requestAnimationFrame(paint);
     };
-    animate();
-    paintScroll();
-    if ("IntersectionObserver" in window) {
-      navigation = new IntersectionObserver(
-        (entries) => {
-          const visible = entries
-            .filter((entry) => entry.isIntersecting)
-            .sort(
-              (a, b) => a.boundingClientRect.top - b.boundingClientRect.top,
-            );
-          if (visible[0]) {
-            document
-              .querySelectorAll<HTMLAnchorElement>("#site-navigation a")
-              .forEach((link) => {
-                if (link.hash === `#${visible[0].target.id}`)
-                  link.setAttribute("aria-current", "location");
-                else link.removeAttribute("aria-current");
-              });
-          }
-        },
-        { rootMargin: "-12% 0px -58% 0px", threshold: 0 },
-      );
-      document
-        .querySelectorAll("main > section[id]")
-        .forEach((section) => navigation?.observe(section));
-    }
-    const onPreference = () => {
-      animate();
-      paintScroll();
-    };
-    preference.addEventListener("change", onPreference);
-    window.addEventListener("scroll", scroll, { passive: true });
-    window.addEventListener("resize", scroll, { passive: true });
+    paint();
+    window.addEventListener("scroll", schedule, { passive: true });
+    window.addEventListener("resize", schedule, { passive: true });
     return () => {
-      observer?.disconnect();
-      navigation?.disconnect();
+      reveal?.disconnect();
+      scenes?.disconnect();
       cancelAnimationFrame(frame);
-      preference.removeEventListener("change", onPreference);
-      window.removeEventListener("scroll", scroll);
-      window.removeEventListener("resize", scroll);
-      root.classList.remove("motion-ready");
+      window.removeEventListener("scroll", schedule);
+      window.removeEventListener("resize", schedule);
+      root.classList.remove("pl-motion-ready");
+      root.removeAttribute("data-motion-off");
       root.removeAttribute("data-scrolled");
-      root.style.removeProperty("--hero-shift");
       root.style.removeProperty("--reading-progress");
+      root.style.removeProperty("--scene-shift");
     };
-  }, []);
-  return null;
+  }, [motionOff, systemReduced]);
+  return (
+    <button
+      className="pl-motion-control"
+      aria-pressed={motionOff || systemReduced}
+      disabled={systemReduced}
+      onClick={() => setMotionOff((value) => !value)}
+    >
+      {motionOff || systemReduced ? "Motion reduced" : "Reduce motion"}
+      <span aria-hidden="true">{motionOff || systemReduced ? "−" : "+"}</span>
+    </button>
+  );
 }

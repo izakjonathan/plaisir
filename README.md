@@ -2,7 +2,7 @@
 
 Next.js App Router brand and investor overview, aligned with the supplied corrected business deck.
 
-The reference-inspired design uses the supplied local Agilera font for display headings and short accents. Plaisir’s script, bottle artwork, forest green and amber remain, complemented by cream paper and burgundy details. The receipt illustration is original SVG and HTML; reference screenshots are not shipped as site assets. Financial values, controls and charts retain the UI font. Existing scroll reveals, daypart transitions and reduced-motion support remain; the receipt adds a brief entrance and hover treatment.
+The mobile-first design uses the original Plaisir script, local Agilera display type, forest green and warm amber. A full-screen social scene leads into the daypart experience, touch gallery and proposed flagship. Source details, leadership and growth remain in expandable disclosures. Financial values, controls and charts retain the UI font. Reference images are research only and are not shipped as website assets.
 
 ## Run
 
@@ -26,8 +26,8 @@ Import the repository into Vercel as a standard Next.js project. No custom build
 
 ## This version
 
-- Website composition with an asymmetric photo-led hero, persistent navigation, varied editorial sections and a distinct investor workspace.
-- Progressive scroll reveals, a reading-progress indicator, restrained hero parallax, daypart crossfades and hover transitions. Reduced-motion preferences disable visual movement; content remains available without JavaScript.
+- Mobile-first composition with a full-bleed portrait hero, thumb-reachable bottom navigation, native modal menu and concise editorial sections.
+- Masked headline reveals, a reading-progress indicator, capped hero image movement, daypart crossfades and a native scroll-snap gallery. System preferences and an explicit footer control suppress nonessential movement. Content remains available without JavaScript.
 
 - Textured forest green and warm amber, using the deck's embedded wordmark, bottle artwork and concept renderings.
 - Coffee/wine dayparts, guest groups, brand experience, proposed East Village flagship, leadership and opening sequence.
@@ -53,8 +53,10 @@ See `docs/brand-and-model.md` for the brand analysis, source-slide mapping and c
 - `app/page.tsx`: brand narrative and content
 - `app/FinancialDashboard.tsx`: controls, charts, tables and CSV
 - `lib/finance.ts`: pure financial calculations and source inputs
-- `app/globals.css`: responsive brand and chart styling
-- `public/brand`: assets adapted directly from the supplied deck
+- `app/globals.css`: base styles and responsive financial dashboard
+- `app/mobile-brand.css`: mobile-first visual system, breakpoints and motion
+- `app/PageMotion.tsx`: progressive reveals, scroll state and motion control
+- `public/brand`: supplied deck assets and labelled generated concept imagery
 - `tests/finance.test.ts`: financial verification
 
-All assets load locally. The page uses no analytics, remote fonts or external data requests. Scenarios remain in browser memory until reload.
+All assets load locally. The page uses no analytics, remote fonts or external data requests. Scenarios remain in browser memory until reload. See `docs/mobile-design-research.md` for the Awwwards, Dribbble and live-venue review, motion specification and generated image provenance.
