@@ -2,7 +2,15 @@
 
 Next.js App Router brand and investor overview, aligned with the supplied corrected business deck.
 
-The mobile-first design uses the original Plaisir script, local Agilera display type, forest green and warm amber. A full-screen social scene leads into the daypart experience, touch gallery and proposed flagship. Source details, leadership and growth remain in expandable disclosures. Financial values, controls and charts retain the UI font. Reference images are research only and are not shipped as website assets.
+## Three destinations
+
+- `/` — public-facing Experience preview: coffee, wine, hospitality, brand details and future visit information. No investor budget, source-note panels or financial controls interrupt the public narrative.
+- `/investors` — investor overview: proposition, audiences, operating approach, proposed site, team, launch sequence and conditional growth. Source qualifications remain alongside the relevant claims.
+- `/financials` — dedicated dashboard: annual trading, funding/opening cash, demand reconciliation, exact tables and CSV export.
+
+Shared desktop navigation and a three-link mobile dock make the division explicit. The public page uses a continuous green environment with smaller editorial headings and integrated imagery, replacing alternating full-width presentation panels. Route changes reset scroll motion observers while preserving the user's motion preference in the shared shell.
+
+The mobile-first design uses the original Plaisir script, local Agilera display type, forest green and warm amber. A full-screen social scene leads into the public daypart experience and touch gallery. Leadership, operating plans and qualified site assumptions live on the investor page; financial values and controls live in the dedicated dashboard and retain the UI font. Reference images are research only and are not shipped as website assets.
 
 ## Run
 

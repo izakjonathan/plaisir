@@ -1,0 +1,589 @@
+/* Three distinct destinations, one continuous Plaisir identity. */
+.pl-area-nav {
+  display: none;
+}
+.pl-menu nav a small {
+  display: block;
+  font: 12px/1.6 var(--sans);
+  color: var(--paper);
+  margin-top: 10px;
+  letter-spacing: 0;
+}
+.pl-menu nav a[aria-current="page"] {
+  color: var(--paper);
+}
+.pl-mobile-dock {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  padding-inline: 12px;
+  gap: 5px;
+}
+.pl-mobile-dock a,
+.pl-mobile-dock a:last-child {
+  justify-content: center;
+  flex-direction: column;
+  gap: 5px;
+  padding: 7px 3px;
+  background: transparent;
+  color: var(--paper);
+  font-size: 11px;
+  min-height: 49px;
+}
+.pl-mobile-dock a > span {
+  font-size: 8px;
+  letter-spacing: 0.08em;
+  opacity: 0.55;
+}
+.pl-mobile-dock a[aria-current="page"] {
+  background: #efb44f16;
+  color: var(--amber);
+  box-shadow: inset 0 2px var(--amber);
+}
+.pl-public {
+  background: var(--deep);
+}
+.pl-public .pl-hero {
+  min-height: 720px;
+}
+.pl-public .pl-hero-shade {
+  background: linear-gradient(
+    180deg,
+    #203c3010 35%,
+    #203c3030 60%,
+    #203c30 100%
+  );
+}
+.pl-public-flow {
+  position: relative;
+  background:
+    radial-gradient(ellipse at 100% 12%, #41654c45, transparent 35%),
+    var(--deep);
+}
+.pl-public .pl-display {
+  font-size: clamp(33px, 9vw, 54px);
+  line-height: 1.15;
+}
+.pl-public .pl-display em {
+  color: var(--paper);
+}
+.pl-public .pl-kicker {
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  text-transform: none;
+  color: #eee5caa0;
+  margin-bottom: 20px;
+}
+.pl-welcome {
+  padding: 30px 24px 65px;
+  display: grid;
+  gap: 26px;
+}
+.pl-welcome p,
+.pl-conversation p,
+.pl-visit p {
+  font-size: 14px;
+  line-height: 1.85;
+}
+.pl-welcome p + p {
+  margin-top: 16px;
+  color: #eee5cab0;
+}
+.pl-day-introduction {
+  padding: 0 24px 20px;
+}
+.pl-public .pl-daypart-nav {
+  border-color: #eee5ca30;
+  margin-inline: 24px;
+  padding: 0;
+}
+.pl-public .pl-daypart-nav button {
+  color: var(--paper);
+  font-size: 12px;
+  min-height: 52px;
+}
+.pl-public .pl-daypart-indicator {
+  left: 0;
+  width: 50%;
+  background: var(--amber);
+}
+.pl-public .pl-daypart {
+  padding-top: 22px;
+}
+.pl-public .pl-daypart-image {
+  margin: 0 24px;
+  aspect-ratio: 1.03;
+  border-radius: 2px 2px 50px 2px;
+}
+.pl-public .pl-daypart-copy {
+  padding: 27px 24px 0;
+}
+.pl-public .pl-daypart-copy h3 {
+  color: var(--amber);
+  font-size: 32px;
+  line-height: 1.18;
+  margin-top: 0;
+}
+.pl-public .pl-daypart-copy p {
+  color: var(--paper);
+  margin-top: 16px;
+}
+.pl-public .pl-daypart-copy ul {
+  margin-top: 20px;
+}
+.pl-public .pl-daypart-copy li {
+  border-color: #eee5ca25;
+  padding-block: 11px;
+}
+.pl-conversation {
+  display: grid;
+  grid-template-columns: 40px 1fr;
+  align-items: center;
+  gap: 18px;
+  padding: 68px 24px;
+}
+.pl-conversation > img {
+  width: 40px;
+  height: 180px;
+  object-fit: contain;
+  transform: rotate(-9deg);
+  opacity: 0.8;
+}
+.pl-conversation .pl-display {
+  font-size: 31px;
+}
+.pl-conversation p {
+  margin-top: 20px;
+  font-size: 13px;
+  color: #eee5cab0;
+}
+.pl-journal-title {
+  padding: 0 24px 26px;
+  display: flex;
+  gap: 15px;
+  align-items: end;
+  justify-content: space-between;
+}
+.pl-gallery-buttons {
+  display: flex;
+  gap: 5px;
+}
+.pl-gallery-buttons button {
+  border: 1px solid var(--rule);
+  border-radius: 50%;
+  background: none;
+  width: 42px;
+  height: 42px;
+  font-size: 18px;
+}
+.pl-public .pl-journal-card figcaption {
+  display: block;
+  padding-top: 16px;
+}
+.pl-public .pl-journal-card h3 {
+  font-size: 24px;
+}
+.pl-public .pl-journal-card > div {
+  border-radius: 2px;
+}
+.pl-visit {
+  padding: 65px 24px 15px;
+  display: grid;
+  gap: 28px;
+}
+.pl-visit p {
+  margin-top: 22px;
+  color: #eee5cab0;
+}
+.pl-visit > img {
+  aspect-ratio: 1.2;
+  object-fit: cover;
+  width: 100%;
+  border-radius: 45px 2px 2px 2px;
+}
+.pl-public-signoff {
+  padding: 30px 24px 40px;
+  text-align: center;
+}
+.pl-public-signoff > img {
+  width: 70%;
+  max-width: 450px;
+  margin: 0 auto;
+}
+.pl-public-signoff > span {
+  display: block;
+  font-size: 10px;
+  margin-top: -8px;
+  color: var(--amber);
+}
+.pl-public-signoff > a {
+  display: inline-flex;
+  align-items: center;
+  gap: 20px;
+  margin-top: 30px;
+  padding: 15px 0;
+  border-bottom: 1px solid var(--rule);
+  font-size: 11px;
+}
+.pl-area-heading {
+  padding: 100px 24px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 18px;
+  font-size: 10px;
+  color: var(--amber);
+}
+.pl-area-heading > a {
+  color: var(--paper);
+  padding-block: 10px;
+  text-align: right;
+}
+.pl-investor-page {
+  background: var(--deep);
+}
+.pl-investor-opening {
+  padding: 15px 24px 45px;
+  display: grid;
+  gap: 32px;
+}
+.pl-investor-opening h1 {
+  font: 400 clamp(40px, 10.5vw, 65px) / 1.1 var(--display);
+  letter-spacing: -0.03em;
+  color: var(--amber);
+  margin-top: 18px;
+}
+.pl-investor-opening h1 em {
+  font-style: normal;
+  color: var(--paper);
+}
+.pl-investor-opening p {
+  font-size: 14px;
+  line-height: 1.85;
+  margin-top: 24px;
+}
+.pl-investor-opening img {
+  width: 100%;
+  aspect-ratio: 1.25;
+  object-fit: cover;
+  border-radius: 2px 2px 50px 2px;
+}
+.pl-solid-link {
+  display: inline-flex;
+  justify-content: space-between;
+  gap: 24px;
+  align-items: center;
+  min-height: 48px;
+  padding: 15px 18px;
+  font-size: 12px;
+  background: var(--amber);
+  color: var(--ink);
+  margin-top: 25px;
+}
+.pl-investor-body {
+  background: linear-gradient(180deg, #274b3950, transparent 80%), var(--deep);
+  padding: 0 24px;
+}
+.pl-investor-body > section {
+  padding-block: 40px;
+  border-top: 1px solid var(--rule);
+}
+.pl-investor-body .pl-display {
+  font-size: clamp(33px, 8.5vw, 50px);
+  line-height: 1.14;
+  margin-top: 18px;
+}
+.pl-investor-body p {
+  font-size: 14px;
+  line-height: 1.8;
+  margin-top: 22px;
+}
+.pl-investor-story,
+.pl-investor-growth,
+.pl-investor-site {
+  display: grid;
+  gap: 25px;
+}
+.pl-investor-site figure {
+  margin: 0;
+}
+.pl-investor-site img {
+  width: 100%;
+  aspect-ratio: 1.2;
+  object-fit: cover;
+}
+.pl-investor-site figcaption {
+  padding-top: 10px;
+  font-size: 10px;
+  color: #eee5ca90;
+}
+.pl-operating-list {
+  margin-top: 24px;
+}
+.pl-operating-list > div {
+  display: grid;
+  grid-template-columns: 0.8fr 1.8fr;
+  gap: 20px;
+  padding: 17px 0;
+  border-top: 1px solid #eee5ca25;
+  font-size: 12px;
+  line-height: 1.7;
+}
+.pl-operating-list dt {
+  color: var(--amber);
+}
+.pl-operating-list dd {
+  color: #eee5cabb;
+}
+.pl-investor-body .pl-note > div,
+.pl-investor-body .pl-note > div > p {
+  font-size: 12px;
+}
+.pl-investor-team .pl-team {
+  margin-top: 28px;
+  grid-template-columns: 1fr;
+  gap: 0;
+}
+.pl-investor-team .pl-team > div {
+  padding: 20px 0;
+  border-bottom: 1px solid #eee5ca20;
+}
+.pl-investor-team .pl-team p {
+  margin-top: 8px;
+  font-size: 12px;
+}
+.pl-investor-growth .pl-launch {
+  margin: 0;
+  gap: 22px;
+}
+.pl-investor-growth .pl-launch li {
+  font-size: 13px;
+  line-height: 1.7;
+}
+.pl-investor-body .pl-model-invitation {
+  padding-bottom: 60px;
+}
+.pl-model-invitation h2 {
+  font: 400 40px/1.1 var(--display);
+  letter-spacing: -0.03em;
+  margin-top: 22px;
+}
+.pl-model-invitation h2 em {
+  font-style: normal;
+  font-family: inherit;
+  font-size: 1em;
+  color: var(--paper);
+}
+.pl-model-invitation .pl-small-print {
+  font-size: 11px;
+  color: #eee5ca99;
+}
+.pl-financial-page {
+  background: var(--deep);
+  min-height: 80svh;
+}
+.pl-financial-page .pl-financials {
+  padding-top: 15px;
+}
+.pl-financials .dashboard-title {
+  font: 400 40px/1.12 var(--display);
+  letter-spacing: -0.03em;
+  color: var(--amber);
+}
+.pl-financials .dashboard-title em {
+  font-style: normal;
+  color: var(--paper);
+}
+.pl-financial-page .section-kicker {
+  font-size: 10px;
+  text-transform: none;
+  letter-spacing: 0;
+}
+.pl-financial-page .dashboard-intro {
+  margin-bottom: 25px;
+  gap: 18px;
+}
+.pl-financial-page .dashboard-intro > p {
+  font-size: 13px;
+  line-height: 1.75;
+}
+.pl-financial-page .dashboard-title {
+  font-size: 36px;
+}
+.pl-footer {
+  border-top: 1px solid var(--rule);
+}
+@media (min-width: 760px) {
+  .pl-area-nav {
+    display: flex;
+    gap: 28px;
+    align-items: center;
+    margin-right: 20px;
+    font-size: 12px;
+  }
+  .pl-area-nav a {
+    padding: 13px 0;
+    border-bottom: 1px solid transparent;
+  }
+  .pl-area-nav a[aria-current="page"] {
+    border-color: var(--amber);
+    color: var(--amber);
+  }
+  .pl-public .pl-hero-shade {
+    background:
+      linear-gradient(90deg, #203c3080, transparent 80%),
+      linear-gradient(0deg, #203c30, transparent 65%);
+  }
+  .pl-public-flow {
+    padding-inline: 7%;
+  }
+  .pl-welcome {
+    padding: 40px 0 80px;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 12%;
+    align-items: center;
+  }
+  .pl-public .pl-display {
+    font-size: clamp(42px, 4.5vw, 66px);
+  }
+  .pl-welcome p,
+  .pl-visit p {
+    font-size: 16px;
+  }
+  .pl-day-introduction {
+    padding-inline: 0;
+  }
+  .pl-public .pl-daypart-nav {
+    margin-inline: 0;
+    max-width: 500px;
+  }
+  .pl-public .pl-daypart {
+    padding: 28px 0 0;
+  }
+  .pl-public .pl-daypart-image {
+    margin: 0;
+    aspect-ratio: 1.05;
+  }
+  .pl-public .pl-daypart-copy {
+    padding: 0;
+  }
+  .pl-public .pl-daypart-copy h3 {
+    font-size: 44px;
+  }
+  .pl-conversation {
+    padding: 85px 10%;
+    grid-template-columns: 90px 1fr;
+    gap: 8%;
+  }
+  .pl-conversation > img {
+    width: 90px;
+    height: 230px;
+  }
+  .pl-conversation .pl-display {
+    font-size: 56px;
+  }
+  .pl-conversation p {
+    font-size: 15px;
+  }
+  .pl-journal-title {
+    padding: 0 0 30px;
+  }
+  .pl-public .pl-journal {
+    padding-inline: 0;
+    scroll-padding: 0;
+  }
+  .pl-visit {
+    padding: 80px 0 35px;
+    grid-template-columns: 1fr 1fr;
+    gap: 10%;
+    align-items: center;
+  }
+  .pl-public-signoff {
+    padding-bottom: 55px;
+  }
+  .pl-area-heading {
+    padding: 110px 7% 30px;
+    font-size: 12px;
+  }
+  .pl-investor-opening {
+    padding: 10px 7% 65px;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 9%;
+    align-items: center;
+  }
+  .pl-investor-opening h1 {
+    font-size: clamp(45px, 5.2vw, 76px);
+  }
+  .pl-investor-opening img {
+    aspect-ratio: 0.85;
+  }
+  .pl-investor-opening p {
+    font-size: 16px;
+  }
+  .pl-investor-body {
+    padding-inline: 7%;
+  }
+  .pl-investor-body > section {
+    padding-block: 60px;
+  }
+  .pl-investor-story,
+  .pl-investor-growth {
+    grid-template-columns: 1fr 1fr;
+    gap: 10%;
+  }
+  .pl-investor-site {
+    grid-template-columns: 1.1fr 1fr;
+    gap: 9%;
+    align-items: start;
+  }
+  .pl-investor-body .pl-display {
+    font-size: clamp(42px, 4.2vw, 62px);
+  }
+  .pl-investor-body p {
+    font-size: 15px;
+  }
+  .pl-investor-team .pl-team {
+    grid-template-columns: 1fr 1fr;
+    column-gap: 45px;
+  }
+  .pl-model-invitation h2 {
+    font-size: 58px;
+  }
+  .pl-model-invitation > p {
+    max-width: 600px;
+  }
+  .pl-financials .dashboard-title {
+    font-size: 55px;
+  }
+}
+@media (min-width: 1100px) {
+  .pl-public .pl-gallery-buttons {
+    display: none;
+  }
+}
+@media (max-width: 380px) {
+  .pl-public .pl-display {
+    font-size: 31px;
+  }
+  .pl-conversation {
+    padding-inline: 20px;
+    grid-template-columns: 30px 1fr;
+    gap: 13px;
+  }
+  .pl-conversation > img {
+    width: 30px;
+  }
+  .pl-conversation .pl-display {
+    font-size: 27px;
+  }
+  .pl-public .pl-daypart-copy h3 {
+    font-size: 29px;
+  }
+  .pl-investor-opening h1 {
+    font-size: 36px;
+  }
+  .pl-financials .dashboard-title {
+    font-size: 34px;
+  }
+  .pl-area-heading {
+    font-size: 9px;
+  }
+}

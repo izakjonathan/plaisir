@@ -1,6 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import "./mobile-brand.css";
+import "./journeys.css";
+import SiteShell from "./SiteShell";
 export const metadata: Metadata = {
   title: "Plaisir · coffee & wine",
   description:
@@ -25,7 +27,9 @@ export default function RootLayout({
           crossOrigin="anonymous"
         />
       </head>
-      <body>{children}</body>
+      <body>
+        <SiteShell>{children}</SiteShell>
+      </body>
     </html>
   );
 }

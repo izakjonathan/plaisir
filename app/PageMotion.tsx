@@ -1,8 +1,10 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 
 export default function PageMotion() {
+  const pathname = usePathname();
   const [motionOff, setMotionOff] = useState(false);
   const [systemReduced, setSystemReduced] = useState(false);
   useEffect(() => {
@@ -82,7 +84,7 @@ export default function PageMotion() {
       root.style.removeProperty("--reading-progress");
       root.style.removeProperty("--scene-shift");
     };
-  }, [motionOff, systemReduced]);
+  }, [motionOff, systemReduced, pathname]);
   return (
     <button
       className="pl-motion-control"

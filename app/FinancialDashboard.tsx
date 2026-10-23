@@ -421,11 +421,7 @@ export default function FinancialDashboard() {
       <div className="dashboard-intro">
         <div>
           <p className="section-kicker">Financial illustration</p>
-          <h2>
-            The numbers,
-            <br />
-            <em>with room to explore</em>
-          </h2>
+          <h1 className="dashboard-title">Financial dashboard</h1>
         </div>
         <p>
           The deck’s annual model is the starting point. Change an assumption to

@@ -2,6 +2,10 @@
 
 Research and implementation: 23 October 2026. The requested direction is a contemporary, approachable coffee and wine brand with potential for multiple neighbourhood locations. The site remains a concept and investor overview; no live chain, opening date, address or booking service is implied.
 
+## Subsequent architecture refinement
+
+The latest version separates the audiences into three explicit routes: the public-facing preview at `/`, the commercial narrative at `/investors`, and the standalone interactive workspace at `/financials`. Shared navigation names all three and marks the active destination. The public page no longer interleaves source disclosures, proposed rent, leadership responsibilities or financial assumptions with the guest experience. Its section backgrounds now share one continuous green environment; headings and spacing are quieter and images sit within the flow. The research review below records the preceding design exploration rather than requiring the earlier one-page structure or alternating colour panels.
+
 ## Reference review
 
 The sources below were reviewed for design direction, not copied as templates. Publication dates refer to the award listing where available. Dribbble concepts are not evidence that a design performs well with real customers, and older references are identified separately from current examples.
