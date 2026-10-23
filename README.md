@@ -2,6 +2,8 @@
 
 Next.js App Router brand and investor overview, aligned with the supplied corrected business deck.
 
+The reference-inspired design uses the supplied local Agilera font for display headings and short accents. Plaisir’s script, bottle artwork, forest green and amber remain, complemented by cream paper and burgundy details. The receipt illustration is original SVG and HTML; reference screenshots are not shipped as site assets. Financial values, controls and charts retain the UI font. Existing scroll reveals, daypart transitions and reduced-motion support remain; the receipt adds a brief entrance and hover treatment.
+
 ## Run
 
 Use Node.js 22 or later (Node 24 recommended).

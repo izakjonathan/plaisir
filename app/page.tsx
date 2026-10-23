@@ -122,15 +122,21 @@ export default function Home() {
                 fetchPriority="high"
               />
             </div>
-            <figure className="hero-coffee-frame">
-              <img
-                src="/brand/coffee.webp"
-                alt="Plaisir coffee-cup branding concept"
-                width="774"
-                height="908"
-              />
-              <figcaption>One place. Two rhythms.</figcaption>
-            </figure>
+            <div className="pleasure-receipt" aria-label="The Plaisir day, from coffee to wine">
+              <span className="receipt-brand">Plaisir</span>
+              <span className="receipt-subtitle">A little everyday pleasure</span>
+              <div className="receipt-line"><span>First things first</span><i /><span>Coffee</span></div>
+              <div className="receipt-line"><span>Something to share</span><i /><span>Plates</span></div>
+              <div className="receipt-line"><span>One more?</span><i /><span>Wine</span></div>
+              <svg viewBox="0 0 170 90" fill="none" aria-hidden="true">
+                <g stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="m35 22 2 29c1 16 30 16 32-1l2-28-36 0Zm37 6c22-7 19 23-3 16M30 65c15 6 32 6 47 0M113 10c-2 16-10 31-6 40 6 13 23 13 29 0 4-9-4-24-6-40h-17Zm-8 29c7-4 22 4 32-1m-15 22v19m-14 3c9-5 21-5 29 0M42 12c-6-8 7-9 3-18M56 13c-5-7 6-10 3-17" />
+                </g>
+              </svg>
+              <span className="receipt-total">Good company, always.</span>
+              <span className="receipt-signoff">Stay a little.</span>
+            </div>
+            <span className="hero-stamp">Coffee early.<br />Wine later.</span>
             <img
               className="hero-line decorative"
               src="/brand/bottle-neck.webp"
@@ -380,7 +386,7 @@ export default function Home() {
                 <span>plus a basement in the source proposal</span>
               </div>
               <div className="site-stat">
-                <strong>$6,0month</strong>
+                <strong>$6,000/month</strong>
                 <span>proposed rent, before a full occupancy budget</span>
               </div>
               <p>
