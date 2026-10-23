@@ -420,7 +420,7 @@ export default function FinancialDashboard() {
     <div className="financial-dashboard">
       <div className="dashboard-intro">
         <div>
-          <p className="section-kicker">06 / Financial illustration</p>
+          <p className="section-kicker">Financial illustration</p>
           <h2>
             The numbers,
             <br />

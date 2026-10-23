@@ -24,6 +24,9 @@ Import the repository into Vercel as a standard Next.js project. No custom build
 
 ## This version
 
+- Website composition with an asymmetric photo-led hero, persistent navigation, varied editorial sections and a distinct investor workspace.
+- Progressive scroll reveals, a reading-progress indicator, restrained hero parallax, daypart crossfades and hover transitions. Reduced-motion preferences disable visual movement; content remains available without JavaScript.
+
 - Textured forest green and warm amber, using the deck's embedded wordmark, bottle artwork and concept renderings.
 - Coffee/wine dayparts, guest groups, brand experience, proposed East Village flagship, leadership and opening sequence.
 - Interactive annual P&L, earnings waterfall, gross-margin break-even chart and exact monthly/annual values.

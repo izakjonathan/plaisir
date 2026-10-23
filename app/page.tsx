@@ -1,5 +1,6 @@
 "use client";
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
+import PageMotion from "./PageMotion";
 import FinancialDashboard from "./FinancialDashboard";
 
 const team = [
@@ -22,16 +23,32 @@ const dayparts = {
     caption: "Wine and table service · Brand concept rendering",
   },
 };
+function SourceNote({ children }: { children: ReactNode }) {
+  return (
+    <details className="source-note">
+      <summary>Concept notes</summary>
+      <p>{children}</p>
+    </details>
+  );
+}
+
 export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [daypart, setDaypart] = useState<keyof typeof dayparts>("Morning");
   const selected = dayparts[daypart];
   return (
     <>
+      <PageMotion />
       <a className="skip-link" href="#main">
         Skip to content
       </a>
-      <header className="site-header">
+      <header
+        className="site-header"
+        onKeyDown={(e) => {
+          if (e.key === "Escape") setMenuOpen(false);
+        }}
+      >
+        <span className="reading-progress" aria-hidden="true" />
         <a className="brand-lockup" href="#" aria-label="Plaisir home">
           <strong>Plaisir</strong>
           <span>coffee & wine</span>
@@ -65,30 +82,66 @@ export default function Home() {
       </header>
       <main id="main">
         <section className="cover" aria-labelledby="cover-title">
-          <img
-            className="cover-bottle decorative"
-            src="/brand/bottle.webp"
-            alt=""
-            width="320"
-            height="1000"
-          />
           <div className="cover-center">
+            <img
+              className="hero-wordmark"
+              src="/brand/wordmark.webp"
+              alt="Plaisir"
+              width="900"
+              height="380"
+              fetchPriority="high"
+            />
+            <p className="hero-eyebrow">
+              Coffee & wine · A neighbourhood concept
+            </p>
             <h1 id="cover-title">
-              <span className="sr-only">Plaisir coffee & wine</span>
+              Morning coffee.
+              <br />
+              <em>Evening wine.</em>
+            </h1>
+            <p className="hero-description">
+              French café influences. New York personality.{" "}
+              <br />A warm welcome, from the first coffee to the last glass.
+            </p>
+            <div className="hero-links">
+              <a className="button-primary" href="#experience">
+                Explore Plaisir
+              </a>
+              <a className="hero-investor-link" href="#financials">
+                For investors
+              </a>
+            </div>
+          </div>
+          <div className="hero-visual">
+            <div className="hero-main-frame">
               <img
-                src="/brand/wordmark.webp"
-                alt=""
-                width="900"
-                height="380"
+                src="/brand/table.webp"
+                alt="Plaisir table-service concept with wine, tactile menus and warm light"
+                width="1536"
+                height="1024"
                 fetchPriority="high"
               />
-            </h1>
-            <p>coffee & wine</p>
+            </div>
+            <figure className="hero-coffee-frame">
+              <img
+                src="/brand/coffee.webp"
+                alt="Plaisir coffee-cup branding concept"
+                width="774"
+                height="908"
+              />
+              <figcaption>One place. Two rhythms.</figcaption>
+            </figure>
+            <img
+              className="hero-line decorative"
+              src="/brand/bottle-neck.webp"
+              alt=""
+              width="440"
+              height="780"
+            />
           </div>
           <div className="cover-footer">
-            <a href="#concept">Discover the concept</a>
-            <span>Brand & flagship proposal</span>
-            <a href="#financials">Explore the financial illustration</a>
+            <span>Discover the Plaisir way of spending time</span>
+            <span>Brand concept imagery · Flagship proposal</span>
           </div>
         </section>
         <section
@@ -96,17 +149,9 @@ export default function Home() {
           className="section concept"
           aria-labelledby="concept-title"
         >
-          <p className="section-kicker">01 / Concept overview</p>
+          <p className="section-kicker">Concept overview</p>
           <div className="concept-content">
-            <div className="concept-lockup">
-              <img
-                src="/brand/wordmark.webp"
-                alt="Plaisir"
-                width="225"
-                height="95"
-              />
-              <span>is…</span>
-            </div>
+            <span className="concept-label">The Plaisir way</span>
             <h2 id="concept-title">
               French café influences, an outgoing New York personality
               <br className="desktop-break" /> and a warm, authentic room shaped
@@ -118,9 +163,9 @@ export default function Home() {
               Thoughtful hospitality that turns familiar faces into regulars.
             </p>
           </div>
-          <p className="source-note">
+          <SourceNote>
             Concept consolidated in the business deck, slides 2–3.
-          </p>
+          </SourceNote>
         </section>
         <section className="brand-philosophy" aria-label="Brand philosophy">
           <div>
@@ -142,9 +187,11 @@ export default function Home() {
           aria-labelledby="experience-title"
         >
           <div className="section-top">
-            <p className="section-kicker">02 / Coffee and wine</p>
+            <p className="section-kicker">Coffee and wine</p>
             <h2 id="experience-title" className="serif-heading">
-              A familiar place, through the day
+              From first coffee
+              <br />
+              <em>to one more glass</em>
             </h2>
           </div>
           <div
@@ -165,21 +212,32 @@ export default function Home() {
             )}
           </div>
           <div className="experience-layout">
-            <figure>
-              <img
-                src={`/brand/${selected.image}.webp`}
-                alt={
-                  daypart === "Morning"
-                    ? "Plaisir branded coffee cups, pastry bag and takeaway box concept"
-                    : "Plaisir wine glasses, green menu and coasters concept"
-                }
-                width="1536"
-                height="1024"
-                loading="lazy"
-              />
+            <figure className="experience-visual">
+              <div className="daypart-images">
+                {(Object.keys(dayparts) as (keyof typeof dayparts)[]).map(
+                  (name) => (
+                    <img
+                      key={name}
+                      className={daypart === name ? "is-active" : ""}
+                      src={`/brand/${dayparts[name].image}.webp`}
+                      alt={
+                        daypart === name
+                          ? name === "Morning"
+                            ? "Plaisir branded coffee cups, pastry bag and takeaway box concept"
+                            : "Plaisir wine glasses, green menu and coasters concept"
+                          : ""
+                      }
+                      aria-hidden={daypart !== name}
+                      width="1536"
+                      height="1024"
+                      loading="lazy"
+                    />
+                  ),
+                )}
+              </div>
               <figcaption>{selected.caption}</figcaption>
             </figure>
-            <div className="experience-copy" aria-live="polite">
+            <div key={daypart} className="experience-copy" aria-live="polite">
               <h3>{selected.heading}</h3>
               <p>{selected.text}</p>
               <p className="serif-label">A small menu</p>
@@ -215,10 +273,10 @@ export default function Home() {
               <p>Daytime visitors during the quieter hours.</p>
             </div>
           </div>
-          <p className="source-note">
+          <SourceNote>
             Proposed guest groups, not validated market research. Deck slides
             5–10.
-          </p>
+          </SourceNote>
         </section>
         <section
           className="section hospitality"
@@ -246,7 +304,7 @@ export default function Home() {
           aria-labelledby="brand-world-title"
         >
           <div className="section-top">
-            <p className="section-kicker">03 / Brand experience</p>
+            <p className="section-kicker">Brand experience</p>
             <h2 id="brand-world-title" className="serif-heading">
               Familiar in every detail
             </h2>
@@ -286,11 +344,11 @@ export default function Home() {
               process.
             </p>
           </div>
-          <p className="source-note">
+          <SourceNote>
             Supplied branding concepts and AI-generated renderings from the
             deck. These do not depict produced packaging or launched
             merchandise. No merchandise revenue enters the financial model.
-          </p>
+          </SourceNote>
         </section>
         <section
           id="flagship"
@@ -298,7 +356,7 @@ export default function Home() {
           aria-labelledby="flagship-title"
         >
           <div className="section-top">
-            <p className="section-kicker">04 / The proposed flagship</p>
+            <p className="section-kicker">The proposed flagship</p>
             <h2 id="flagship-title" className="serif-heading">
               East Village, New York
             </h2>
@@ -322,7 +380,7 @@ export default function Home() {
                 <span>plus a basement in the source proposal</span>
               </div>
               <div className="site-stat">
-                <strong>$6,000 / month</strong>
+                <strong>$6,0month</strong>
                 <span>proposed rent, before a full occupancy budget</span>
               </div>
               <p>
@@ -346,9 +404,9 @@ export default function Home() {
               </details>
             </div>
           </div>
-          <p className="source-note">
+          <SourceNote>
             Source proposal and unresolved site assumptions: deck slides 22–23.
-          </p>
+          </SourceNote>
         </section>
         <section
           id="team"
@@ -356,7 +414,7 @@ export default function Home() {
           aria-labelledby="team-title"
         >
           <div className="section-top">
-            <p className="section-kicker">05 / People</p>
+            <p className="section-kicker">People</p>
             <h2 id="team-title" className="serif-heading">
               A culture of hospitality
             </h2>
@@ -381,10 +439,10 @@ export default function Home() {
               </div>
             ))}
           </div>
-          <p className="source-note">
+          <SourceNote>
             Leadership roles as reported in the source deck, slide 13.
             Availability, compensation and decision rights require confirmation.
-          </p>
+          </SourceNote>
         </section>
         <section
           id="financials"
@@ -399,7 +457,7 @@ export default function Home() {
           aria-labelledby="launch-title"
         >
           <div className="section-top">
-            <p className="section-kicker">07 / Launch and growth</p>
+            <p className="section-kicker">Launch and growth</p>
             <h2 id="launch-title" className="serif-heading">
               A proven flagship first
             </h2>
@@ -460,10 +518,10 @@ export default function Home() {
               </p>
             </div>
           </div>
-          <p className="source-note">
+          <SourceNote>
             Deck slides 27–31. Opening dates follow readiness. No lease, opening
             date or approved forecast has been supplied.
-          </p>
+          </SourceNote>
         </section>
         <section className="closing" aria-label="Plaisir brand closing">
           <img
