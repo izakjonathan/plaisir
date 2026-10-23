@@ -1,7 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
-import "./mobile-brand.css";
-import "./journeys.css";
+import "./brand.css";
 import SiteShell from "./SiteShell";
 export const metadata: Metadata = {
   title: "Plaisir · coffee & wine",
@@ -11,7 +10,7 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  themeColor: "#203c30",
+  themeColor: "#41654c",
 };
 export default function RootLayout({
   children,

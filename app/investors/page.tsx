@@ -24,9 +24,9 @@ export default function Investors() {
         <div>
           <span className="pl-kicker">The business behind the feeling</span>
           <h1>
-            Everyday pleasure.
+            The Plaisir
             <br />
-            <em>A considered business.</em>
+            <em>proposition.</em>
           </h1>
           <p>
             Plaisir brings morning coffee and approachable evening wine into one

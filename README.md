@@ -8,9 +8,9 @@ Next.js App Router brand and investor overview, aligned with the supplied correc
 - `/investors` — investor overview: proposition, audiences, operating approach, proposed site, team, launch sequence and conditional growth. Source qualifications remain alongside the relevant claims.
 - `/financials` — dedicated dashboard: annual trading, funding/opening cash, demand reconciliation, exact tables and CSV export.
 
-Shared desktop navigation and a three-link mobile dock make the division explicit. The public page uses a continuous green environment with smaller editorial headings and integrated imagery, replacing alternating full-width presentation panels. Route changes reset scroll motion observers while preserving the user's motion preference in the shared shell.
+Shared desktop navigation and a three-link mobile dock make the division explicit. The public page uses a continuous green environment with oversized uppercase editorial headings and borderless imagery, replacing alternating full-width presentation panels. Route changes reset scroll motion observers while preserving the user's motion preference in the shared shell.
 
-The mobile-first design uses the original Plaisir script, local Agilera display type, forest green and warm amber. A full-screen social scene leads into the public daypart experience and touch gallery. Leadership, operating plans and qualified site assumptions live on the investor page; financial values and controls live in the dedicated dashboard and retain the UI font. Reference images are research only and are not shipped as website assets.
+The mobile-first design uses the original Plaisir script, local Agilera display type, forest green and warm amber. A paired morning/evening photographic opening leads into the public daypart selector and offset touch gallery. Leadership, operating plans and qualified site assumptions live on the investor page; financial values and controls live in the dedicated dashboard and retain the UI font. Reference images are research only and are not shipped as website assets.
 
 ## Run
 
@@ -34,10 +34,10 @@ Import the repository into Vercel as a standard Next.js project. No custom build
 
 ## This version
 
-- Mobile-first composition with a full-bleed portrait hero, thumb-reachable bottom navigation, native modal menu and concise editorial sections.
+- Mobile-first composition with a paired full-bleed photographic hero, thumb-reachable bottom navigation, native modal menu and concise editorial sections.
 - Masked headline reveals, a reading-progress indicator, capped hero image movement, daypart crossfades and a native scroll-snap gallery. System preferences and an explicit footer control suppress nonessential movement. Content remains available without JavaScript.
 
-- Textured forest green and warm amber, using the deck's embedded wordmark, bottle artwork and concept renderings.
+- A continuous forest-green canvas and warm amber, using the deck's embedded wordmark, bottle artwork and concept renderings.
 - Coffee/wine dayparts, guest groups, brand experience, proposed East Village flagship, leadership and opening sequence.
 - Interactive annual P&L, earnings waterfall, gross-margin break-even chart and exact monthly/annual values.
 - Source baseline plus explicitly labelled stress-test presets and editable assumptions.
@@ -62,9 +62,9 @@ See `docs/brand-and-model.md` for the brand analysis, source-slide mapping and c
 - `app/FinancialDashboard.tsx`: controls, charts, tables and CSV
 - `lib/finance.ts`: pure financial calculations and source inputs
 - `app/globals.css`: base styles and responsive financial dashboard
-- `app/mobile-brand.css`: mobile-first visual system, breakpoints and motion
+- `app/brand.css`: shared editorial visual system, breakpoints and motion
 - `app/PageMotion.tsx`: progressive reveals, scroll state and motion control
 - `public/brand`: supplied deck assets and labelled generated concept imagery
 - `tests/finance.test.ts`: financial verification
 
-All assets load locally. The page uses no analytics, remote fonts or external data requests. Scenarios remain in browser memory until reload. See `docs/mobile-design-research.md` for the Awwwards, Dribbble and live-venue review, motion specification and generated image provenance.
+All assets load locally. The page uses no analytics, remote fonts or external data requests. Scenarios remain in browser memory until reload. See `docs/great-catering-redesign.md` for this redesign’s reference analysis, motion and image provenance. Earlier Awwwards and Dribbble research remains in `docs/mobile-design-research.md`.

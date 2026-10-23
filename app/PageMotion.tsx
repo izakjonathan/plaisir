@@ -23,7 +23,7 @@ export default function PageMotion() {
     root.toggleAttribute("data-motion-off", reduce);
     let frame = 0;
     let heroVisible = true;
-    const hero = document.querySelector<HTMLElement>(".pl-hero");
+    const hero = document.querySelector<HTMLElement>(".pc-opening");
     const targets = Array.from(
       document.querySelectorAll<HTMLElement>("[data-reveal]"),
     );

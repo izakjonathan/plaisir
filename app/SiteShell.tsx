@@ -9,17 +9,17 @@ const areas = [
   {
     href: "/",
     label: "Experience",
-    description: "The public-facing Plaisir experience",
+    description: "Coffee, wine & good company",
   },
   {
     href: "/investors",
     label: "Investors",
-    description: "The concept, people and operating plan",
+    description: "The business behind Plaisir",
   },
   {
     href: "/financials",
     label: "Financials",
-    description: "Explore assumptions and scenarios",
+    description: "Assumptions, numbers & scenarios",
   },
 ];
 export default function SiteShell({ children }: { children: ReactNode }) {
@@ -30,17 +30,19 @@ export default function SiteShell({ children }: { children: ReactNode }) {
       <a className="skip-link" href="#main">
         Skip to content
       </a>
-      <header className="pl-header">
-        <Link href="/" className="pl-header-brand" aria-label="Plaisir home">
+      <header
+        className={`pc-header${pathname === "/" ? " pc-header-home" : ""}`}
+      >
+        <Link href="/" aria-label="Plaisir home" className="pc-logo">
           <img
             src="/brand/wordmark.webp"
             width="900"
             height="380"
             alt="Plaisir"
           />
+          <span>coffee & wine</span>
         </Link>
-        <span className="pl-header-descriptor">Coffee & wine</span>
-        <nav className="pl-area-nav" aria-label="Website areas">
+        <nav className="pc-desktop-nav" aria-label="Website areas">
           {areas.map((area) => (
             <Link
               key={area.href}
@@ -52,27 +54,33 @@ export default function SiteShell({ children }: { children: ReactNode }) {
           ))}
         </nav>
         <button
-          className="pl-menu-button"
-          onClick={() => menu.current?.showModal()}
+          className="pc-menu-toggle"
+          aria-label="Open menu"
           aria-haspopup="dialog"
-          aria-controls="pl-navigation"
+          aria-controls="site-menu"
+          onClick={() => menu.current?.showModal()}
         >
-          Menu{" "}
-          <span aria-hidden="true">
-            <i />
-            <i />
-          </span>
+          <span>Menu</span>
+          <i aria-hidden="true">
+            <b />
+            <b />
+            <b />
+          </i>
         </button>
-        <span className="pl-progress" aria-hidden="true" />
       </header>
       <dialog
         ref={menu}
-        id="pl-navigation"
-        className="pl-menu"
+        id="site-menu"
+        className="pc-menu"
         aria-label="Explore Plaisir"
       >
-        <div className="pl-menu-top">
-          <span>Three ways into Plaisir</span>
+        <div className="pc-menu-top">
+          <img
+            src="/brand/wordmark.webp"
+            width="900"
+            height="380"
+            alt="Plaisir"
+          />
           <button
             autoFocus
             onClick={() => menu.current?.close()}
@@ -82,46 +90,65 @@ export default function SiteShell({ children }: { children: ReactNode }) {
           </button>
         </div>
         <nav aria-label="Main navigation">
-          {areas.map((area, index) => (
+          {areas.map((area) => (
             <Link
-              key={area.href}
               href={area.href}
+              key={area.href}
               aria-current={pathname === area.href ? "page" : undefined}
               onClick={() => menu.current?.close()}
             >
-              <span>0{index + 1}</span>
-              <div>
-                {area.label}
-                <small>{area.description}</small>
-              </div>
+              {area.label}
+              <small>{area.description}</small>
             </Link>
           ))}
         </nav>
-        <p>
-          A neighbourhood concept.
-          <br />A little everyday pleasure.
-        </p>
-      </dialog>
-      {children}
-      <footer className="pl-footer">
-        <div>
-          <p>Plaisir · coffee & wine</p>
+        <div className="pc-menu-bottom">
+          <p>A little everyday pleasure.</p>
           <p>
-            Concept preview · Not yet open.
+            Three distinct destinations.
             <br />
-            Concept imagery includes AI-generated scenes.
+            One Plaisir.
           </p>
         </div>
-        <PageMotion />
+      </dialog>
+      {children}
+      <footer className="pc-footer">
+        <div className="pc-footer-brand">
+          <img
+            src="/brand/wordmark.webp"
+            width="900"
+            height="380"
+            alt="Plaisir"
+            loading="lazy"
+          />
+          <p>Coffee & wine. Good company.</p>
+        </div>
+        <div className="pc-footer-bottom">
+          <div>
+            <span>Plaisir · Concept preview</span>
+            <p>
+              Not yet open. Imagery includes generated concepts.
+              <br />
+              Final menus, location and opening details to follow.
+            </p>
+          </div>
+          <nav aria-label="Footer navigation">
+            {areas.map((area) => (
+              <Link key={area.href} href={area.href}>
+                {area.label}
+              </Link>
+            ))}
+          </nav>
+          <PageMotion />
+        </div>
       </footer>
-      <nav className="pl-mobile-dock" aria-label="Website areas">
-        {areas.map((area, index) => (
+      <nav className="pc-mobile-nav" aria-label="Website areas">
+        {areas.map((area) => (
           <Link
             key={area.href}
             href={area.href}
             aria-current={pathname === area.href ? "page" : undefined}
           >
-            <span aria-hidden="true">0{index + 1}</span>
             {area.label}
           </Link>
         ))}
