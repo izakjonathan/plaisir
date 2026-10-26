@@ -1,4 +1,5 @@
-import { handleUpload, type HandleUploadBody } from '@vercel/blob/client';
+import { issueSignedToken } from '@vercel/blob';
+import { handleUploadPresigned, type HandleUploadPresignedBody } from '@vercel/blob/client';
 import { ensureSchema, sql, mediaConfigured } from '../../../../lib/content-db';
 import { editorError, readJSON, requireSameOrigin } from '../../../../lib/editor-request';
 export const runtime = 'nodejs';
@@ -6,8 +7,10 @@ export async function POST(request: Request) {
   try {
     requireSameOrigin(request);
     if (!mediaConfigured()) throw new Error('Connect a private Vercel Blob store to enable image uploads.');
-    const body = await readJSON(request) as HandleUploadBody;
-    const result = await handleUpload({ request, body, onBeforeGenerateToken: async pathname => {
+    const body = await readJSON(request) as HandleUploadPresignedBody;
+    // Finalization is handled by /api/editor/assets, not a webhook.
+    if (body.type !== 'blob.generate-presigned-url') throw new Error('Invalid upload request. Reload the editor and try again.');
+    const result = await handleUploadPresigned({ request, body, getSignedToken: async pathname => {
       const match = /^pending\/([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})\.(jpg|png|webp)$/.exec(pathname);
       if (!match) throw new Error('Invalid upload name.');
       await ensureSchema();
@@ -15,9 +18,14 @@ export async function POST(request: Request) {
       // A daily ceiling limits accidental repeated uploads in this no-login edition.
       const [row] = await db`SELECT count(*)::integer AS count FROM plaisir_uploads WHERE created_at>now()-interval '1 day'`;
       if (row.count >= 100) throw new Error('Too many uploads today. Try again tomorrow.');
+      const constraints = { allowedContentTypes:['image/jpeg','image/png','image/webp'], maximumSizeInBytes:25000000, validUntil:Date.now()+10*60*1000 };
+      // handleUpload requires a legacy read-write secret. Connected stores now
+      // provide BLOB_STORE_ID + OIDC; presigned uploads support both credentials.
+      const token = await issueSignedToken({ pathname, operations:['put'], ...constraints });
       await db`INSERT INTO plaisir_uploads (id,pathname) VALUES (${match[1]},${pathname})`;
-      return { allowedContentTypes:['image/jpeg','image/png','image/webp'], maximumSizeInBytes:25000000, validUntil:Date.now()+10*60*1000, addRandomSuffix:false, allowOverwrite:false };
+      return { token, urlOptions:{...constraints,addRandomSuffix:false,allowOverwrite:false} };
     }});
     return Response.json(result);
   } catch (error) { return editorError(error); }
 }
+

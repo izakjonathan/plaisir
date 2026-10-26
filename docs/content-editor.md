@@ -1,10 +1,10 @@
-# Plaisir content editor · 0.4.2
+# Plaisir content editor · 0.4.3
 
 Open `/admin` directly. No links to the editor appear in public navigation. It has no login in this release, as requested, and sends noindex headers. Anyone who obtains the URL can edit and publish until authentication is added.
 
 ## Activate storage in Vercel
 
-The editor code is complete, but the connected Vercel account denied automated storage provisioning (403). The project currently has no database/storage environment variables.
+Neon Postgres and the private Blob store are connected to the Plaisir project. The steps below also apply when configuring another environment.
 
 1. Open the **Plaisir** project in the **izakh-s-projects** team in Vercel.
 2. In **Storage**, create/connect **Neon Postgres**, selecting the free plan where available. Connect it to this project for Production (and Preview/Development if needed). Vercel supplies `DATABASE_URL`; `POSTGRES_URL` is also supported. Do not paste credentials into the editor or GitHub.
@@ -43,3 +43,8 @@ The opening title is edited in one multiline Heading field. Press Return for eac
 ## 0.4.2 — Line breaks in every text field
 
 All text fields, including menu names, button labels and image descriptions, now use multiline controls. Return creates a line break. URL fields remain single-line. Existing newlines and newlines within italic/bold text are preserved by the safe text renderer.
+
+
+## 0.4.3 — Connected Blob uploads
+
+Replaced legacy `upload` / `handleUpload` (which requires `BLOB_READ_WRITE_TOKEN`) with `uploadPresigned` / `handleUploadPresigned` and pathname-scoped `issueSignedToken`. This supports the connected store’s `BLOB_STORE_ID` and Vercel OIDC credentials without adding a static secret. The 25 MB limit, allowed raster formats, 10-minute expiry, daily ceiling and private storage remain enforced. Finalization still runs through the existing assets route; no upload-completed webhook is required.

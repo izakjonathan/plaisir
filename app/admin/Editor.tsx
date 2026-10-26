@@ -1,6 +1,6 @@
 'use client';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { upload } from '@vercel/blob/client';
+import { uploadPresigned } from '@vercel/blob/client';
 import { emptyDocument, fields, imageValue, textValue, validateDocument, type ContentDocument, type ContentImageValue, type Field } from '../../lib/content-schema';
 import type { ContentState } from '../../lib/content-db';
 import './editor.css';
@@ -70,7 +70,7 @@ export default function Editor(){
   if(!file||!imageField)return;setBusy('upload');setProgress(0);setError('');
   try{
    const photo=await preparePhoto(file),id=crypto.randomUUID(),ext=photo.type==='image/png'?'png':photo.type==='image/webp'?'webp':'jpg';
-   await upload(`pending/${id}.${ext}`,photo,{access:'private',handleUploadUrl:'/api/editor/upload',onUploadProgress:({percentage})=>setProgress(Math.round(percentage))});
+   await uploadPresigned(`pending/${id}.${ext}`,photo,{access:'private',handleUploadUrl:'/api/editor/upload',onUploadProgress:({percentage})=>setProgress(Math.round(percentage))});
    setProgress(100);
    const data=await jsonRequest('/api/editor/assets',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({id,alt:file.name.replace(/\.[^.]+$/,'').replace(/[-_]/g,' ')})});
    setAssets(old=>[data.asset,...old]);choose(data.asset);setStatus('Image uploaded. Add an image description, then save or publish.');
@@ -102,3 +102,4 @@ export default function Editor(){
   <dialog ref={preview} className="editor-preview" onClose={()=>setPreviewOpen(false)}><div className="editor-dialog-header"><div><h2>Draft preview</h2><p>Includes unsaved changes</p></div><button className="editor-icon" aria-label="Close preview" onClick={()=>preview.current?.close()}>×</button></div>{previewOpen&&<iframe ref={frame} title="Website draft preview" src={`${pages.find(p=>p.id===page)?.route||'/'}?preview=draft`} onLoad={previewMessage}/>}</dialog>
  </main>;
 }
+
