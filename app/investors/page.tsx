@@ -15,7 +15,7 @@ const team = [
 export default function Investors() {
     return (<main id="main">
       <section className="scene investor-hero">
-        <Image className="scene-photo" src="/brand/facade.webp" width="1536" height="1024" alt="Architectural concept for a Plaisir flagship; not confirmed premises" fetchPriority="high" loading="eager" sizes="100vw"/>
+        <Image className="scene-photo" src="/brand/neighbourhood-evening.jpg" width="1200" height="1600" alt="Friends gathered outside a neighbourhood bar; atmosphere reference" fetchPriority="high" loading="eager" sizes="100vw"/>
         <div className="scene-shade"/>
         <div className="scene-content">
           <h1>
@@ -84,7 +84,7 @@ export default function Investors() {
       </section>
       <section className="split-scene">
         <figure className="split-photo">
-          <Image src="/brand/table.webp" width="1536" height="1024" alt="Plaisir table-service concept" loading="lazy" sizes="(max-width: 600px) 100vw, 50vw"/>
+          <Image src="/brand/wine-pouring.jpg" width="1200" height="1600" alt="Careful wine service at the counter; atmosphere reference" loading="lazy" sizes="(max-width: 600px) 100vw, 50vw"/>
         </figure>
         <div className="split-copy">
           <h2 data-reveal>
@@ -130,6 +130,7 @@ export default function Investors() {
           decision rights require confirmation.
         </Note>
       </section>
+      <figure className="company-photo"><Image src="/brand/good-company.jpg" width="1200" height="1593" alt="Friends sharing an evening around a café table; atmosphere reference" loading="lazy" sizes="100vw"/></figure>
       <section className="growth-section gold-section">
         <div>
           <h2 data-reveal>

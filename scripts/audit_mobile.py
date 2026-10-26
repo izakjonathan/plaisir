@@ -10,7 +10,7 @@ class Page(HTMLParser):
     def handle_starttag(self, tag, attrs):
         self.tags.append((tag, dict(attrs)))
 
-for route, filename, photo_count in [('/', 'index.html', 7), ('/investors', 'investors.html', 2), ('/financials', 'financials.html', 0)]:
+for route, filename, photo_count in [('/', 'index.html', 9), ('/investors', 'investors.html', 3), ('/financials', 'financials.html', 0)]:
     page = Page()
     page.feed((Path('.next/server/app') / filename).read_text())
     tags = page.tags

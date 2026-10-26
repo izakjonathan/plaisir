@@ -4,7 +4,7 @@ import { useLayoutEffect } from "react";
 export function useHeaderTone(pathname: string) {
     useLayoutEffect(() => {
         const root = document.documentElement;
-        const sections = [...document.querySelectorAll<HTMLElement>("main > section, .brand-footer")];
+        const sections = [...document.querySelectorAll<HTMLElement>("main > section, main > figure, .brand-footer")];
         let observer: IntersectionObserver | undefined;
         const observe = () => {
             observer?.disconnect();
@@ -13,7 +13,10 @@ export function useHeaderTone(pathname: string) {
             const rect = button?.getBoundingClientRect();
             const y = Math.max(0, Math.min(height - 2, rect ? rect.top + rect.height / 2 : 44));
             const paint = (element: HTMLElement) => {
-                root.dataset.headerTone = element.matches(".gold-section, .brand-footer") ||
+        const photo = element.querySelector<HTMLImageElement>("img.scene-photo");
+        root.style.setProperty("--document-canvas-image", photo?.currentSrc ? `linear-gradient(#101b0d88,#101b0d88),url(${JSON.stringify(photo.currentSrc)})` : "none");
+                root.style.setProperty("--document-canvas-color", element.matches(".gold-section, .brand-footer") || element.closest(".pl-financial-page") ? "#d19c36" : "#101b0d");
+        root.dataset.headerTone = element.matches(".gold-section, .brand-footer") ||
                     element.closest(".pl-financial-page") ? "dark" : "gold";
             };
             // Also handles restored scroll positions before the first observer callback.

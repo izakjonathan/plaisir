@@ -1,9 +1,23 @@
 import Image from "next/image";
 import Link from "next/link";
-import LandingHero from "./LandingHero";
 export default function Home() {
     return (<main id="main" className="experience">
-      <LandingHero />
+      <section className="scene hero" aria-labelledby="home-title">
+        <Image className="scene-photo" src="/brand/table.webp" width="1536" height="1024" alt="Wine glasses and a Plaisir menu in warm evening light" fetchPriority="high" loading="eager" sizes="100vw"/>
+        <div className="scene-shade"/>
+        <div className="scene-content">
+          <h1 id="home-title">
+            A little
+            <br />
+            everyday
+            <br />
+            <em>plaisir.</em>
+          </h1>
+          <a className="pill" href="#welcome">
+            Discover the feeling
+          </a>
+        </div>
+      </section>
       <section id="welcome" className="manifesto gold-section">
         <h2 data-reveal>
           Not intimidating.
@@ -41,7 +55,7 @@ export default function Home() {
         </div>
       </section>
       <section id="wine" className="scene wine-scene" aria-labelledby="wine-title">
-        <Image className="scene-photo" src="/brand/evening-social.webp" width="1024" height="1536" alt="Friends gathering over wine in a warmly lit bar, concept image" loading="lazy" sizes="100vw"/>
+        <Image className="scene-photo" src="/brand/wine-conversation.jpg" width="1200" height="1500" alt="Friends sharing glasses of wine" loading="lazy" sizes="100vw"/>
         <div className="scene-shade"/>
         <div className="scene-content">
           <h2 id="wine-title" data-reveal>
@@ -80,6 +94,10 @@ export default function Home() {
           <Image src="/brand/sharing-table.webp" width="1400" height="933" alt="A sharing board, bread and wine at a Plaisir table, concept image" loading="lazy" sizes="(max-width: 600px) 100vw, 50vw"/>
         </figure>
       </section>
+      <section className="photo-story" aria-label="Wine and everyday rituals">
+        <figure><Image src="/brand/wine-service.jpg" width="1200" height="1578" alt="A server carrying glasses of red wine" loading="lazy" sizes="(max-width: 600px) 100vw, 50vw"/></figure>
+        <figure><Image src="/brand/wine-discovery.jpg" width="736" height="920" alt="A relaxed moment pouring a glass of wine" loading="lazy" sizes="(max-width: 600px) 100vw, 50vw"/></figure>
+      </section>
       <section className="brand-world">
         <div className="world-heading">
           <h2 data-reveal>
@@ -102,7 +120,7 @@ export default function Home() {
         </div>
       </section>
       <section id="neighbourhood" className="scene visit-scene">
-        <Image className="scene-photo" src="/brand/facade.webp" width="1536" height="1024" alt="Architectural concept for a Plaisir storefront; not confirmed premises" loading="lazy" sizes="100vw"/>
+        <Image className="scene-photo" src="/brand/flagship-front.jpg" width="1636" height="1083" alt="Architectural concept for a Plaisir storefront; not confirmed premises" loading="lazy" sizes="100vw"/>
         <div className="scene-shade"/>
         <div className="scene-content">
           <h2 data-reveal>

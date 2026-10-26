@@ -1,4 +1,4 @@
-# Plaisir — Next.js 0.3.5
+# Plaisir — Next.js 0.3.6
 
 A brand-led hospitality website using the supplied 48-page Agilera investor presentation as the visual and financial reference.
 
@@ -61,3 +61,9 @@ Live browser validation is incomplete: the managed preview exits before a browse
 The venue remains a concept preview. Images include renderings, no premises or opening date is confirmed, and financials are source-derived illustrations rather than an approved forecast or verified investment return.
 
 No live deployment or repository push is included. Deploy this as a standard Next.js project.
+
+## 0.3.6 fullscreen and photography update
+
+Photo scenes use 100lvh (100vh fallback), so retracting browser controls cannot expose the next section due to 100svh sizing. Text can still expand the section when zoomed. Seven supplied photos are used across the public and investor routes, retaining the existing brightness filters and gradient overlays. The original home hero background remains. The supplied screenshot itself is not used as a photo.
+
+The root canvas no longer uses a permanent brand-green fallback: its neutral/photo surface follows the current section and reuses the selected hero image for overscroll. No opaque browser bar or theme-colour hint is added. Native Safari transparency still requires physical-device verification. The available source was 0.3.5; the later bottle-overlay/splash source shown in the screenshot was not present and is not recreated in this patch.
