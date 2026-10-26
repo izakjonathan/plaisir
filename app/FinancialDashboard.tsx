@@ -192,9 +192,7 @@ function LineChart({
                 }
               }}
             >
-              <title>
-                {p.label}: {money(p.value)}
-              </title>
+              <title>{`${p.label}: ${money(p.value)}`}</title>
             </circle>
             {(data.length < 6 || i % 2 === 0 || i === data.length - 1) && (
               <text x={x(i)} y="258" textAnchor="middle">
@@ -306,9 +304,7 @@ function Waterfall({ model, monthly }: { model: Model; monthly: boolean }) {
                   }
                 }}
               >
-                <title>
-                  {item.label}: {money(item.value / factor)}
-                </title>
+                <title>{`${item.label}: ${money(item.value / factor)}`}</title>
               </rect>
               <text x={x + 38} y={Math.max(16, top - 10)} textAnchor="middle">
                 {short(item.value / factor)}

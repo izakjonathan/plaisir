@@ -1,158 +1,128 @@
 "use client";
-
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useRef, type ReactNode } from "react";
+import { useEffect, useRef, type ReactNode } from "react";
 import PageMotion from "./PageMotion";
-
 const areas = [
   {
     href: "/",
-    label: "Experience",
+    label: "The experience",
     description: "Coffee, wine & good company",
   },
   {
     href: "/investors",
-    label: "Investors",
+    label: "The story",
     description: "The business behind Plaisir",
   },
   {
     href: "/financials",
-    label: "Financials",
-    description: "Assumptions, numbers & scenarios",
+    label: "The numbers",
+    description: "Explore the financial illustration",
   },
 ];
 export default function SiteShell({ children }: { children: ReactNode }) {
   const pathname = usePathname();
   const menu = useRef<HTMLDialogElement>(null);
+  useEffect(() => {
+    menu.current?.close();
+    document.documentElement.classList.remove("menu-open");
+  }, [pathname]);
+  const close = () => {
+    menu.current?.close();
+    document.documentElement.classList.remove("menu-open");
+  };
   return (
     <>
       <a className="skip-link" href="#main">
         Skip to content
       </a>
-      <header
-        className={`pc-header${pathname === "/" ? " pc-header-home" : ""}`}
-      >
-        <Link href="/" aria-label="Plaisir home" className="pc-logo">
-          <img
-            src="/brand/wordmark.webp"
-            width="900"
-            height="380"
-            alt="Plaisir"
-          />
-          <span>coffee & wine</span>
+      <header className="floating-header">
+        <Link className="brand-logo" href="/" aria-label="Plaisir home">
+          <span className="wordmark" role="img" aria-label="Plaisir" />
         </Link>
-        <nav className="pc-desktop-nav" aria-label="Website areas">
-          {areas.map((area) => (
-            <Link
-              key={area.href}
-              href={area.href}
-              aria-current={pathname === area.href ? "page" : undefined}
-            >
-              {area.label}
-            </Link>
-          ))}
-        </nav>
         <button
-          className="pc-menu-toggle"
+          className="menu-button pill"
           aria-label="Open menu"
           aria-haspopup="dialog"
           aria-controls="site-menu"
-          onClick={() => menu.current?.showModal()}
+          onClick={() => {
+            menu.current?.showModal();
+            document.documentElement.classList.add("menu-open");
+          }}
         >
-          <span>Menu</span>
-          <i aria-hidden="true">
-            <b />
-            <b />
-            <b />
-          </i>
+          Menu{" "}
+          <span className="menu-lines" aria-hidden="true">
+            <i />
+            <i />
+          </span>
         </button>
       </header>
       <dialog
-        ref={menu}
         id="site-menu"
-        className="pc-menu"
+        className="site-menu"
+        ref={menu}
         aria-label="Explore Plaisir"
+        onClose={() => document.documentElement.classList.remove("menu-open")}
       >
-        <div className="pc-menu-top">
-          <img
-            src="/brand/wordmark.webp"
-            width="900"
-            height="380"
-            alt="Plaisir"
-          />
-          <button
-            autoFocus
-            onClick={() => menu.current?.close()}
-            aria-label="Close menu"
+        <div className="menu-top">
+          <Link
+            href="/"
+            onClick={close}
+            className="brand-logo"
+            aria-label="Plaisir home"
           >
+            <span className="wordmark" role="img" aria-label="Plaisir" />
+          </Link>
+          <button autoFocus className="pill" onClick={close}>
             Close <span aria-hidden="true">×</span>
           </button>
         </div>
         <nav aria-label="Main navigation">
-          {areas.map((area) => (
+          {areas.map((a, i) => (
             <Link
-              href={area.href}
-              key={area.href}
-              aria-current={pathname === area.href ? "page" : undefined}
-              onClick={() => menu.current?.close()}
+              key={a.href}
+              href={a.href}
+              aria-current={pathname === a.href ? "page" : undefined}
+              onClick={close}
             >
-              {area.label}
-              <small>{area.description}</small>
+              <span className="menu-index">0{i + 1}</span>
+              <span>
+                {a.label}
+                <small>{a.description}</small>
+              </span>
+              <span className="menu-arrow" aria-hidden="true">
+                →
+              </span>
             </Link>
           ))}
         </nav>
-        <div className="pc-menu-bottom">
-          <p>A little everyday pleasure.</p>
-          <p>
-            Three distinct destinations.
-            <br />
-            One Plaisir.
-          </p>
+        <div className="menu-bottom">
+          <span>A little everyday pleasure.</span>
+          <span>New York · Concept preview</span>
         </div>
       </dialog>
       {children}
-      <footer className="pc-footer">
-        <div className="pc-footer-brand">
-          <img
-            src="/brand/wordmark.webp"
-            width="900"
-            height="380"
-            alt="Plaisir"
-            loading="lazy"
-          />
-          <p>Coffee & wine. Good company.</p>
-        </div>
-        <div className="pc-footer-bottom">
-          <div>
-            <span>Plaisir · Concept preview</span>
-            <p>
-              Not yet open. Imagery includes generated concepts.
-              <br />
-              Final menus, location and opening details to follow.
-            </p>
-          </div>
+      <footer className="brand-footer">
+        <p className="eyebrow">Coffee. Wine. Good company.</p>
+        <Link href="/" className="footer-wordmark" aria-label="Plaisir home">
+          <span className="wordmark" role="img" aria-label="Plaisir" />
+        </Link>
+        <div className="footer-bottom">
+          <p>
+            Plaisir · A concept in the making.
+            <br />
+            Not yet open. Images include concept renderings.
+          </p>
           <nav aria-label="Footer navigation">
-            {areas.map((area) => (
-              <Link key={area.href} href={area.href}>
-                {area.label}
+            {areas.map((a) => (
+              <Link key={a.href} href={a.href}>
+                {a.label}
               </Link>
             ))}
           </nav>
           <PageMotion />
         </div>
       </footer>
-      <nav className="pc-mobile-nav" aria-label="Website areas">
-        {areas.map((area) => (
-          <Link
-            key={area.href}
-            href={area.href}
-            aria-current={pathname === area.href ? "page" : undefined}
-          >
-            {area.label}
-          </Link>
-        ))}
-      </nav>
     </>
   );
 }

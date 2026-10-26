@@ -1,70 +1,67 @@
-# Plaisir · coffee & wine
+# Plaisir — Next.js redesign
 
-Next.js App Router brand and investor overview, aligned with the supplied corrected business deck.
+A complete visual rebuild around the supplied Plaisir investor presentation. The public experience, investor story and financial model remain separate routes.
 
-## Three destinations
+## Run locally
 
-- `/` — public-facing Experience preview: coffee, wine, hospitality, brand details and future visit information. No investor budget, source-note panels or financial controls interrupt the public narrative.
-- `/investors` — investor overview: proposition, audiences, operating approach, proposed site, team, launch sequence and conditional growth. Source qualifications remain alongside the relevant claims.
-- `/financials` — dedicated dashboard: annual trading, funding/opening cash, demand reconciliation, exact tables and CSV export.
-
-Shared desktop navigation and a three-link mobile dock make the division explicit. The public page uses a continuous green environment with oversized uppercase editorial headings and borderless imagery, replacing alternating full-width presentation panels. Route changes reset scroll motion observers while preserving the user's motion preference in the shared shell.
-
-The mobile-first design uses the original Plaisir script, local Agilera display type, forest green and warm amber. A paired morning/evening photographic opening leads into the public daypart selector and offset touch gallery. Leadership, operating plans and qualified site assumptions live on the investor page; financial values and controls live in the dedicated dashboard and retain the UI font. Reference images are research only and are not shipped as website assets.
-
-## Run
-
-Use Node.js 22 or later (Node 24 recommended).
+Requires Node.js 20.9 or newer (Node.js 22 LTS recommended).
 
 ```sh
 npm ci
 npm run dev
 ```
 
-Open http://localhost:3000. No environment variables or external services are required.
+Production:
 
 ```sh
-npm test
-npm run typecheck
 npm run build
 npm start
 ```
 
-Import the repository into Vercel as a standard Next.js project. No custom build or output-directory settings are needed.
+Validation:
 
-## This version
+```sh
+npm run typecheck
+npm test
+```
 
-- Mobile-first composition with a paired full-bleed photographic hero, thumb-reachable bottom navigation, native modal menu and concise editorial sections.
-- Masked headline reveals, a reading-progress indicator, capped hero image movement, daypart crossfades and a native scroll-snap gallery. System preferences and an explicit footer control suppress nonessential movement. Content remains available without JavaScript.
+## Routes
 
-- A continuous forest-green canvas and warm amber, using the deck's embedded wordmark, bottle artwork and concept renderings.
-- Coffee/wine dayparts, guest groups, brand experience, proposed East Village flagship, leadership and opening sequence.
-- Interactive annual P&L, earnings waterfall, gross-margin break-even chart and exact monthly/annual values.
-- Source baseline plus explicitly labelled stress-test presets and editable assumptions.
-- Funding allocation and 12-month opening-reserve explorer, with delay and sales-ramp controls.
-- Demand reconciliation showing why 220 × $25 × 351 does not equal $833k.
-- Keyboard-operable charts and tabs, accessible data tables, responsive navigation and scenario CSV download.
-- Six meaningful financial tests covering reconciliation, cost behaviour, break-even, cash arithmetic, delay/shortfall and demand.
+- `/` — full-bleed hospitality experience: coffee, wine, shared food, brand details and the proposed first location.
+- `/investors` — concept, proposed flagship, leadership, launch sequence and link to the working financial model.
+- `/financials` — interactive operating illustration, funding and opening-cash proxy, and bottom-up demand comparison. CSV export and keyboard-operable chart controls retained.
 
-## Important model limits
+## Visual system
 
-Figures reproduce a source-derived illustration, not an approved forecast. Other operating expenses of $37.1k are implied. The $72k proposed annual rent and $216k occupancy budget have not been reconciled. Labour and other operating expenses stay fixed until edited.
+- Olive `#2B3D17` and ochre `#D19C36`, sampled from the latest brand direction.
+- Original Agilera font supplied with the project, self-hosted in `public/fonts`.
+- Large display typography and readable supporting sans-serif text. Financial values use the supporting font.
+- Full-width photographic hero sections, darker image treatments and alternating solid brand-colour sections.
+- Fixed transparent header with only the original wordmark and outlined menu button. No desktop navigation bar or mobile bottom bar.
+- Full-screen native dialog menu with focus containment, Escape dismissal and scroll locking.
+- Transparent outlined pill buttons, section anchor links and subtle scroll reveals. System reduced-motion settings and a footer motion toggle are respected. Content remains visible without JavaScript.
 
-Opening cash uses EBITDA as a simplified operating cash proxy. It excludes capital spending beyond the assumed funding allocations, deposits, inventory/supplier timing, taxes, debt and contingencies. It does not establish runway, payback or investment returns. The default ramp assumptions are additional explorer inputs, not deck forecasts.
+The wordmark is an alpha mask coloured with the exact ochre token; no image-wide colour filter is applied to the photography. Source photos and brand renderings retain their original product colours.
 
-Site, seating, lease, opening hours/date, costed menu, benefits and final funding terms remain subject to confirmation. Brand images are supplied concepts and renderings, not evidence of an operating venue or produced merchandise.
+## Files
 
-See `docs/brand-and-model.md` for the brand analysis, source-slide mapping and complete model assumptions.
+- `app/page.tsx`: public experience.
+- `app/investors/page.tsx`: investor story.
+- `app/financials/page.tsx`, `app/FinancialDashboard.tsx`: working model.
+- `app/SiteShell.tsx`: fixed header, native menu and shared footer.
+- `app/PageMotion.tsx`: progressive scroll reveals and motion preference handling.
+- `app/brand.css`: new brand system and responsive layouts.
+- `app/globals.css`: base styles and retained financial data/chart styling.
+- `lib/finance.ts`: unchanged calculation engine.
 
-## Editing
+## Verification
 
-- `app/page.tsx`: brand narrative and content
-- `app/FinancialDashboard.tsx`: controls, charts, tables and CSV
-- `lib/finance.ts`: pure financial calculations and source inputs
-- `app/globals.css`: base styles and responsive financial dashboard
-- `app/brand.css`: shared editorial visual system, breakpoints and motion
-- `app/PageMotion.tsx`: progressive reveals, scroll state and motion control
-- `public/brand`: supplied deck assets and labelled generated concept imagery
-- `tests/finance.test.ts`: financial verification
+Production build and TypeScript checks passed. Six existing finance tests pass. Browser checks covered desktop, mobile-width layouts at 375px usable width, menu open/close and Escape, transparent fixed header after navigation, text fitting, funding calculation and model tabs. This is responsive Chromium verification, not a physical iPhone/Safari test.
 
-All assets load locally. The page uses no analytics, remote fonts or external data requests. Scenarios remain in browser memory until reload. See `docs/great-catering-redesign.md` for this redesign’s reference analysis, motion and image provenance. Earlier Awwwards and Dribbble research remains in `docs/mobile-design-research.md`.
+Fixed an existing React hydration issue in SVG tooltips by rendering each `title` as one string.
+
+## Content status
+
+Plaisir remains a concept preview. Renderings are not confirmed premises, no opening date is promised, and menu details remain provisional. The financial model is an illustration, not an approved forecast or investor-return calculation. The opening reserve explorer is a simplified operating cash proxy and retains its explicit exclusions. Source references to slide numbers identify the earlier corrected 35-slide business source used by the model; the latest 48-page presentation supplies the current visual direction.
+
+No live deployment or repository push is included in this ZIP. Deploy as a standard Next.js project with `npm run build`.

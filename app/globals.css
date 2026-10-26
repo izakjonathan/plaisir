@@ -1,9 +1,9 @@
 :root {
-  --green: #41654c;
-  --deep: #304c39;
-  --amber: #f0af49;
-  --text: #f4bc68;
-  --rule: #f0af4940;
+  --green: #2b3d17;
+  --deep: #1b280e;
+  --amber: #d19c36;
+  --text: #e5c68a;
+  --rule: #d19c3640;
   --serif: "Palatino Linotype", "Book Antiqua", Palatino, Georgia, serif;
   --sans: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
@@ -218,7 +218,7 @@ figcaption {
 }
 .cover-footer > a {
   padding-bottom: 7px;
-  border-bottom: 1px solid #f0af4966;
+  border-bottom: 1px solid #d19c3666;
 }
 .cover-footer > span {
   align-self: center;
@@ -229,7 +229,7 @@ figcaption {
     linear-gradient(#102c1b22, #102c1b22),
     url("/brand/texture.webp") center/cover;
   position: relative;
-  border-top: 1px solid #f0af4912;
+  border-top: 1px solid #d19c3612;
 }
 .section-kicker {
   font-size: 11px;
@@ -673,7 +673,7 @@ figcaption {
 .number-wrap {
   display: flex;
   align-items: center;
-  border-bottom: 1px solid #f0af4980;
+  border-bottom: 1px solid #d19c3680;
   gap: 3px;
   font-variant-numeric: tabular-nums;
 }
@@ -834,7 +834,7 @@ td {
 th,
 td {
   padding: 10px 0;
-  border-bottom: 1px solid #f0af4924;
+  border-bottom: 1px solid #d19c3624;
 }
 thead th {
   font-size: 12px;
@@ -1026,7 +1026,7 @@ details[open] > summary {
   min-height: 46px;
 }
 .outline-button:hover {
-  background: #f0af4912;
+  background: #d19c3612;
 }
 .launch-steps {
   display: grid;
