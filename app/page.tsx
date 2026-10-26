@@ -36,7 +36,7 @@ export default function Home() {
       </section>
       <section id="coffee" className="split-scene">
         <figure className="split-photo">
-          <Image src="/brand/morning-service.webp" width="1024" height="1536" alt="Coffee served at the Plaisir counter, concept image" loading="lazy" sizes="(max-width: 600px) 100vw, 50vw"/>
+          <Image src="/brand/wine-pouring.jpg" width="1200" height="1600" alt="Wine being poured at a tiled bar counter" loading="lazy" sizes="(max-width: 600px) 100vw, 50vw"/>
         </figure>
         <div className="split-copy">
           <h2 data-reveal>
@@ -91,7 +91,7 @@ export default function Home() {
           </a>
         </div>
         <figure className="split-photo">
-          <Image src="/brand/sharing-table.webp" width="1400" height="933" alt="A sharing board, bread and wine at a Plaisir table, concept image" loading="lazy" sizes="(max-width: 600px) 100vw, 50vw"/>
+          <Image src="/brand/neighbourhood-evening.jpg" width="1200" height="1600" alt="Friends gathered around a table outside a neighbourhood bar" loading="lazy" sizes="(max-width: 600px) 100vw, 50vw"/>
         </figure>
       </section>
       <section className="photo-story" aria-label="Wine and everyday rituals">
