@@ -4,6 +4,7 @@ import "./brand.css";
 import "./motion.css";
 import "./mobile.css";
 import "./landing.css";
+import "./financial.css";
 import SiteShell from "./SiteShell";
 import { ContentProvider } from "./Content";
 import { readPublished } from "../lib/content-db";
@@ -38,3 +39,4 @@ export default async function RootLayout({
     </html>
   );
 }
+

@@ -1,5 +1,5 @@
 "use client";
-import { Copy, ContentImage } from "./Content";
+import { Copy } from "./Content";
 import { useState } from "react";
 import { BASE, ALLOCATIONS, operating as r, sensitivity, scenarioYears, scenarios, reconcileScenario, } from "../lib/deck";
 const money = (n: number) => new Intl.NumberFormat("en-US", {
@@ -7,9 +7,26 @@ const money = (n: number) => new Intl.NumberFormat("en-US", {
     currency: "USD",
     maximumFractionDigits: 0,
 }).format(n);
-const compact = (n: number) => `${n < 0 ? "−" : ""}$${(Math.abs(n) / 1000).toLocaleString("en-US", { maximumFractionDigits: 1 })}k`;
 const pct = (n: number) => `${n.toFixed(1)}%`;
 const views = ["Overview", "Funding", "Scenarios"] as const;
+type ChartItem = { label: string; value: number };
+function AmountChart({ title, description, items, maximum, diverging = false }: {
+    title: string; description: string; items: ChartItem[]; maximum: number; diverging?: boolean;
+}) {
+    return <figure className="finance-chart">
+      <figcaption><h3>{title}</h3><p>{description}</p></figcaption>
+      {diverging && <div className="chart-axis" aria-hidden="true"><span>{money(-maximum)}</span><span>$0</span><span>{money(maximum)}</span></div>}
+      <ul className="chart-rows">{items.map(item => <li key={item.label}>
+        <div className="chart-label"><span>{item.label}</span><strong>{money(item.value)}</strong></div>
+        <div aria-hidden="true" className={`comparison-track ${diverging ? 'diverging' : ''}`}>
+          <span className={item.value < 0 ? 'loss-bar' : ''} style={{
+            width:`${Math.abs(item.value) / maximum * (diverging ? 50 : 100)}%`,
+            left:diverging ? `${item.value < 0 ? 50 - Math.abs(item.value) / maximum * 50 : 50}%` : '0%',
+          }}/>
+        </div>
+      </li>)}</ul>
+    </figure>;
+}
 export default function FinancialDashboard() {
     const [view, setView] = useState<(typeof views)[number]>("Overview");
     const [raise, setRaise] = useState(500000);
@@ -20,6 +37,8 @@ export default function FinancialDashboard() {
         ["Occupancy", BASE.occupancy],
         ["Other costs · implied", BASE.other],
     ] as const;
+    const revenueCases = scenarios.map(s => ({label:s.name,value:s.revenue[year]*1000}));
+    const earningsCases = scenarios.map(s => ({label:s.name,value:s.ebitda[year]*1000}));
     return (<div className="deck-dashboard">
       <header className="dashboard-heading">
         <p className="eyebrow"><Copy field="numbers.page.text1"/></p>
@@ -33,21 +52,22 @@ export default function FinancialDashboard() {
           </button>))}
       </nav>
       {view === "Overview" && (<section className="finance-view" aria-label="Operating overview">
+          <div className="finance-context"><strong>One flagship · 2026 annual illustration</strong><span>All amounts in US dollars (USD). Proposed figures, not actual trading results.</span></div>
           <div className="finance-kpis">
             <article data-reveal>
               <span><Copy field="numbers.page.text5"/></span>
-              <strong>{compact(BASE.revenue)}</strong>
-              <small><Copy field="numbers.page.text6"/></small>
+              <strong>{money(BASE.revenue)}</strong>
+              <small><Copy field="numbers.page.text6"/></small><p>Total sales before product and operating costs.</p>
             </article>
             <article data-reveal>
               <span><Copy field="numbers.page.text7"/></span>
-              <strong>{compact(r.grossProfit)}</strong>
-              <small>{pct(BASE.margin)} gross margin</small>
+              <strong>{money(r.grossProfit)}</strong>
+              <small>{pct(BASE.margin)} gross margin</small><p>Sales left after buying the products sold.</p>
             </article>
             <article data-reveal>
               <span><Copy field="numbers.page.text8"/></span>
-              <strong>{compact(r.ebitda)}</strong>
-              <small>{pct(r.ebitdaMargin)} of revenue</small>
+              <strong>{money(r.ebitda)}</strong>
+              <small>{pct(r.ebitdaMargin)} of revenue</small><p>Operating earnings before depreciation, interest and tax.</p>
             </article>
           </div>
           <div className="finance-grid">
@@ -56,6 +76,7 @@ export default function FinancialDashboard() {
                 <h2><Copy field="numbers.page.text9"/></h2>
                 <span><Copy field="numbers.page.text10"/></span>
               </div>
+              <p className="panel-intro">Each bar shows a share of the {money(BASE.revenue)} in annual sales.</p>
               <div className="cost-bars">
                 {costs.map(([label, value]) => (<div key={label}>
                     <div>
@@ -76,6 +97,7 @@ export default function FinancialDashboard() {
                 <h2><Copy field="numbers.page.text11"/></h2>
                 <span><Copy field="numbers.page.text12"/></span>
               </div>
+              <p className="panel-intro">Sales minus product costs and operating costs leave {money(r.ebitda)} in EBITDA.</p>
               <table className="finance-table">
                 <caption className="sr-only">Annual operating model in US dollars</caption>
                 <tbody>
@@ -104,9 +126,11 @@ export default function FinancialDashboard() {
           </div>
           <article data-reveal className="finance-panel break-panel">
             <div>
-              <p className="eyebrow"><Copy field="numbers.page.text14"/></p>
-              <h2>{money(r.breakEven)}</h2>
+              <h2 className="break-title"><Copy field="numbers.page.text14"/></h2>
+              <strong className="break-total">{money(r.breakEven)}</strong>
               <p><Copy field="numbers.page.text15"/></p>
+              <p className="finance-plain">The annual sales needed to cover product costs and {money(r.fixed)} of fixed operating costs. EBITDA is zero at this level.</p>
+              <AmountChart title="Planned sales vs break-even" description="Annual revenue · both bars use the same scale from $0." maximum={BASE.revenue} items={[{label:'Break-even sales',value:r.breakEven},{label:'Base-model sales',value:BASE.revenue}]}/>
               <dl className="break-metrics">
                 <div>
                   <dt><Copy field="numbers.page.text16"/></dt>
@@ -124,9 +148,11 @@ export default function FinancialDashboard() {
                   </dd>
                 </div>
               </dl>
+              <p className="finance-note">The cushion is the drop in base-model sales before EBITDA reaches zero. Monthly equivalent is annual break-even divided by 12. Dollar amounts are rounded.</p>
             </div>
             <div>
               <h3><Copy field="numbers.page.text18"/></h3>
+              <p className="panel-intro">A lower gross margin means more sales are needed to break even. The 70% row is the base model.</p>
               <div className="sensitivity-bars">
                 {sensitivity.map((s) => (<div key={s.margin} className={s.margin === 70 ? "highlight" : ""}>
                     <div>
@@ -145,6 +171,7 @@ export default function FinancialDashboard() {
               </p>
             </div>
           </article>
+          <aside className="finance-assumptions"><h3>Two inputs still need confirming</h3><p><strong>Occupancy:</strong> the model uses $216,000 a year, while proposed base rent is $72,000. The additional $144,000 has not been explained.</p><p><strong>Other operating costs:</strong> $37,100 is implied by the source figures and still needs an itemised budget.</p></aside>
           <details className="finance-disclosure">
             <summary>Assumptions & reconciliation</summary>
             <p><Copy field="numbers.page.text19"/></p>
@@ -169,24 +196,22 @@ export default function FinancialDashboard() {
                 <h2><Copy field="numbers.page.text23"/></h2>
                 <span>{money(raise)} raise</span>
               </div>
-              <table className="finance-table">
+              <AmountChart title="How the funding is allocated" description="Proposed share of the selected raise; amounts in USD." maximum={raise} items={ALLOCATIONS.map(a=>({label:`${a.name} · ${Math.round(a.share*100)}%`,value:a.share*raise}))}/>
+              <table className="finance-table funding-table">
                 <caption className="sr-only">Proposed use of proceeds at the selected raise level</caption>
                 <thead>
                   <tr>
                     <th scope="col">Allocation</th>
-                    <th scope="col">Share</th>
                     <th scope="col">USD</th>
                   </tr>
                 </thead>
                 <tbody>
                   {ALLOCATIONS.map((a) => (<tr key={a.name}>
                       <th scope="row">{a.name}</th>
-                      <td>{Math.round(a.share * 100)}%</td>
                       <td>{money(a.share * raise)}</td>
                     </tr>))}
                   <tr className="subtotal">
                     <th scope="row">Total</th>
-                    <td>100%</td>
                     <td>{money(raise)}</td>
                   </tr>
                 </tbody>
@@ -194,7 +219,7 @@ export default function FinancialDashboard() {
             </article>
             <article data-reveal className="finance-panel reserve-panel">
               <p className="eyebrow"><Copy field="numbers.page.text24"/></p>
-              <strong>{compact(raise * 0.1)}</strong>
+              <strong>{money(raise * 0.1)}</strong>
               <h2><Copy field="numbers.page.text25"/></h2>
               <p><Copy field="numbers.page.text26"/></p>
             </article>
@@ -213,6 +238,12 @@ export default function FinancialDashboard() {
                 </button>))}
             </div>
           </div>
+          <p className="finance-context">Selected year: {scenarioYears[year]}. All source scenario amounts are rounded to the nearest $1,000.</p>
+          <div className="finance-grid scenario-charts">
+            <article className="finance-panel"><AmountChart title="Annual revenue" description={`Sales across the three ${scenarioYears[year]} cases. Bars share a $0 baseline.`} items={revenueCases} maximum={Math.max(...revenueCases.map(s=>s.value))}/></article>
+            <article className="finance-panel"><AmountChart title="Operating earnings (EBITDA)" description="Losses extend left of $0; earnings extend right. Both sides use the same scale." items={earningsCases} maximum={Math.max(...earningsCases.map(s=>Math.abs(s.value)))} diverging/></article>
+          </div>
+          <p className="finance-plain">EBITDA is earnings before depreciation, interest and tax. The detailed figures below also include the source’s net-profit projections and amounts implied by those figures.</p>
           <div className="scenario-cards">
             {scenarios.map((s) => {
                 const residual = reconcileScenario(s, year);
@@ -221,19 +252,19 @@ export default function FinancialDashboard() {
                     {s.name} · {scenarioYears[year]}
                   </p>
                   <strong className="scenario-revenue">
-                    {compact(s.revenue[year] * 1000)}
+                    {money(s.revenue[year] * 1000)}
                   </strong>
                   <span className="scenario-label"><Copy field="numbers.page.text30"/></span>
                   <dl>
                     {[
                         ["Gross profit", s.grossProfit[year]],
                         ["EBITDA", s.ebitda[year]],
-                        ["Net profit · source", s.netProfit[year]],
-                        ["Other opex · implied", residual.otherOpex],
-                        ["Below EBITDA · implied", residual.belowEbitda],
+                        ["Net profit (source)", s.netProfit[year]],
+                        ["Other operating costs (implied)", residual.otherOpex],
+                        ["Deductions after EBITDA (implied)", residual.belowEbitda],
                     ].map(([label, value]) => (<div key={label}>
                         <dt>{label}</dt>
-                        <dd>{compact(Number(value) * 1000)}</dd>
+                        <dd>{money(Number(value) * 1000)}</dd>
                       </div>))}
                   </dl>
                 </article>);
@@ -248,3 +279,4 @@ export default function FinancialDashboard() {
       <p className="finance-source-note"><Copy field="numbers.page.text33"/></p>
     </div>);
 }
+
