@@ -23,7 +23,7 @@ export default function Home() {
             <em>plaisir.</em>
           </h1>
           <a className="pill" href="#welcome">
-            Discover the feeling <span aria-hidden="true">↓</span>
+            Discover the feeling
           </a>
         </div>
         <div className="scene-bottom">
@@ -41,15 +41,12 @@ export default function Home() {
           Never boring.
         </h2>
         <div className="manifesto-bottom" data-reveal>
-          <span className="tiny-mark" aria-hidden="true">
-            ✳
-          </span>
           <p>
             French café influences. New York personality. A warm room shaped by
             Danish design. Come for something good. Stay for the feeling.
           </p>
           <a className="pill" href="#coffee">
-            Meet your new ritual <span aria-hidden="true">↓</span>
+            Meet your new ritual
           </a>
         </div>
       </section>
@@ -78,7 +75,7 @@ export default function Home() {
             counter, settle in, or carry a little Plaisir into your day.
           </p>
           <a className="pill" href="#wine">
-            Stay for a glass <span aria-hidden="true">↓</span>
+            Stay for a glass
           </a>
           <span className="section-folio">01 / Coffee & pastries</span>
         </div>
@@ -110,7 +107,7 @@ export default function Home() {
             favourite, by the glass or bottle.
           </p>
           <a className="pill" href="#table">
-            Something to share <span aria-hidden="true">↓</span>
+            Something to share
           </a>
         </div>
         <div className="scene-bottom">
@@ -135,7 +132,7 @@ export default function Home() {
             that. Made to go with your glass, and even better with your company.
           </p>
           <a className="pill" href="#neighbourhood">
-            Find our first chapter <span aria-hidden="true">↓</span>
+            Find our first chapter
           </a>
           <span className="section-folio">03 / Food & good company</span>
         </div>
@@ -208,7 +205,7 @@ export default function Home() {
             We’re not open yet. Our address, hours and final menu will follow.
           </p>
           <Link className="pill" href="/investors">
-            The story behind Plaisir <span aria-hidden="true">→</span>
+            The story behind Plaisir
           </Link>
         </div>
         <div className="scene-bottom">

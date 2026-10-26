@@ -1,67 +1,45 @@
-# Plaisir — Next.js redesign
+# Plaisir — Next.js 0.3.1
 
-A complete visual rebuild around the supplied Plaisir investor presentation. The public experience, investor story and financial model remain separate routes.
+A brand-led hospitality website using the supplied 48-page Agilera investor presentation as the visual and financial reference.
 
-## Run locally
+## Setup
 
-Requires Node.js 20.9 or newer (Node.js 22 LTS recommended).
+Node.js 20.9+ (22 LTS recommended).
 
 ```sh
 npm ci
 npm run dev
 ```
 
-Production:
+Production: `npm run build`, then `npm start`.
+Validation: `npm run typecheck` and `npm test`.
 
-```sh
-npm run build
-npm start
-```
+## Routes and design
 
-Validation:
+- `/`: public concept experience with full-bleed imagery, Agilera titles, clean olive/ochre sections and content-sized outline buttons.
+- `/investors`: proposed concept, site, leadership and launch story.
+- `/financials`: presentation-based dashboard with Overview, Funding and Scenarios. No sliders, editable assumptions or hypothetical opening-cash simulation.
 
-```sh
-npm run typecheck
-npm test
-```
+Brand colours: olive #2B3D17 and ochre #D19C36. Original Agilera is self-hosted. Real transparent PNG wordmarks replace CSS masks for more reliable Safari rendering.
 
-## Routes
+The fixed header contains the logo and burger icon only, without a filled bar or menu-button border. Native-dialog navigation has entrance/exit animations, staggered links, focus containment, Escape handling and scroll locking. Outline pills contain centred text only. The compact footer uses the ochre background and green wordmark.
 
-- `/` — full-bleed hospitality experience: coffee, wine, shared food, brand details and the proposed first location.
-- `/investors` — concept, proposed flagship, leadership, launch sequence and link to the working financial model.
-- `/financials` — interactive operating illustration, funding and opening-cash proxy, and bottom-up demand comparison. CSV export and keyboard-operable chart controls retained.
+Scroll reveals apply to headings and selected photographs. Reduced-motion preferences are respected, so animation is intentionally suppressed when the device requests it. The footer also offers a motion preference control.
 
-## Visual system
+HTML and body backgrounds are transparent. The forced green theme-colour metadata is removed, and viewport-fit is cover. Safari controls the final status/address-bar rendering; this is not a promise of a specific browser-chrome colour on every iOS version.
 
-- Olive `#2B3D17` and ochre `#D19C36`, sampled from the latest brand direction.
-- Original Agilera font supplied with the project, self-hosted in `public/fonts`.
-- Large display typography and readable supporting sans-serif text. Financial values use the supporting font.
-- Full-width photographic hero sections, darker image treatments and alternating solid brand-colour sections.
-- Fixed transparent header with only the original wordmark and outlined menu button. No desktop navigation bar or mobile bottom bar.
-- Full-screen native dialog menu with focus containment, Escape dismissal and scroll locking.
-- Transparent outlined pill buttons, section anchor links and subtle scroll reveals. System reduced-motion settings and a footer motion toggle are respected. Content remains visible without JavaScript.
+## Financial provenance
 
-The wordmark is an alpha mask coloured with the exact ochre token; no image-wide colour filter is applied to the photography. Source photos and brand renderings retain their original product colours.
+`lib/deck.ts` centralises the baseline, sensitivity and source-rounded scenario data. Baseline: $833,000 sales, $583,100 gross profit, $521,100 operating costs and $62,000 EBITDA. Break-even is $744,429/year or $62,036/month, nearest dollar.
 
-## Files
+Funding uses the deck's 55% / 22% / 13% / 10% allocations at $500k and $1m. All nine 2026–2028 cases preserve the deck's revenue, gross profit, EBITDA and source net profit. Implied other operating costs and deductions below EBITDA remain labelled as unexplained residuals. The UI explains the source margin variation, rent discrepancy and bottom-up revenue inconsistency.
 
-- `app/page.tsx`: public experience.
-- `app/investors/page.tsx`: investor story.
-- `app/financials/page.tsx`, `app/FinancialDashboard.tsx`: working model.
-- `app/SiteShell.tsx`: fixed header, native menu and shared footer.
-- `app/PageMotion.tsx`: progressive scroll reveals and motion preference handling.
-- `app/brand.css`: new brand system and responsive layouts.
-- `app/globals.css`: base styles and retained financial data/chart styling.
-- `lib/finance.ts`: unchanged calculation engine.
+Legacy calculation helpers remain in `lib/finance.ts` for reference and unit coverage; the website no longer exposes the old what-if inputs or cash-reserve simulation.
 
 ## Verification
 
-Production build and TypeScript checks passed. Six existing finance tests pass. Browser checks covered desktop, mobile-width layouts at 375px usable width, menu open/close and Escape, transparent fixed header after navigation, text fitting, funding calculation and model tabs. This is responsive Chromium verification, not a physical iPhone/Safari test.
+Production build and TypeScript check pass. Nine tests cover baseline arithmetic, funding allocations, break-even and all nine scenario residuals. Responsive Chromium checks cover the public, investor and financial routes, burger/dialog interaction, compact buttons, transparent page canvas, absence of sliders, funding changes, source-scenario navigation and overflow at 375px usable mobile width. This does not replace physical-device Safari testing.
 
-Fixed an existing React hydration issue in SVG tooltips by rendering each `title` as one string.
+The venue remains a concept preview. Images include renderings, no premises or opening date is confirmed, and financials are source-derived illustrations rather than an approved forecast or verified investment return.
 
-## Content status
-
-Plaisir remains a concept preview. Renderings are not confirmed premises, no opening date is promised, and menu details remain provisional. The financial model is an illustration, not an approved forecast or investor-return calculation. The opening reserve explorer is a simplified operating cash proxy and retains its explicit exclusions. Source references to slide numbers identify the earlier corrected 35-slide business source used by the model; the latest 48-page presentation supplies the current visual direction.
-
-No live deployment or repository push is included in this ZIP. Deploy as a standard Next.js project with `npm run build`.
+No live deployment or repository push is included. Deploy this as a standard Next.js project.

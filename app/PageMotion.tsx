@@ -16,6 +16,13 @@ export default function PageMotion() {
     const root = document.documentElement;
     root.toggleAttribute("data-motion-off", off || reduced);
     if (off || reduced) return;
+    if (!("IntersectionObserver" in window)) return;
+    const targets = Array.from(
+      document.querySelectorAll<HTMLElement>(
+        "[data-reveal], .split-photo, .world-images figure",
+      ),
+    );
+    targets.forEach((el) => el.setAttribute("data-reveal", ""));
     const observer = new IntersectionObserver(
       (entries) =>
         entries.forEach((e) => {
@@ -26,9 +33,11 @@ export default function PageMotion() {
         }),
       { threshold: 0.12 },
     );
-    document
-      .querySelectorAll("[data-reveal]")
-      .forEach((e) => observer.observe(e));
+    targets.forEach((el) => {
+      if (el.getBoundingClientRect().top < window.innerHeight * 0.9)
+        el.setAttribute("data-in-view", "");
+      else observer.observe(el);
+    });
     root.classList.add("motion-ready");
     return () => {
       observer.disconnect();

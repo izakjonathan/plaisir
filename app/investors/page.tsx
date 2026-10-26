@@ -36,7 +36,7 @@ export default function Investors() {
             flagship that proves the operation first.
           </p>
           <a className="pill" href="#proposition">
-            Explore the proposition <span aria-hidden="true">↓</span>
+            Explore the proposition
           </a>
         </div>
         <div className="scene-bottom">
@@ -125,7 +125,7 @@ export default function Investors() {
             permissions, capacity and full occupancy costs require confirmation.
           </Note>
           <Link className="pill" href="/financials">
-            Explore the assumptions <span aria-hidden="true">→</span>
+            Explore the assumptions
           </Link>
         </div>
       </section>
@@ -208,7 +208,7 @@ export default function Investors() {
           and demand assumptions. Adjust the inputs and see what changes.
         </p>
         <Link className="pill" href="/financials">
-          Open the financial dashboard <span aria-hidden="true">→</span>
+          Open the financial dashboard
         </Link>
         <p className="pl-small-print">
           Source-derived illustrations. Not an approved forecast or investment
