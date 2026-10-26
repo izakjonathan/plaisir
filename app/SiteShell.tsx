@@ -11,9 +11,9 @@ import {
 } from "react";
 import PageMotion from "./PageMotion";
 const areas = [
-  { href: "/", label: "The experience" },
-  { href: "/investors", label: "The story" },
-  { href: "/financials", label: "The numbers" },
+  { href: "/", label: "The experience", description: "Coffee, wine & good company" },
+  { href: "/investors", label: "The story", description: "The business behind Plaisir" },
+  { href: "/financials", label: "The numbers", description: "The financial illustration" },
 ];
 type Phase = "closed" | "opening" | "open" | "closing";
 export default function SiteShell({ children }: { children: ReactNode }) {
@@ -22,9 +22,6 @@ export default function SiteShell({ children }: { children: ReactNode }) {
   const menu = useRef<HTMLDialogElement>(null);
   const pending = useRef<string | null>(null);
   const [phase, setPhase] = useState<Phase>("closed");
-  const reduced = () =>
-    window.matchMedia("(prefers-reduced-motion: reduce)").matches ||
-    document.documentElement.hasAttribute("data-motion-off");
   const finish = useCallback(() => {
     menu.current?.close();
     setPhase("closed");
@@ -41,10 +38,6 @@ export default function SiteShell({ children }: { children: ReactNode }) {
   }, [pathname]);
   useEffect(() => {
     if (phase !== "opening") return;
-    if (reduced()) {
-      setPhase("open");
-      return;
-    }
     let second = 0;
     const first = requestAnimationFrame(() => {
       second = requestAnimationFrame(() => setPhase("open"));
@@ -63,7 +56,7 @@ export default function SiteShell({ children }: { children: ReactNode }) {
     const ms = Number.isFinite(value)
       ? value * (raw.endsWith("ms") ? 1 : 1000)
       : 360;
-    const timer = setTimeout(finish, reduced() ? 0 : ms + 100);
+    const timer = setTimeout(finish, ms + 150);
     return () => clearTimeout(timer);
   }, [phase, finish]);
   useEffect(
@@ -71,8 +64,7 @@ export default function SiteShell({ children }: { children: ReactNode }) {
     [],
   );
   const close = () => {
-    if (reduced()) finish();
-    else setPhase("closing");
+    setPhase("closing");
   };
   const navigate = (e: MouseEvent<HTMLAnchorElement>, href: string) => {
     if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
@@ -150,7 +142,9 @@ export default function SiteShell({ children }: { children: ReactNode }) {
         onTransitionEnd={(e) => {
           if (
             e.target === e.currentTarget &&
-            e.propertyName === "transform" &&
+            (e.propertyName === "transform" ||
+              (e.propertyName === "opacity" &&
+                document.documentElement.dataset.motion === "reduced")) &&
             phase === "closing"
           )
             finish();
@@ -188,7 +182,8 @@ export default function SiteShell({ children }: { children: ReactNode }) {
               onClick={(e) => navigate(e, a.href)}
               style={{ "--item": i } as React.CSSProperties}
             >
-              {a.label}
+              <span>{a.label}</span>
+              <small>{a.description}</small>
             </Link>
           ))}
         </nav>

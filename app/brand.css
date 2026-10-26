@@ -175,7 +175,7 @@ summary:focus-visible {
   z-index: 80;
 }
 .site-menu::backdrop {
-  background: var(--green);
+  background: transparent;
 }
 .menu-top {
   display: flex;
@@ -450,17 +450,8 @@ summary:focus-visible {
   font-size: 11px;
   min-height: 24px;
 }
-.motion-ready [data-reveal] {
-  opacity: 0;
-  transform: translateY(25px);
-  transition:
-    opacity 0.85s ease,
-    transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1);
-}
-.motion-ready [data-in-view] {
-  opacity: 1;
-  transform: none;
-}
+
+
 /* Investor pages share the same full-bleed editorial rhythm. */
 .investor-hero {
   min-height: 95svh;
@@ -1068,29 +1059,9 @@ summary:focus-visible {
     gap: 8px;
   }
 }
-@media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
-  *,
-  *:before,
-  *:after {
-    animation: none !important;
-    transition: none !important;
-    transform: none !important;
-  }
-  .motion-ready [data-reveal] {
-    opacity: 1;
-  }
-}
-html[data-motion-off] [data-reveal] {
-  opacity: 1;
-  transform: none;
-  transition: none;
-}
-html[data-motion-off] {
-  scroll-behavior: auto;
-}
+
+
+
 /* Refinement: compact controls, transparent browser canvas and quieter navigation. */
 html,
 body {
@@ -1180,19 +1151,10 @@ body {
   width: 100%;
   height: auto;
 }
-.site-menu[open] {
-  animation: menuIn 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) both;
-}
-.site-menu.is-closing {
-  animation: menuOut 0.36s ease both;
-}
-.site-menu[open] nav > a {
-  animation: menuItemIn 0.65s cubic-bezier(0.2, 0.7, 0.2, 1) both;
-  animation-delay: calc(0.12s + var(--item) * 0.08s);
-}
-.site-menu.is-closing nav > a {
-  animation: none;
-}
+
+
+
+
 .menu-top {
   align-items: center;
 }
@@ -1262,56 +1224,17 @@ body {
 .motion-button:disabled {
   opacity: 0.65;
 }
-.motion-ready [data-reveal] {
-  transition:
-    opacity 0.8s ease,
-    transform 1s cubic-bezier(0.16, 1, 0.3, 1);
-  transform: translateY(32px);
-  opacity: 0;
-}
-.motion-ready [data-in-view] {
-  transform: translateY(0);
-  opacity: 1;
-}
+
+
 .split-photo,
 .world-images figure {
   overflow: hidden;
 }
-.motion-ready .split-photo img,
-.motion-ready .world-images img {
-  transform: scale(1.035);
-  transition: transform 1.4s cubic-bezier(0.16, 1, 0.3, 1);
-}
-.motion-ready .split-photo[data-in-view] img,
-.motion-ready .world-images figure[data-in-view] img {
-  transform: scale(1);
-}
-@keyframes menuIn {
-  from {
-    opacity: 0;
-    transform: translateY(-24px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-@keyframes menuOut {
-  to {
-    opacity: 0;
-    transform: translateY(-20px);
-  }
-}
-@keyframes menuItemIn {
-  from {
-    opacity: 0;
-    transform: translateY(26px);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
+
+
+
+
+
 /* Presentation-based dashboard. No editable input or slider section. */
 .deck-dashboard {
   max-width: 1500px;
@@ -1798,43 +1721,25 @@ body {
     font-size: 12px;
   }
 }
-@media (prefers-reduced-motion: reduce) {
-  .site-menu[open],
-  .site-menu[open] nav > a,
-  .finance-view {
-    animation: none !important;
-  }
-  .motion-ready .split-photo img,
-  .motion-ready .world-images img {
-    transform: none !important;
-  }
-}
-html[data-motion-off] .site-menu,
-html[data-motion-off] .site-menu nav > a,
-html[data-motion-off] .finance-view {
-  animation: none;
-}
-html[data-motion-off] .split-photo img,
-html[data-motion-off] .world-images img {
-  transform: none;
-}
-/* Shams-style document canvas: sections paint the page; black prevents white overscroll. */
+
+
+
+/* Page canvas follows the page palette; no forced browser toolbar colour. */
 html {
-  --document-canvas-color: #000;
+  --document-canvas-color: var(--green);
   --duration-menu: 360ms;
   --ease-menu: cubic-bezier(0.76, 0, 0.24, 1);
   --duration-reveal: 420ms;
   --ease-reveal: cubic-bezier(0.16, 1, 0.3, 1);
   --reveal-distance: 10px;
   width: 100%;
-  height: 100%;
   min-height: 100%;
   background: var(--document-canvas-color);
 }
 body {
   width: 100%;
-  min-height: 100vh;
-  background: var(--document-canvas-color);
+  min-height: 100dvh;
+  background: transparent;
 }
 .scene {
   min-height: 100svh;
@@ -1888,47 +1793,7 @@ body {
 .split-copy .pl-note {
   margin-top: 0;
 }
-.site-menu[open],
-.site-menu[open] nav > a,
-.site-menu.is-closing {
-  animation: none;
-}
-.site-menu {
-  transform: translate3d(0, -100%, 0);
-  transition: transform var(--duration-menu) var(--ease-menu);
-  backface-visibility: hidden;
-  overscroll-behavior: contain;
-  will-change: transform;
-}
-.site-menu[data-phase="open"] {
-  transform: translate3d(0, 0, 0);
-}
-.site-menu nav {
-  padding-top: 8vh;
-  padding-bottom: 60px;
-}
-.site-menu nav > a {
-  opacity: 0;
-  display: block;
-  font-size: clamp(45px, 7vw, 98px);
-  line-height: 1.08;
-  padding: 30px 0;
-}
-.site-menu[data-phase="open"] nav > a {
-  opacity: 1;
-  animation: shamsMenuArrival 240ms var(--ease-reveal) backwards;
-  animation-delay: calc(70ms + var(--item) * 30ms);
-}
-@keyframes shamsMenuArrival {
-  from {
-    opacity: 0;
-    transform: translate3d(0, 12px, 0);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
+
 .footer-heading {
   margin-bottom: 40px;
 }
@@ -1936,34 +1801,11 @@ body {
   align-items: center;
 }
 /* Only enrolled, below-viewport content is concealed. SSR and focused content remain visible. */
-.motion-ready [data-reveal] {
-  opacity: 1;
-  transform: none;
-  transition: none;
-}
-.motion-ready [data-reveal].reveal-pending {
-  opacity: 0;
-  transform: translate3d(0, var(--reveal-distance), 0);
-  transition: none;
-}
-.motion-ready [data-reveal].reveal-visible {
-  opacity: 1;
-  transform: none;
-  transition:
-    opacity var(--duration-reveal) var(--ease-reveal),
-    transform var(--duration-reveal) var(--ease-reveal);
-  transition-delay: var(--reveal-delay, 0ms);
-}
-.motion-ready [data-reveal]:focus-within {
-  opacity: 1;
-  transform: none;
-  transition: none;
-}
-.motion-ready .split-photo img,
-.motion-ready .world-images img {
-  transform: none;
-  transition: none;
-}
+
+
+
+
+
 @media (min-width: 760px) {
   html {
     --duration-menu: 420ms;
@@ -1998,23 +1840,71 @@ body {
     min-height: 72svh;
   }
 }
-@media (prefers-reduced-motion: reduce) {
-  .site-menu {
-    transition: none !important;
-  }
-  .site-menu[data-phase="open"] nav > a {
-    animation: none !important;
-  }
-  .motion-ready [data-reveal] {
-    opacity: 1 !important;
-    transform: none !important;
-    transition: none !important;
-  }
-}
-html[data-motion-off] .site-menu {
-  transition: none;
-}
-html[data-motion-off] .site-menu nav > a {
-  animation: none;
-}
+
+
+
 .menu-top{padding-top:max(20px,env(safe-area-inset-top,0px))}.brand-footer{padding-bottom:max(30px,env(safe-area-inset-bottom,0px))}
+
+/* One motion system. Pending and visible are mutually exclusive. */
+:root { --duration-menu: 540ms; --duration-reveal: 720ms; --reveal-distance: 24px; }
+.site-menu {
+  transform: translate3d(0, -100%, 0);
+  opacity: 1;
+  transition: transform var(--duration-menu) var(--ease-menu);
+  will-change: transform, opacity;
+}
+.site-menu[data-phase="open"] { transform: translate3d(0, 0, 0); opacity: 1; }
+.site-menu nav { padding-top: 5vh; padding-bottom: 40px; }
+.site-menu nav > a {
+  display: block; opacity: 0; transform: translateY(18px);
+  font-size: clamp(42px, 7vw, 98px); line-height: 1.08;
+  padding: 27px 0; transition: opacity 220ms ease, transform 220ms var(--ease-reveal);
+}
+.site-menu[data-phase="open"] nav > a {
+  opacity: 1; transform: translateY(0);
+  transition-duration: 420ms;
+  transition-delay: calc(180ms + var(--item) * 75ms);
+}
+.site-menu small { margin: 18px 0 0; font: 14px/1.5 var(--sans); }
+[data-reveal] { opacity: 1; }
+[data-reveal].reveal-pending { opacity: 0; transform: translate3d(0,var(--reveal-distance),0); }
+[data-reveal].reveal-visible {
+  opacity: 1; transform: translate3d(0,0,0);
+  transition: opacity var(--duration-reveal) var(--ease-reveal), transform var(--duration-reveal) var(--ease-reveal);
+  transition-delay: var(--reveal-delay,0ms);
+}
+[data-reveal]:focus-within { opacity: 1; transform: none; transition: none; }
+html[data-motion="reduced"] { scroll-behavior: auto; --duration-menu: 180ms; --duration-reveal: 180ms; --reveal-distance: 0px; }
+html[data-motion="reduced"] .site-menu { transform: none; opacity: 0; transition: opacity 180ms ease; }
+html[data-motion="reduced"] .site-menu[data-phase="open"] { opacity: 1; }
+html[data-motion="reduced"] .site-menu nav > a { transform: none; transition-delay: 0ms; transition-duration: 180ms; }
+html[data-motion="reduced"] .finance-view { animation: viewFade 180ms ease both; }
+@keyframes viewFade { from { opacity: 0; } to { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) {
+  html:not([data-motion="full"]) { scroll-behavior: auto; --reveal-distance: 0px; --duration-reveal: 180ms; }
+  html:not([data-motion="full"]) .site-menu { transform: none; transition: opacity 180ms ease; }
+  html:not([data-motion="full"]) .site-menu nav > a { transform: none; transition-delay: 0ms; }
+}
+@media (max-width:600px) {
+  .site-menu nav > a { font-size: clamp(38px,10.5vw,60px); padding: 24px 0; }
+  .site-menu small { font-size: 13px; margin-top: 15px; }
+}
+.pl-financial-page {
+  --green: #2b3d17; --amber: #2b3d17; --text: #2b3d17; --rule: #2b3d1740;
+  background: #d19c36; color: #2b3d17;
+}
+.pl-financial-page .finance-kpis article, .pl-financial-page .finance-panel { background: #2b3d1705; }
+.pl-financial-page .cost-track { background: #2b3d171f; }
+.pl-financial-page .cost-track span { background: #2b3d1799; }
+.pl-financial-page .sensitivity-bars .highlight .cost-track span { background: #2b3d17; }
+body:has(.pl-financial-page) .floating-header { color: #2b3d17; }
+body:has(.pl-financial-page) .floating-header .brand-logo img { content: url('/brand/wordmark-green.png'); }
+html:has(.pl-financial-page) { --document-canvas-color: #d19c36; }
+
+body:has(.pl-financial-page) .floating-header .burger-button { color: #2b3d17; }
+/* Only the two controls are fixed. A viewport-wide fixed header can trigger
+   Safari's solid edge colour extension even when its background is transparent. */
+.floating-header { display: contents; position: static; padding: 0; }
+.floating-header > * { position: fixed; z-index: 40; top: max(clamp(20px,3vw,38px),env(safe-area-inset-top,0px)); }
+.floating-header .brand-logo { left: max(var(--gutter),env(safe-area-inset-left,0px)); }
+.floating-header .burger-button { right: max(var(--gutter),env(safe-area-inset-right,0px)); top: max(clamp(20px,3vw,38px),env(safe-area-inset-top,0px)); }

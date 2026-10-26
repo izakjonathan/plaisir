@@ -1,4 +1,4 @@
-# Plaisir — Next.js 0.3.2
+# Plaisir — Next.js 0.3.3
 
 A brand-led hospitality website using the supplied 48-page Agilera investor presentation as the visual and financial reference.
 
@@ -24,11 +24,21 @@ Brand colours: olive #2B3D17 and ochre #D19C36. Original Agilera is self-hosted.
 
 The fixed header contains the logo and burger icon only, without a filled bar or menu-button border. Native-dialog navigation has entrance/exit animations, staggered links, focus containment, Escape handling and scroll locking. Outline pills contain centred text only. The compact footer uses the ochre background and green wordmark.
 
-Small section eyebrows, numbered folios, image captions and hero helper lines have been removed. Paragraphs over photographs use the exact brand ochre, and the floating logo and menu controls have no shadows. The close control is an SVG X without a border or fill.
+Small public/investor section labels remain removed. The three menu descriptions are restored. Paragraphs on photographs use exact brand ochre; the floating logo and controls have no shadows. The dashboard uses an ochre background and dark olive text, charts, rules and controls, including its fixed header controls.
 
-The supplied Shams motion patterns are adapted to native-dialog navigation: a sliding menu panel, capped link stagger, transition-end close handling and a timer fallback. Scroll reveals use visible-first enrollment, a small capped stagger, focus visibility and safe cleanup. Scroll reveals apply to headings and selected photographs. Reduced-motion preferences are respected, so animation is intentionally suppressed when the device requests it. The footer also offers a motion preference control.
+## Motion corrections in 0.3.3
 
-The browser canvas follows the supplied Shams project: black HTML/body fallback, black theme-colour metadata and viewport-fit cover. This prevents a white document/overscroll canvas. Safari controls its own toolbar rendering; actual page imagery behind native browser controls cannot be guaranteed across iOS versions.
+The old reveal controller could leave both `reveal-pending` and `reveal-visible` on an element after cleanup/re-enrollment. The latter CSS rule won, bypassing the reveal. Enrollment and cleanup now remove stale state. One IntersectionObserver handles below-viewport content; content already visible, focused content and content without JavaScript stay readable. Route changes and motion changes cleanly rebuild enrollment. Media-query changes are subscribed to React state, so turning the system preference back off restores the full behavior.
+
+Several generations of motion CSS were competing, including a universal reduced-motion rule disabling every transition, animation and transform. They are replaced with one scoped system. Full motion uses a 540ms sliding menu, staggered link transitions and 720ms fade/translation reveals. Reduced motion uses short, stationary fades, and the footer's **Enable animations** control allows an explicit full-motion choice even when the system requests reduced motion. The control is no longer disabled. It changes to **Reduce motion** in full mode.
+
+An opaque green native-dialog backdrop previously covered the whole page immediately, concealing the panel entrance. The backdrop is now transparent. Full-motion closing waits for the panel transform, not the shorter opacity transition; reduced mode waits for opacity. A duration-based fallback prevents stuck dialogs. Native focus containment, Escape, scroll unlocking and delayed link navigation remain intact.
+
+## Browser canvas corrections
+
+The forced black HTML/body background and black theme-colour metadata have been removed. Body is transparent; sections paint the page and the financial route has an ochre root fallback. Viewport-fit remains cover. The header no longer creates a full-width fixed box: only the logo and burger are fixed, with safe-area spacing. This avoids introducing a viewport-wide fixed surface for Safari's edge colour-extension heuristic.
+
+Native Safari chrome and overscroll cannot be fully verified in desktop Chromium. Test the resulting build on a physical iPhone with expanded/collapsed toolbars and scrolling in both directions. The implementation does not claim to control native toolbar transparency on every Safari release.
 
 ## Financial provenance
 
@@ -40,7 +50,7 @@ Legacy calculation helpers remain in `lib/finance.ts` for reference and unit cov
 
 ## Verification
 
-Production build and TypeScript check pass. Nine tests cover baseline arithmetic, funding allocations, break-even and all nine scenario residuals. Responsive Chromium checks cover the public, investor and financial routes, burger/dialog interaction, compact buttons, black browser canvas, absence of sliders, funding changes, source-scenario navigation and overflow at 375px usable mobile width. Menu navigation also verifies that the exit completes, the dialog closes and scrolling unlocks before the new route appears. This does not replace physical-device Safari testing.
+Production build and TypeScript checks pass. All nine financial tests pass. Responsive Chromium checks at 390px verify no horizontal overflow, restored menu descriptions, SVG close control, transparent dialog backdrop, yellow/green dashboard, menu entrance/exit transitions, navigation and scroll unlocking. Computed intermediate panel positions confirm the menu actually moves; a below-viewport heading changes from pending/transparent/24px translation to visible/opaque/zero translation after scrolling. Motion can be reduced and re-enabled; enrollment has no conflicting classes. Native Safari toolbar appearance is not covered by those checks.
 
 The venue remains a concept preview. Images include renderings, no premises or opening date is confirmed, and financials are source-derived illustrations rather than an approved forecast or verified investment return.
 
