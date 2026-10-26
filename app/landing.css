@@ -74,7 +74,7 @@ html[data-motion="reduced"] .brand-hero *, html[data-motion="reduced"] .brand-he
 
 
 /* A live editor preview uses the same layers, without session gating. */
-.brand-splash.splash-preview { display:block; position:relative; width:100%; height: min(65svh,620px); min-height:320px; }
+.brand-splash.splash-preview { z-index:0; display:block; position:relative; width:100%; height: min(65svh,620px); min-height:320px; }
 .splash-preview .splash-art { padding:24px; gap:30px; }
 .splash-preview .splash-bottle { max-width:35%; max-height:50%; }
 .splash-preview .splash-logo { max-width:70%; }
