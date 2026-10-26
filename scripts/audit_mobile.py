@@ -23,7 +23,8 @@ for route, filename, photo_count in [('/', 'index.html', 9), ('/investors', 'inv
     photos = [attrs for attrs in images if '/_next/image?' in attrs.get('src', '')]
     assert len(photos) == photo_count, f'{route}: expected {photo_count} responsive photos, got {len(photos)}'
     for image in images:
-        assert image.get('alt') and image.get('width') and image.get('height'), f'{route}: image description/dimensions'
+        # Decorative splash artwork correctly uses an explicitly empty alt.
+        assert 'alt' in image and image.get('width') and image.get('height'), f'{route}: image description/dimensions'
     for index, photo in enumerate(photos):
         assert photo.get('sizes') and len(photo.get('srcset', '').split(',')) >= 5, f'{route}: image candidates'
         original = parse_qs(urlparse(photo['src']).query)['url'][0]

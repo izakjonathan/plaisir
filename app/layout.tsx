@@ -3,6 +3,7 @@ import "./globals.css";
 import "./brand.css";
 import "./motion.css";
 import "./mobile.css";
+import "./landing.css";
 import SiteShell from "./SiteShell";
 export const metadata: Metadata = {
   title: "Plaisir · coffee & wine",
