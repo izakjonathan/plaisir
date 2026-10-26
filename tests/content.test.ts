@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { fields, validateDocument, emptyDocument, requireRevision, safeLink } from '../lib/content-schema.ts';
+import { fields, validateDocument, emptyDocument, requireRevision, safeLink, textValue } from '../lib/content-schema.ts';
 import { requireSameOrigin } from '../lib/editor-request.ts';
 import { PGlite } from '@electric-sql/pglite';
 import { initStore, readStore, writeStore, type Query } from '../lib/content-store.ts';
@@ -9,6 +9,14 @@ import sharp from 'sharp';
 
 const text = fields.find(f=>f.kind==='text')!.id;
 const photo = fields.find(f=>f.kind==='image')!;
+test('one multiline hero field preserves legacy titles and gives new saved titles precedence',()=>{
+ const legacy=validateDocument({text:{'experience.hero.text2':'Your new','experience.hero.text3':'daily','experience.hero.text4':'*ritual.*'},images:{}});
+ assert.equal(textValue(legacy,'experience.hero.title'),'Your new\ndaily\n*ritual.*');
+ const combined=validateDocument({...legacy,text:{...legacy.text,'experience.hero.title':'One\n\nnew chapter'}});
+ assert.equal(textValue(combined,'experience.hero.title'),'One\n\nnew chapter');
+ assert.equal(textValue(emptyDocument,'experience.hero.title'),'A little\neveryday\n*plaisir.*');
+ assert.equal(fields.filter(f=>f.id.startsWith('experience.hero.')&&f.label==='Heading'&&!f.hidden).length,1);
+});
 test('content validation accepts current text, imagery and crop values without changing defaults',()=>{
  const document={text:{[text]:'A new\n*chapter*'},images:{[photo.id]:{...(photo.default as object),x:25,y:80}}};
  assert.deepEqual(validateDocument(document),document);

@@ -1,4 +1,4 @@
-# Plaisir content editor · 0.4.0
+# Plaisir content editor · 0.4.1
 
 Open `/admin` directly. No links to the editor appear in public navigation. It has no login in this release, as requested, and sends noindex headers. Anyone who obtains the URL can edit and publish until authentication is added.
 
@@ -35,3 +35,7 @@ Visual inspiration: Baros's compact operation cards, labelled fields, expandable
 ## Verification
 
 Production build, TypeScript, existing finance/motion tests, content validation tests, real embedded Postgres save/publish/restore tests, and actual Sharp image conversion tests are included. The hosted Neon/Blob flow requires connected resources before it can be verified. The managed preview server exits before the browser connects in this workspace; physical iPhone rendering, the native camera chooser and upload have not been exercised on a device.
+
+## 0.4.1 — One title field
+
+The opening title is edited in one multiline Heading field. Press Return for each new line. Existing separate-line drafts and published history remain readable through a compatibility fallback; no database migration or content reset is needed. Each title line keeps its staggered entrance animation. Asterisks remain reserved for italic/bold formatting.

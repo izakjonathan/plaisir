@@ -1,7 +1,7 @@
 'use client';
 import Link from 'next/link';
 import Image, { type ImageProps } from 'next/image';
-import { createContext, useContext, useEffect, useState, Fragment, type ReactNode, type AnchorHTMLAttributes } from 'react';
+import { createContext, useContext, useEffect, useState, Fragment, type ReactNode, type AnchorHTMLAttributes, type CSSProperties } from 'react';
 import { emptyDocument, textValue, imageValue, fieldMap, validateDocument, type ContentDocument, type ContentImageValue } from '../lib/content-schema';
 
 const Context = createContext<ContentDocument>(emptyDocument);
@@ -25,8 +25,15 @@ export function ContentProvider({ value, children }: { value: ContentDocument; c
 export function useContent() { return useContext(Context); }
 export function Copy({ field }: { field: string }) {
   const value = textValue(useContent(), field);
+  return <FormattedText value={value}/>;
+}
+function FormattedText({ value }: { value: string }) {
   // Deliberately limited formatting; never render stored HTML.
   return <>{value.split(/(\*\*[^*]+\*\*|\*[^*]+\*|\n)/g).map((part, i) => part === '\n' ? <br key={i}/> : part.startsWith('**') ? <strong key={i}>{part.slice(2,-2)}</strong> : part.startsWith('*') && part.endsWith('*') ? <em key={i}>{part.slice(1,-1)}</em> : <Fragment key={i}>{part}</Fragment>)}</>;
+}
+export function TitleLines({ field }: { field: string }) {
+  const lines = textValue(useContent(), field).replace(/\r\n?/g,'\n').split('\n');
+  return <>{lines.map((line,index)=><span className="hero-line" key={index} style={{'--hero-line-delay':`${300+Math.min(index,8)*140}ms`} as CSSProperties}><span><FormattedText value={line || '\u00a0'}/></span></span>)}</>;
 }
 export function ContentImage({ field, style, ...props }: { field: string } & Omit<ImageProps,'src'|'alt'|'width'|'height'>) {
   const document = useContent();

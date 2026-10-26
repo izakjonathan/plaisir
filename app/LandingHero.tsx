@@ -1,5 +1,5 @@
 "use client";
-import { Copy, ContentImage, ContentLink } from "./Content";
+import { Copy, ContentImage, ContentLink, TitleLines } from "./Content";
 
 import { useLayoutEffect, useRef, useState } from "react";
 import { isReducedMotion } from "../lib/motion";
@@ -64,7 +64,7 @@ export default function LandingHero() {
     <div className="hero-light" aria-hidden="true" />
     <div className="hero-bottle" aria-hidden="true"><Bottle /></div>
     <div className="scene-content hero-copy">
-      <h1 id="home-title"><span className="hero-line"><span><Copy field="experience.hero.text2"/></span></span><span className="hero-line"><span><Copy field="experience.hero.text3"/></span></span><span className="hero-line"><Copy field="experience.hero.text4"/></span></h1>
+      <h1 id="home-title"><TitleLines field="experience.hero.title"/></h1>
       <ContentLink className="pill hero-discover" field="experience.hero.link1"><Copy field="experience.hero.text5"/></ContentLink>
     </div>
     <div className="hero-shadow" aria-hidden="true" />

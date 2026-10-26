@@ -1,12 +1,17 @@
 import definitions from './content-fields.json' with { type: 'json' };
 
 export type ContentImageValue = { src: string; alt: string; width: number; height: number; x: number; y: number };
-export type Field = { id: string; page: string; section: string; label: string; kind: 'text' | 'image' | 'link'; default: string | ContentImageValue; multiline?: boolean };
+export type Field = { id: string; page: string; section: string; label: string; kind: 'text' | 'image' | 'link'; default: string | ContentImageValue; multiline?: boolean; hidden?: boolean };
 export const fields = definitions as Field[];
 export const fieldMap = new Map(fields.map(field => [field.id, field]));
 export type ContentDocument = { text: Record<string, string>; images: Record<string, ContentImageValue> };
 export const emptyDocument: ContentDocument = { text: {}, images: {} };
 export function textValue(document: ContentDocument, id: string): string {
+  if (id === 'experience.hero.title' && document.text[id] === undefined) {
+    // Existing drafts and published history may still contain separate lines.
+    return ['experience.hero.text2','experience.hero.text3','experience.hero.text4']
+      .map(key => document.text[key] ?? String(fieldMap.get(key)?.default ?? '')).join('\n');
+  }
   return document.text[id] ?? String(fieldMap.get(id)?.default ?? '');
 }
 export function imageValue(document: ContentDocument, id: string): ContentImageValue {

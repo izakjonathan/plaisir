@@ -38,9 +38,7 @@ html.brand-intro-active .floating-header > * { opacity: 0; pointer-events: none;
 [data-intro="leaving"] .brand-splash { animation: splashDeparture 650ms cubic-bezier(.65,0,.35,1) both; }
 [data-intro="splash"] .hero-line > *, [data-intro="splash"] .hero-bottle, [data-intro="splash"] .hero-discover { opacity: 0; }
 [data-intro="leaving"] .hero-bottle, [data-intro="ready"] .hero-bottle { animation: bottleArrival 1100ms var(--ease-reveal) 100ms both; }
-[data-intro="leaving"] .hero-line > *, [data-intro="ready"] .hero-line > * { animation: lineArrival 1000ms var(--ease-reveal) 300ms both; }
-[data-intro="leaving"] .hero-line:nth-child(2) > *, [data-intro="ready"] .hero-line:nth-child(2) > * { animation-delay: 440ms; }
-[data-intro="leaving"] .hero-line:nth-child(3) > *, [data-intro="ready"] .hero-line:nth-child(3) > * { animation-delay: 580ms; }
+[data-intro="leaving"] .hero-line > *, [data-intro="ready"] .hero-line > * { animation: lineArrival 1000ms var(--ease-reveal) var(--hero-line-delay,300ms) both; }
 [data-intro="leaving"] .hero-discover, [data-intro="ready"] .hero-discover { animation: brandArrival 800ms var(--ease-reveal) 850ms both; }
 /* Do not restart hero animations when the splash is removed. */
 [data-intro="ready"] .hero-line > *, [data-intro="ready"] .hero-bottle, [data-intro="ready"] .hero-discover { animation-fill-mode: backwards; }

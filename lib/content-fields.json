@@ -909,13 +909,23 @@
     }
   },
   {
+    "id": "experience.hero.title",
+    "page": "experience",
+    "section": "scene hero brand-hero",
+    "label": "Heading",
+    "kind": "text",
+    "default": "A little\neveryday\n*plaisir.*",
+    "multiline": true
+  },
+  {
     "id": "experience.hero.text2",
     "page": "experience",
     "section": "scene hero brand-hero",
     "label": "Text",
     "kind": "text",
     "default": "A little",
-    "multiline": false
+    "multiline": false,
+    "hidden": true
   },
   {
     "id": "experience.hero.text3",
@@ -924,7 +934,8 @@
     "label": "Text",
     "kind": "text",
     "default": "everyday",
-    "multiline": false
+    "multiline": false,
+    "hidden": true
   },
   {
     "id": "experience.hero.text4",
@@ -933,7 +944,8 @@
     "label": "Text",
     "kind": "text",
     "default": "*plaisir.*",
-    "multiline": false
+    "multiline": false,
+    "hidden": true
   },
   {
     "id": "experience.hero.text5",

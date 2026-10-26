@@ -50,7 +50,7 @@ export default function Editor(){
  const previewMessage=useCallback(()=>frame.current?.contentWindow?.postMessage({type:'plaisir-preview',document},location.origin),[document]);
  useEffect(()=>{const receive=(event:MessageEvent)=>{if(event.origin===location.origin&&event.source===frame.current?.contentWindow&&event.data?.type==='plaisir-preview-ready')previewMessage();};window.addEventListener('message',receive);return()=>window.removeEventListener('message',receive);},[previewMessage]);
  useEffect(()=>{if(previewOpen){const timer=setTimeout(previewMessage,80);return()=>clearTimeout(timer);}},[document,previewOpen,previewMessage]);
- const pageFields=useMemo(()=>fields.filter(field=>field.page===page),[page]);
+ const pageFields=useMemo(()=>fields.filter(field=>field.page===page&&!field.hidden),[page]);
  const sections=useMemo(()=>[...new Set(pageFields.map(field=>field.section))].sort((a,b)=>a.includes('hero')?-1:b.includes('hero')?1:0),[pageFields]);
  const current=sections.includes(section)?section:sections[0];
  const visible=pageFields.filter(field=>field.section===current);
