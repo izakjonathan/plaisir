@@ -1818,3 +1818,203 @@ html[data-motion-off] .split-photo img,
 html[data-motion-off] .world-images img {
   transform: none;
 }
+/* Shams-style document canvas: sections paint the page; black prevents white overscroll. */
+html {
+  --document-canvas-color: #000;
+  --duration-menu: 360ms;
+  --ease-menu: cubic-bezier(0.76, 0, 0.24, 1);
+  --duration-reveal: 420ms;
+  --ease-reveal: cubic-bezier(0.16, 1, 0.3, 1);
+  --reveal-distance: 10px;
+  width: 100%;
+  height: 100%;
+  min-height: 100%;
+  background: var(--document-canvas-color);
+}
+body {
+  width: 100%;
+  min-height: 100vh;
+  background: var(--document-canvas-color);
+}
+.scene {
+  min-height: 100svh;
+}
+.scene-content {
+  padding-bottom: 100px;
+}
+.scene-content > p:not(.eyebrow) {
+  color: var(--amber);
+}
+.floating-header > *,
+.menu-top > * {
+  filter: none !important;
+  box-shadow: none !important;
+  text-shadow: none !important;
+}
+.burger-button,
+.burger-button:focus,
+.burger-button:focus-visible,
+.burger-button:hover {
+  border: 0 !important;
+  outline: none !important;
+  box-shadow: none !important;
+  background: none !important;
+  border-radius: 0;
+  padding: 8px;
+}
+.burger-button:focus-visible svg {
+  stroke-width: 2.5;
+}
+.burger-button svg {
+  display: block;
+  flex: none;
+}
+.close-button svg {
+  transform: none !important;
+}
+.manifesto h2 {
+  margin-bottom: 45px;
+}
+.scene-bottom,
+.section-folio {
+  display: none;
+}
+.world-heading {
+  grid-template-columns: 1.7fr 1fr;
+}
+.world-heading > p:last-child {
+  grid-column: auto;
+}
+.split-copy .pl-note {
+  margin-top: 0;
+}
+.site-menu[open],
+.site-menu[open] nav > a,
+.site-menu.is-closing {
+  animation: none;
+}
+.site-menu {
+  transform: translate3d(0, -100%, 0);
+  transition: transform var(--duration-menu) var(--ease-menu);
+  backface-visibility: hidden;
+  overscroll-behavior: contain;
+  will-change: transform;
+}
+.site-menu[data-phase="open"] {
+  transform: translate3d(0, 0, 0);
+}
+.site-menu nav {
+  padding-top: 8vh;
+  padding-bottom: 60px;
+}
+.site-menu nav > a {
+  opacity: 0;
+  display: block;
+  font-size: clamp(45px, 7vw, 98px);
+  line-height: 1.08;
+  padding: 30px 0;
+}
+.site-menu[data-phase="open"] nav > a {
+  opacity: 1;
+  animation: shamsMenuArrival 240ms var(--ease-reveal) backwards;
+  animation-delay: calc(70ms + var(--item) * 30ms);
+}
+@keyframes shamsMenuArrival {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 12px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.footer-heading {
+  margin-bottom: 40px;
+}
+.footer-bottom {
+  align-items: center;
+}
+/* Only enrolled, below-viewport content is concealed. SSR and focused content remain visible. */
+.motion-ready [data-reveal] {
+  opacity: 1;
+  transform: none;
+  transition: none;
+}
+.motion-ready [data-reveal].reveal-pending {
+  opacity: 0;
+  transform: translate3d(0, var(--reveal-distance), 0);
+  transition: none;
+}
+.motion-ready [data-reveal].reveal-visible {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity var(--duration-reveal) var(--ease-reveal),
+    transform var(--duration-reveal) var(--ease-reveal);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+.motion-ready [data-reveal]:focus-within {
+  opacity: 1;
+  transform: none;
+  transition: none;
+}
+.motion-ready .split-photo img,
+.motion-ready .world-images img {
+  transform: none;
+  transition: none;
+}
+@media (min-width: 760px) {
+  html {
+    --duration-menu: 420ms;
+    --duration-reveal: 520ms;
+    --reveal-distance: 16px;
+  }
+}
+@media (max-width: 600px) {
+  .scene-content {
+    padding-bottom: 95px;
+  }
+  .world-heading {
+    display: block;
+  }
+  .site-menu nav {
+    padding-top: 9vh;
+  }
+  .site-menu nav > a {
+    font-size: clamp(40px, 10.5vw, 60px);
+    padding: 27px 0;
+  }
+  .footer-bottom {
+    align-items: flex-start;
+  }
+  .wine-scene .scene-content {
+    padding-bottom: 110px;
+  }
+  .split-copy {
+    min-height: 76svh;
+  }
+  .manifesto {
+    min-height: 72svh;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .site-menu {
+    transition: none !important;
+  }
+  .site-menu[data-phase="open"] nav > a {
+    animation: none !important;
+  }
+  .motion-ready [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
+html[data-motion-off] .site-menu {
+  transition: none;
+}
+html[data-motion-off] .site-menu nav > a {
+  animation: none;
+}
+.menu-top{padding-top:max(20px,env(safe-area-inset-top,0px))}.brand-footer{padding-bottom:max(30px,env(safe-area-inset-bottom,0px))}

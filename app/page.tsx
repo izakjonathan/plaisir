@@ -14,7 +14,6 @@ export default function Home() {
         />
         <div className="scene-shade" />
         <div className="scene-content">
-          <p className="eyebrow">Coffee & wine. Good company.</p>
           <h1 id="home-title">
             A little
             <br />
@@ -26,15 +25,8 @@ export default function Home() {
             Discover the feeling
           </a>
         </div>
-        <div className="scene-bottom">
-          <span>From the first coffee to the last glass.</span>
-          <span>New York · Concept in the making</span>
-        </div>
       </section>
       <section id="welcome" className="manifesto gold-section">
-        <p className="eyebrow" data-reveal>
-          A place to feel at home
-        </p>
         <h2 data-reveal>
           Not intimidating.
           <br />
@@ -61,9 +53,6 @@ export default function Home() {
           />
         </figure>
         <div className="split-copy">
-          <p className="eyebrow" data-reveal>
-            Morning, made better
-          </p>
           <h2 data-reveal>
             Your day.
             <br />A little
@@ -77,7 +66,6 @@ export default function Home() {
           <a className="pill" href="#wine">
             Stay for a glass
           </a>
-          <span className="section-folio">01 / Coffee & pastries</span>
         </div>
       </section>
       <section
@@ -95,7 +83,6 @@ export default function Home() {
         />
         <div className="scene-shade" />
         <div className="scene-content">
-          <p className="eyebrow">No expertise required</p>
           <h2 id="wine-title" data-reveal>
             One glass.
             <br />
@@ -110,16 +97,9 @@ export default function Home() {
             Something to share
           </a>
         </div>
-        <div className="scene-bottom">
-          <span>02 / Wine & conversation</span>
-          <span>Atmosphere over wine.</span>
-        </div>
       </section>
       <section id="table" className="split-scene food-scene gold-section">
         <div className="split-copy">
-          <p className="eyebrow" data-reveal>
-            No occasion needed
-          </p>
           <h2 data-reveal>
             Good things.
             <br />
@@ -134,7 +114,6 @@ export default function Home() {
           <a className="pill" href="#neighbourhood">
             Find our first chapter
           </a>
-          <span className="section-folio">03 / Food & good company</span>
         </div>
         <figure className="split-photo">
           <img
@@ -148,7 +127,6 @@ export default function Home() {
       </section>
       <section className="brand-world">
         <div className="world-heading">
-          <p className="eyebrow">The Plaisir feeling</p>
           <h2 data-reveal>
             Familiar.
             <br />
@@ -168,7 +146,6 @@ export default function Home() {
               alt="Plaisir cups, pastry bags and takeaway packaging concepts"
               loading="lazy"
             />
-            <figcaption>Out into the neighbourhood.</figcaption>
           </figure>
           <figure>
             <img
@@ -178,7 +155,6 @@ export default function Home() {
               alt="Plaisir cap, sweatshirt and canvas bag concepts"
               loading="lazy"
             />
-            <figcaption>A little Plaisir, wherever you go.</figcaption>
           </figure>
         </div>
       </section>
@@ -193,7 +169,6 @@ export default function Home() {
         />
         <div className="scene-shade" />
         <div className="scene-content">
-          <p className="eyebrow">Our first chapter</p>
           <h2 data-reveal>
             Your new
             <br />
@@ -207,10 +182,6 @@ export default function Home() {
           <Link className="pill" href="/investors">
             The story behind Plaisir
           </Link>
-        </div>
-        <div className="scene-bottom">
-          <span>New York, in the making.</span>
-          <span>Architectural concept · No confirmed site</span>
         </div>
       </section>
     </main>

@@ -26,7 +26,6 @@ export default function Investors() {
         />
         <div className="scene-shade" />
         <div className="scene-content">
-          <p className="eyebrow">The business behind the feeling</p>
           <h1>
             A familiar place.
             <br />A new chapter.
@@ -39,14 +38,9 @@ export default function Investors() {
             Explore the proposition
           </a>
         </div>
-        <div className="scene-bottom">
-          <span>Investor overview</span>
-          <span>Concept stage · No confirmed opening date</span>
-        </div>
       </section>
       <section id="proposition" className="investor-intro gold-section">
         <div>
-          <p className="eyebrow">The proposition</p>
           <h2 data-reveal>
             Two reasons
             <br />
@@ -107,7 +101,6 @@ export default function Investors() {
           />
         </figure>
         <div className="split-copy">
-          <p className="eyebrow">The proposed first address</p>
           <h2 data-reveal>
             Flagship
             <br />
@@ -130,7 +123,6 @@ export default function Investors() {
         </div>
       </section>
       <section className="investor-people">
-        <p className="eyebrow">People & service</p>
         <h2 data-reveal>
           A culture worth
           <br />
@@ -156,7 +148,6 @@ export default function Investors() {
       </section>
       <section className="growth-section gold-section">
         <div>
-          <p className="eyebrow">Launch & growth</p>
           <h2 data-reveal>
             Prove it.
             <br />
@@ -195,7 +186,6 @@ export default function Investors() {
         </div>
       </section>
       <section className="model-invitation">
-        <p className="eyebrow">The financial illustration</p>
         <h2 data-reveal>
           Behind
           <br />

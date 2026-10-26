@@ -1,52 +1,98 @@
 "use client";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import { usePathname, useRouter } from "next/navigation";
+import {
+  useEffect,
+  useRef,
+  useState,
+  useCallback,
+  type ReactNode,
+  type MouseEvent,
+} from "react";
 import PageMotion from "./PageMotion";
 const areas = [
-  {
-    href: "/",
-    label: "The experience",
-    description: "Coffee, wine & good company",
-  },
-  {
-    href: "/investors",
-    label: "The story",
-    description: "The business behind Plaisir",
-  },
-  {
-    href: "/financials",
-    label: "The numbers",
-    description: "The financial illustration",
-  },
+  { href: "/", label: "The experience" },
+  { href: "/investors", label: "The story" },
+  { href: "/financials", label: "The numbers" },
 ];
+type Phase = "closed" | "opening" | "open" | "closing";
 export default function SiteShell({ children }: { children: ReactNode }) {
   const pathname = usePathname();
+  const router = useRouter();
   const menu = useRef<HTMLDialogElement>(null);
-  const [closing, setClosing] = useState(false);
-  const [opened, setOpened] = useState(false);
-  const finish = () => {
+  const pending = useRef<string | null>(null);
+  const [phase, setPhase] = useState<Phase>("closed");
+  const reduced = () =>
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches ||
+    document.documentElement.hasAttribute("data-motion-off");
+  const finish = useCallback(() => {
     menu.current?.close();
-    setClosing(false);
-    setOpened(false);
+    setPhase("closed");
     document.documentElement.classList.remove("menu-open");
-  };
+    const href = pending.current;
+    pending.current = null;
+    if (href) router.push(href);
+  }, [router]);
   useEffect(() => {
     menu.current?.close();
-    setClosing(false);
-    setOpened(false);
+    setPhase("closed");
+    pending.current = null;
     document.documentElement.classList.remove("menu-open");
   }, [pathname]);
-  const close = () => {
-    if (
-      window.matchMedia("(prefers-reduced-motion: reduce)").matches ||
-      document.documentElement.hasAttribute("data-motion-off")
-    ) {
-      finish();
+  useEffect(() => {
+    if (phase !== "opening") return;
+    if (reduced()) {
+      setPhase("open");
       return;
     }
-    setClosing(true);
+    let second = 0;
+    const first = requestAnimationFrame(() => {
+      second = requestAnimationFrame(() => setPhase("open"));
+    });
+    return () => {
+      cancelAnimationFrame(first);
+      cancelAnimationFrame(second);
+    };
+  }, [phase]);
+  useEffect(() => {
+    if (phase !== "closing") return;
+    const raw = getComputedStyle(document.documentElement)
+      .getPropertyValue("--duration-menu")
+      .trim();
+    const value = parseFloat(raw);
+    const ms = Number.isFinite(value)
+      ? value * (raw.endsWith("ms") ? 1 : 1000)
+      : 360;
+    const timer = setTimeout(finish, reduced() ? 0 : ms + 100);
+    return () => clearTimeout(timer);
+  }, [phase, finish]);
+  useEffect(
+    () => () => document.documentElement.classList.remove("menu-open"),
+    [],
+  );
+  const close = () => {
+    if (reduced()) finish();
+    else setPhase("closing");
   };
+  const navigate = (e: MouseEvent<HTMLAnchorElement>, href: string) => {
+    if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+    e.preventDefault();
+    pending.current = href;
+    close();
+  };
+  const x = (
+    <svg
+      width="28"
+      height="28"
+      viewBox="0 0 28 28"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      aria-hidden="true"
+    >
+      <path d="M5 5L23 23M23 5L5 23" />
+    </svg>
+  );
   return (
     <>
       <a className="skip-link" href="#main">
@@ -66,23 +112,31 @@ export default function SiteShell({ children }: { children: ReactNode }) {
           aria-label="Open menu"
           aria-haspopup="dialog"
           aria-controls="site-menu"
-          aria-expanded={opened}
+          aria-expanded={phase !== "closed" && phase !== "closing"}
           onClick={() => {
-            setClosing(false);
+            pending.current = null;
+            setPhase("opening");
             menu.current?.showModal();
-            setOpened(true);
             document.documentElement.classList.add("menu-open");
           }}
         >
-          <span className="menu-lines" aria-hidden="true">
-            <i />
-            <i />
-          </span>
+          <svg
+            width="28"
+            height="28"
+            viewBox="0 0 28 28"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            aria-hidden="true"
+          >
+            <path d="M2 10H26M2 18H26" />
+          </svg>
         </button>
       </header>
       <dialog
         id="site-menu"
-        className={`site-menu${closing ? " is-closing" : ""}`}
+        className="site-menu"
+        data-phase={phase}
         ref={menu}
         aria-label="Explore Plaisir"
         onCancel={(e) => {
@@ -90,17 +144,22 @@ export default function SiteShell({ children }: { children: ReactNode }) {
           close();
         }}
         onClose={() => {
-          setOpened(false);
+          setPhase("closed");
           document.documentElement.classList.remove("menu-open");
         }}
-        onAnimationEnd={(e) => {
-          if (e.target === e.currentTarget && closing) finish();
+        onTransitionEnd={(e) => {
+          if (
+            e.target === e.currentTarget &&
+            e.propertyName === "transform" &&
+            phase === "closing"
+          )
+            finish();
         }}
       >
         <div className="menu-top">
           <Link
             href="/"
-            onClick={close}
+            onClick={(e) => navigate(e, "/")}
             className="brand-logo"
             aria-label="Plaisir home"
           >
@@ -117,10 +176,7 @@ export default function SiteShell({ children }: { children: ReactNode }) {
             onClick={close}
             aria-label="Close menu"
           >
-            <span aria-hidden="true">
-              <i />
-              <i />
-            </span>
+            {x}
           </button>
         </div>
         <nav aria-label="Main navigation">
@@ -129,33 +185,22 @@ export default function SiteShell({ children }: { children: ReactNode }) {
               key={a.href}
               href={a.href}
               aria-current={pathname === a.href ? "page" : undefined}
-              onClick={close}
+              onClick={(e) => navigate(e, a.href)}
               style={{ "--item": i } as React.CSSProperties}
             >
-              <span className="menu-index">0{i + 1}</span>
-              <span>
-                {a.label}
-                <small>{a.description}</small>
-              </span>
+              {a.label}
             </Link>
           ))}
         </nav>
-        <div className="menu-bottom">
-          <span>A little everyday pleasure.</span>
-          <span>New York · Concept preview</span>
-        </div>
       </dialog>
       {children}
       <footer className="brand-footer">
         <div className="footer-heading">
-          <div>
-            <p className="eyebrow">Coffee. Wine. Good company.</p>
-            <h2 data-reveal>
-              Make yourself
-              <br />
-              at home.
-            </h2>
-          </div>
+          <h2 data-reveal>
+            Make yourself
+            <br />
+            at home.
+          </h2>
           <Link href="/" className="footer-signature" aria-label="Plaisir home">
             <img
               src="/brand/wordmark-green.png"
@@ -173,11 +218,7 @@ export default function SiteShell({ children }: { children: ReactNode }) {
               </Link>
             ))}
           </nav>
-          <p>
-            Plaisir · A concept in the making.
-            <br />
-            Not yet open. Images include concept renderings.
-          </p>
+          <p>Concept preview. Not yet open.</p>
           <PageMotion />
         </div>
       </footer>

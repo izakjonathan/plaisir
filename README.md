@@ -1,4 +1,4 @@
-# Plaisir — Next.js 0.3.1
+# Plaisir — Next.js 0.3.2
 
 A brand-led hospitality website using the supplied 48-page Agilera investor presentation as the visual and financial reference.
 
@@ -24,9 +24,11 @@ Brand colours: olive #2B3D17 and ochre #D19C36. Original Agilera is self-hosted.
 
 The fixed header contains the logo and burger icon only, without a filled bar or menu-button border. Native-dialog navigation has entrance/exit animations, staggered links, focus containment, Escape handling and scroll locking. Outline pills contain centred text only. The compact footer uses the ochre background and green wordmark.
 
-Scroll reveals apply to headings and selected photographs. Reduced-motion preferences are respected, so animation is intentionally suppressed when the device requests it. The footer also offers a motion preference control.
+Small section eyebrows, numbered folios, image captions and hero helper lines have been removed. Paragraphs over photographs use the exact brand ochre, and the floating logo and menu controls have no shadows. The close control is an SVG X without a border or fill.
 
-HTML and body backgrounds are transparent. The forced green theme-colour metadata is removed, and viewport-fit is cover. Safari controls the final status/address-bar rendering; this is not a promise of a specific browser-chrome colour on every iOS version.
+The supplied Shams motion patterns are adapted to native-dialog navigation: a sliding menu panel, capped link stagger, transition-end close handling and a timer fallback. Scroll reveals use visible-first enrollment, a small capped stagger, focus visibility and safe cleanup. Scroll reveals apply to headings and selected photographs. Reduced-motion preferences are respected, so animation is intentionally suppressed when the device requests it. The footer also offers a motion preference control.
+
+The browser canvas follows the supplied Shams project: black HTML/body fallback, black theme-colour metadata and viewport-fit cover. This prevents a white document/overscroll canvas. Safari controls its own toolbar rendering; actual page imagery behind native browser controls cannot be guaranteed across iOS versions.
 
 ## Financial provenance
 
@@ -38,7 +40,7 @@ Legacy calculation helpers remain in `lib/finance.ts` for reference and unit cov
 
 ## Verification
 
-Production build and TypeScript check pass. Nine tests cover baseline arithmetic, funding allocations, break-even and all nine scenario residuals. Responsive Chromium checks cover the public, investor and financial routes, burger/dialog interaction, compact buttons, transparent page canvas, absence of sliders, funding changes, source-scenario navigation and overflow at 375px usable mobile width. This does not replace physical-device Safari testing.
+Production build and TypeScript check pass. Nine tests cover baseline arithmetic, funding allocations, break-even and all nine scenario residuals. Responsive Chromium checks cover the public, investor and financial routes, burger/dialog interaction, compact buttons, black browser canvas, absence of sliders, funding changes, source-scenario navigation and overflow at 375px usable mobile width. Menu navigation also verifies that the exit completes, the dialog closes and scrolling unlocks before the new route appears. This does not replace physical-device Safari testing.
 
 The venue remains a concept preview. Images include renderings, no premises or opening date is confirmed, and financials are source-derived illustrations rather than an approved forecast or verified investment return.
 
