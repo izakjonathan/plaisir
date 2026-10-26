@@ -692,7 +692,7 @@
     "section": "Operating overview",
     "label": "Heading",
     "kind": "text",
-    "default": "The operating bridge",
+    "default": "Sales, costs and earnings",
     "multiline": true
   },
   {
@@ -755,7 +755,7 @@
     "section": "Operating overview",
     "label": "Heading",
     "kind": "text",
-    "default": "Gross margin sensitivity",
+    "default": "Sales needed at each gross margin",
     "multiline": true
   },
   {
@@ -854,7 +854,7 @@
     "section": "Source scenarios",
     "label": "Paragraph",
     "kind": "text",
-    "default": "Source projections. USD thousands, rounded.",
+    "default": "Annual USD. Source projections, rounded to the nearest $1,000.",
     "multiline": true
   },
   {

@@ -61,7 +61,7 @@
 .pl-financial-page .comparison-track > span { position: absolute; height: 100%; top: 0; background: #2b3d17; border-radius: 2px; }
 .pl-financial-page .comparison-track.diverging:after { content: ''; position: absolute; left: 50%; top: 0; bottom: 0; width: 2px; background: #2b3d17; }
 .pl-financial-page .comparison-track > .loss-bar { background: repeating-linear-gradient(135deg,#2b3d17 0 3px,transparent 3px 6px); border: 1px solid #2b3d17; }
-.pl-financial-page .chart-axis { display: flex; justify-content: space-between; gap: 8px; font-size: 14px; font-variant-numeric: tabular-nums; margin-bottom: 20px; }
+.pl-financial-page .chart-axis { display: grid; grid-template-columns: 1fr auto 1fr; gap: 8px; font-size: 16px; font-variant-numeric: tabular-nums; margin-bottom: 20px; }
 @media (max-width: 1050px) {
   .pl-financial-page .finance-kpis { grid-template-columns: 1fr; }
   .pl-financial-page .finance-grid, .pl-financial-page .break-panel { grid-template-columns: 1fr; }
@@ -84,3 +84,5 @@
   .pl-financial-page .break-panel > div + div { padding-top: 30px; }
   .pl-financial-page .chart-label { gap: 10px; }
 }
+
+.pl-financial-page .chart-axis > span:last-child { text-align: right; }
