@@ -1,23 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
+import LandingHero from "./LandingHero";
 export default function Home() {
     return (<main id="main" className="experience">
-      <section className="scene hero" aria-labelledby="home-title">
-        <Image className="scene-photo" src="/brand/table.webp" width="1536" height="1024" alt="Wine glasses and a Plaisir menu in warm evening light" fetchPriority="high" loading="eager" sizes="100vw"/>
-        <div className="scene-shade"/>
-        <div className="scene-content">
-          <h1 id="home-title">
-            A little
-            <br />
-            everyday
-            <br />
-            <em>plaisir.</em>
-          </h1>
-          <a className="pill" href="#welcome">
-            Discover the feeling
-          </a>
-        </div>
-      </section>
+      <LandingHero />
       <section id="welcome" className="manifesto gold-section">
         <h2 data-reveal>
           Not intimidating.
