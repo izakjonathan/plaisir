@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useLayoutEffect, useRef, useState } from "react";
 import { isReducedMotion } from "../lib/motion";
 
@@ -58,6 +59,8 @@ export default function LandingHero() {
   }, []);
 
   return <section ref={section} className="scene hero brand-hero" data-intro={intro ?? undefined} aria-labelledby="home-title">
+    <Image className="scene-photo" src="/brand/table.webp" width={1536} height={1024} alt="Wine glasses and a Plaisir menu in warm evening light" fetchPriority="high" loading="eager" sizes="100vw" />
+    <div className="scene-shade" aria-hidden="true" />
     <div className="hero-light" aria-hidden="true" />
     <div className="hero-bottle" aria-hidden="true"><Bottle /></div>
     <div className="scene-content hero-copy">
