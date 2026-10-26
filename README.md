@@ -1,4 +1,4 @@
-# Plaisir — Next.js 0.3.3
+# Plaisir — Next.js 0.3.4
 
 A brand-led hospitality website using the supplied 48-page Agilera investor presentation as the visual and financial reference.
 
@@ -22,17 +22,21 @@ Validation: `npm run typecheck` and `npm test`.
 
 Brand colours: olive #2B3D17 and ochre #D19C36. Original Agilera is self-hosted. Real transparent PNG wordmarks replace CSS masks for more reliable Safari rendering.
 
-The fixed header contains the logo and burger icon only, without a filled bar or menu-button border. Native-dialog navigation has entrance/exit animations, staggered links, focus containment, Escape handling and scroll locking. Outline pills contain centred text only. The compact footer uses the ochre background and green wordmark.
+The fixed header contains the logo and burger icon only, without a filled bar or menu-button border. Mounted-panel navigation has entrance/exit animations, staggered links, focus containment, Escape handling and scroll locking. Outline pills contain centred text only. The compact footer uses the ochre background and green wordmark.
 
 Small public/investor section labels remain removed. The three menu descriptions are restored. Paragraphs on photographs use exact brand ochre; the floating logo and controls have no shadows. The dashboard uses an ochre background and dark olive text, charts, rules and controls, including its fixed header controls.
 
-## Motion corrections in 0.3.3
+## Motion corrections in 0.3.4
 
-The old reveal controller could leave both `reveal-pending` and `reveal-visible` on an element after cleanup/re-enrollment. The latter CSS rule won, bypassing the reveal. Enrollment and cleanup now remove stale state. One IntersectionObserver handles below-viewport content; content already visible, focused content and content without JavaScript stay readable. Route changes and motion changes cleanly rebuild enrollment. Media-query changes are subscribed to React state, so turning the system preference back off restores the full behavior.
+The prior version approximated Shams instead of preserving its motion architecture. This build ports the reference's mounted panel, double-animation-frame entrance, transform transition-end exit, capped link keyframes and progressive reveal observer. The header uses one fixed logo and one burger/X button, with the panel sliding behind them. There is no second header travelling inside a native dialog.
 
-Several generations of motion CSS were competing, including a universal reduced-motion rule disabling every transition, animation and transform. They are replaced with one scoped system. Full motion uses a 540ms sliding menu, staggered link transitions and 720ms fade/translation reveals. Reduced motion uses short, stationary fades, and the footer's **Enable animations** control allows an explicit full-motion choice even when the system requests reduced motion. The control is no longer disabled. It changes to **Reduce motion** in full mode.
+The only menu/reveal animation stylesheet is `app/motion.css`. Mobile values match the uploaded Shams source: menu 360ms, reveal 420ms/10px, link arrival 240ms with 70ms + 30ms per-link delay, reveal stagger 40ms capped at 80ms. Desktop values are 420ms, 520ms and 16px. Only marked text/content blocks reveal; whole photographs remain stationary.
 
-An opaque green native-dialog backdrop previously covered the whole page immediately, concealing the panel entrance. The backdrop is now transparent. Full-motion closing waits for the panel transform, not the shorter opacity transition; reduced mode waits for opacity. A duration-based fallback prevents stuck dialogs. Native focus containment, Escape, scroll unlocking and delayed link navigation remain intact.
+Reveal enrollment waits until after the route paint boundary so Next.js scroll restoration does not classify the new page while it is still at the prior reading position. Visual viewport height is used, existing visible/focused content remains readable, and completed arrivals are one-shot. Cleanup cannot leave concealed content. Reduced motion matches Shams: immediate menu and visible content, with an explicit footer option to enable full motion.
+
+For menu route navigation, the open panel covers the route switch and its exit reveals the new page. This adapts Shams' separate route-curtain coverage without introducing its splash, event-specific navigation or a second overlay. Keyboard focus containment, Escape handling, safe focus restoration and inert background content remain included.
+
+See `docs/motion-review.md` for the exact source comparison and verification limits.
 
 ## Browser canvas corrections
 
@@ -50,7 +54,9 @@ Legacy calculation helpers remain in `lib/finance.ts` for reference and unit cov
 
 ## Verification
 
-Production build and TypeScript checks pass. All nine financial tests pass. Responsive Chromium checks at 390px verify no horizontal overflow, restored menu descriptions, SVG close control, transparent dialog backdrop, yellow/green dashboard, menu entrance/exit transitions, navigation and scroll unlocking. Computed intermediate panel positions confirm the menu actually moves; a below-viewport heading changes from pending/transparent/24px translation to visible/opaque/zero translation after scrolling. Motion can be reduced and re-enabled; enrollment has no conflicting classes. Native Safari toolbar appearance is not covered by those checks.
+Production build and TypeScript checks pass. Fourteen tests cover the nine existing financial cases plus paint-boundary sequencing, cancellation before/between entrance frames, CSS time conversion for the exit fallback, and explicit motion preference precedence. Code comparison uses the supplied Shams `SiteHeader.tsx`, `LowerSectionReveal.tsx`, `mobile-menu.css`, `motion.css`, `design-system.css` and `lib/motion.ts`.
+
+Browser verification for 0.3.4 is incomplete: the managed preview exits before the browser connects. This build has not been visually verified in mobile Chromium or physical Safari. Earlier versions' browser checks do not establish this version's behavior. No frame recordings or native-device verification are claimed.
 
 The venue remains a concept preview. Images include renderings, no premises or opening date is confirmed, and financials are source-derived illustrations rather than an approved forecast or verified investment return.
 

@@ -159,54 +159,13 @@ summary:focus-visible {
 .menu-open {
   overflow: hidden;
 }
-.site-menu {
-  position: fixed;
-  inset: 0;
-  margin: 0;
-  max-width: none;
-  max-height: none;
-  width: 100%;
-  height: 100%;
-  height: 100dvh;
-  border: 0;
-  padding: 0;
-  background: var(--green);
-  color: var(--amber);
-  z-index: 80;
-}
-.site-menu::backdrop {
-  background: transparent;
-}
-.menu-top {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: clamp(20px, 3vw, 38px) var(--gutter);
-}
-.site-menu nav {
-  padding: 6vh var(--gutter);
-  max-width: 1400px;
-  margin: auto;
-}
-.site-menu nav > a {
-  display: flex;
-  align-items: baseline;
-  gap: 40px;
-  padding: 25px 0;
-  border-bottom: 1px solid var(--rule);
-  font: clamp(42px, 6vw, 90px) / 1.12 var(--display);
-}
+
 .menu-index {
   font: 11px var(--sans);
   align-self: flex-start;
   padding-top: 12px;
 }
-.site-menu small {
-  display: block;
-  font: 13px/1.5 var(--sans);
-  letter-spacing: 0;
-  margin: 14px 0 6px;
-}
+
 .menu-arrow {
   margin-left: auto;
   font-family: var(--sans);
@@ -450,7 +409,6 @@ summary:focus-visible {
   font-size: 11px;
   min-height: 24px;
 }
-
 
 /* Investor pages share the same full-bleed editorial rhythm. */
 .investor-hero {
@@ -933,29 +891,13 @@ summary:focus-visible {
     gap: 25px;
     flex-wrap: wrap;
   }
-  .site-menu nav {
-    padding: 5vh 24px;
-  }
-  .site-menu nav > a {
-    font-size: clamp(36px, 9vw, 54px);
-    gap: 18px;
-    padding: 26px 0;
-  }
-  .site-menu small {
-    font-size: 11px;
-  }
+
   .menu-bottom {
     flex-direction: column;
     gap: 12px;
     font-size: 11px;
   }
-  .menu-top {
-    padding: 18px 24px;
-  }
-  .menu-top .pill {
-    min-height: 43px;
-    padding: 10px 17px;
-  }
+
   .investor-intro {
     display: block;
     padding: 75px 24px;
@@ -1060,8 +1002,6 @@ summary:focus-visible {
   }
 }
 
-
-
 /* Refinement: compact controls, transparent browser canvas and quieter navigation. */
 html,
 body {
@@ -1152,18 +1092,6 @@ body {
   height: auto;
 }
 
-
-
-
-.menu-top {
-  align-items: center;
-}
-.menu-top .brand-logo {
-  width: 130px;
-}
-.site-menu nav > a {
-  align-items: baseline;
-}
 .menu-bottom {
   opacity: 0.8;
 }
@@ -1225,15 +1153,10 @@ body {
   opacity: 0.65;
 }
 
-
 .split-photo,
 .world-images figure {
   overflow: hidden;
 }
-
-
-
-
 
 /* Presentation-based dashboard. No editable input or slider section. */
 .deck-dashboard {
@@ -1599,9 +1522,7 @@ body {
     width: 44px;
     height: 44px;
   }
-  .menu-top .brand-logo {
-    width: 107px;
-  }
+
   .footer-heading {
     display: block;
     margin-bottom: 35px;
@@ -1722,16 +1643,10 @@ body {
   }
 }
 
-
-
 /* Page canvas follows the page palette; no forced browser toolbar colour. */
 html {
   --document-canvas-color: var(--green);
-  --duration-menu: 360ms;
-  --ease-menu: cubic-bezier(0.76, 0, 0.24, 1);
-  --duration-reveal: 420ms;
-  --ease-reveal: cubic-bezier(0.16, 1, 0.3, 1);
-  --reveal-distance: 10px;
+
   width: 100%;
   min-height: 100%;
   background: var(--document-canvas-color);
@@ -1750,12 +1665,7 @@ body {
 .scene-content > p:not(.eyebrow) {
   color: var(--amber);
 }
-.floating-header > *,
-.menu-top > * {
-  filter: none !important;
-  box-shadow: none !important;
-  text-shadow: none !important;
-}
+
 .burger-button,
 .burger-button:focus,
 .burger-button:focus-visible,
@@ -1802,17 +1712,6 @@ body {
 }
 /* Only enrolled, below-viewport content is concealed. SSR and focused content remain visible. */
 
-
-
-
-
-@media (min-width: 760px) {
-  html {
-    --duration-menu: 420ms;
-    --duration-reveal: 520ms;
-    --reveal-distance: 16px;
-  }
-}
 @media (max-width: 600px) {
   .scene-content {
     padding-bottom: 95px;
@@ -1820,13 +1719,7 @@ body {
   .world-heading {
     display: block;
   }
-  .site-menu nav {
-    padding-top: 9vh;
-  }
-  .site-menu nav > a {
-    font-size: clamp(40px, 10.5vw, 60px);
-    padding: 27px 0;
-  }
+
   .footer-bottom {
     align-items: flex-start;
   }
@@ -1841,54 +1734,10 @@ body {
   }
 }
 
+.brand-footer{padding-bottom:max(30px,env(safe-area-inset-bottom,0px))}
 
 
-.menu-top{padding-top:max(20px,env(safe-area-inset-top,0px))}.brand-footer{padding-bottom:max(30px,env(safe-area-inset-bottom,0px))}
-
-/* One motion system. Pending and visible are mutually exclusive. */
-:root { --duration-menu: 540ms; --duration-reveal: 720ms; --reveal-distance: 24px; }
-.site-menu {
-  transform: translate3d(0, -100%, 0);
-  opacity: 1;
-  transition: transform var(--duration-menu) var(--ease-menu);
-  will-change: transform, opacity;
-}
-.site-menu[data-phase="open"] { transform: translate3d(0, 0, 0); opacity: 1; }
-.site-menu nav { padding-top: 5vh; padding-bottom: 40px; }
-.site-menu nav > a {
-  display: block; opacity: 0; transform: translateY(18px);
-  font-size: clamp(42px, 7vw, 98px); line-height: 1.08;
-  padding: 27px 0; transition: opacity 220ms ease, transform 220ms var(--ease-reveal);
-}
-.site-menu[data-phase="open"] nav > a {
-  opacity: 1; transform: translateY(0);
-  transition-duration: 420ms;
-  transition-delay: calc(180ms + var(--item) * 75ms);
-}
-.site-menu small { margin: 18px 0 0; font: 14px/1.5 var(--sans); }
-[data-reveal] { opacity: 1; }
-[data-reveal].reveal-pending { opacity: 0; transform: translate3d(0,var(--reveal-distance),0); }
-[data-reveal].reveal-visible {
-  opacity: 1; transform: translate3d(0,0,0);
-  transition: opacity var(--duration-reveal) var(--ease-reveal), transform var(--duration-reveal) var(--ease-reveal);
-  transition-delay: var(--reveal-delay,0ms);
-}
-[data-reveal]:focus-within { opacity: 1; transform: none; transition: none; }
-html[data-motion="reduced"] { scroll-behavior: auto; --duration-menu: 180ms; --duration-reveal: 180ms; --reveal-distance: 0px; }
-html[data-motion="reduced"] .site-menu { transform: none; opacity: 0; transition: opacity 180ms ease; }
-html[data-motion="reduced"] .site-menu[data-phase="open"] { opacity: 1; }
-html[data-motion="reduced"] .site-menu nav > a { transform: none; transition-delay: 0ms; transition-duration: 180ms; }
-html[data-motion="reduced"] .finance-view { animation: viewFade 180ms ease both; }
-@keyframes viewFade { from { opacity: 0; } to { opacity: 1; } }
-@media (prefers-reduced-motion: reduce) {
-  html:not([data-motion="full"]) { scroll-behavior: auto; --reveal-distance: 0px; --duration-reveal: 180ms; }
-  html:not([data-motion="full"]) .site-menu { transform: none; transition: opacity 180ms ease; }
-  html:not([data-motion="full"]) .site-menu nav > a { transform: none; transition-delay: 0ms; }
-}
-@media (max-width:600px) {
-  .site-menu nav > a { font-size: clamp(38px,10.5vw,60px); padding: 24px 0; }
-  .site-menu small { font-size: 13px; margin-top: 15px; }
-}
+/* Yellow financial workspace, retained from 0.3.3. */
 .pl-financial-page {
   --green: #2b3d17; --amber: #2b3d17; --text: #2b3d17; --rule: #2b3d1740;
   background: #d19c36; color: #2b3d17;
@@ -1900,11 +1749,11 @@ html[data-motion="reduced"] .finance-view { animation: viewFade 180ms ease both;
 body:has(.pl-financial-page) .floating-header { color: #2b3d17; }
 body:has(.pl-financial-page) .floating-header .brand-logo img { content: url('/brand/wordmark-green.png'); }
 html:has(.pl-financial-page) { --document-canvas-color: #d19c36; }
-
 body:has(.pl-financial-page) .floating-header .burger-button { color: #2b3d17; }
-/* Only the two controls are fixed. A viewport-wide fixed header can trigger
-   Safari's solid edge colour extension even when its background is transparent. */
+/* Narrow fixed controls avoid a full-width fixed browser tint surface. */
 .floating-header { display: contents; position: static; padding: 0; }
-.floating-header > * { position: fixed; z-index: 40; top: max(clamp(20px,3vw,38px),env(safe-area-inset-top,0px)); }
+.floating-header > * { position: fixed; z-index: 90; top: max(clamp(20px,3vw,38px),env(safe-area-inset-top,0px)); filter: none; box-shadow: none; text-shadow: none; }
 .floating-header .brand-logo { left: max(var(--gutter),env(safe-area-inset-left,0px)); }
-.floating-header .burger-button { right: max(var(--gutter),env(safe-area-inset-right,0px)); top: max(clamp(20px,3vw,38px),env(safe-area-inset-top,0px)); }
+.floating-header .burger-button { right: max(var(--gutter),env(safe-area-inset-right,0px)); }
+html.menu-open .floating-header .burger-button { color: #d19c36; }
+html.menu-open .floating-header .brand-logo img { content: url('/brand/wordmark-gold.png'); }

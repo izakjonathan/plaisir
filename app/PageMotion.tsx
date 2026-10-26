@@ -1,90 +1,112 @@
 "use client";
 import { useLayoutEffect, useState } from "react";
 import { usePathname } from "next/navigation";
-
+import { afterPaint } from "../lib/motion";
 type Preference = "system" | "full" | "reduced";
+const SELECTOR = "[data-reveal]";
 export default function PageMotion() {
-  const path = usePathname();
-  const [preference, setPreference] = useState<Preference>("system");
-  const [systemReduced, setSystemReduced] = useState(false);
-  const full = preference === "full" || (preference === "system" && !systemReduced);
-
-  useLayoutEffect(() => {
-    const mq = matchMedia("(prefers-reduced-motion: reduce)");
-    const update = () => setSystemReduced(mq.matches);
-    update();
-    mq.addEventListener("change", update);
-    return () => mq.removeEventListener("change", update);
-  }, []);
-
-  useLayoutEffect(() => {
-    const root = document.documentElement;
-    // Read the live preference here, including the very first layout effect.
-    const reduced = preference === "reduced" ||
-      (preference === "system" && matchMedia("(prefers-reduced-motion: reduce)").matches);
-    root.dataset.motion = reduced ? "reduced" : "full";
-    root.removeAttribute("data-motion-off");
-    const tracked = new Set<HTMLElement>();
-    const selector = "[data-reveal], .split-photo, .world-images figure";
-    let observer: IntersectionObserver | undefined;
-    const show = (el: HTMLElement, delay = 0) => {
-      el.style.setProperty("--reveal-delay", `${delay}ms`);
-      el.classList.replace("reveal-pending", "reveal-visible");
-      observer?.unobserve(el);
-    };
-    if ("IntersectionObserver" in window) {
-      observer = new IntersectionObserver(entries => {
-        entries.filter(e => e.isIntersecting)
-          .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top)
-          .forEach((e, i) => show(e.target as HTMLElement, reduced ? 0 : Math.min(i * 60, 120)));
-      }, { threshold: 0, rootMargin: "0px 0px -32px 0px" });
-    }
-    const enroll = (el: HTMLElement) => {
-      if (tracked.has(el)) return;
-      tracked.add(el);
-      // Strict Mode, route changes and preference changes all start clean.
-      el.classList.remove("reveal-visible", "reveal-pending");
-      el.setAttribute("data-reveal", "");
-      const bounds = el.getBoundingClientRect();
-      if (!observer || bounds.top <= innerHeight || el.contains(document.activeElement)) {
-        el.classList.add("reveal-visible");
-      } else {
-        el.classList.add("reveal-pending");
-        observer.observe(el);
-      }
-    };
-    document.querySelectorAll<HTMLElement>(selector).forEach(enroll);
-    const mutation = new MutationObserver(records => records.forEach(record => {
-      record.addedNodes.forEach(node => {
-        if (!(node instanceof HTMLElement)) return;
-        if (node.matches(selector)) enroll(node);
-        node.querySelectorAll<HTMLElement>(selector).forEach(enroll);
-      });
-    }));
-    const main = document.querySelector("main");
-    if (main) mutation.observe(main, { childList: true, subtree: true });
-    const focus = (event: FocusEvent) => {
-      if (!(event.target instanceof Element)) return;
-      let el = event.target.closest<HTMLElement>("[data-reveal]");
-      while (el) {
-        show(el);
-        el = el.parentElement?.closest<HTMLElement>("[data-reveal]") ?? null;
-      }
-    };
-    document.addEventListener("focusin", focus);
-    return () => {
-      observer?.disconnect();
-      mutation.disconnect();
-      document.removeEventListener("focusin", focus);
-      tracked.forEach(el => {
-        el.classList.remove("reveal-pending", "reveal-visible");
-        el.style.removeProperty("--reveal-delay");
-      });
-    };
-  }, [path, preference, systemReduced]);
-
-  return <button className="motion-button" aria-pressed={full}
-    onClick={() => setPreference(full ? "reduced" : "full")}>
-    {full ? "Reduce motion" : "Enable animations"}
-  </button>;
+    const pathname = usePathname();
+    const [preference, setPreference] = useState<Preference>("system");
+    const [systemReduced, setSystemReduced] = useState(false);
+    const reduced = preference === "reduced" || (preference === "system" && systemReduced);
+    useLayoutEffect(() => {
+        const query = matchMedia("(prefers-reduced-motion: reduce)");
+        const update = () => setSystemReduced(query.matches);
+        update();
+        query.addEventListener("change", update);
+        return () => query.removeEventListener("change", update);
+    }, []);
+    useLayoutEffect(() => {
+        const root = document.documentElement;
+        const reduce = preference === "reduced" ||
+            (preference === "system" && matchMedia("(prefers-reduced-motion: reduce)").matches);
+        root.dataset.motion = reduce ? "reduced" : "full";
+        const tracked = new Set<HTMLElement>();
+        let observer: IntersectionObserver | undefined;
+        let mutationObserver: MutationObserver | undefined;
+        let cancelled = false;
+        const reveal = (element: HTMLElement, delay = 0) => {
+            element.style.setProperty("--reveal-delay", `${delay}ms`);
+            element.classList.remove("reveal-pending");
+            element.classList.add("reveal-visible");
+            element.dataset.revealed = "true";
+            observer?.unobserve(element);
+        };
+        const enroll = (element: HTMLElement) => {
+            if (tracked.has(element))
+                return;
+            tracked.add(element);
+            element.classList.remove("reveal-pending", "reveal-visible");
+            // Preserve one-shot arrivals across preference changes and observer restarts.
+            if (reduce || !observer || element.dataset.revealed === "true") {
+                reveal(element);
+                return;
+            }
+            const viewport = window.visualViewport?.height ?? innerHeight;
+            if (element.getBoundingClientRect().top <= viewport || element.contains(document.activeElement)) {
+                reveal(element);
+            }
+            else {
+                element.classList.add("reveal-pending");
+                observer.observe(element);
+            }
+        };
+        const focus = (event: FocusEvent) => {
+            if (!(event.target instanceof Element))
+                return;
+            let element = event.target.closest<HTMLElement>(SELECTOR);
+            while (element) {
+                reveal(element);
+                element = element.parentElement?.closest<HTMLElement>(SELECTOR) ?? null;
+            }
+        };
+        // Next's route scroll restoration follows layout effects. Enroll after that
+        // paint boundary so a footer-origin navigation cannot mark the new page's
+        // entire content as already above the viewport. No SSR content is concealed.
+        const cancelPaint = afterPaint(() => {
+            if (cancelled)
+                return;
+            if (!reduce && "IntersectionObserver" in window) {
+                observer = new IntersectionObserver(entries => {
+                    entries.filter(entry => entry.isIntersecting)
+                        .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top)
+                        .forEach((entry, index) => reveal(entry.target as HTMLElement, Math.min(index * 40, 80)));
+                }, { threshold: 0, rootMargin: "0px 0px -24px 0px" });
+            }
+            document.querySelectorAll<HTMLElement>(SELECTOR).forEach(enroll);
+            if (observer)
+                root.classList.add("reveal-enabled");
+            const container = document.querySelector("main");
+            if (container && "MutationObserver" in window) {
+                mutationObserver = new MutationObserver(mutations => {
+                    for (const mutation of mutations) {
+                        for (const node of mutation.addedNodes) {
+                            if (!(node instanceof HTMLElement))
+                                continue;
+                            if (node.matches(SELECTOR))
+                                enroll(node);
+                            node.querySelectorAll<HTMLElement>(SELECTOR).forEach(enroll);
+                        }
+                    }
+                });
+                mutationObserver.observe(container, { childList: true, subtree: true });
+            }
+        });
+        document.addEventListener("focusin", focus);
+        return () => {
+            cancelled = true;
+            cancelPaint();
+            observer?.disconnect();
+            mutationObserver?.disconnect();
+            document.removeEventListener("focusin", focus);
+            root.classList.remove("reveal-enabled");
+            tracked.forEach(element => {
+                element.classList.remove("reveal-pending", "reveal-visible");
+                element.style.removeProperty("--reveal-delay");
+            });
+        };
+    }, [pathname, preference, systemReduced]);
+    return (<button className="motion-button" aria-pressed={!reduced} onClick={() => setPreference(reduced ? "full" : "reduced")}>
+      {reduced ? "Enable animations" : "Reduce motion"}
+    </button>);
 }

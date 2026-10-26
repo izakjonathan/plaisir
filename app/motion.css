@@ -1,0 +1,97 @@
+/* Ported from Shams: design-system.css, mobile-menu.css and motion.css.
+   This file is the sole authority for menu and scroll-reveal animation. */
+:root {
+  --duration-menu: 360ms;
+  --duration-reveal: 420ms;
+  --ease-menu: cubic-bezier(0.76, 0, 0.24, 1);
+  --ease-reveal: cubic-bezier(0.16, 1, 0.3, 1);
+  --reveal-distance: 10px;
+}
+.site-menu {
+  position: fixed;
+  z-index: 80;
+  inset: 0;
+  background: var(--green);
+  color: var(--amber);
+  padding: max(120px, calc(env(safe-area-inset-top, 0px) + 100px)) var(--gutter) max(30px, env(safe-area-inset-bottom, 0px));
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  transform: translate3d(0, -100%, 0);
+  backface-visibility: hidden;
+  will-change: transform;
+  transition: transform var(--duration-menu) var(--ease-menu);
+}
+.site-menu[data-phase="open"] { transform: translate3d(0, 0, 0); }
+.site-menu nav { display: grid; max-width: 1400px; margin: auto; }
+.site-menu nav > a {
+  display: block;
+  font: clamp(42px, 7vw, 98px)/1.08 var(--display);
+  padding: 27px 0;
+  border-bottom: 1px solid var(--rule);
+  opacity: 0;
+  transition: none;
+}
+.site-menu small {
+  display: block;
+  margin-top: 18px;
+  font: 14px/1.5 var(--sans);
+}
+.site-menu[data-phase="open"] nav > a { opacity: 1; }
+html[data-motion="full"] .site-menu[data-phase="open"] nav > a {
+  animation: menuLinkArrival 240ms var(--ease-reveal) backwards;
+  animation-delay: calc(70ms + var(--item, 0) * 30ms);
+}
+@keyframes menuLinkArrival {
+  from { opacity: 0; transform: translate3d(0, 12px, 0); }
+  to { opacity: 1; transform: none; }
+}
+/* Readable SSR; conceal only safely enrolled off-screen text blocks.
+   Full-bleed images are stationary, as in Shams. */
+html.reveal-enabled [data-reveal].reveal-pending {
+  opacity: 0;
+  transform: translate3d(0, var(--reveal-distance), 0);
+  transition: none;
+}
+html.reveal-enabled [data-reveal].reveal-visible {
+  opacity: 1;
+  transform: none;
+  transition: opacity var(--duration-reveal) var(--ease-reveal), transform var(--duration-reveal) var(--ease-reveal);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+html.reveal-enabled [data-reveal]:focus-within {
+  opacity: 1;
+  transform: none;
+  transition: none;
+}
+@media (min-width: 760px) {
+  :root { --duration-menu: 420ms; --duration-reveal: 520ms; --reveal-distance: 16px; }
+}
+@media (max-width: 600px) {
+  .site-menu nav > a { font-size: clamp(38px, 10.5vw, 60px); padding: 24px 0; }
+  .site-menu small { font-size: 13px; margin-top: 15px; }
+}
+/* Match Shams: reduced motion is immediate, with no hidden reveal content.
+   The footer can explicitly enable full motion without changing device settings. */
+html[data-motion="reduced"] { scroll-behavior: auto; }
+html[data-motion="reduced"] .site-menu,
+html[data-motion="reduced"] .site-menu nav > a,
+html[data-motion="reduced"] .finance-view,
+html[data-motion="reduced"] [data-reveal] {
+  animation: none !important;
+  transition: none !important;
+  transform: none !important;
+  opacity: 1 !important;
+}
+@media (prefers-reduced-motion: reduce) {
+  html:not([data-motion="full"]) { scroll-behavior: auto; }
+  html:not([data-motion="full"]) .site-menu,
+  html:not([data-motion="full"]) .site-menu nav > a,
+  html:not([data-motion="full"]) [data-reveal] {
+    animation: none;
+    transition: none;
+    transform: none;
+    opacity: 1;
+  }
+}
