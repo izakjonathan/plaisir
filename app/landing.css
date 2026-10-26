@@ -26,9 +26,19 @@
 .hero-bottle svg, .splash-bottle svg { display: block; width: 100%; height: 100%; }
 .hero-discover { display: inline-flex; gap: 30px; }
 .brand-splash { display: none; position: fixed; z-index: 120; inset: 0; background: var(--green); overflow: hidden; pointer-events: none; }
+.brand-splash .splash-photo { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center; filter:saturate(.55); }
+.splash-green { position:absolute; inset:0; background:rgba(43,61,23,.87); }
+.brand-splash .splash-light { z-index:1; background:radial-gradient(ellipse at 65% 22%,#d19c3617,transparent 65%); }
+.brand-splash .splash-shadow {
+  --shadow-opacity:.85;
+  inset:-18%;
+  background:linear-gradient(118deg,transparent 0 17%,#0c170b99 23% 29%,transparent 36% 58%,#0c170bb3 64% 71%,transparent 78%),linear-gradient(28deg,transparent 44%,#0c170b66 49% 53%,transparent 59%);
+  filter:blur(7px);
+  opacity:.85;
+}
 .brand-splash .splash-art { position: absolute; z-index: 2; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: clamp(28px,6vh,70px); padding: max(30px,env(safe-area-inset-top)) 24px max(30px,env(safe-area-inset-bottom)); }
-.splash-bottle { width: min(30vw,215px); height: min(43svh,410px); flex-shrink: 1; }
-.splash-logo { width: min(60vw,310px); height: auto; object-fit: contain; }
+.splash-bottle { width: min(22vw,150px); height: min(31svh,290px); flex-shrink: 1; }
+.splash-logo { width: min(44vw,220px); height: auto; object-fit: contain; }
 html.brand-intro-active, html.brand-intro-active body { overflow: hidden; }
 html.brand-intro-active .floating-header > * { opacity: 0; pointer-events: none; }
 [data-intro="splash"] .brand-splash, [data-intro="leaving"] .brand-splash { display: block; }
@@ -45,15 +55,15 @@ html.brand-intro-active .floating-header > * { opacity: 0; pointer-events: none;
 @keyframes brandArrival { from { opacity: 0; transform: translate3d(0,22px,0); } to { opacity: 1; transform: none; } }
 @keyframes bottleArrival { from { opacity: 0; transform: translate3d(0,40px,0) rotate(15deg); } to { opacity: 1; transform: rotate(9deg); } }
 @keyframes lineArrival { from { opacity: 0; transform: translate3d(0,110%,0); } to { opacity: 1; transform: none; } }
-@keyframes shadowArrival { from { opacity: 0; transform: rotate(-9deg) scale(1.15) translateX(-25px); } to { opacity: .64; transform: rotate(-9deg) scale(1.1); } }
+@keyframes shadowArrival { from { opacity: 0; transform: rotate(-9deg) scale(1.15) translateX(-25px); } to { opacity: var(--shadow-opacity,.64); transform: rotate(-9deg) scale(1.1); } }
 @keyframes splashDeparture { to { opacity: 0; transform: translate3d(0,-5%,0); } }
 @media(max-width:600px) {
   .hero.brand-hero { align-items: flex-end; }
   .hero.brand-hero .hero-copy { padding-top: 130px; padding-bottom: max(44px,calc(env(safe-area-inset-bottom) + 28px)); }
   .hero.brand-hero h1 { max-width: 100%; font-size: clamp(64px,18vw,100px); line-height: 1.02; margin-bottom: 28px; }
   .hero-bottle { width: 30vw; height: 27%; right: 15%; top: 14%; }
-  .splash-bottle { width: 35vw; height: 38svh; }
-  .splash-logo { width: 57vw; }
+  .splash-bottle { width: 25vw; height: 28svh; }
+  .splash-logo { width: 42vw; }
   .hero-discover { gap: 26px; }
 }
 @media(orientation:landscape) and (max-height:600px) {
@@ -61,11 +71,12 @@ html.brand-intro-active .floating-header > * { opacity: 0; pointer-events: none;
   .hero.brand-hero .hero-copy { padding-top: 100px; padding-bottom: 25px; }
   .hero-bottle { top: 22%; height: 65%; right: 15%; width: 20vw; }
   .brand-splash .splash-art { flex-direction: row; gap: 55px; }
-  .splash-bottle { height: 65svh; width: 25vw; }
-  .splash-logo { width: 28vw; }
+  .splash-bottle { height: 46svh; width: 18vw; }
+  .splash-logo { width: 21vw; }
 }
 html[data-motion="reduced"] .brand-hero *, html[data-motion="reduced"] .brand-hero *::before { animation: none !important; }
 @media(prefers-reduced-motion:reduce) {
   html:not([data-motion="full"]) .brand-hero * { animation: none !important; }
 }
+
 

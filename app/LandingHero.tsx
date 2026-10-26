@@ -75,6 +75,8 @@ export default function LandingHero() {
     </div>
     <div className="hero-shadow" aria-hidden="true" />
     <div className="brand-splash" aria-hidden="true">
+      <ContentImage field="experience.hero.image1" className="splash-photo" loading="eager" sizes="100vw"/>
+      <div className="splash-green" />
       <div className="splash-light" />
       <div className="splash-art">
         <div className="splash-bottle"><Bottle /></div>
