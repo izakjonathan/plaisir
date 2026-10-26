@@ -8,7 +8,8 @@ import "./financial.css";
 import SiteShell from "./SiteShell";
 import { ContentProvider } from "./Content";
 import { readPublished } from "../lib/content-db";
-import { INTRO_BOOTSTRAP, INTRO_CRITICAL_CSS, INTRO_NO_SCRIPT_CSS } from "../lib/intro-bootstrap";
+import { createIntroBootstrap, INTRO_CRITICAL_CSS, INTRO_NO_SCRIPT_CSS } from "../lib/intro-bootstrap";
+import { splashSettings } from "../lib/splash";
 export const dynamic = "force-dynamic";
 export const metadata: Metadata = {
   title: "Plaisir · coffee & wine",
@@ -23,11 +24,12 @@ export const viewport: Viewport = {
 export default async function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
+  const published = await readPublished();
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
         <style dangerouslySetInnerHTML={{ __html: INTRO_CRITICAL_CSS }}/>
-        <script dangerouslySetInnerHTML={{ __html: INTRO_BOOTSTRAP }}/>
+        <script dangerouslySetInnerHTML={{ __html: createIntroBootstrap(splashSettings(published).enabled) }}/>
         <noscript><style>{INTRO_NO_SCRIPT_CSS}</style></noscript>
         <link
           rel="preload"
@@ -38,9 +40,8 @@ export default async function RootLayout({
         />
       </head>
       <body>
-        <ContentProvider value={await readPublished()}><SiteShell>{children}</SiteShell></ContentProvider>
+        <ContentProvider value={published}><SiteShell>{children}</SiteShell></ContentProvider>
       </body>
     </html>
   );
 }
-

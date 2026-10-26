@@ -48,3 +48,9 @@ All text fields, including menu names, button labels and image descriptions, now
 ## 0.4.3 — Connected Blob uploads
 
 Replaced legacy `upload` / `handleUpload` (which requires `BLOB_READ_WRITE_TOKEN`) with `uploadPresigned` / `handleUploadPresigned` and pathname-scoped `issueSignedToken`. This supports the connected store’s `BLOB_STORE_ID` and Vercel OIDC credentials without adding a static secret. The 25 MB limit, allowed raster formats, 10-minute expiry, daily ceiling and private storage remain enforced. Finalization still runs through the existing assets route; no upload-completed webhook is required.
+
+## Splash screen
+
+The **Splash screen** tab controls its background photograph and crop, green overlay strength, wordmark and bottle size and visibility, display duration, and whether the intro is enabled. It uses the normal draft/save/publish/restore workflow. Existing documents inherit their current hero photograph until a separate splash image is chosen; **Use hero photograph** removes that override. Green and gold remain the brand colours. Cast shadows are removed.
+
+The inline and dialog previews render the same splash layers immediately, including unsaved edits, without session storage or the public once-per-tab gate. Public home-page first-paint protection reads the published enabled setting on the server, so disabling the splash does not produce a covering frame before hydration. Return-visit, reduced-motion, deep-link and draft-page skips remain intact.

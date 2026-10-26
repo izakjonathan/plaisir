@@ -132,3 +132,15 @@ html { --document-canvas-color: #101b0d; }
 /* Reuse the visible hero image for the document's overscroll canvas rather
    than painting a brand-colour block. Native Safari controls remain browser-owned. */
 html { background-image: var(--document-canvas-image,none); background-size: cover; background-position: center; background-attachment: fixed; }
+
+
+/* Route markup supplies the first-paint tone, even before hydration or when
+   a previous route left a gold observer value on <html>. No colour tween. */
+html:not(.menu-open) .floating-header[data-page="financials"] .burger-button {
+  color: #2b3d17;
+  transition: none;
+}
+html:not(.menu-open) .floating-header[data-page="financials"] .brand-logo img {
+  content: url('/brand/wordmark-green.png');
+  transition: none;
+}

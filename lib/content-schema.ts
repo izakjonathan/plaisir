@@ -1,7 +1,7 @@
 import definitions from './content-fields.json' with { type: 'json' };
 
 export type ContentImageValue = { src: string; alt: string; width: number; height: number; x: number; y: number };
-export type Field = { id: string; page: string; section: string; label: string; kind: 'text' | 'image' | 'link'; default: string | ContentImageValue; multiline?: boolean; hidden?: boolean };
+export type Field = { id: string; page: string; section: string; label: string; kind: 'text' | 'image' | 'link'; default: string | ContentImageValue; multiline?: boolean; hidden?: boolean; control?: 'toggle' | 'range'; min?: number; max?: number; step?: number };
 export const fields = definitions as Field[];
 export const fieldMap = new Map(fields.map(field => [field.id, field]));
 export type ContentDocument = { text: Record<string, string>; images: Record<string, ContentImageValue> };
@@ -15,6 +15,8 @@ export function textValue(document: ContentDocument, id: string): string {
   return document.text[id] ?? String(fieldMap.get(id)?.default ?? '');
 }
 export function imageValue(document: ContentDocument, id: string): ContentImageValue {
+  // Old documents keep the splash tied to their current hero until separately edited.
+  if (id === 'splash.background' && !document.images[id]) return imageValue(document, 'experience.hero.image1');
   return document.images[id] ?? fieldMap.get(id)?.default as ContentImageValue;
 }
 export function safeLink(value: string): boolean {
@@ -29,6 +31,11 @@ export function validateDocument(input: unknown): ContentDocument {
     const field = fieldMap.get(id);
     if (!field || field.kind === 'image' || typeof value !== 'string' || value.length > (field.kind === 'link' ? 500 : 12000)) throw new Error('Invalid text field.');
     if (field.kind === 'link' && !safeLink(value)) throw new Error('Use an internal link, https://, mailto: or tel: link.');
+    if (field.control === 'toggle' && !['true','false'].includes(value)) throw new Error('Invalid splash switch.');
+    if (field.control === 'range') {
+      const number = Number(value);
+      if (!value.trim() || !Number.isFinite(number) || number < field.min! || number > field.max! || Math.abs((number - field.min!) / field.step! - Math.round((number - field.min!) / field.step!)) > 1e-8) throw new Error('Invalid splash setting.');
+    }
     clean.text[id] = value;
   }
   for (const [id, raw] of Object.entries(source.images)) {

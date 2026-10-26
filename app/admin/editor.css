@@ -18,3 +18,11 @@ html:has(.content-editor){background:#f4f1e9;background-image:none}
 @media(max-width:500px){.editor-body{padding:24px 16px}.editor-card{padding:16px}.editor-header{padding-left:16px;padding-right:16px}.editor-tabs{gap:7px}.editor-tabs button{padding:10px 12px;font-size:13px}.editor-actions{gap:7px;padding-left:12px;padding-right:12px}.editor-actions .editor-button{padding:10px 12px;font-size:13px}.editor-state{max-width:100px}.editor-dialog{max-height:94dvh}.editor-dialog-content{max-height:calc(94dvh - 90px)}.editor-gallery{gap:8px}.editor-dialog-header h2{font-size:20px}}
 
 .content-editor textarea[rows="2"]{min-height:80px}
+
+
+.editor-splash-toggle { display:flex; align-items:center; gap:12px; }
+.content-editor .editor-splash-toggle input { width:24px; height:24px; accent-color:#2b3d17; }
+.editor-splash-range { display:flex; align-items:center; gap:18px; }
+.editor-splash-range input { flex:1; min-width:0; accent-color:#2b3d17; }
+.editor-splash-range output { min-width:72px; text-align:right; }
+.content-editor .splash-preview, .editor-preview .splash-preview { color:#d19c36; border-radius:12px; margin:0 0 24px; }

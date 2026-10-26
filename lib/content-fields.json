@@ -1216,5 +1216,95 @@
     "kind": "text",
     "default": "The financial illustration",
     "multiline": false
+  },
+  {
+    "id": "splash.background",
+    "page": "splash",
+    "section": "Splash screen",
+    "label": "Background photograph",
+    "kind": "image",
+    "default": {
+      "src": "/brand/table.webp",
+      "alt": "Wine glasses and a Plaisir menu in warm evening light",
+      "width": 1536,
+      "height": 1024,
+      "x": 50,
+      "y": 50
+    }
+  },
+  {
+    "id": "splash.enabled",
+    "page": "splash",
+    "section": "Splash screen",
+    "label": "Show splash screen",
+    "kind": "text",
+    "default": "true",
+    "control": "toggle"
+  },
+  {
+    "id": "splash.overlay",
+    "page": "splash",
+    "section": "Splash screen",
+    "label": "Green overlay (%)",
+    "kind": "text",
+    "default": "87",
+    "control": "range",
+    "min": 0,
+    "max": 100,
+    "step": 1
+  },
+  {
+    "id": "splash.logoScale",
+    "page": "splash",
+    "section": "Splash screen",
+    "label": "Logo size (%)",
+    "kind": "text",
+    "default": "100",
+    "control": "range",
+    "min": 50,
+    "max": 150,
+    "step": 5
+  },
+  {
+    "id": "splash.bottleScale",
+    "page": "splash",
+    "section": "Splash screen",
+    "label": "Bottle size (%)",
+    "kind": "text",
+    "default": "100",
+    "control": "range",
+    "min": 50,
+    "max": 150,
+    "step": 5
+  },
+  {
+    "id": "splash.duration",
+    "page": "splash",
+    "section": "Splash screen",
+    "label": "Display duration (milliseconds)",
+    "kind": "text",
+    "default": "1450",
+    "control": "range",
+    "min": 500,
+    "max": 5000,
+    "step": 50
+  },
+  {
+    "id": "splash.showLogo",
+    "page": "splash",
+    "section": "Splash screen",
+    "label": "Show Plaisir wordmark",
+    "kind": "text",
+    "default": "true",
+    "control": "toggle"
+  },
+  {
+    "id": "splash.showBottle",
+    "page": "splash",
+    "section": "Splash screen",
+    "label": "Show bottle illustration",
+    "kind": "text",
+    "default": "true",
+    "control": "toggle"
   }
 ]

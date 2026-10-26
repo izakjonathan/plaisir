@@ -4,6 +4,14 @@ import { useLayoutEffect } from "react";
 export function useHeaderTone(pathname: string) {
     useLayoutEffect(() => {
         const root = document.documentElement;
+        // The financial canvas is yellow throughout, including the gap above
+        // its first section. Set it before paint without observing scroll.
+        if (pathname === "/financials") {
+            root.dataset.headerTone = "dark";
+            root.style.setProperty("--document-canvas-image", "none");
+            root.style.setProperty("--document-canvas-color", "#d19c36");
+            return;
+        }
         const sections = [...document.querySelectorAll<HTMLElement>("main > section, main > figure, .brand-footer")];
         let observer: IntersectionObserver | undefined;
         const observe = () => {

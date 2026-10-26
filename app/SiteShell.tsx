@@ -127,9 +127,9 @@ function MarketingShell({ children }: {
     };
     return (<>
       <a className="skip-link" href="#main"><Copy field="shared.shell.text1"/></a>
-      <header className="floating-header">
+      <header className="floating-header" data-page={pathname === "/financials" ? "financials" : "experience"}>
         <Link className="brand-logo" href="/" aria-label="Plaisir home" inert={mounted}>
-          <img src="/brand/wordmark-gold.png" width="900" height="380" alt="Plaisir"/>
+          <img src={pathname === "/financials" ? "/brand/wordmark-green.png" : "/brand/wordmark-gold.png"} width="900" height="380" alt="Plaisir" fetchPriority="high"/>
         </Link>
         <button ref={button} className="burger-button" type="button" aria-label={mounted ? "Close menu" : "Open menu"} aria-haspopup="dialog" aria-controls={mounted ? "site-menu" : undefined} aria-expanded={expanded} onPointerDown={() => { keyboard.current = false; }} onKeyDown={event => {
             if (event.key === "Enter" || event.key === " ")

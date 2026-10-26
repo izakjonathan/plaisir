@@ -1,11 +1,11 @@
 // Runs in <head>, before the browser can paint the streamed page body.
 // Keep the decision independent of React hydration and database loading.
-export const INTRO_BOOTSTRAP = `(() => {
+export function createIntroBootstrap(enabled = true) { return `(() => {
   if (location.pathname !== '/') return;
   const root = document.documentElement;
   let seen = false;
   try { seen = sessionStorage.getItem('plaisir-intro-v2') === 'seen'; } catch {}
-  const skip = seen || matchMedia('(prefers-reduced-motion: reduce)').matches ||
+  const skip = ${!enabled} || seen || matchMedia('(prefers-reduced-motion: reduce)').matches ||
     Boolean(location.hash) || new URLSearchParams(location.search).get('preview') === 'draft';
   root.dataset.introBoot = skip ? 'skip' : 'splash';
   if (!skip) window.setTimeout(() => {
@@ -15,7 +15,8 @@ export const INTRO_BOOTSTRAP = `(() => {
       root.classList.remove('brand-intro-active');
     }
   }, 8000);
-})();`;
+})();`; }
+export const INTRO_BOOTSTRAP = createIntroBootstrap();
 
 // Critical protection lives in the document head, before external styles/JS.
 // The splash itself stays visible even while its main ancestor is concealed.

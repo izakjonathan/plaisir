@@ -1,13 +1,13 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { runInNewContext } from 'node:vm';
-import { INTRO_BOOTSTRAP } from '../lib/intro-bootstrap.ts';
+import { INTRO_BOOTSTRAP, createIntroBootstrap } from '../lib/intro-bootstrap.ts';
 
-function boot(options: {path?:string; seen?:boolean; reduced?:boolean; hash?:string; search?:string; blockedStorage?:boolean} = {}) {
+function boot(options: {path?:string; seen?:boolean; reduced?:boolean; hash?:string; search?:string; blockedStorage?:boolean; disabled?:boolean} = {}) {
   const dataset: Record<string,string> = {};
   const timers: {run:()=>void; delay:number}[] = [];
   const removed: string[] = [];
-  runInNewContext(INTRO_BOOTSTRAP, {
+  runInNewContext(options.disabled ? createIntroBootstrap(false) : INTRO_BOOTSTRAP, {
     location:{pathname:options.path ?? '/',hash:options.hash ?? '',search:options.search ?? ''},
     document:{documentElement:{dataset,classList:{remove:(name:string)=>removed.push(name)}}},
     sessionStorage:{getItem:()=>{if(options.blockedStorage)throw new Error('Storage unavailable');return options.seen?'seen':null;}},
@@ -41,4 +41,11 @@ test('hydration failure releases the page, but never interrupts a normal splash 
     assert.equal(normal.dataset.introBoot,phase);
     assert.deepEqual(normal.removed,[]);
   }
+});
+
+
+test('a published disabled splash skips before hydration without a covering frame', () => {
+  const result = boot({ disabled:true });
+  assert.equal(result.dataset.introBoot,'skip');
+  assert.equal(result.timers.length,0);
 });
