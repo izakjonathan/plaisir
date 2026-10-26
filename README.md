@@ -1,3 +1,7 @@
+# Plaisir 0.4.0 — mobile content editor
+
+A phone-friendly content editor is available at `/admin`, with no public navigation link and no login in this version. Connect Neon Postgres and a **private** Vercel Blob store in Vercel to activate saving and uploads. See [content editor setup](docs/content-editor.md).
+
 # Plaisir — Next.js 0.3.6
 
 A brand-led hospitality website using the supplied 48-page Agilera investor presentation as the visual and financial reference.
@@ -60,7 +64,7 @@ Live browser validation is incomplete: the managed preview exits before a browse
 
 The venue remains a concept preview. Images include renderings, no premises or opening date is confirmed, and financials are source-derived illustrations rather than an approved forecast or verified investment return.
 
-No live deployment or repository push is included. Deploy this as a standard Next.js project.
+Deploy as a standard Next.js project. The GitHub-connected Vercel project builds commits on main.
 
 ## 0.3.6 fullscreen and photography update
 

@@ -1,4 +1,5 @@
 "use client";
+import { Copy, ContentImage } from "./Content";
 import { useState } from "react";
 import { BASE, ALLOCATIONS, operating as r, sensitivity, scenarioYears, scenarios, reconcileScenario, } from "../lib/deck";
 const money = (n: number) => new Intl.NumberFormat("en-US", {
@@ -21,18 +22,10 @@ export default function FinancialDashboard() {
     ] as const;
     return (<div className="deck-dashboard">
       <header className="dashboard-heading">
-        <p className="eyebrow">The financial illustration</p>
-        <h1>
-          Behind the feeling.
-          <br />
-          The figures.
-        </h1>
-        <p>
-          One flagship. Source-derived figures, with the assumptions in view.
-        </p>
-        <span className="dashboard-source">
-          USD · Illustrative, not an approved forecast
-        </span>
+        <p className="eyebrow"><Copy field="numbers.page.text1"/></p>
+        <h1><Copy field="numbers.page.text2"/></h1>
+        <p><Copy field="numbers.page.text3"/></p>
+        <span className="dashboard-source"><Copy field="numbers.page.text4"/></span>
       </header>
       <nav className="finance-views" aria-label="Financial sections">
         {views.map((v) => (<button key={v} className="pill" aria-pressed={view === v} onClick={() => setView(v)}>
@@ -42,17 +35,17 @@ export default function FinancialDashboard() {
       {view === "Overview" && (<section className="finance-view" aria-label="Operating overview">
           <div className="finance-kpis">
             <article data-reveal>
-              <span>Annual revenue</span>
+              <span><Copy field="numbers.page.text5"/></span>
               <strong>{compact(BASE.revenue)}</strong>
-              <small>2026 base illustration</small>
+              <small><Copy field="numbers.page.text6"/></small>
             </article>
             <article data-reveal>
-              <span>Gross profit</span>
+              <span><Copy field="numbers.page.text7"/></span>
               <strong>{compact(r.grossProfit)}</strong>
               <small>{pct(BASE.margin)} gross margin</small>
             </article>
             <article data-reveal>
-              <span>Annual EBITDA</span>
+              <span><Copy field="numbers.page.text8"/></span>
               <strong>{compact(r.ebitda)}</strong>
               <small>{pct(r.ebitdaMargin)} of revenue</small>
             </article>
@@ -60,8 +53,8 @@ export default function FinancialDashboard() {
           <div className="finance-grid">
             <article data-reveal className="finance-panel">
               <div className="panel-heading">
-                <h2>Where revenue goes</h2>
-                <span>Annual USD</span>
+                <h2><Copy field="numbers.page.text9"/></h2>
+                <span><Copy field="numbers.page.text10"/></span>
               </div>
               <div className="cost-bars">
                 {costs.map(([label, value]) => (<div key={label}>
@@ -80,8 +73,8 @@ export default function FinancialDashboard() {
             </article>
             <article data-reveal className="finance-panel">
               <div className="panel-heading">
-                <h2>The operating bridge</h2>
-                <span>Annual USD</span>
+                <h2><Copy field="numbers.page.text11"/></h2>
+                <span><Copy field="numbers.page.text12"/></span>
               </div>
               <table className="finance-table">
                 <caption className="sr-only">Annual operating model in US dollars</caption>
@@ -106,24 +99,21 @@ export default function FinancialDashboard() {
                     </tr>))}
                 </tbody>
               </table>
-              <p className="finance-note">
-                Other costs of $37,100 balance the source illustration; they are
-                not an itemised expense budget.
-              </p>
+              <p className="finance-note"><Copy field="numbers.page.text13"/></p>
             </article>
           </div>
           <article data-reveal className="finance-panel break-panel">
             <div>
-              <p className="eyebrow">Trading break-even</p>
+              <p className="eyebrow"><Copy field="numbers.page.text14"/></p>
               <h2>{money(r.breakEven)}</h2>
-              <p>Annual revenue at 70% gross margin.</p>
+              <p><Copy field="numbers.page.text15"/></p>
               <dl className="break-metrics">
                 <div>
-                  <dt>Monthly equivalent</dt>
+                  <dt><Copy field="numbers.page.text16"/></dt>
                   <dd>{money(r.breakEven / 12)}</dd>
                 </div>
                 <div>
-                  <dt>Revenue cushion</dt>
+                  <dt><Copy field="numbers.page.text17"/></dt>
                   <dd>
                     {money(BASE.revenue - r.breakEven)}{" "}
                     <small>
@@ -136,7 +126,7 @@ export default function FinancialDashboard() {
               </dl>
             </div>
             <div>
-              <h3>Gross margin sensitivity</h3>
+              <h3><Copy field="numbers.page.text18"/></h3>
               <div className="sensitivity-bars">
                 {sensitivity.map((s) => (<div key={s.margin} className={s.margin === 70 ? "highlight" : ""}>
                     <div>
@@ -157,25 +147,15 @@ export default function FinancialDashboard() {
           </article>
           <details className="finance-disclosure">
             <summary>Assumptions & reconciliation</summary>
-            <p>
-              The proposed $72,000 annual base rent differs from $216,000 model
-              occupancy by $144,000. Cost completeness and payroll burden
-              require validation. EBITDA excludes depreciation, interest and
-              tax. Break-even excludes financing and capital recovery.
-            </p>
-            <p>
-              The separate bottom-up model of 220 daily transactions × $25 × 351
-              days gives $1,930,500, not $833,000. At that transaction volume,
-              $833,000 implies a $10.79 ticket. The two illustrations have not
-              been combined.
-            </p>
+            <p><Copy field="numbers.page.text19"/></p>
+            <p><Copy field="numbers.page.text20"/></p>
           </details>
         </section>)}
       {view === "Funding" && (<section className="finance-view" aria-label="Funding overview">
           <div className="funding-heading">
             <div>
-              <p className="eyebrow">Proposed capital raise</p>
-              <h2>$500k–$1m</h2>
+              <p className="eyebrow"><Copy field="numbers.page.text21"/></p>
+              <h2><Copy field="numbers.page.text22"/></h2>
             </div>
             <div className="raise-switch" aria-label="Raise level">
               {[500000, 1000000].map((n) => (<button className="pill" aria-pressed={raise === n} key={n} onClick={() => setRaise(n)}>
@@ -186,7 +166,7 @@ export default function FinancialDashboard() {
           <div className="finance-grid">
             <article data-reveal className="finance-panel">
               <div className="panel-heading">
-                <h2>Use of proceeds</h2>
+                <h2><Copy field="numbers.page.text23"/></h2>
                 <span>{money(raise)} raise</span>
               </div>
               <table className="finance-table">
@@ -213,27 +193,19 @@ export default function FinancialDashboard() {
               </table>
             </article>
             <article data-reveal className="finance-panel reserve-panel">
-              <p className="eyebrow">Working capital allocation</p>
+              <p className="eyebrow"><Copy field="numbers.page.text24"/></p>
               <strong>{compact(raise * 0.1)}</strong>
-              <h2>A reserve still to be costed.</h2>
-              <p>
-                The 10% allocation does not establish runway. A monthly
-                cash-flow forecast must cost deposits, launch losses, supplier
-                timing, delays and the minimum opening reserve.
-              </p>
+              <h2><Copy field="numbers.page.text25"/></h2>
+              <p><Copy field="numbers.page.text26"/></p>
             </article>
           </div>
-          <p className="finance-note">
-            Source percentages are proposals. Final funding depends on the
-            approved site and complete opening budget. No cash balance,
-            confirmed runway or payback is established.
-          </p>
+          <p className="finance-note"><Copy field="numbers.page.text27"/></p>
         </section>)}
       {view === "Scenarios" && (<section className="finance-view" aria-label="Source scenarios">
           <div className="scenario-heading">
             <div>
-              <h2>Three possible trading cases.</h2>
-              <p>Source projections. USD thousands, rounded.</p>
+              <h2><Copy field="numbers.page.text28"/></h2>
+              <p><Copy field="numbers.page.text29"/></p>
             </div>
             <div className="raise-switch" aria-label="Scenario year">
               {scenarioYears.map((y, i) => (<button className="pill" key={y} aria-pressed={year === i} onClick={() => setYear(i)}>
@@ -251,7 +223,7 @@ export default function FinancialDashboard() {
                   <strong className="scenario-revenue">
                     {compact(s.revenue[year] * 1000)}
                   </strong>
-                  <span className="scenario-label">Annual revenue</span>
+                  <span className="scenario-label"><Copy field="numbers.page.text30"/></span>
                   <dl>
                     {[
                         ["Gross profit", s.grossProfit[year]],
@@ -269,23 +241,10 @@ export default function FinancialDashboard() {
           </div>
           <details className="finance-disclosure">
             <summary>How to read these scenarios</summary>
-            <p>
-              All cases use $268k annual payroll. Occupancy is $216k / $219k /
-              $222k in 2026 / 2027 / 2028. Other opex = gross profit − payroll −
-              occupancy − EBITDA. Below-EBITDA deductions = EBITDA − net profit.
-              These residuals have not been itemised.
-            </p>
-            <p>
-              Implied gross margins range from 69.83% to 70.31%. The rounded
-              base 2026 gross profit of $583k differs from the detailed $583.1k
-              illustration only by rounding. Downside remains loss-making in
-              each year. Source net profit is not a verified cash return.
-            </p>
+            <p><Copy field="numbers.page.text31"/></p>
+            <p><Copy field="numbers.page.text32"/></p>
           </details>
         </section>)}
-      <p className="finance-source-note">
-        Source: Plaisir Investor Deck, pages 22–25, 32–33, 42 and 46–48. Figures
-        are presented without an assumed investment return.
-      </p>
+      <p className="finance-source-note"><Copy field="numbers.page.text33"/></p>
     </div>);
 }

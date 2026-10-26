@@ -1,0 +1,4 @@
+import type { Metadata } from 'next';
+import Editor from './Editor';
+export const metadata: Metadata = {title:'Plaisir · Content editor',robots:{index:false,follow:false}};
+export default function AdminPage() { return <Editor/>; }

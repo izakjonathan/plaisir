@@ -1,0 +1,1208 @@
+[
+  {
+    "id": "experience.page.text1",
+    "page": "experience",
+    "section": "welcome",
+    "label": "Heading",
+    "kind": "text",
+    "default": "Not intimidating.\nNever boring.",
+    "multiline": true
+  },
+  {
+    "id": "experience.page.text2",
+    "page": "experience",
+    "section": "welcome",
+    "label": "Paragraph",
+    "kind": "text",
+    "default": "French café influences. New York personality. A warm room shaped by Danish design. Come for something good. Stay for the feeling.",
+    "multiline": true
+  },
+  {
+    "id": "experience.page.text3",
+    "page": "experience",
+    "section": "welcome",
+    "label": "Button text",
+    "kind": "text",
+    "default": "Meet your new ritual",
+    "multiline": false
+  },
+  {
+    "id": "experience.page.image4",
+    "page": "experience",
+    "section": "coffee",
+    "label": "Wine being poured at a tiled bar counter",
+    "kind": "image",
+    "default": {
+      "src": "/brand/wine-pouring.jpg",
+      "alt": "Wine being poured at a tiled bar counter",
+      "width": 1200,
+      "height": 1600,
+      "x": 50,
+      "y": 50
+    }
+  },
+  {
+    "id": "experience.page.text5",
+    "page": "experience",
+    "section": "coffee",
+    "label": "Heading",
+    "kind": "text",
+    "default": "Your day.\nA little\nslower.",
+    "multiline": true
+  },
+  {
+    "id": "experience.page.text6",
+    "page": "experience",
+    "section": "coffee",
+    "label": "Paragraph",
+    "kind": "text",
+    "default": "Good coffee. A warm pastry. A familiar face. Take a moment at the counter, settle in, or carry a little Plaisir into your day.",
+    "multiline": true
+  },
+  {
+    "id": "experience.page.text7",
+    "page": "experience",
+    "section": "coffee",
+    "label": "Button text",
+    "kind": "text",
+    "default": "Stay for a glass",
+    "multiline": false
+  },
+  {
+    "id": "experience.page.image8",
+    "page": "experience",
+    "section": "wine",
+    "label": "Friends sharing glasses of wine",
+    "kind": "image",
+    "default": {
+      "src": "/brand/wine-conversation.jpg",
+      "alt": "Friends sharing glasses of wine",
+      "width": 1200,
+      "height": 1500,
+      "x": 50,
+      "y": 58
+    }
+  },
+  {
+    "id": "experience.page.text9",
+    "page": "experience",
+    "section": "wine",
+    "label": "Heading",
+    "kind": "text",
+    "default": "One glass.\nNo hurry.",
+    "multiline": true
+  },
+  {
+    "id": "experience.page.text10",
+    "page": "experience",
+    "section": "wine",
+    "label": "Paragraph",
+    "kind": "text",
+    "default": "“What do you usually enjoy?”\nA simple conversation. A few good suggestions. Your next favourite, by the glass or bottle.",
+    "multiline": true
+  },
+  {
+    "id": "experience.page.text11",
+    "page": "experience",
+    "section": "wine",
+    "label": "Button text",
+    "kind": "text",
+    "default": "Something to share",
+    "multiline": false
+  },
+  {
+    "id": "experience.page.text12",
+    "page": "experience",
+    "section": "table",
+    "label": "Heading",
+    "kind": "text",
+    "default": "Good things.\nIn the middle\nof the table.",
+    "multiline": true
+  },
+  {
+    "id": "experience.page.text13",
+    "page": "experience",
+    "section": "table",
+    "label": "Paragraph",
+    "kind": "text",
+    "default": "Boards, small bites and light food. A little of this, a little of that. Made to go with your glass, and even better with your company.",
+    "multiline": true
+  },
+  {
+    "id": "experience.page.text14",
+    "page": "experience",
+    "section": "table",
+    "label": "Button text",
+    "kind": "text",
+    "default": "Find our first chapter",
+    "multiline": false
+  },
+  {
+    "id": "experience.page.image15",
+    "page": "experience",
+    "section": "table",
+    "label": "Friends gathered around a table outside a neighbourhood bar",
+    "kind": "image",
+    "default": {
+      "src": "/brand/neighbourhood-evening.jpg",
+      "alt": "Friends gathered around a table outside a neighbourhood bar",
+      "width": 1200,
+      "height": 1600,
+      "x": 58,
+      "y": 50
+    }
+  },
+  {
+    "id": "experience.page.image16",
+    "page": "experience",
+    "section": "Wine and everyday rituals",
+    "label": "A server carrying glasses of red wine",
+    "kind": "image",
+    "default": {
+      "src": "/brand/wine-service.jpg",
+      "alt": "A server carrying glasses of red wine",
+      "width": 1200,
+      "height": 1578,
+      "x": 50,
+      "y": 50
+    }
+  },
+  {
+    "id": "experience.page.image17",
+    "page": "experience",
+    "section": "Wine and everyday rituals",
+    "label": "A relaxed moment pouring a glass of wine",
+    "kind": "image",
+    "default": {
+      "src": "/brand/wine-discovery.jpg",
+      "alt": "A relaxed moment pouring a glass of wine",
+      "width": 736,
+      "height": 920,
+      "x": 50,
+      "y": 50
+    }
+  },
+  {
+    "id": "experience.page.text18",
+    "page": "experience",
+    "section": "brand-world",
+    "label": "Heading",
+    "kind": "text",
+    "default": "Familiar.\nIn every detail.",
+    "multiline": true
+  },
+  {
+    "id": "experience.page.text19",
+    "page": "experience",
+    "section": "brand-world",
+    "label": "Paragraph",
+    "kind": "text",
+    "default": "From your morning cup to the table you return to. Considered details, made for everyday life.",
+    "multiline": true
+  },
+  {
+    "id": "experience.page.image20",
+    "page": "experience",
+    "section": "brand-world",
+    "label": "Plaisir cups, pastry bags and takeaway packaging concepts",
+    "kind": "image",
+    "default": {
+      "src": "/brand/takeaway.webp",
+      "alt": "Plaisir cups, pastry bags and takeaway packaging concepts",
+      "width": 1536,
+      "height": 1024,
+      "x": 50,
+      "y": 50
+    }
+  },
+  {
+    "id": "experience.page.image21",
+    "page": "experience",
+    "section": "brand-world",
+    "label": "Plaisir cap, sweatshirt and canvas bag concepts",
+    "kind": "image",
+    "default": {
+      "src": "/brand/merchandise.webp",
+      "alt": "Plaisir cap, sweatshirt and canvas bag concepts",
+      "width": 1536,
+      "height": 1024,
+      "x": 50,
+      "y": 50
+    }
+  },
+  {
+    "id": "experience.page.image22",
+    "page": "experience",
+    "section": "neighbourhood",
+    "label": "Architectural concept for a Plaisir storefront; not confirmed premises",
+    "kind": "image",
+    "default": {
+      "src": "/brand/flagship-front.jpg",
+      "alt": "Architectural concept for a Plaisir storefront; not confirmed premises",
+      "width": 1636,
+      "height": 1083,
+      "x": 50,
+      "y": 50
+    }
+  },
+  {
+    "id": "experience.page.text23",
+    "page": "experience",
+    "section": "neighbourhood",
+    "label": "Heading",
+    "kind": "text",
+    "default": "Your new\nusual.",
+    "multiline": true
+  },
+  {
+    "id": "experience.page.text24",
+    "page": "experience",
+    "section": "neighbourhood",
+    "label": "Paragraph",
+    "kind": "text",
+    "default": "Imagined for the East Village.\nWe’re not open yet. Our address, hours and final menu will follow.",
+    "multiline": true
+  },
+  {
+    "id": "experience.page.text25",
+    "page": "experience",
+    "section": "neighbourhood",
+    "label": "Button text",
+    "kind": "text",
+    "default": "The story behind Plaisir",
+    "multiline": false
+  },
+  {
+    "id": "story.page.image1",
+    "page": "story",
+    "section": "scene investor-hero",
+    "label": "Friends gathered outside a neighbourhood bar; atmosphere reference",
+    "kind": "image",
+    "default": {
+      "src": "/brand/neighbourhood-evening.jpg",
+      "alt": "Friends gathered outside a neighbourhood bar; atmosphere reference",
+      "width": 1200,
+      "height": 1600,
+      "x": 50,
+      "y": 50
+    }
+  },
+  {
+    "id": "story.page.text2",
+    "page": "story",
+    "section": "scene investor-hero",
+    "label": "Heading",
+    "kind": "text",
+    "default": "A familiar place.\nA new chapter.",
+    "multiline": true
+  },
+  {
+    "id": "story.page.text3",
+    "page": "story",
+    "section": "scene investor-hero",
+    "label": "Paragraph",
+    "kind": "text",
+    "default": "Morning coffee and evening wine. One neighbourhood space, with a flagship that proves the operation first.",
+    "multiline": true
+  },
+  {
+    "id": "story.page.text4",
+    "page": "story",
+    "section": "scene investor-hero",
+    "label": "Button text",
+    "kind": "text",
+    "default": "Explore the proposition",
+    "multiline": false
+  },
+  {
+    "id": "story.page.text5",
+    "page": "story",
+    "section": "proposition",
+    "label": "Heading",
+    "kind": "text",
+    "default": "Two reasons\nto visit.\nOne place.",
+    "multiline": true
+  },
+  {
+    "id": "story.page.text6",
+    "page": "story",
+    "section": "proposition",
+    "label": "Paragraph",
+    "kind": "text",
+    "default": "The morning ritual becomes the evening meeting place. Coffee and pastries at the counter. Wine, boards and small bites around a table.",
+    "multiline": true
+  },
+  {
+    "id": "story.page.text7",
+    "page": "story",
+    "section": "proposition",
+    "label": "Paragraph",
+    "kind": "text",
+    "default": "The identity connects the street, the counter and the room. The hospitality stays simple: a warm welcome and good guidance through conversation.",
+    "multiline": true
+  },
+  {
+    "id": "story.page.text8",
+    "page": "story",
+    "section": "proposition",
+    "label": "Text",
+    "kind": "text",
+    "default": "The guests",
+    "multiline": true
+  },
+  {
+    "id": "story.page.text9",
+    "page": "story",
+    "section": "proposition",
+    "label": "Text",
+    "kind": "text",
+    "default": "Nearby residents and workers, after-work groups and friends sharing an evening.",
+    "multiline": true
+  },
+  {
+    "id": "story.page.text10",
+    "page": "story",
+    "section": "proposition",
+    "label": "Text",
+    "kind": "text",
+    "default": "The offer",
+    "multiline": true
+  },
+  {
+    "id": "story.page.text11",
+    "page": "story",
+    "section": "proposition",
+    "label": "Text",
+    "kind": "text",
+    "default": "A focused menu. Shared ingredients, simple assembly and consistent portions.",
+    "multiline": true
+  },
+  {
+    "id": "story.page.text12",
+    "page": "story",
+    "section": "proposition",
+    "label": "Text",
+    "kind": "text",
+    "default": "The identity",
+    "multiline": true
+  },
+  {
+    "id": "story.page.text13",
+    "page": "story",
+    "section": "proposition",
+    "label": "Text",
+    "kind": "text",
+    "default": "French café influences. New York personality. Danish design. Olive green, ochre and the original bottle and script.",
+    "multiline": true
+  },
+  {
+    "id": "story.page.text14",
+    "page": "story",
+    "section": "proposition",
+    "label": "Text",
+    "kind": "text",
+    "default": "Proposed audiences, not validated market research. Menu, pricing, hours and staffing require costing. The public experience is a concept preview, not an operating venue.",
+    "multiline": true
+  },
+  {
+    "id": "story.page.image15",
+    "page": "story",
+    "section": "split-scene",
+    "label": "Careful wine service at the counter; atmosphere reference",
+    "kind": "image",
+    "default": {
+      "src": "/brand/wine-pouring.jpg",
+      "alt": "Careful wine service at the counter; atmosphere reference",
+      "width": 1200,
+      "height": 1600,
+      "x": 50,
+      "y": 50
+    }
+  },
+  {
+    "id": "story.page.text16",
+    "page": "story",
+    "section": "split-scene",
+    "label": "Heading",
+    "kind": "text",
+    "default": "Flagship\nfirst.",
+    "multiline": true
+  },
+  {
+    "id": "story.page.text17",
+    "page": "story",
+    "section": "split-scene",
+    "label": "Paragraph",
+    "kind": "text",
+    "default": "The East Village proposal describes 500 sq ft plus a basement, with base rent of $6,000 per month. The actual premises must determine the offer, capacity and complete opening budget.",
+    "multiline": true
+  },
+  {
+    "id": "story.page.text18",
+    "page": "story",
+    "section": "split-scene",
+    "label": "Text",
+    "kind": "text",
+    "default": "Other modelling assumes 900–1,200 sq ft and 35–45 seats. The proposed $72k annual rent has not been reconciled with $216k annual model occupancy: a $144k difference. Lease, usable area, permissions, capacity and full occupancy costs require confirmation.",
+    "multiline": true
+  },
+  {
+    "id": "story.page.text19",
+    "page": "story",
+    "section": "split-scene",
+    "label": "Button text",
+    "kind": "text",
+    "default": "Explore the assumptions",
+    "multiline": false
+  },
+  {
+    "id": "story.page.text20",
+    "page": "story",
+    "section": "investor-people",
+    "label": "Heading",
+    "kind": "text",
+    "default": "A culture worth\ncoming back to.",
+    "multiline": true
+  },
+  {
+    "id": "story.page.text21",
+    "page": "story",
+    "section": "investor-people",
+    "label": "Paragraph",
+    "kind": "text",
+    "default": "Hire for warmth and judgement. Build product knowledge through paid learning, practical standards and feedback.",
+    "multiline": true
+  },
+  {
+    "id": "story.page.text22",
+    "page": "story",
+    "section": "investor-people",
+    "label": "Text",
+    "kind": "text",
+    "default": "Source-reported leadership roles. Availability, compensation and decision rights require confirmation.",
+    "multiline": true
+  },
+  {
+    "id": "story.page.image23",
+    "page": "story",
+    "section": "Content",
+    "label": "Friends sharing an evening around a café table; atmosphere reference",
+    "kind": "image",
+    "default": {
+      "src": "/brand/good-company.jpg",
+      "alt": "Friends sharing an evening around a café table; atmosphere reference",
+      "width": 1200,
+      "height": 1593,
+      "x": 50,
+      "y": 0
+    }
+  },
+  {
+    "id": "story.page.text24",
+    "page": "story",
+    "section": "growth-section gold-section",
+    "label": "Heading",
+    "kind": "text",
+    "default": "Prove it.\nThen grow.",
+    "multiline": true
+  },
+  {
+    "id": "story.page.text25",
+    "page": "story",
+    "section": "growth-section gold-section",
+    "label": "Paragraph",
+    "kind": "text",
+    "default": "Expansion follows sustained cash generation, repeat demand and reliable manager-led service.",
+    "multiline": true
+  },
+  {
+    "id": "story.page.text26",
+    "page": "story",
+    "section": "growth-section gold-section",
+    "label": "Text",
+    "kind": "text",
+    "default": "**Agreement**One site, operating capacity, costed menu, hours and complete budget.",
+    "multiline": true
+  },
+  {
+    "id": "story.page.text27",
+    "page": "story",
+    "section": "growth-section gold-section",
+    "label": "Text",
+    "kind": "text",
+    "default": "**Readiness**Suppliers, paid rota, service standards and practical training.",
+    "multiline": true
+  },
+  {
+    "id": "story.page.text28",
+    "page": "story",
+    "section": "growth-section gold-section",
+    "label": "Text",
+    "kind": "text",
+    "default": "**Soft opening**Service trials and a controlled opening period.",
+    "multiline": true
+  },
+  {
+    "id": "story.page.text29",
+    "page": "story",
+    "section": "growth-section gold-section",
+    "label": "Text",
+    "kind": "text",
+    "default": "**Trading review**Margin, labour, waste, cash and repeat visits.",
+    "multiline": true
+  },
+  {
+    "id": "story.page.text30",
+    "page": "story",
+    "section": "growth-section gold-section",
+    "label": "Text",
+    "kind": "text",
+    "default": "Three sites at $1.2–1.5m annual sales each imply $3.6–4.5m combined revenue. This is an illustration without a validated timetable or profitability assumption. Funding terms, benefits and investor rights remain to be agreed.",
+    "multiline": true
+  },
+  {
+    "id": "story.page.text31",
+    "page": "story",
+    "section": "model-invitation",
+    "label": "Heading",
+    "kind": "text",
+    "default": "Behind\nthe feeling.\nThe figures.",
+    "multiline": true
+  },
+  {
+    "id": "story.page.text32",
+    "page": "story",
+    "section": "model-invitation",
+    "label": "Paragraph",
+    "kind": "text",
+    "default": "Explore the proposed operating model, funding allocation and trading scenarios, with source assumptions and reconciliation notes.",
+    "multiline": true
+  },
+  {
+    "id": "story.page.text33",
+    "page": "story",
+    "section": "model-invitation",
+    "label": "Button text",
+    "kind": "text",
+    "default": "Open the financial dashboard",
+    "multiline": false
+  },
+  {
+    "id": "story.page.text34",
+    "page": "story",
+    "section": "model-invitation",
+    "label": "Paragraph",
+    "kind": "text",
+    "default": "Source-derived illustrations. Not an approved forecast or investment return calculation.",
+    "multiline": true
+  },
+  {
+    "id": "numbers.page.text1",
+    "page": "numbers",
+    "section": "Dashboard",
+    "label": "Paragraph",
+    "kind": "text",
+    "default": "The financial illustration",
+    "multiline": true
+  },
+  {
+    "id": "numbers.page.text2",
+    "page": "numbers",
+    "section": "Dashboard",
+    "label": "Heading",
+    "kind": "text",
+    "default": "Behind the feeling.\nThe figures.",
+    "multiline": true
+  },
+  {
+    "id": "numbers.page.text3",
+    "page": "numbers",
+    "section": "Dashboard",
+    "label": "Paragraph",
+    "kind": "text",
+    "default": "One flagship. Source-derived figures, with the assumptions in view.",
+    "multiline": true
+  },
+  {
+    "id": "numbers.page.text4",
+    "page": "numbers",
+    "section": "Dashboard",
+    "label": "Text",
+    "kind": "text",
+    "default": "USD · Illustrative, not an approved forecast",
+    "multiline": false
+  },
+  {
+    "id": "numbers.page.text5",
+    "page": "numbers",
+    "section": "Operating overview",
+    "label": "Text",
+    "kind": "text",
+    "default": "Annual revenue",
+    "multiline": false
+  },
+  {
+    "id": "numbers.page.text6",
+    "page": "numbers",
+    "section": "Operating overview",
+    "label": "Text",
+    "kind": "text",
+    "default": "2026 base illustration",
+    "multiline": false
+  },
+  {
+    "id": "numbers.page.text7",
+    "page": "numbers",
+    "section": "Operating overview",
+    "label": "Text",
+    "kind": "text",
+    "default": "Gross profit",
+    "multiline": false
+  },
+  {
+    "id": "numbers.page.text8",
+    "page": "numbers",
+    "section": "Operating overview",
+    "label": "Text",
+    "kind": "text",
+    "default": "Annual EBITDA",
+    "multiline": false
+  },
+  {
+    "id": "numbers.page.text9",
+    "page": "numbers",
+    "section": "Operating overview",
+    "label": "Heading",
+    "kind": "text",
+    "default": "Where revenue goes",
+    "multiline": true
+  },
+  {
+    "id": "numbers.page.text10",
+    "page": "numbers",
+    "section": "Operating overview",
+    "label": "Text",
+    "kind": "text",
+    "default": "Annual USD",
+    "multiline": false
+  },
+  {
+    "id": "numbers.page.text11",
+    "page": "numbers",
+    "section": "Operating overview",
+    "label": "Heading",
+    "kind": "text",
+    "default": "The operating bridge",
+    "multiline": true
+  },
+  {
+    "id": "numbers.page.text12",
+    "page": "numbers",
+    "section": "Operating overview",
+    "label": "Text",
+    "kind": "text",
+    "default": "Annual USD",
+    "multiline": false
+  },
+  {
+    "id": "numbers.page.text13",
+    "page": "numbers",
+    "section": "Operating overview",
+    "label": "Paragraph",
+    "kind": "text",
+    "default": "Other costs of $37,100 balance the source illustration; they are not an itemised expense budget.",
+    "multiline": true
+  },
+  {
+    "id": "numbers.page.text14",
+    "page": "numbers",
+    "section": "Operating overview",
+    "label": "Paragraph",
+    "kind": "text",
+    "default": "Trading break-even",
+    "multiline": true
+  },
+  {
+    "id": "numbers.page.text15",
+    "page": "numbers",
+    "section": "Operating overview",
+    "label": "Paragraph",
+    "kind": "text",
+    "default": "Annual revenue at 70% gross margin.",
+    "multiline": true
+  },
+  {
+    "id": "numbers.page.text16",
+    "page": "numbers",
+    "section": "Operating overview",
+    "label": "Text",
+    "kind": "text",
+    "default": "Monthly equivalent",
+    "multiline": true
+  },
+  {
+    "id": "numbers.page.text17",
+    "page": "numbers",
+    "section": "Operating overview",
+    "label": "Text",
+    "kind": "text",
+    "default": "Revenue cushion",
+    "multiline": true
+  },
+  {
+    "id": "numbers.page.text18",
+    "page": "numbers",
+    "section": "Operating overview",
+    "label": "Heading",
+    "kind": "text",
+    "default": "Gross margin sensitivity",
+    "multiline": true
+  },
+  {
+    "id": "numbers.page.text19",
+    "page": "numbers",
+    "section": "Operating overview",
+    "label": "Paragraph",
+    "kind": "text",
+    "default": "The proposed $72,000 annual base rent differs from $216,000 model occupancy by $144,000. Cost completeness and payroll burden require validation. EBITDA excludes depreciation, interest and tax. Break-even excludes financing and capital recovery.",
+    "multiline": true
+  },
+  {
+    "id": "numbers.page.text20",
+    "page": "numbers",
+    "section": "Operating overview",
+    "label": "Paragraph",
+    "kind": "text",
+    "default": "The separate bottom-up model of 220 daily transactions × $25 × 351 days gives $1,930,500, not $833,000. At that transaction volume, $833,000 implies a $10.79 ticket. The two illustrations have not been combined.",
+    "multiline": true
+  },
+  {
+    "id": "numbers.page.text21",
+    "page": "numbers",
+    "section": "Funding overview",
+    "label": "Paragraph",
+    "kind": "text",
+    "default": "Proposed capital raise",
+    "multiline": true
+  },
+  {
+    "id": "numbers.page.text22",
+    "page": "numbers",
+    "section": "Funding overview",
+    "label": "Heading",
+    "kind": "text",
+    "default": "$500k–$1m",
+    "multiline": true
+  },
+  {
+    "id": "numbers.page.text23",
+    "page": "numbers",
+    "section": "Funding overview",
+    "label": "Heading",
+    "kind": "text",
+    "default": "Use of proceeds",
+    "multiline": true
+  },
+  {
+    "id": "numbers.page.text24",
+    "page": "numbers",
+    "section": "Funding overview",
+    "label": "Paragraph",
+    "kind": "text",
+    "default": "Working capital allocation",
+    "multiline": true
+  },
+  {
+    "id": "numbers.page.text25",
+    "page": "numbers",
+    "section": "Funding overview",
+    "label": "Heading",
+    "kind": "text",
+    "default": "A reserve still to be costed.",
+    "multiline": true
+  },
+  {
+    "id": "numbers.page.text26",
+    "page": "numbers",
+    "section": "Funding overview",
+    "label": "Paragraph",
+    "kind": "text",
+    "default": "The 10% allocation does not establish runway. A monthly cash-flow forecast must cost deposits, launch losses, supplier timing, delays and the minimum opening reserve.",
+    "multiline": true
+  },
+  {
+    "id": "numbers.page.text27",
+    "page": "numbers",
+    "section": "Funding overview",
+    "label": "Paragraph",
+    "kind": "text",
+    "default": "Source percentages are proposals. Final funding depends on the approved site and complete opening budget. No cash balance, confirmed runway or payback is established.",
+    "multiline": true
+  },
+  {
+    "id": "numbers.page.text28",
+    "page": "numbers",
+    "section": "Source scenarios",
+    "label": "Heading",
+    "kind": "text",
+    "default": "Three possible trading cases.",
+    "multiline": true
+  },
+  {
+    "id": "numbers.page.text29",
+    "page": "numbers",
+    "section": "Source scenarios",
+    "label": "Paragraph",
+    "kind": "text",
+    "default": "Source projections. USD thousands, rounded.",
+    "multiline": true
+  },
+  {
+    "id": "numbers.page.text30",
+    "page": "numbers",
+    "section": "Source scenarios",
+    "label": "Text",
+    "kind": "text",
+    "default": "Annual revenue",
+    "multiline": false
+  },
+  {
+    "id": "numbers.page.text31",
+    "page": "numbers",
+    "section": "Source scenarios",
+    "label": "Paragraph",
+    "kind": "text",
+    "default": "All cases use $268k annual payroll. Occupancy is $216k / $219k / $222k in 2026 / 2027 / 2028. Other opex = gross profit − payroll − occupancy − EBITDA. Below-EBITDA deductions = EBITDA − net profit. These residuals have not been itemised.",
+    "multiline": true
+  },
+  {
+    "id": "numbers.page.text32",
+    "page": "numbers",
+    "section": "Source scenarios",
+    "label": "Paragraph",
+    "kind": "text",
+    "default": "Implied gross margins range from 69.83% to 70.31%. The rounded base 2026 gross profit of $583k differs from the detailed $583.1k illustration only by rounding. Downside remains loss-making in each year. Source net profit is not a verified cash return.",
+    "multiline": true
+  },
+  {
+    "id": "numbers.page.text33",
+    "page": "numbers",
+    "section": "Dashboard",
+    "label": "Paragraph",
+    "kind": "text",
+    "default": "Source: Plaisir Investor Deck, pages 22–25, 32–33, 42 and 46–48. Figures are presented without an assumed investment return.",
+    "multiline": true
+  },
+  {
+    "id": "experience.hero.image1",
+    "page": "experience",
+    "section": "scene hero brand-hero",
+    "label": "Wine glasses and a Plaisir menu in warm evening light",
+    "kind": "image",
+    "default": {
+      "src": "/brand/table.webp",
+      "alt": "Wine glasses and a Plaisir menu in warm evening light",
+      "width": 1536,
+      "height": 1024,
+      "x": 50,
+      "y": 50
+    }
+  },
+  {
+    "id": "experience.hero.text2",
+    "page": "experience",
+    "section": "scene hero brand-hero",
+    "label": "Text",
+    "kind": "text",
+    "default": "A little",
+    "multiline": false
+  },
+  {
+    "id": "experience.hero.text3",
+    "page": "experience",
+    "section": "scene hero brand-hero",
+    "label": "Text",
+    "kind": "text",
+    "default": "everyday",
+    "multiline": false
+  },
+  {
+    "id": "experience.hero.text4",
+    "page": "experience",
+    "section": "scene hero brand-hero",
+    "label": "Text",
+    "kind": "text",
+    "default": "*plaisir.*",
+    "multiline": false
+  },
+  {
+    "id": "experience.hero.text5",
+    "page": "experience",
+    "section": "scene hero brand-hero",
+    "label": "Button text",
+    "kind": "text",
+    "default": "Discover the feeling",
+    "multiline": false
+  },
+  {
+    "id": "shared.shell.text1",
+    "page": "shared",
+    "section": "Navigation & footer",
+    "label": "Button text",
+    "kind": "text",
+    "default": "Skip to content",
+    "multiline": false
+  },
+  {
+    "id": "shared.shell.text2",
+    "page": "shared",
+    "section": "Navigation & footer",
+    "label": "Heading",
+    "kind": "text",
+    "default": "Make yourself\nat home.",
+    "multiline": true
+  },
+  {
+    "id": "shared.shell.text3",
+    "page": "shared",
+    "section": "Navigation & footer",
+    "label": "Paragraph",
+    "kind": "text",
+    "default": "Concept preview. Not yet open.",
+    "multiline": true
+  },
+  {
+    "id": "experience.page.link1",
+    "page": "experience",
+    "section": "Button links",
+    "label": "Button destination",
+    "kind": "link",
+    "default": "#coffee"
+  },
+  {
+    "id": "experience.page.link2",
+    "page": "experience",
+    "section": "Button links",
+    "label": "Button destination",
+    "kind": "link",
+    "default": "#wine"
+  },
+  {
+    "id": "experience.page.link3",
+    "page": "experience",
+    "section": "Button links",
+    "label": "Button destination",
+    "kind": "link",
+    "default": "#table"
+  },
+  {
+    "id": "experience.page.link4",
+    "page": "experience",
+    "section": "Button links",
+    "label": "Button destination",
+    "kind": "link",
+    "default": "#neighbourhood"
+  },
+  {
+    "id": "experience.page.link5",
+    "page": "experience",
+    "section": "Button links",
+    "label": "Button destination",
+    "kind": "link",
+    "default": "/investors"
+  },
+  {
+    "id": "story.page.link1",
+    "page": "story",
+    "section": "Button links",
+    "label": "Button destination",
+    "kind": "link",
+    "default": "#proposition"
+  },
+  {
+    "id": "story.page.link2",
+    "page": "story",
+    "section": "Button links",
+    "label": "Button destination",
+    "kind": "link",
+    "default": "/financials"
+  },
+  {
+    "id": "story.page.link3",
+    "page": "story",
+    "section": "Button links",
+    "label": "Button destination",
+    "kind": "link",
+    "default": "/financials"
+  },
+  {
+    "id": "experience.hero.link1",
+    "page": "experience",
+    "section": "scene hero brand-hero",
+    "label": "Button destination",
+    "kind": "link",
+    "default": "#welcome"
+  },
+  {
+    "id": "story.team.0.0",
+    "page": "story",
+    "section": "Leadership",
+    "label": "Name",
+    "kind": "text",
+    "default": "Kevin Murph",
+    "multiline": false
+  },
+  {
+    "id": "story.team.0.1",
+    "page": "story",
+    "section": "Leadership",
+    "label": "Role",
+    "kind": "text",
+    "default": "Founder & CEO",
+    "multiline": false
+  },
+  {
+    "id": "story.team.0.2",
+    "page": "story",
+    "section": "Leadership",
+    "label": "Responsibilities",
+    "kind": "text",
+    "default": "Concept, culture and strategy",
+    "multiline": false
+  },
+  {
+    "id": "story.team.1.0",
+    "page": "story",
+    "section": "Leadership",
+    "label": "Name",
+    "kind": "text",
+    "default": "Oliwier Papadopoulos",
+    "multiline": false
+  },
+  {
+    "id": "story.team.1.1",
+    "page": "story",
+    "section": "Leadership",
+    "label": "Role",
+    "kind": "text",
+    "default": "Partner & CFO",
+    "multiline": false
+  },
+  {
+    "id": "story.team.1.2",
+    "page": "story",
+    "section": "Leadership",
+    "label": "Responsibilities",
+    "kind": "text",
+    "default": "Budget, cash flow and reporting",
+    "multiline": false
+  },
+  {
+    "id": "story.team.2.0",
+    "page": "story",
+    "section": "Leadership",
+    "label": "Name",
+    "kind": "text",
+    "default": "Jose Sidoa",
+    "multiline": false
+  },
+  {
+    "id": "story.team.2.1",
+    "page": "story",
+    "section": "Leadership",
+    "label": "Role",
+    "kind": "text",
+    "default": "Partner & CWO",
+    "multiline": false
+  },
+  {
+    "id": "story.team.2.2",
+    "page": "story",
+    "section": "Leadership",
+    "label": "Responsibilities",
+    "kind": "text",
+    "default": "Wine buying and service standards",
+    "multiline": false
+  },
+  {
+    "id": "story.team.3.0",
+    "page": "story",
+    "section": "Leadership",
+    "label": "Name",
+    "kind": "text",
+    "default": "Mohammed Diomande",
+    "multiline": false
+  },
+  {
+    "id": "story.team.3.1",
+    "page": "story",
+    "section": "Leadership",
+    "label": "Role",
+    "kind": "text",
+    "default": "Partner & COO",
+    "multiline": false
+  },
+  {
+    "id": "story.team.3.2",
+    "page": "story",
+    "section": "Leadership",
+    "label": "Responsibilities",
+    "kind": "text",
+    "default": "Staffing, training and operations",
+    "multiline": false
+  },
+  {
+    "id": "shared.menu.0.label",
+    "page": "shared",
+    "section": "Menu",
+    "label": "Page name",
+    "kind": "text",
+    "default": "The experience",
+    "multiline": false
+  },
+  {
+    "id": "shared.menu.0.description",
+    "page": "shared",
+    "section": "Menu",
+    "label": "Description",
+    "kind": "text",
+    "default": "Coffee, wine & good company",
+    "multiline": false
+  },
+  {
+    "id": "shared.menu.1.label",
+    "page": "shared",
+    "section": "Menu",
+    "label": "Page name",
+    "kind": "text",
+    "default": "The story",
+    "multiline": false
+  },
+  {
+    "id": "shared.menu.1.description",
+    "page": "shared",
+    "section": "Menu",
+    "label": "Description",
+    "kind": "text",
+    "default": "The business behind Plaisir",
+    "multiline": false
+  },
+  {
+    "id": "shared.menu.2.label",
+    "page": "shared",
+    "section": "Menu",
+    "label": "Page name",
+    "kind": "text",
+    "default": "The numbers",
+    "multiline": false
+  },
+  {
+    "id": "shared.menu.2.description",
+    "page": "shared",
+    "section": "Menu",
+    "label": "Description",
+    "kind": "text",
+    "default": "The financial illustration",
+    "multiline": false
+  }
+]

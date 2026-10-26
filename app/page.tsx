@@ -1,127 +1,69 @@
-import Image from "next/image";
-import Link from "next/link";
+import { Copy, ContentImage, ContentLink } from "./Content";
 import LandingHero from "./LandingHero";
 export default function Home() {
     return (<main id="main" className="experience">
       <LandingHero />
       <section id="welcome" className="manifesto gold-section">
-        <h2 data-reveal>
-          Not intimidating.
-          <br />
-          Never boring.
-        </h2>
+        <h2 data-reveal><Copy field="experience.page.text1"/></h2>
         <div className="manifesto-bottom" data-reveal>
-          <p>
-            French café influences. New York personality. A warm room shaped by
-            Danish design. Come for something good. Stay for the feeling.
-          </p>
-          <a className="pill" href="#coffee">
-            Meet your new ritual
-          </a>
+          <p><Copy field="experience.page.text2"/></p>
+          <ContentLink className="pill" field="experience.page.link1"><Copy field="experience.page.text3"/></ContentLink>
         </div>
       </section>
       <section id="coffee" className="split-scene">
         <figure className="split-photo">
-          <Image src="/brand/wine-pouring.jpg" width="1200" height="1600" alt="Wine being poured at a tiled bar counter" loading="lazy" sizes="(max-width: 600px) 100vw, 50vw"/>
+          <ContentImage field="experience.page.image4" loading="lazy" sizes="(max-width: 600px) 100vw, 50vw"/>
         </figure>
         <div className="split-copy">
-          <h2 data-reveal>
-            Your day.
-            <br />A little
-            <br />
-            slower.
-          </h2>
-          <p data-reveal>
-            Good coffee. A warm pastry. A familiar face. Take a moment at the
-            counter, settle in, or carry a little Plaisir into your day.
-          </p>
-          <a data-reveal className="pill" href="#wine">
-            Stay for a glass
-          </a>
+          <h2 data-reveal><Copy field="experience.page.text5"/></h2>
+          <p data-reveal><Copy field="experience.page.text6"/></p>
+          <ContentLink data-reveal className="pill" field="experience.page.link2"><Copy field="experience.page.text7"/></ContentLink>
         </div>
       </section>
       <section id="wine" className="scene wine-scene" aria-labelledby="wine-title">
-        <Image className="scene-photo" src="/brand/wine-conversation.jpg" width="1200" height="1500" alt="Friends sharing glasses of wine" loading="lazy" sizes="100vw"/>
+        <ContentImage field="experience.page.image8" className="scene-photo" loading="lazy" sizes="100vw"/>
         <div className="scene-shade"/>
         <div className="scene-content">
-          <h2 id="wine-title" data-reveal>
-            One glass.
-            <br />
-            No hurry.
-          </h2>
-          <p data-reveal>
-            “What do you usually enjoy?”
-            <br />A simple conversation. A few good suggestions. Your next
-            favourite, by the glass or bottle.
-          </p>
-          <a data-reveal className="pill" href="#table">
-            Something to share
-          </a>
+          <h2 id="wine-title" data-reveal><Copy field="experience.page.text9"/></h2>
+          <p data-reveal><Copy field="experience.page.text10"/></p>
+          <ContentLink data-reveal className="pill" field="experience.page.link3"><Copy field="experience.page.text11"/></ContentLink>
         </div>
       </section>
       <section id="table" className="split-scene food-scene gold-section">
         <div className="split-copy">
-          <h2 data-reveal>
-            Good things.
-            <br />
-            In the middle
-            <br />
-            of the table.
-          </h2>
-          <p data-reveal>
-            Boards, small bites and light food. A little of this, a little of
-            that. Made to go with your glass, and even better with your company.
-          </p>
-          <a data-reveal className="pill" href="#neighbourhood">
-            Find our first chapter
-          </a>
+          <h2 data-reveal><Copy field="experience.page.text12"/></h2>
+          <p data-reveal><Copy field="experience.page.text13"/></p>
+          <ContentLink data-reveal className="pill" field="experience.page.link4"><Copy field="experience.page.text14"/></ContentLink>
         </div>
         <figure className="split-photo">
-          <Image src="/brand/neighbourhood-evening.jpg" width="1200" height="1600" alt="Friends gathered around a table outside a neighbourhood bar" loading="lazy" sizes="(max-width: 600px) 100vw, 50vw"/>
+          <ContentImage field="experience.page.image15" loading="lazy" sizes="(max-width: 600px) 100vw, 50vw"/>
         </figure>
       </section>
       <section className="photo-story" aria-label="Wine and everyday rituals">
-        <figure><Image src="/brand/wine-service.jpg" width="1200" height="1578" alt="A server carrying glasses of red wine" loading="lazy" sizes="(max-width: 600px) 100vw, 50vw"/></figure>
-        <figure><Image src="/brand/wine-discovery.jpg" width="736" height="920" alt="A relaxed moment pouring a glass of wine" loading="lazy" sizes="(max-width: 600px) 100vw, 50vw"/></figure>
+        <figure><ContentImage field="experience.page.image16" loading="lazy" sizes="(max-width: 600px) 100vw, 50vw"/></figure>
+        <figure><ContentImage field="experience.page.image17" loading="lazy" sizes="(max-width: 600px) 100vw, 50vw"/></figure>
       </section>
       <section className="brand-world">
         <div className="world-heading">
-          <h2 data-reveal>
-            Familiar.
-            <br />
-            In every detail.
-          </h2>
-          <p data-reveal>
-            From your morning cup to the table you return to. Considered
-            details, made for everyday life.
-          </p>
+          <h2 data-reveal><Copy field="experience.page.text18"/></h2>
+          <p data-reveal><Copy field="experience.page.text19"/></p>
         </div>
         <div className="world-images">
           <figure>
-            <Image src="/brand/takeaway.webp" width="1536" height="1024" alt="Plaisir cups, pastry bags and takeaway packaging concepts" loading="lazy" sizes="(max-width: 600px) 100vw, 50vw"/>
+            <ContentImage field="experience.page.image20" loading="lazy" sizes="(max-width: 600px) 100vw, 50vw"/>
           </figure>
           <figure>
-            <Image src="/brand/merchandise.webp" width="1536" height="1024" alt="Plaisir cap, sweatshirt and canvas bag concepts" loading="lazy" sizes="(max-width: 600px) 100vw, 50vw"/>
+            <ContentImage field="experience.page.image21" loading="lazy" sizes="(max-width: 600px) 100vw, 50vw"/>
           </figure>
         </div>
       </section>
       <section id="neighbourhood" className="scene visit-scene">
-        <Image className="scene-photo" src="/brand/flagship-front.jpg" width="1636" height="1083" alt="Architectural concept for a Plaisir storefront; not confirmed premises" loading="lazy" sizes="100vw"/>
+        <ContentImage field="experience.page.image22" className="scene-photo" loading="lazy" sizes="100vw"/>
         <div className="scene-shade"/>
         <div className="scene-content">
-          <h2 data-reveal>
-            Your new
-            <br />
-            usual.
-          </h2>
-          <p data-reveal>
-            Imagined for the East Village.
-            <br />
-            We’re not open yet. Our address, hours and final menu will follow.
-          </p>
-          <Link data-reveal className="pill" href="/investors">
-            The story behind Plaisir
-          </Link>
+          <h2 data-reveal><Copy field="experience.page.text23"/></h2>
+          <p data-reveal><Copy field="experience.page.text24"/></p>
+          <ContentLink data-reveal className="pill" field="experience.page.link5"><Copy field="experience.page.text25"/></ContentLink>
         </div>
       </section>
     </main>);

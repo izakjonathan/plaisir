@@ -1,6 +1,6 @@
 "use client";
+import { Copy, ContentImage, ContentLink } from "./Content";
 
-import Image from "next/image";
 import { useLayoutEffect, useRef, useState } from "react";
 import { isReducedMotion } from "../lib/motion";
 
@@ -17,7 +17,7 @@ export default function LandingHero() {
   useLayoutEffect(() => {
     let seen = false;
     try { seen = sessionStorage.getItem("plaisir-intro-v2") === "seen"; } catch { /* Private storage can be unavailable. */ }
-    if (seen || isReducedMotion() || location.hash || window.scrollY > 50) {
+    if (seen || isReducedMotion() || location.hash || new URLSearchParams(location.search).get('preview') === 'draft' || window.scrollY > 50) {
       setIntro("ready");
       return;
     }
@@ -59,13 +59,13 @@ export default function LandingHero() {
   }, []);
 
   return <section ref={section} className="scene hero brand-hero" data-intro={intro ?? undefined} aria-labelledby="home-title">
-    <Image className="scene-photo" src="/brand/table.webp" width={1536} height={1024} alt="Wine glasses and a Plaisir menu in warm evening light" fetchPriority="high" loading="eager" sizes="100vw" />
+    <ContentImage field="experience.hero.image1" className="scene-photo" fetchPriority="high" loading="eager" sizes="100vw"/>
     <div className="scene-shade" aria-hidden="true" />
     <div className="hero-light" aria-hidden="true" />
     <div className="hero-bottle" aria-hidden="true"><Bottle /></div>
     <div className="scene-content hero-copy">
-      <h1 id="home-title"><span className="hero-line"><span>A little</span></span><span className="hero-line"><span>everyday</span></span><span className="hero-line"><em>plaisir.</em></span></h1>
-      <a className="pill hero-discover" href="#welcome">Discover the feeling</a>
+      <h1 id="home-title"><span className="hero-line"><span><Copy field="experience.hero.text2"/></span></span><span className="hero-line"><span><Copy field="experience.hero.text3"/></span></span><span className="hero-line"><Copy field="experience.hero.text4"/></span></h1>
+      <ContentLink className="pill hero-discover" field="experience.hero.link1"><Copy field="experience.hero.text5"/></ContentLink>
     </div>
     <div className="hero-shadow" aria-hidden="true" />
     <div className="brand-splash" aria-hidden="true">

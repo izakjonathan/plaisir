@@ -1,4 +1,5 @@
 "use client";
+import { Copy, ContentImage } from "./Content";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useLayoutEffect, useRef, useState, useCallback, type ReactNode, type MouseEvent, type CSSProperties } from "react";
@@ -11,7 +12,7 @@ const areas = [
     { href: "/financials", label: "The numbers", description: "The financial illustration" },
 ];
 type Phase = "closed" | "opening" | "open" | "closing";
-export default function SiteShell({ children }: {
+function MarketingShell({ children }: {
     children: ReactNode;
 }) {
     const pathname = usePathname();
@@ -125,7 +126,7 @@ export default function SiteShell({ children }: {
         router.push(href);
     };
     return (<>
-      <a className="skip-link" href="#main">Skip to content</a>
+      <a className="skip-link" href="#main"><Copy field="shared.shell.text1"/></a>
       <header className="floating-header">
         <Link className="brand-logo" href="/" aria-label="Plaisir home" inert={mounted}>
           <img src="/brand/wordmark-gold.png" width="900" height="380" alt="Plaisir"/>
@@ -157,23 +158,28 @@ export default function SiteShell({ children }: {
             }}>
           <nav aria-label="Main navigation">
             {areas.map((area, index) => (<Link key={area.href} href={area.href} aria-current={pathname === area.href ? "page" : undefined} onClick={event => navigate(event, area.href)} style={{ "--item": Math.min(index, 5) } as CSSProperties}>
-                <span>{area.label}</span><small>{area.description}</small>
+                <span><Copy field={`shared.menu.${index}.label`}/></span><small><Copy field={`shared.menu.${index}.description`}/></small>
               </Link>))}
           </nav>
         </div>)}
       {children}
       <footer className="brand-footer">
         <div className="footer-heading">
-          <h2 data-reveal>Make yourself<br />at home.</h2>
+          <h2 data-reveal><Copy field="shared.shell.text2"/></h2>
           <Link href="/" className="footer-signature" aria-label="Plaisir home">
             <img src="/brand/wordmark-green.png" width="900" height="380" alt="Plaisir"/>
           </Link>
         </div>
         <div className="footer-bottom">
-          <nav aria-label="Footer navigation">{areas.map(area => <Link key={area.href} href={area.href}>{area.label}</Link>)}</nav>
-          <p>Concept preview. Not yet open.</p>
+          <nav aria-label="Footer navigation">{areas.map((area,index) => <Link key={area.href} href={area.href}><Copy field={`shared.menu.${index}.label`}/></Link>)}</nav>
+          <p><Copy field="shared.shell.text3"/></p>
           <PageMotion />
         </div>
       </footer>
     </>);
+}
+
+export default function SiteShell({children}:{children:ReactNode}) {
+ const pathname=usePathname();
+ return pathname.startsWith("/admin") ? <>{children}</> : <MarketingShell>{children}</MarketingShell>;
 }

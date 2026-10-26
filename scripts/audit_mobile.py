@@ -1,6 +1,8 @@
-"""Audit generated HTML after npm run build; this is not a browser/layout test."""
+"""Audit generated HTML, or set PLAISIR_AUDIT_URL for dynamic pages. Not a browser/layout test."""
 from html.parser import HTMLParser
 from pathlib import Path
+import os
+from urllib.request import urlopen
 from urllib.parse import urlparse, parse_qs
 
 class Page(HTMLParser):
@@ -12,7 +14,9 @@ class Page(HTMLParser):
 
 for route, filename, photo_count in [('/', 'index.html', 9), ('/investors', 'investors.html', 3), ('/financials', 'financials.html', 0)]:
     page = Page()
-    page.feed((Path('.next/server/app') / filename).read_text())
+    base = os.environ.get('PLAISIR_AUDIT_URL')
+    html = urlopen(base.rstrip('/') + route).read().decode() if base else (Path('.next/server/app') / filename).read_text()
+    page.feed(html)
     tags = page.tags
     assert sum(tag == 'h1' for tag, _ in tags) == 1, f'{route}: heading hierarchy'
     assert any(tag == 'main' and attrs.get('id') == 'main' for tag, attrs in tags), f'{route}: skip-link target'
@@ -28,7 +32,7 @@ for route, filename, photo_count in [('/', 'index.html', 9), ('/investors', 'inv
     for index, photo in enumerate(photos):
         assert photo.get('sizes') and len(photo.get('srcset', '').split(',')) >= 5, f'{route}: image candidates'
         original = parse_qs(urlparse(photo['src']).query)['url'][0]
-        assert (Path('public') / original.lstrip('/')).is_file(), f'{route}: missing original image'
+        assert original.startswith('/media/') or (Path('public') / original.lstrip('/')).is_file(), f'{route}: missing original image'
         if index == 0:
             assert photo.get('loading') == 'eager' and photo.get('fetchpriority') == 'high', f'{route}: hero priority'
         else:

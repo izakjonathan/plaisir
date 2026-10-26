@@ -5,6 +5,9 @@ import "./motion.css";
 import "./mobile.css";
 import "./landing.css";
 import SiteShell from "./SiteShell";
+import { ContentProvider } from "./Content";
+import { readPublished } from "../lib/content-db";
+export const dynamic = "force-dynamic";
 export const metadata: Metadata = {
   title: "Plaisir · coffee & wine",
   description:
@@ -15,7 +18,7 @@ export const viewport: Viewport = {
   initialScale: 1,
   viewportFit: "cover",
 };
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
@@ -30,7 +33,7 @@ export default function RootLayout({
         />
       </head>
       <body>
-        <SiteShell>{children}</SiteShell>
+        <ContentProvider value={await readPublished()}><SiteShell>{children}</SiteShell></ContentProvider>
       </body>
     </html>
   );
