@@ -4,6 +4,8 @@ import { usePathname } from "next/navigation";
 import { afterPaint } from "../lib/motion";
 type Preference = "system" | "full" | "reduced";
 const SELECTOR = "[data-reveal]";
+// Tab lifetime: returning to Story never replays blocks already encountered.
+const storyArrivals = new Set<string>();
 export default function PageMotion() {
     const pathname = usePathname();
     const [preference, setPreference] = useState<Preference>("system");
@@ -24,33 +26,47 @@ export default function PageMotion() {
         const tracked = new Set<HTMLElement>();
         let observer: IntersectionObserver | undefined;
         let mutationObserver: MutationObserver | undefined;
+        let menuObserver: MutationObserver | undefined;
+        const pendingPaints = new Set<() => void>();
+        const storyKey = (element: HTMLElement) => element.closest('[data-reveal-page="story"]') ? element.dataset.reveal : undefined;
         let cancelled = false;
         const reveal = (element: HTMLElement, delay = 0) => {
             element.style.setProperty("--reveal-delay", `${delay}ms`);
             element.classList.remove("reveal-pending");
             element.classList.add("reveal-visible");
             element.dataset.revealed = "true";
+            const key = storyKey(element);
+            if (key) storyArrivals.add(key);
             observer?.unobserve(element);
         };
         const enroll = (element: HTMLElement) => {
             if (element.parentElement?.closest(SELECTOR) || tracked.has(element))
                 return;
             tracked.add(element);
-            if (element.matches("h2, h3, .pl-display"))
+            if (element.matches("h1, h2, h3, .pl-display"))
                 element.dataset.revealKind = "heading";
             element.classList.remove("reveal-pending", "reveal-visible", "reveal-settled");
             // Preserve one-shot arrivals across preference changes and observer restarts.
-            if (reduce || !observer || element.dataset.revealed === "true") {
+            if (reduce || !observer || element.dataset.revealed === "true" || storyArrivals.has(storyKey(element) ?? "")) {
                 reveal(element);
                 return;
             }
             const viewport = window.visualViewport?.height ?? innerHeight;
-            if (element.getBoundingClientRect().top <= viewport || element.contains(document.activeElement)) {
+            const bounds = element.getBoundingClientRect();
+            // Story's visible hero also arrives; content above a restored scroll
+            // position stays readable. Other routes retain their current behavior.
+            const skipArrival = storyKey(element) ? bounds.bottom <= 0 : bounds.top <= viewport;
+            if (skipArrival || element.contains(document.activeElement)) {
                 reveal(element);
             }
             else {
                 element.classList.add("reveal-pending");
-                observer.observe(element);
+                // Paint the hidden starting state before the observer may reveal it.
+                const cancel = afterPaint(() => {
+                    pendingPaints.delete(cancel);
+                    if (!cancelled && element.classList.contains("reveal-pending")) observer?.observe(element);
+                });
+                pendingPaints.add(cancel);
             }
         };
         const focus = (event: FocusEvent) => {
@@ -70,11 +86,27 @@ export default function PageMotion() {
                 return;
             if (!reduce && "IntersectionObserver" in window) {
                 observer = new IntersectionObserver(entries => {
+                    // Navigation keeps the menu over the incoming route. Do not
+                    // spend its first arrivals while the content is still covered.
+                    if (root.classList.contains("menu-open")) return;
                     entries.filter(entry => entry.isIntersecting)
                         .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top)
                         .forEach((entry, index) => reveal(entry.target as HTMLElement, Math.min(index * 90, 180)));
                 }, { threshold: 0, rootMargin: `0px 0px -${Math.min(120, Math.round((window.visualViewport?.height ?? innerHeight) * 0.12))}px 0px` });
             }
+            let menuWasOpen = root.classList.contains("menu-open");
+            menuObserver = new MutationObserver(() => {
+                const menuIsOpen = root.classList.contains("menu-open");
+                if (menuIsOpen === menuWasOpen) return;
+                menuWasOpen = menuIsOpen;
+                if (!menuIsOpen) tracked.forEach(element => {
+                    if (element.classList.contains("reveal-pending")) {
+                        observer?.unobserve(element);
+                        observer?.observe(element);
+                    }
+                });
+            });
+            menuObserver.observe(root, { attributes:true, attributeFilter:["class"] });
             document.querySelectorAll<HTMLElement>(SELECTOR).forEach(enroll);
             if (observer)
                 root.classList.add("reveal-enabled");
@@ -105,6 +137,8 @@ export default function PageMotion() {
             cancelPaint();
             observer?.disconnect();
             mutationObserver?.disconnect();
+            menuObserver?.disconnect();
+            pendingPaints.forEach(cancel => cancel());
             document.removeEventListener("focusin", focus);
             document.removeEventListener("transitionend", settle);
             root.classList.remove("reveal-enabled");
@@ -118,3 +152,4 @@ export default function PageMotion() {
       {reduced ? "Enable animations" : "Reduce motion"}
     </button>);
 }
+
