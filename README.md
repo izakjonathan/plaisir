@@ -1,4 +1,4 @@
-# Plaisir 0.4.1 — mobile content editor
+# Plaisir 0.4.2 — mobile content editor
 
 A phone-friendly content editor is available at `/admin`, with no public navigation link and no login in this version. Connect Neon Postgres and a **private** Vercel Blob store in Vercel to activate saving and uploads. See [content editor setup](docs/content-editor.md).
 

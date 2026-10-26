@@ -1,4 +1,4 @@
-# Plaisir content editor · 0.4.1
+# Plaisir content editor · 0.4.2
 
 Open `/admin` directly. No links to the editor appear in public navigation. It has no login in this release, as requested, and sends noindex headers. Anyone who obtains the URL can edit and publish until authentication is added.
 
@@ -39,3 +39,7 @@ Production build, TypeScript, existing finance/motion tests, content validation 
 ## 0.4.1 — One title field
 
 The opening title is edited in one multiline Heading field. Press Return for each new line. Existing separate-line drafts and published history remain readable through a compatibility fallback; no database migration or content reset is needed. Each title line keeps its staggered entrance animation. Asterisks remain reserved for italic/bold formatting.
+
+## 0.4.2 — Line breaks in every text field
+
+All text fields, including menu names, button labels and image descriptions, now use multiline controls. Return creates a line break. URL fields remain single-line. Existing newlines and newlines within italic/bold text are preserved by the safe text renderer.

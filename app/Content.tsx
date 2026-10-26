@@ -29,7 +29,8 @@ export function Copy({ field }: { field: string }) {
 }
 function FormattedText({ value }: { value: string }) {
   // Deliberately limited formatting; never render stored HTML.
-  return <>{value.split(/(\*\*[^*]+\*\*|\*[^*]+\*|\n)/g).map((part, i) => part === '\n' ? <br key={i}/> : part.startsWith('**') ? <strong key={i}>{part.slice(2,-2)}</strong> : part.startsWith('*') && part.endsWith('*') ? <em key={i}>{part.slice(1,-1)}</em> : <Fragment key={i}>{part}</Fragment>)}</>;
+  const breaks = (text: string) => text.split('\n').map((line,index)=><Fragment key={index}>{index>0 ? <br/> : null}{line}</Fragment>);
+  return <>{value.replace(/\r\n?/g,'\n').split(/(\*\*[^*]+\*\*|\*[^*]+\*|\n)/g).map((part, i) => part === '\n' ? <br key={i}/> : part.startsWith('**') ? <strong key={i}>{breaks(part.slice(2,-2))}</strong> : part.startsWith('*') && part.endsWith('*') ? <em key={i}>{breaks(part.slice(1,-1))}</em> : <Fragment key={i}>{part}</Fragment>)}</>;
 }
 export function TitleLines({ field }: { field: string }) {
   const lines = textValue(useContent(), field).replace(/\r\n?/g,'\n').split('\n');
