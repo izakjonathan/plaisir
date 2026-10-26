@@ -8,6 +8,7 @@ import "./financial.css";
 import SiteShell from "./SiteShell";
 import { ContentProvider } from "./Content";
 import { readPublished } from "../lib/content-db";
+import { INTRO_BOOTSTRAP, INTRO_CRITICAL_CSS, INTRO_NO_SCRIPT_CSS } from "../lib/intro-bootstrap";
 export const dynamic = "force-dynamic";
 export const metadata: Metadata = {
   title: "Plaisir · coffee & wine",
@@ -23,8 +24,11 @@ export default async function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <head>
+        <style dangerouslySetInnerHTML={{ __html: INTRO_CRITICAL_CSS }}/>
+        <script dangerouslySetInnerHTML={{ __html: INTRO_BOOTSTRAP }}/>
+        <noscript><style>{INTRO_NO_SCRIPT_CSS}</style></noscript>
         <link
           rel="preload"
           href="/fonts/Agilera.woff"

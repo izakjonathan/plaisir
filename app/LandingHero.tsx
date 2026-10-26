@@ -12,17 +12,21 @@ function Bottle() {
 }
 
 export default function LandingHero() {
-  const [intro, setIntro] = useState<"splash" | "leaving" | "ready" | null>(null);
+  // Server HTML already includes the covering splash. Never wait for hydration
+  // to turn a previously visible page into a splash screen.
+  const [intro, setIntro] = useState<"splash" | "leaving" | "ready">("splash");
   const section = useRef<HTMLElement>(null);
   useLayoutEffect(() => {
+    const root = document.documentElement;
     let seen = false;
     try { seen = sessionStorage.getItem("plaisir-intro-v2") === "seen"; } catch { /* Private storage can be unavailable. */ }
-    if (seen || isReducedMotion() || location.hash || new URLSearchParams(location.search).get('preview') === 'draft' || window.scrollY > 50) {
+    if (root.dataset.introBoot === "failed" || seen || isReducedMotion() || location.hash || new URLSearchParams(location.search).get('preview') === 'draft' || window.scrollY > 50) {
+      root.dataset.introBoot = "skip";
       setIntro("ready");
       return;
     }
     setIntro("splash");
-    const root = document.documentElement;
+    root.dataset.introBoot = "running";
     root.classList.add("brand-intro-active");
     let cancelled = false;
     let finished = false;
@@ -35,9 +39,10 @@ export default function LandingHero() {
       clearTimeout(cap);
       clearTimeout(hold);
       root.classList.remove("brand-intro-active");
+      root.dataset.introBoot = "leaving";
       setIntro("leaving");
       try { sessionStorage.setItem("plaisir-intro-v2", "seen"); } catch { /* Optional convenience only. */ }
-      exit = setTimeout(() => { if (!cancelled) setIntro("ready"); }, 650);
+      exit = setTimeout(() => { if (!cancelled) { root.dataset.introBoot = "ready"; setIntro("ready"); } }, 650);
     };
     const logo = section.current?.querySelector<HTMLImageElement>(".splash-logo");
     const ready = Promise.allSettled([document.fonts.ready, logo?.decode()]);
@@ -53,12 +58,13 @@ export default function LandingHero() {
       cancelled = true;
       clearTimeout(hold); clearTimeout(exit); clearTimeout(cap);
       root.classList.remove("brand-intro-active");
+      root.dataset.introBoot = "skip";
       document.removeEventListener("keydown", skip);
       document.removeEventListener("pointerdown", skip);
     };
   }, []);
 
-  return <section ref={section} className="scene hero brand-hero" data-intro={intro ?? undefined} aria-labelledby="home-title">
+  return <section ref={section} className="scene hero brand-hero" data-intro={intro} aria-labelledby="home-title">
     <ContentImage field="experience.hero.image1" className="scene-photo" fetchPriority="high" loading="eager" sizes="100vw"/>
     <div className="scene-shade" aria-hidden="true" />
     <div className="hero-light" aria-hidden="true" />
@@ -78,4 +84,5 @@ export default function LandingHero() {
     </div>
   </section>;
 }
+
 
