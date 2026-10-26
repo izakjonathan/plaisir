@@ -4,6 +4,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useLayoutEffect, useRef, useState, useCallback, type ReactNode, type MouseEvent, type CSSProperties } from "react";
 import { afterPaint, cssTimeMs, isReducedMotion } from "../lib/motion";
 import PageMotion from "./PageMotion";
+import { useHeaderTone } from "./useHeaderTone";
 const areas = [
     { href: "/", label: "The experience", description: "Coffee, wine & good company" },
     { href: "/investors", label: "The story", description: "The business behind Plaisir" },
@@ -15,6 +16,7 @@ export default function SiteShell({ children }: {
 }) {
     const pathname = usePathname();
     const router = useRouter();
+    useHeaderTone(pathname);
     const panel = useRef<HTMLDivElement>(null);
     const button = useRef<HTMLButtonElement>(null);
     const keyboard = useRef(false);
@@ -46,14 +48,21 @@ export default function SiteShell({ children }: {
             finish();
             return;
         }
-        const timer = setTimeout(finish, cssTimeMs("--duration-menu", 360) + 100);
+        const timer = setTimeout(finish, cssTimeMs("--duration-menu-exit", 480) + 100);
         return () => clearTimeout(timer);
     }, [phase, finish]);
     useLayoutEffect(() => {
         const regions = [...document.querySelectorAll<HTMLElement>("main, .brand-footer, .skip-link")];
         regions.forEach(region => { region.inert = mounted; });
         document.documentElement.classList.toggle("menu-open", mounted);
+        const preventBackgroundDrag = (event: TouchEvent) => {
+            if (mounted && !(event.target instanceof Node && panel.current?.contains(event.target)))
+                event.preventDefault();
+        };
+        if (mounted)
+            document.addEventListener("touchmove", preventBackgroundDrag, { passive: false });
         return () => {
+            document.removeEventListener("touchmove", preventBackgroundDrag);
             regions.forEach(region => { region.inert = false; });
             document.documentElement.classList.remove("menu-open");
         };
@@ -121,8 +130,10 @@ export default function SiteShell({ children }: {
         <Link className="brand-logo" href="/" aria-label="Plaisir home" inert={mounted}>
           <img src="/brand/wordmark-gold.png" width="900" height="380" alt="Plaisir"/>
         </Link>
-        <button ref={button} className="burger-button" type="button" aria-label={mounted ? "Close menu" : "Open menu"} aria-haspopup="dialog" aria-controls={mounted ? "site-menu" : undefined} aria-expanded={expanded} onPointerDown={() => { keyboard.current = false; }} onKeyDown={event => { if (event.key === "Enter" || event.key === " ")
-        keyboard.current = true; }} onClick={event => {
+        <button ref={button} className="burger-button" type="button" aria-label={mounted ? "Close menu" : "Open menu"} aria-haspopup="dialog" aria-controls={mounted ? "site-menu" : undefined} aria-expanded={expanded} onPointerDown={() => { keyboard.current = false; }} onKeyDown={event => {
+            if (event.key === "Enter" || event.key === " ")
+                keyboard.current = true;
+        }} onClick={event => {
             if (event.detail === 0)
                 keyboard.current = true;
             if (!keyboard.current)
@@ -135,7 +146,8 @@ export default function SiteShell({ children }: {
                 close();
         }}>
           <svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
-            <path d={mounted ? "M5 5L23 23M23 5L5 23" : "M2 10H26M2 18H26"}/>
+            <path className="burger-stroke burger-top" d="M3 10H25"/>
+            <path className="burger-stroke burger-bottom" d="M3 18H25"/>
           </svg>
         </button>
       </header>

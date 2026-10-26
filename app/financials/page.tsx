@@ -4,7 +4,7 @@ import FinancialDashboard from "../FinancialDashboard";
 export const metadata: Metadata = {
   title: "Plaisir · Financial dashboard",
   description:
-    "Interactive Plaisir trading, funding, opening cash and demand assumptions. Source-derived illustrations, not an approved forecast.",
+    "Plaisir operating model, funding allocation and trading scenarios. Source-derived illustrations, not an approved forecast.",
 };
 export default function Financials() {
   return (

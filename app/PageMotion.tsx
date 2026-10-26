@@ -33,10 +33,12 @@ export default function PageMotion() {
             observer?.unobserve(element);
         };
         const enroll = (element: HTMLElement) => {
-            if (tracked.has(element))
+            if (element.parentElement?.closest(SELECTOR) || tracked.has(element))
                 return;
             tracked.add(element);
-            element.classList.remove("reveal-pending", "reveal-visible");
+            if (element.matches("h2, h3, .pl-display"))
+                element.dataset.revealKind = "heading";
+            element.classList.remove("reveal-pending", "reveal-visible", "reveal-settled");
             // Preserve one-shot arrivals across preference changes and observer restarts.
             if (reduce || !observer || element.dataset.revealed === "true") {
                 reveal(element);
@@ -70,8 +72,8 @@ export default function PageMotion() {
                 observer = new IntersectionObserver(entries => {
                     entries.filter(entry => entry.isIntersecting)
                         .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top)
-                        .forEach((entry, index) => reveal(entry.target as HTMLElement, Math.min(index * 40, 80)));
-                }, { threshold: 0, rootMargin: "0px 0px -24px 0px" });
+                        .forEach((entry, index) => reveal(entry.target as HTMLElement, Math.min(index * 90, 180)));
+                }, { threshold: 0, rootMargin: `0px 0px -${Math.min(120, Math.round((window.visualViewport?.height ?? innerHeight) * 0.12))}px 0px` });
             }
             document.querySelectorAll<HTMLElement>(SELECTOR).forEach(enroll);
             if (observer)
@@ -92,6 +94,11 @@ export default function PageMotion() {
                 mutationObserver.observe(container, { childList: true, subtree: true });
             }
         });
+        const settle = (event: TransitionEvent) => {
+            if (event.propertyName === "transform" && event.target instanceof HTMLElement && event.target.matches(SELECTOR))
+                event.target.classList.add("reveal-settled");
+        };
+        document.addEventListener("transitionend", settle);
         document.addEventListener("focusin", focus);
         return () => {
             cancelled = true;
@@ -99,14 +106,15 @@ export default function PageMotion() {
             observer?.disconnect();
             mutationObserver?.disconnect();
             document.removeEventListener("focusin", focus);
+            document.removeEventListener("transitionend", settle);
             root.classList.remove("reveal-enabled");
             tracked.forEach(element => {
-                element.classList.remove("reveal-pending", "reveal-visible");
+                element.classList.remove("reveal-pending", "reveal-visible", "reveal-settled");
                 element.style.removeProperty("--reveal-delay");
             });
         };
     }, [pathname, preference, systemReduced]);
-    return (<button className="motion-button" aria-pressed={!reduced} onClick={() => setPreference(reduced ? "full" : "reduced")}>
+    return (<button className="motion-button" onClick={() => setPreference(reduced ? "full" : "reduced")}>
       {reduced ? "Enable animations" : "Reduce motion"}
     </button>);
 }

@@ -1,30 +1,22 @@
+import Image from "next/image";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Note } from "../BrandUI";
 export const metadata: Metadata = {
-  title: "Plaisir · The story",
-  description:
-    "A neighbourhood coffee-and-wine concept. Explore the proposed flagship, operating approach and financial illustration.",
+    title: "Plaisir · The story",
+    description: "A neighbourhood coffee-and-wine concept. Explore the proposed flagship, operating approach and financial illustration.",
 };
 const team = [
-  ["Kevin Murph", "Founder & CEO", "Concept, culture and strategy"],
-  ["Oliwier Papadopoulos", "Partner & CFO", "Budget, cash flow and reporting"],
-  ["Jose Sidoa", "Partner & CWO", "Wine buying and service standards"],
-  ["Mohammed Diomande", "Partner & COO", "Staffing, training and operations"],
+    ["Kevin Murph", "Founder & CEO", "Concept, culture and strategy"],
+    ["Oliwier Papadopoulos", "Partner & CFO", "Budget, cash flow and reporting"],
+    ["Jose Sidoa", "Partner & CWO", "Wine buying and service standards"],
+    ["Mohammed Diomande", "Partner & COO", "Staffing, training and operations"],
 ];
 export default function Investors() {
-  return (
-    <main id="main">
+    return (<main id="main">
       <section className="scene investor-hero">
-        <img
-          className="scene-photo"
-          src="/brand/facade.webp"
-          width="1536"
-          height="1024"
-          alt="Architectural concept for a Plaisir flagship; not confirmed premises"
-          fetchPriority="high"
-        />
-        <div className="scene-shade" />
+        <Image className="scene-photo" src="/brand/facade.webp" width="1536" height="1024" alt="Architectural concept for a Plaisir flagship; not confirmed premises" fetchPriority="high" loading="eager" sizes="100vw"/>
+        <div className="scene-shade"/>
         <div className="scene-content">
           <h1>
             A familiar place.
@@ -50,12 +42,12 @@ export default function Investors() {
           </h2>
         </div>
         <div>
-          <p>
+          <p data-reveal>
             The morning ritual becomes the evening meeting place. Coffee and
             pastries at the counter. Wine, boards and small bites around a
             table.
           </p>
-          <p>
+          <p data-reveal>
             The identity connects the street, the counter and the room. The
             hospitality stays simple: a warm welcome and good guidance through
             conversation.
@@ -92,13 +84,7 @@ export default function Investors() {
       </section>
       <section className="split-scene">
         <figure className="split-photo">
-          <img
-            src="/brand/table.webp"
-            width="1536"
-            height="1024"
-            alt="Plaisir table-service concept"
-            loading="lazy"
-          />
+          <Image src="/brand/table.webp" width="1536" height="1024" alt="Plaisir table-service concept" loading="lazy" sizes="(max-width: 600px) 100vw, 50vw"/>
         </figure>
         <div className="split-copy">
           <h2 data-reveal>
@@ -106,7 +92,7 @@ export default function Investors() {
             <br />
             first.
           </h2>
-          <p>
+          <p data-reveal>
             The East Village proposal describes 500 sq ft plus a basement, with
             base rent of $6,000 per month. The actual premises must determine
             the offer, capacity and complete opening budget.
@@ -117,7 +103,7 @@ export default function Investors() {
             model occupancy: a $144k difference. Lease, usable area,
             permissions, capacity and full occupancy costs require confirmation.
           </Note>
-          <Link className="pill" href="/financials">
+          <Link data-reveal className="pill" href="/financials">
             Explore the assumptions
           </Link>
         </div>
@@ -128,18 +114,16 @@ export default function Investors() {
           <br />
           coming back to.
         </h2>
-        <p>
+        <p data-reveal>
           Hire for warmth and judgement. Build product knowledge through paid
           learning, practical standards and feedback.
         </p>
         <div className="pl-team">
-          {team.map(([name, role, detail]) => (
-            <div key={name}>
+          {team.map(([name, role, detail]) => (<div key={name} data-reveal>
               <h3>{name}</h3>
               <span>{role}</span>
-              <p>{detail}</p>
-            </div>
-          ))}
+              <p data-reveal>{detail}</p>
+            </div>))}
         </div>
         <Note title="Leadership notes">
           Source-reported leadership roles. Availability, compensation and
@@ -153,26 +137,26 @@ export default function Investors() {
             <br />
             Then grow.
           </h2>
-          <p>
+          <p data-reveal>
             Expansion follows sustained cash generation, repeat demand and
             reliable manager-led service.
           </p>
         </div>
         <div>
           <ol className="pl-launch">
-            <li>
+            <li data-reveal>
               <strong>Agreement</strong>One site, operating capacity, costed
               menu, hours and complete budget.
             </li>
-            <li>
+            <li data-reveal>
               <strong>Readiness</strong>Suppliers, paid rota, service standards
               and practical training.
             </li>
-            <li>
+            <li data-reveal>
               <strong>Soft opening</strong>Service trials and a controlled
               opening period.
             </li>
-            <li>
+            <li data-reveal>
               <strong>Trading review</strong>Margin, labour, waste, cash and
               repeat visits.
             </li>
@@ -193,11 +177,11 @@ export default function Investors() {
           <br />
           The figures.
         </h2>
-        <p>
-          Explore the proposed operating model, funding allocation, opening cash
-          and demand assumptions. Adjust the inputs and see what changes.
+        <p data-reveal>
+          Explore the proposed operating model, funding allocation and trading
+          scenarios, with source assumptions and reconciliation notes.
         </p>
-        <Link className="pill" href="/financials">
+        <Link data-reveal className="pill" href="/financials">
           Open the financial dashboard
         </Link>
         <p className="pl-small-print">
@@ -205,6 +189,5 @@ export default function Investors() {
           return calculation.
         </p>
       </section>
-    </main>
-  );
+    </main>);
 }

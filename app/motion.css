@@ -1,11 +1,12 @@
-/* Ported from Shams: design-system.css, mobile-menu.css and motion.css.
-   This file is the sole authority for menu and scroll-reveal animation. */
+/* Plaisir motion: stronger arrivals and a softer menu cadence.
+   Animate only transform and opacity; keep one owner for motion rules. */
 :root {
-  --duration-menu: 360ms;
-  --duration-reveal: 420ms;
-  --ease-menu: cubic-bezier(0.76, 0, 0.24, 1);
-  --ease-reveal: cubic-bezier(0.16, 1, 0.3, 1);
-  --reveal-distance: 10px;
+  --duration-menu: 680ms;
+  --duration-menu-exit: 480ms;
+  --duration-reveal: 850ms;
+  --ease-menu: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-reveal: cubic-bezier(0.22, 1, 0.36, 1);
+  --reveal-distance: 36px;
 }
 .site-menu {
   position: fixed;
@@ -20,10 +21,12 @@
   -webkit-overflow-scrolling: touch;
   transform: translate3d(0, -100%, 0);
   backface-visibility: hidden;
+  contain: paint;
   will-change: transform;
   transition: transform var(--duration-menu) var(--ease-menu);
 }
 .site-menu[data-phase="open"] { transform: translate3d(0, 0, 0); }
+.site-menu[data-phase="closing"] { transition-duration: var(--duration-menu-exit); transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); }
 .site-menu nav { display: grid; max-width: 1400px; margin: auto; }
 .site-menu nav > a {
   display: block;
@@ -38,26 +41,26 @@
   margin-top: 18px;
   font: 14px/1.5 var(--sans);
 }
-.site-menu[data-phase="open"] nav > a { opacity: 1; }
-html[data-motion="full"] .site-menu[data-phase="open"] nav > a {
-  animation: menuLinkArrival 240ms var(--ease-reveal) backwards;
-  animation-delay: calc(70ms + var(--item, 0) * 30ms);
+.site-menu:is([data-phase="open"], [data-phase="closing"]) nav > a { opacity: 1; }
+html[data-motion="full"] .site-menu:is([data-phase="open"], [data-phase="closing"]) nav > a {
+  animation: menuLinkArrival 520ms var(--ease-reveal) backwards;
+  animation-delay: calc(150ms + var(--item, 0) * 65ms);
 }
 @keyframes menuLinkArrival {
-  from { opacity: 0; transform: translate3d(0, 12px, 0); }
+  from { opacity: 0; transform: translate3d(0, 22px, 0); }
   to { opacity: 1; transform: none; }
 }
 /* Readable SSR; conceal only safely enrolled off-screen text blocks.
    Full-bleed images are stationary, as in Shams. */
 html.reveal-enabled [data-reveal].reveal-pending {
   opacity: 0;
-  transform: translate3d(0, var(--reveal-distance), 0);
+  transform: translate3d(0, var(--arrival-distance, var(--reveal-distance)), 0);
   transition: none;
 }
 html.reveal-enabled [data-reveal].reveal-visible {
   opacity: 1;
   transform: none;
-  transition: opacity var(--duration-reveal) var(--ease-reveal), transform var(--duration-reveal) var(--ease-reveal);
+  transition: opacity 650ms ease-out, transform var(--duration-reveal) var(--ease-reveal);
   transition-delay: var(--reveal-delay, 0ms);
 }
 html.reveal-enabled [data-reveal]:focus-within {
@@ -66,7 +69,7 @@ html.reveal-enabled [data-reveal]:focus-within {
   transition: none;
 }
 @media (min-width: 760px) {
-  :root { --duration-menu: 420ms; --duration-reveal: 520ms; --reveal-distance: 16px; }
+  :root { --duration-menu: 720ms; --duration-menu-exit: 520ms; --duration-reveal: 950ms; --reveal-distance: 44px; }
 }
 @media (max-width: 600px) {
   .site-menu nav > a { font-size: clamp(38px, 10.5vw, 60px); padding: 24px 0; }
@@ -95,3 +98,15 @@ html[data-motion="reduced"] [data-reveal] {
     opacity: 1;
   }
 }
+
+html.reveal-enabled [data-reveal-kind="heading"] { --arrival-distance: 48px; }
+/* Keep the icon's geometry stable while its two strokes turn into the X. */
+.burger-stroke { transform-box: view-box; transform-origin: 14px 14px; transition: transform 420ms var(--ease-menu); }
+ .burger-button[aria-expanded="true"] .burger-top { transform: rotate(45deg) translateY(4px); }
+ .burger-button[aria-expanded="true"] .burger-bottom { transform: rotate(-45deg) translateY(-4px); }
+html[data-motion="reduced"] .burger-stroke { transition: none; }
+@media (prefers-reduced-motion: reduce) {
+  html:not([data-motion="full"]) .burger-stroke { transition: none; }
+}
+
+html.reveal-enabled [data-reveal].reveal-visible.reveal-settled { transition: none; }

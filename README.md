@@ -1,10 +1,10 @@
-# Plaisir — Next.js 0.3.4
+# Plaisir — Next.js 0.3.5
 
 A brand-led hospitality website using the supplied 48-page Agilera investor presentation as the visual and financial reference.
 
 ## Setup
 
-Node.js 20.9+ (22 LTS recommended).
+Node.js 20.9+ supported by this Next.js build.
 
 ```sh
 npm ci
@@ -26,17 +26,17 @@ The fixed header contains the logo and burger icon only, without a filled bar or
 
 Small public/investor section labels remain removed. The three menu descriptions are restored. Paragraphs on photographs use exact brand ochre; the floating logo and controls have no shadows. The dashboard uses an ochre background and dark olive text, charts, rules and controls, including its fixed header controls.
 
-## Motion corrections in 0.3.4
+## Motion and mobile optimization in 0.3.5
 
-The prior version approximated Shams instead of preserving its motion architecture. This build ports the reference's mounted panel, double-animation-frame entrance, transform transition-end exit, capped link keyframes and progressive reveal observer. The header uses one fixed logo and one burger/X button, with the panel sliding behind them. There is no second header travelling inside a native dialog.
+Scroll reveals are intentionally stronger: body blocks move 36px over 850ms on mobile; headings move 48px. Opacity takes 650ms, arrivals are staggered by 90ms (capped at 180ms), and the trigger is inset by 12% of viewport height, capped at 120px. Desktop movement is 44px with a 950ms duration. Only marked content animates; full-screen photographs remain stationary. Nested markers are not double-animated, and settled elements stop transitioning.
 
-The only menu/reveal animation stylesheet is `app/motion.css`. Mobile values match the uploaded Shams source: menu 360ms, reveal 420ms/10px, link arrival 240ms with 70ms + 30ms per-link delay, reveal stagger 40ms capped at 80ms. Desktop values are 420ms, 520ms and 16px. Only marked text/content blocks reveal; whole photographs remain stationary.
+The menu opens over 680ms with an ease-out finish, closes over 480ms with a separate curve, and keeps link text visible during exit. Its link wave is 520ms with 150ms + 65ms per-item delay. The burger strokes smoothly rotate into the X. Controls stay fixed; the panel moves behind them. Reduced motion remains immediate unless the user explicitly enables full animation.
 
-Reveal enrollment waits until after the route paint boundary so Next.js scroll restoration does not classify the new page while it is still at the prior reading position. Visual viewport height is used, existing visible/focused content remains readable, and completed arrivals are one-shot. Cleanup cannot leave concealed content. Reduced motion matches Shams: immediate menu and visible content, with an explicit footer option to enable full motion.
+All nine public/investor photographs now use responsive Next Image delivery, correctly sized srcsets and explicit sizes. One hero per route loads eagerly with high priority; lower images remain lazy. Image widths include 360/480px for smaller screens, and the source images are retained. Run as a normal Next.js/Vercel project with its image optimizer; raw static hosting without the Next server is not supported by this configuration.
 
-For menu route navigation, the open panel covers the route switch and its exit reveals the new page. This adapts Shams' separate route-curtain coverage without introducing its splash, event-specific navigation or a second overlay. Keyboard focus containment, Escape handling, safe focus restoration and inert background content remain included.
+The mobile pass adds 44px touch targets, safer portrait/landscape gutters, scalable 320px typography, more readable notes, compact financial tabs, more resilient KPI/table layouts, proper table captions and a one-column team layout on the narrowest screens. A thin IntersectionObserver band changes the floating controls to green over yellow sections, preserving their legibility without adding a bar or shadow. Zoom remains available.
 
-See `docs/motion-review.md` for the exact source comparison and verification limits.
+See `docs/mobile-optimization.md` for scope, research links and verification limits.
 
 ## Browser canvas corrections
 
@@ -54,9 +54,9 @@ Legacy calculation helpers remain in `lib/finance.ts` for reference and unit cov
 
 ## Verification
 
-Production build and TypeScript checks pass. Fourteen tests cover the nine existing financial cases plus paint-boundary sequencing, cancellation before/between entrance frames, CSS time conversion for the exit fallback, and explicit motion preference precedence. Code comparison uses the supplied Shams `SiteHeader.tsx`, `LowerSectionReveal.tsx`, `mobile-menu.css`, `motion.css`, `design-system.css` and `lib/motion.ts`.
+Production build and TypeScript validation pass. All fourteen tests pass. `python3 scripts/audit_mobile.py` audits generated HTML after `npm run build`: one H1 per route, a working skip target, zoom-safe viewport, image dimensions/descriptions, eager high-priority hero and lazy responsive lower images. All three routes pass that audit.
 
-Browser verification for 0.3.4 is incomplete: the managed preview exits before the browser connects. This build has not been visually verified in mobile Chromium or physical Safari. Earlier versions' browser checks do not establish this version's behavior. No frame recordings or native-device verification are claimed.
+Live browser validation is incomplete: the managed preview exits before a browser connection. This pass is a source/asset/HTML optimization across all routes, not a measured mobile frame-rate, Lighthouse or physical-Safari certification. Native toolbar appearance, actual overflow at device sizes and touch smoothness still require deployed device checks. No new live deployment is included.
 
 The venue remains a concept preview. Images include renderings, no premises or opening date is confirmed, and financials are source-derived illustrations rather than an approved forecast or verified investment return.
 
