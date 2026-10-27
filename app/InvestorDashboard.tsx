@@ -3,7 +3,8 @@ import { useState, type ReactNode } from 'react';
 import { CASES, CASE_NOTES, DAYPARTS, FIXED_COSTS, FORECASTS, FUNDING, OPENING, type ForecastCase } from '../lib/investor-forecast';
 
 const dollars = new Intl.NumberFormat('en-US', { style:'currency', currency:'USD', maximumFractionDigits:0 });
-const money = (n:number) => n < 0 ? `(${dollars.format(-n)})` : dollars.format(n);
+const bill = new Intl.NumberFormat('en-US', { style:'currency', currency:'USD', minimumFractionDigits:2, maximumFractionDigits:2 });
+const money = (n:number) => Math.abs(n) < .5 ? dollars.format(0) : n < 0 ? `(${dollars.format(-n)})` : dollars.format(n);
 const percent = (n:number) => `${(n*100).toFixed(1)}%`;
 const count = (n:number) => new Intl.NumberFormat('en-US', {maximumFractionDigits:0}).format(n);
 const tabs = ['Overview', 'Cash & funding', 'Operating model', 'Basis & sources'] as const;
@@ -46,24 +47,27 @@ function FinancialTable({model,year}:{model:Model;year:number}) {
     </table>
   </div>;
 }
-function CashChart({model}:{model:Model}) {
-  const [month,setMonth]=useState(1);
+function CashPlot({model,month,compact=false}:{model:Model;month:number;compact?:boolean}) {
   const selected=model.months[month-1];
-  // Fixed across scenarios: switching a case never rescales the cash risk away.
-  const min=-400000,max=600000,left=76,right=854,top=22,bottom=244;
+  const min=-400000,max=600000,left=compact?64:76,right=compact?390:854,top=22,bottom=compact?224:244;
   const x=(i:number)=>left+i/36*(right-left), y=(n:number)=>bottom-(n-min)/(max-min)*(bottom-top);
   const points=[model.openingCash,...model.months.map(m=>m.cash)];
   const floor=[model.months[0].cashFloor,...model.months.map(m=>m.cashFloor)];
   const path=(a:number[])=>a.map((v,i)=>`${i?'L':'M'}${x(i).toFixed(2)},${y(v).toFixed(2)}`).join(' ');
-  return <>
-    <div className="v2-chart-key"><span><i/>Unrestricted cash</span><span><i className="v2-dashed"/>Three-month reserve</span></div>
-    <div className="v2-cash-chart"><svg viewBox="0 0 880 285" role="img" aria-label={`${model.scenario} case: 36-month cash position against minimum reserve`}>
+  return <svg className={compact ? 'v2-compact-plot' : 'v2-wide-plot'} viewBox={compact ? '0 0 440 265' : '0 0 880 285'} role="img" aria-label={`${model.scenario} case: 36-month cash position against minimum reserve`}>
       <title>Monthly cash and reserve · {model.scenario}</title><desc>Opening cash {money(model.openingCash)}. Month 36 cash {money(model.months[35].cash)}. {model.cashShortfall?`Cash shortfall begins in month ${model.cashShortfall}.`:'Cash stays positive throughout the forecast.'} Exact monthly figures are available below.</desc>
       {[-400000,-200000,0,200000,400000,600000].map(v=><g key={v}><line x1={left} x2={right} y1={y(v)} y2={y(v)} className={v===0?'v2-zero':'v2-gridline'}/><text x={left-12} y={y(v)+4} textAnchor="end">{v<0?'−':''}${Math.abs(v)/1000}k</text></g>)}
-      {[0,12,24,36].map(v=><text key={v} x={x(v)} y={272} textAnchor="middle">{v===0?'Opening':`Month ${v}`}</text>)}
+      {[0,12,24,36].map(v=><text key={v} x={x(v)} y={compact ? 253 : 272} textAnchor="middle">{v===0?'Opening':`Month ${v}`}</text>)}
       <path d={path(floor)} className="v2-reserve-line"/><path d={path(points)} className="v2-cash-line"/>
       <line x1={x(month)} x2={x(month)} y1={top} y2={bottom} className="v2-cursor"/><circle cx={x(month)} cy={y(selected.cash)} r="5" className="v2-cash-dot"/>
-    </svg></div>
+    </svg>;
+}
+function CashChart({model}:{model:Model}) {
+  const [month,setMonth]=useState(1);
+  const selected=model.months[month-1];
+  return <>
+    <div className="v2-chart-key"><span><i/>Unrestricted cash</span><span><i className="v2-dashed"/>Three-month reserve</span></div>
+    <div className="v2-cash-chart"><CashPlot model={model} month={month}/><CashPlot model={model} month={month} compact/></div>
     <div className="v2-month-control"><label htmlFor="forecast-month">Inspect month <strong>{month}</strong></label><input id="forecast-month" type="range" min="1" max="36" step="1" value={month} onChange={e=>setMonth(Number(e.target.value))}/></div>
     <dl className="v2-stats v2-month-stats" aria-live="polite"><div><dt>Closing cash · M{month}</dt><dd>{money(selected.cash)}</dd></div><div><dt>Cash above / below reserve</dt><dd>{money(selected.cashAbovePolicy)}</dd></div><div><dt>Free cash flow · M{month}</dt><dd>{money(selected.freeCashFlow)}</dd></div></dl>
     <p className="v2-note">The dashed line is a chosen reserve of three months of core payroll, occupancy and other fixed costs. Negative cash is an unfunded shortfall; no borrowing is assumed.</p>
@@ -93,7 +97,7 @@ export default function InvestorDashboard() {
     {tab==='Overview' && <>
       <div className="v2-section-line"><h2>Year {year+1} at a glance</h2><span>{scenario} scenario · 360 trading days/year</span></div>
       <div className="v2-kpis" aria-live="polite">
-        <article><span>Net sales</span><strong>{money(annual.sales)}</strong><small>{count(annual.visits)} paid visits · ${annual.spend.toFixed(2)} net bill</small></article>
+        <article><span>Net sales</span><strong>{money(annual.sales)}</strong><small>{count(annual.visits)} paid visits · {bill.format(annual.spend)} net bill</small></article>
         <article><span>Store EBITDA</span><strong>{money(annual.ebitda)}</strong><small>{percent(annual.margin)} operating margin</small></article>
         <article><span>Year-end cash</span><strong>{money(annual.cash)}</strong><small>After capex, working capital & planning tax</small></article>
         <article><span>36-month funding need</span><strong>{money(model.requiredFunding)}</strong><small>Includes opening uses & reserve policy</small></article>
@@ -117,7 +121,7 @@ export default function InvestorDashboard() {
     </>}
     {tab==='Operating model' && <>
       <div className="v2-section-line"><h2>The store economics</h2><span>{scenario} case · Year {year+1} cost basis</span></div>
-      <Panel title="Sales begin with paid visits" kicker="01 / Demand model"><div className="v2-dayparts">{DAYPARTS.map(d=><article key={d.name}><span>{d.name}</span><strong>{count(d.visits*model.volume)}<small>visits / day</small></strong><dl><div><dt>Net bill at opening prices</dt><dd>${d.spend.toFixed(2)}</dd></div><div><dt>Established annual sales*</dt><dd>{money(d.visits*model.volume*d.spend*360*1.03**year)}</dd></div><div><dt>Product-cost allowance</dt><dd>{percent(d.cost)}</dd></div></dl></article>)}</div><p className="v2-note">*Year {year+1} prices at full established volume, before the opening ramp. A paid visit is a purchase occasion, not a unique person. Source personas inform spend; they do not prove demand.</p><div className="v2-ramp"><span>Opening ramp · Month 1–12</span><div aria-label="Monthly sales ramp">{model.months.slice(0,12).map(m=><div key={m.month}><span style={{height:`${m.ramp*64}px`}}/><small>{Math.round(m.ramp*100)}%</small><small>M{m.month}</small></div>)}</div></div></Panel>
+      <Panel title="Sales begin with paid visits" kicker="01 / Demand model"><div className="v2-dayparts">{DAYPARTS.map(d=><article key={d.name}><span>{d.name}</span><strong>{count(d.visits*model.volume)}<small>visits / day</small></strong><dl><div><dt>Net bill at opening prices</dt><dd>{bill.format(d.spend)}</dd></div><div><dt>Established annual sales*</dt><dd>{money(d.visits*model.volume*d.spend*360*1.03**year)}</dd></div><div><dt>Product-cost allowance</dt><dd>{percent(d.cost)}</dd></div></dl></article>)}</div><p className="v2-note">*Year {year+1} prices at full established volume, before the opening ramp. A paid visit is a purchase occasion, not a unique person. Source personas inform spend; they do not prove demand.</p><div className="v2-ramp"><span>Opening ramp · Month 1–12</span><div aria-label="Monthly sales ramp">{model.months.slice(0,12).map(m=><div key={m.month}><span style={{height:`${m.ramp*64}px`}}/><small>{Math.round(m.ramp*100)}%</small><small>M{m.month}</small></div>)}</div></div></Panel>
       <div className="v2-two-col"><Panel title="A fully costed team" kicker="02 / Established annual payroll"><table className="v2-table v2-uses"><caption>Year {year+1} cost basis · established trade · USD</caption><tbody>{[['Scheduled hourly wages',payroll.hourly*12],['General manager',payroll.manager*12],['Leave cover & training',(payroll.leave+payroll.training)*12],['Employer FICA on wages',payroll.payrollTax*12],['UI & workers’ compensation',payroll.insurance*12],['Health, dental & vision',(payroll.health+payroll.dental)*12],['Retirement & incentive',(payroll.retirement+payroll.incentive)*12],['Core employer payroll',payroll.corePayroll*12],['Employer FICA on tips',payroll.tipTax*12],['Total at established volume',payroll.payroll*12]].map(([label,v],i)=><tr key={label} className={[7,9].includes(i)?'v2-subtotal':''}><th scope="row">{label}</th><td>{money(Number(v))}</td></tr>)}</tbody></table><p className="v2-note">13,200 hourly floor hours/year at $22.50 opening pay, plus a $95,000 GM. GM allocation: 1,560 floor and 520 admin hours. Eight enrolled staff; leave 6%; training 2%; UI/workers’ comp 3%; retirement 2%; incentive 1%. Wages rise 3%/year and health 6%.</p></Panel>
       <Panel title="The premises & running costs" kicker="03 / Fixed commitments"><dl className="v2-funding-math"><div><dt>Annual base rent</dt><dd>{money(120000*1.03**year)}</dd></div><div><dt>Additional occupancy charges</dt><dd>{money(24000*1.03**year)}</dd></div><div className="v2-total"><dt>Total occupancy</dt><dd>{money(annual.occupancy)}</dd></div></dl><table className="v2-table v2-uses"><caption>Other fixed costs · Year {year+1} · USD</caption><tbody>{FIXED_COSTS.map(([label,v])=><tr key={label}><th scope="row">{label}</th><td>{money(v*1.03**year)}</td></tr>)}<tr className="v2-subtotal"><th scope="row">Total other fixed operating costs</th><td>{money(annual.other)}</td></tr></tbody></table><p className="v2-note">Utilities and insurance are included once, outside rent. All occupancy and other fixed costs rise 3% annually; this is a planning allowance, not agreed lease escalation.</p></Panel></div>
       <Panel title="What the operating brief assumes" kicker="04 / Format & capacity"><div className="v2-brief"><div><h3>One compact flagship</h3><p>About 1,000 ground-floor sq ft in existing hospitality premises, a 40-seat design target and bought-in or assembly-led food. Seating, services and permitted use need address-specific confirmation.</p></div><div><h3>A day-to-night operation</h3><p>Customer service from 07:00–23:00 with prep and close outside that span. Coverage totals 41 staff-hours/day including GM floor time. The weekly rota must cover breaks and avoid unbudgeted overtime.</p></div><div><h3>One core revenue engine</h3><p>Coffee, daytime food, wine and sharing food only. No event, membership, off-premises wine, franchise or exit proceeds. No unpaid founder labour or second-store income is assumed.</p></div></div></Panel>

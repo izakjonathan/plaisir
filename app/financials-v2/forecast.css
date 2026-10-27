@@ -80,6 +80,7 @@
 .v2-chart-key i { display:block; width:23px; border-top:3px solid var(--v2-ink); }
 .v2-chart-key .v2-dashed { border-top:2px dashed var(--v2-ink); }
 .v2-cash-chart svg { display:block; width:100%; height:auto; overflow:visible; }
+.v2-cash-chart .v2-compact-plot { display:none; }
 .v2-cash-chart svg text { font:12px var(--sans); fill:var(--v2-ink); }
 .v2-gridline { stroke:var(--v2-line); stroke-width:1; }
 .v2-zero { stroke:var(--v2-ink); stroke-width:1; }
@@ -158,6 +159,9 @@
   .v2-scenarios > article { padding:20px 14px; }
   .v2-scenarios dl { grid-template-columns:1fr; }
   .v2-scenarios dl > div { font-size:16px; }
+  .v2-cash-chart .v2-wide-plot { display:none; }
+  .v2-cash-chart .v2-compact-plot { display:block; }
+  .v2-cash-chart .v2-compact-plot text { font-size:16px; }
   .v2-month-control { flex-direction:column; align-items:stretch; gap:10px; }
   .v2-month-stats { grid-template-columns:1fr; gap:20px; }
   .v2-stats dd { font-size:24px; }
