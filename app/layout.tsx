@@ -29,6 +29,9 @@ export default async function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&display=swap" rel="stylesheet" />
         <style dangerouslySetInnerHTML={{ __html: INTRO_CRITICAL_CSS }}/>
         <script dangerouslySetInnerHTML={{ __html: createIntroBootstrap(splashSettings(published).enabled) }}/>
         <noscript><style>{INTRO_NO_SCRIPT_CSS}</style></noscript>

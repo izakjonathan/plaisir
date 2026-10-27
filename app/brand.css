@@ -14,7 +14,7 @@
   --rule: #d19c364d;
   --display: Agilera, Georgia, serif;
   --serif: Agilera, Georgia, serif;
-  --sans: "Helvetica Neue", Arial, sans-serif;
+  --sans: "Bricolage Grotesque", sans-serif;
   --gutter: clamp(24px, 5vw, 88px);
 }
 html {
@@ -22,6 +22,8 @@ html {
   background: var(--green);
 }
 body {
+  font-optical-sizing: auto;
+  font-variation-settings: "wdth" 100;
   background: var(--green);
   color: var(--amber);
 }
