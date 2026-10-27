@@ -1,15 +1,6 @@
-/* A single page-level canvas: only the outer page edge clips the artwork. */
-.bottle-art-page { position: relative; isolation: isolate; }
-.bottle-page-art { position: absolute; inset: 0; overflow: hidden; pointer-events: none; z-index: 4; }
-.bottle-fragment { position: absolute; width: clamp(900px,110vw,1500px); height: auto; max-width: none; right: calc(-1 * clamp(640px,84vw,1190px)); overflow: visible; }
-.bottle-fragment path { stroke: var(--amber); stroke-width: 1.4px; stroke-linecap: round; stroke-linejoin: round; }
-.bottle-fragment--0 { top: 18%; transform: rotate(8deg); transform-origin: 50% 80%; }
-.bottle-fragment--1 { top: 46%; transform: rotate(18deg); transform-origin: 50% 80%; }
-.bottle-fragment--2 { top: 76%; transform: rotate(4deg); transform-origin: 50% 80%; }
-@media (max-width:600px) {
- .bottle-fragment { width: 900px; right: -700px; }
- .bottle-fragment path { stroke-width: 1.2px; }
- .bottle-fragment--0 { top: 18%; }
- .bottle-fragment--1 { top: 46%; }
- .bottle-fragment--2 { top: 76%; }
-}
+/* One continuous canvas, clipped only at the outer page edges. */
+.bottle-art-page { position:relative; isolation:isolate; }
+.bottle-page-art { position:absolute; inset:0; overflow:hidden; pointer-events:none; z-index:4; }
+.bottle-fragment { position:absolute; max-width:none; overflow:visible; transform-origin:center; opacity:0; }
+.bottle-fragment path { stroke:var(--brand-gold); stroke-width:1.4px; stroke-linecap:round; stroke-linejoin:round; }
+@media(max-width:600px) { .bottle-fragment path {stroke-width:1.2px;} }
