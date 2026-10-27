@@ -1,5 +1,4 @@
-/* Reference: compact centred copy (14/16px at 390px), and larger
-   left-aligned statements (20/22.5px). Scale gently on wider screens. */
+/* Editorial body copy uses the larger left-aligned reference style. */
 :root {
   --body-copy-size: clamp(14px, 3.6vw, 26px);
   --body-statement-size: clamp(20px, 5.13vw, 38px);
@@ -20,28 +19,12 @@
 ) {
   font-family: var(--sans);
   font-weight: 400;
-  font-size: var(--body-copy-size);
-  line-height: var(--body-copy-leading);
-  letter-spacing: var(--body-tracking);
-  text-align: center;
-  text-wrap: pretty;
-  max-width: 46ch;
-}
-/* Longer concept and product passages use the larger second reference style. */
-:is(.experience, [data-reveal-page="story"]) :is(
-  .manifesto-bottom > p,
-  .split-copy > p:not(.eyebrow),
-  .investor-intro > div > p,
-  .growth-section > div > p
-) {
   font-size: var(--body-statement-size);
   line-height: var(--body-statement-leading);
+  letter-spacing: var(--body-tracking);
   text-align: left;
+  text-wrap: pretty;
   max-width: 32ch;
-}
-/* Centred copy forms a complete block beneath the existing display heading. */
-:is(.experience, [data-reveal-page="story"]) .scene-content > p:not(.eyebrow) {
-  max-width: 40ch;
 }
 :is(.experience, [data-reveal-page="story"]) .model-invitation > p.pl-small-print {
   line-height: 1.3;
