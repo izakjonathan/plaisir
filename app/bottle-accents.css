@@ -1,30 +1,15 @@
-/* Fine bottle fragments are clipped locally; they never widen the document. */
-.bottle-art-section { position: relative; isolation: isolate; overflow: clip; }
-.bottle-accent { position: absolute; inset: 0; overflow: hidden; pointer-events: none; z-index: 2; color: var(--amber); }
-.bottle-accent svg { position: absolute; max-width: none; height: auto; overflow: visible; }
-.bottle-accent path { stroke: currentColor; stroke-width: 1.8px; stroke-linecap: round; stroke-linejoin: round; }
-/* A diagonal side and a small piece of the base cross the photographic area. */
-.bottle-accent--sweep svg { width: 135%; right: -86%; bottom: -18%; transform: rotate(29deg); transform-origin: 50% 85%; }
-.brand-world.bottle-art-section .world-heading { position: relative; z-index: 3; }
-/* Almost all of the bottle sits beyond the right edge. */
-.bottle-accent--edge { z-index: -1; }
-.bottle-accent--edge svg { width: 95%; right: -78%; bottom: -70%; transform: rotate(-12deg); }
-/* Only the loop at the foot of the bottle enters this invitation. */
-.bottle-accent--loop { z-index: -1; clip-path: inset(0 0 0 85%); }
-.bottle-accent--loop svg { width: 125%; right: -64%; bottom: -17%; transform: rotate(-27deg); transform-origin: 50% 90%; }
-@media (max-width: 600px) {
-  .bottle-accent path { stroke-width: 1.6px; }
-  .bottle-accent--sweep svg { width: 270%; right: -209%; bottom: -9%; transform: rotate(32deg); }
-  .bottle-accent--edge svg { width: 220%; right: -199%; bottom: -55%; transform: rotate(-9deg); }
-  .bottle-accent--loop svg { width: 230%; right: -185%; bottom: -24%; transform: rotate(-30deg); }
-}
-
-/* Larger, distinct shoulder and base crops: the rest of the bottle is off-canvas. */
-.bottle-accent--shoulder svg { width: 180%; right: -142%; bottom: -100%; transform: rotate(-8deg); }
-.bottle-accent--base svg { width: 160%; right: -105%; bottom: -22%; transform: rotate(34deg); transform-origin: 50% 90%; }
-.scene.bottle-art-section .bottle-accent { z-index: 1; clip-path: inset(0 0 0 78%); }
-.scene.bottle-art-section .scene-content { position: relative; z-index: 2; }
-@media (max-width: 600px) {
- .bottle-accent--shoulder svg { width: 300%; right: -245%; bottom: -55%; transform: rotate(-12deg); }
- .bottle-accent--base svg { width: 260%; right: -198%; bottom: -12%; transform: rotate(26deg); }
+/* A single page-level canvas: only the outer page edge clips the artwork. */
+.bottle-art-page { position: relative; isolation: isolate; }
+.bottle-page-art { position: absolute; inset: 0; overflow: hidden; pointer-events: none; z-index: 4; }
+.bottle-fragment { position: absolute; width: clamp(1300px,150vw,2100px); height: auto; max-width: none; right: calc(-1 * clamp(970px,110vw,1500px)); overflow: visible; }
+.bottle-fragment path { stroke: var(--amber); stroke-width: 1.8px; stroke-linecap: round; stroke-linejoin: round; }
+.bottle-fragment--0 { top: 10%; transform: rotate(8deg); transform-origin: 50% 80%; }
+.bottle-fragment--1 { top: 40%; transform: rotate(18deg); transform-origin: 50% 80%; }
+.bottle-fragment--2 { top: 70%; transform: rotate(4deg); transform-origin: 50% 80%; }
+@media (max-width:600px) {
+ .bottle-fragment { width: 1300px; right: -970px; }
+ .bottle-fragment path { stroke-width: 1.6px; }
+ .bottle-fragment--0 { top: 12%; }
+ .bottle-fragment--1 { top: 42%; }
+ .bottle-fragment--2 { top: 72%; }
 }

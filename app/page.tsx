@@ -2,7 +2,8 @@ import { Copy, ContentImage, ContentLink } from "./Content";
 import BottleAccent from "./BottleAccent";
 import LandingHero from "./LandingHero";
 export default function Home() {
-    return (<main id="main" className="experience">
+    return (<main id="main" className="experience bottle-art-page">
+      <BottleAccent />
       <LandingHero />
       <section id="welcome" className="manifesto gold-section">
         <h2 data-reveal><Copy field="experience.page.text1"/></h2>
@@ -21,10 +22,9 @@ export default function Home() {
           <ContentLink data-reveal className="pill" field="experience.page.link2"><Copy field="experience.page.text7"/></ContentLink>
         </div>
       </section>
-      <section id="wine" className="scene wine-scene bottle-art-section" aria-labelledby="wine-title">
+      <section id="wine" className="scene wine-scene" aria-labelledby="wine-title">
         <ContentImage field="experience.page.image8" className="scene-photo" loading="lazy" sizes="100vw"/>
         <div className="scene-shade"/>
-        <BottleAccent variant="shoulder" />
         <div className="scene-content">
           <h2 id="wine-title" data-reveal><Copy field="experience.page.text9"/></h2>
           <p data-reveal><Copy field="experience.page.text10"/></p>
@@ -50,8 +50,7 @@ export default function Home() {
           <h2 data-reveal><Copy field="experience.page.text18"/></h2>
           <p data-reveal><Copy field="experience.page.text19"/></p>
         </div>
-        <div className="world-images bottle-art-section">
-          <BottleAccent variant="sweep" />
+        <div className="world-images">
           <figure>
             <ContentImage field="experience.page.image20" loading="lazy" sizes="(max-width: 600px) 100vw, 50vw"/>
           </figure>
@@ -60,10 +59,9 @@ export default function Home() {
           </figure>
         </div>
       </section>
-      <section id="neighbourhood" className="scene visit-scene bottle-art-section">
+      <section id="neighbourhood" className="scene visit-scene">
         <ContentImage field="experience.page.image22" className="scene-photo" loading="lazy" sizes="100vw"/>
         <div className="scene-shade"/>
-        <BottleAccent variant="base" />
         <div className="scene-content">
           <h2 data-reveal><Copy field="experience.page.text23"/></h2>
           <p data-reveal><Copy field="experience.page.text24"/></p>
