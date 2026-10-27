@@ -1,14 +1,14 @@
 /* A single page-level canvas: only the outer page edge clips the artwork. */
 .bottle-art-page { position: relative; isolation: isolate; }
 .bottle-page-art { position: absolute; inset: 0; overflow: hidden; pointer-events: none; z-index: 4; }
-.bottle-fragment { position: absolute; width: clamp(1300px,150vw,2100px); height: auto; max-width: none; right: calc(-1 * clamp(970px,110vw,1500px)); overflow: visible; }
-.bottle-fragment path { stroke: var(--amber); stroke-width: 1.8px; stroke-linecap: round; stroke-linejoin: round; }
+.bottle-fragment { position: absolute; width: clamp(900px,110vw,1500px); height: auto; max-width: none; right: calc(-1 * clamp(640px,78vw,1100px)); overflow: visible; }
+.bottle-fragment path { stroke: var(--amber); stroke-width: 1.4px; stroke-linecap: round; stroke-linejoin: round; }
 .bottle-fragment--0 { top: 10%; transform: rotate(8deg); transform-origin: 50% 80%; }
 .bottle-fragment--1 { top: 40%; transform: rotate(18deg); transform-origin: 50% 80%; }
 .bottle-fragment--2 { top: 70%; transform: rotate(4deg); transform-origin: 50% 80%; }
 @media (max-width:600px) {
- .bottle-fragment { width: 1300px; right: -970px; }
- .bottle-fragment path { stroke-width: 1.6px; }
+ .bottle-fragment { width: 900px; right: -640px; }
+ .bottle-fragment path { stroke-width: 1.2px; }
  .bottle-fragment--0 { top: 12%; }
  .bottle-fragment--1 { top: 42%; }
  .bottle-fragment--2 { top: 72%; }
