@@ -23,7 +23,7 @@
 .hero-line { display: block; overflow: hidden; padding-bottom: .13em; margin-bottom: -.13em; }
 .hero-line > * { display: block; }
 .hero-bottle { position: absolute; z-index: 2; right: 12%; top: 20%; width: min(25vw,310px); height: 65%; transform: rotate(9deg); }
-.hero-bottle svg, .splash-bottle svg { display: block; width: 100%; height: 100%; }
+.hero-bottle svg, .splash-bottle svg, .hero-bottle img, .splash-bottle img { display: block; width: 100%; height: 100%; object-fit: contain; }
 .hero-discover { display: inline-flex; gap: 30px; }
 .brand-splash { display: none; position: fixed; z-index: 120; inset: 0; background: var(--green); overflow: hidden; pointer-events: none; }
 .brand-splash .splash-photo { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center; filter:saturate(.55); }
