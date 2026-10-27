@@ -1,0 +1,94 @@
+/* Shared public actions: text and a calligraphic arrow, with no pill outline. */
+.pill,
+.pl-solid-link,
+.outline-button,
+.quiet-button,
+.motion-button,
+.pl-financial-page .deck-dashboard .pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 14px;
+  width: fit-content;
+  max-width: 100%;
+  min-height: 44px;
+  padding: 10px 0;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  background: transparent;
+  color: inherit;
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.3;
+  text-align: left;
+  text-decoration: none;
+}
+.pill::after,
+.pl-solid-link::after,
+.outline-button::after,
+.quiet-button::after,
+.motion-button::after {
+  content: "";
+  flex: 0 0 auto;
+  width: 32px;
+  height: 20px;
+  background: currentColor;
+  /* Tapered stem and curved, flared head echo Agilera's contrasting strokes. */
+  -webkit-mask: url('/brand/action-arrow.svg') center / contain no-repeat;
+  mask: url('/brand/action-arrow.svg') center / contain no-repeat;
+  transition: transform 220ms ease;
+}
+.pill:hover,
+.pl-solid-link:hover {
+  transform: none;
+}
+.deck-dashboard .pill[aria-pressed="true"] {
+  box-shadow: none;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 6px;
+}
+.deck-dashboard .pill {
+  gap: 8px;
+}
+.deck-dashboard .pill::after {
+  width: 23px;
+  height: 17px;
+}
+.finance-views .pill {
+  width: auto;
+}
+.motion-button {
+  font-size: 13px;
+}
+.motion-button::after {
+  width: 24px;
+  height: 17px;
+}
+@media (hover: hover) and (pointer: fine) {
+  :is(.pill, .pl-solid-link, .outline-button, .quiet-button, .motion-button):not(:disabled):hover::after {
+    transform: translateX(5px);
+  }
+}
+@media (max-width: 600px) {
+  .pl-financial-page .finance-views .pill {
+    font-size: 14px;
+    padding: 10px 0;
+    gap: 7px;
+  }
+  .finance-views .pill::after {
+    width: 18px;
+    height: 15px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  :is(.pill, .pl-solid-link, .outline-button, .quiet-button, .motion-button)::after {
+    transition: none;
+    transform: none;
+  }
+}
+html[data-motion="reduced"] :is(.pill, .pl-solid-link, .outline-button, .quiet-button, .motion-button)::after {
+  transition: none;
+  transform: none;
+}
