@@ -16,18 +16,19 @@ export default function BottleAccent() {
         const r=el.getBoundingClientRect();
         return {left:r.left-bounds.left-36,right:r.right-bounds.left+36,top:r.top-bounds.top-70,bottom:r.bottom-bounds.top+70};
       });
-      const width = Math.max(740, Math.min(1400,bounds.width*1.8));
-      const scale=width/260, height=590*scale;
+  
       canvas.querySelectorAll<SVGSVGElement>('svg').forEach((svg,index) => {
         const photo=photos[Math.round(index*(photos.length-1)/2)];
         if (!photo) return;
         const r=photo.getBoundingClientRect();
         const anchor=r.top-bounds.top+r.height/2;
+        const width=Math.min(1100,Math.max(360,r.height*.8));
+        const scale=width/260,height=590*scale;
         const path=svg.querySelector('path')!;
         const length=path.getTotalLength();
         const points=Array.from({length:240},(_,i)=>path.getPointAtLength(length*i/239));
         let best: {score:number;x:number;y:number;angle:number}|undefined;
-        for(const angle of (index%2 ? [-65,-100,-35,65,100,35] : [65,100,35,-65,-100,-35])) {
+        for(const angle of (index%2 ? [-90,-65,-100,-35,90,65,100,35] : [90,65,100,35,-90,-65,-100,-35])) {
           const rad=angle*Math.PI/180,c=Math.cos(rad),s=Math.sin(rad);
           for(const x of [-width*.32,bounds.width-width*.68,-width*.65,bounds.width-width*.35]) {
             for(const shift of [0,-r.height*.2,r.height*.2]) {
