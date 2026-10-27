@@ -10,7 +10,7 @@ export function useHeaderTone(pathname: string) {
             root.dataset.headerTone = "dark";
             setTone("dark");
             root.style.setProperty("--document-canvas-image", "none");
-            root.style.setProperty("--document-canvas-color", "#d19c36");
+            root.style.setProperty("--document-canvas-color", "#d8b15b");
             return;
         }
         let frame = 0;
@@ -29,10 +29,10 @@ export function useHeaderTone(pathname: string) {
             setTone(tone);
             if (root.dataset.headerTone !== tone) root.dataset.headerTone = tone;
             const photo = section.querySelector<HTMLImageElement>("img.scene-photo");
-            const canvas = photo?.currentSrc ? `linear-gradient(#101b0d88,#101b0d88),url(${JSON.stringify(photo.currentSrc)})` : "none";
+            const canvas = photo?.currentSrc ? `linear-gradient(#172a2288,#172a2288),url(${JSON.stringify(photo.currentSrc)})` : "none";
             if (root.style.getPropertyValue("--document-canvas-image") !== canvas)
                 root.style.setProperty("--document-canvas-image", canvas);
-            root.style.setProperty("--document-canvas-color", dark ? "#d19c36" : "#101b0d");
+            root.style.setProperty("--document-canvas-color", dark ? "#d8b15b" : "#172a22");
         };
         const schedule = () => {
             if (!frame) frame = requestAnimationFrame(() => { frame = 0; update(); });

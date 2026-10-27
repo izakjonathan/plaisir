@@ -21,8 +21,8 @@ export const INTRO_BOOTSTRAP = createIntroBootstrap();
 // Critical protection lives in the document head, before external styles/JS.
 // The splash itself stays visible even while its main ancestor is concealed.
 export const INTRO_CRITICAL_CSS = `
-html:is([data-intro-boot="splash"],[data-intro-boot="running"]) { background:#2b3d17; overflow:hidden; }
-html:is([data-intro-boot="splash"],[data-intro-boot="running"]) body { background:#2b3d17; overflow:hidden; }
+html:is([data-intro-boot="splash"],[data-intro-boot="running"]) { background:#263d32; overflow:hidden; }
+html:is([data-intro-boot="splash"],[data-intro-boot="running"]) body { background:#263d32; overflow:hidden; }
 html:is([data-intro-boot="splash"],[data-intro-boot="running"]) main,
 html:is([data-intro-boot="splash"],[data-intro-boot="running"]) .brand-footer,
 html:is([data-intro-boot="splash"],[data-intro-boot="running"]) .skip-link,
