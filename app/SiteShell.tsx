@@ -18,7 +18,7 @@ function MarketingShell({ children }: {
 }) {
     const pathname = usePathname();
     const router = useRouter();
-    useHeaderTone(pathname);
+    const headerTone = useHeaderTone(pathname);
     const panel = useRef<HTMLDivElement>(null);
     const button = useRef<HTMLButtonElement>(null);
     const keyboard = useRef(false);
@@ -130,9 +130,9 @@ function MarketingShell({ children }: {
       <a className="skip-link" href="#main"><Copy field="shared.shell.text1"/></a>
       <header className="floating-header" data-page={(pathname === "/financials" || pathname === "/financials-v2") ? "financials" : "experience"}>
         <Link className="brand-logo" href="/" aria-label="Plaisir home" inert={mounted}>
-          <img src={(pathname === "/financials" || pathname === "/financials-v2") ? "/brand/wordmark-green.svg" : "/brand/wordmark-gold.svg"} width="1911" height="660" alt="Plaisir" fetchPriority="high"/>
+          <img src={!mounted && headerTone === "dark" ? "/brand/wordmark-green.svg" : "/brand/wordmark-gold.svg"} width="1911" height="660" alt="Plaisir" fetchPriority="high"/>
         </Link>
-        <button ref={button} className="burger-button" type="button" aria-label={mounted ? "Close menu" : "Open menu"} aria-haspopup="dialog" aria-controls={mounted ? "site-menu" : undefined} aria-expanded={expanded} onPointerDown={() => { keyboard.current = false; }} onKeyDown={event => {
+        <button ref={button} className="burger-button" style={{color: !mounted && headerTone === "dark" ? "#2b3d17" : "#d19c36"}} type="button" aria-label={mounted ? "Close menu" : "Open menu"} aria-haspopup="dialog" aria-controls={mounted ? "site-menu" : undefined} aria-expanded={expanded} onPointerDown={() => { keyboard.current = false; }} onKeyDown={event => {
             if (event.key === "Enter" || event.key === " ")
                 keyboard.current = true;
         }} onClick={event => {

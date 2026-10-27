@@ -1,58 +1,63 @@
 "use client";
-import { useLayoutEffect } from "react";
-/** Keep the two floating controls legible without adding a header bar or shadow. */
+import { useLayoutEffect, useState } from "react";
+import { afterPaint } from "../lib/motion";
+/** Sample the section beneath the fixed controls after scroll and layout changes. */
 export function useHeaderTone(pathname: string) {
+    const [tone, setTone] = useState<"dark" | "gold">((pathname === "/financials" || pathname === "/financials-v2") ? "dark" : "gold");
     useLayoutEffect(() => {
         const root = document.documentElement;
-        // The financial canvas is yellow throughout, including the gap above
-        // its first section. Set it before paint without observing scroll.
-        if ((pathname === "/financials" || pathname === "/financials-v2")) {
+        if (pathname === "/financials" || pathname === "/financials-v2") {
             root.dataset.headerTone = "dark";
+            setTone("dark");
             root.style.setProperty("--document-canvas-image", "none");
             root.style.setProperty("--document-canvas-color", "#d19c36");
             return;
         }
-        const sections = [...document.querySelectorAll<HTMLElement>("main > section, main > figure, .brand-footer")];
-        let observer: IntersectionObserver | undefined;
-        const observe = () => {
-            observer?.disconnect();
-            const height = document.documentElement.clientHeight;
+        let frame = 0;
+        const update = () => {
             const button = document.querySelector(".floating-header .burger-button");
             const rect = button?.getBoundingClientRect();
-            const y = Math.max(0, Math.min(height - 2, rect ? rect.top + rect.height / 2 : 44));
-            const paint = (element: HTMLElement) => {
-        const photo = element.querySelector<HTMLImageElement>("img.scene-photo");
-        root.style.setProperty("--document-canvas-image", photo?.currentSrc ? `linear-gradient(#101b0d88,#101b0d88),url(${JSON.stringify(photo.currentSrc)})` : "none");
-                root.style.setProperty("--document-canvas-color", element.matches(".gold-section, .brand-footer") || element.closest(".pl-financial-page") ? "#d19c36" : "#101b0d");
-        root.dataset.headerTone = element.matches(".gold-section, .brand-footer") ||
-                    element.closest(".pl-financial-page") ? "dark" : "gold";
-            };
-            // Also handles restored scroll positions before the first observer callback.
-            const initial = sections.find(section => {
-                const box = section.getBoundingClientRect();
+            const y = rect ? rect.top + rect.height / 2 : 44;
+            const sections = document.querySelectorAll<HTMLElement>("main > section, main > figure, .brand-footer");
+            const section = Array.from(sections).find(element => {
+                const box = element.getBoundingClientRect();
                 return box.top <= y && box.bottom > y;
             });
-            if (initial)
-                paint(initial);
-            if (!("IntersectionObserver" in window))
-                return;
-            observer = new IntersectionObserver(entries => {
-                entries.filter(entry => entry.isIntersecting).forEach(entry => paint(entry.target as HTMLElement));
-            }, { rootMargin: `-${Math.floor(y)}px 0px -${Math.max(0, Math.floor(height - y - 2))}px 0px`, threshold: 0 });
-            sections.forEach(section => observer?.observe(section));
+            if (!section) return;
+            const dark = section.matches(".gold-section, .brand-footer");
+            const tone = dark ? "dark" : "gold";
+            setTone(tone);
+            if (root.dataset.headerTone !== tone) root.dataset.headerTone = tone;
+            const photo = section.querySelector<HTMLImageElement>("img.scene-photo");
+            const canvas = photo?.currentSrc ? `linear-gradient(#101b0d88,#101b0d88),url(${JSON.stringify(photo.currentSrc)})` : "none";
+            if (root.style.getPropertyValue("--document-canvas-image") !== canvas)
+                root.style.setProperty("--document-canvas-image", canvas);
+            root.style.setProperty("--document-canvas-color", dark ? "#d19c36" : "#101b0d");
         };
-        observe();
-        let frame = 0;
-        const resize = () => {
-            if (frame)
-                return;
-            frame = requestAnimationFrame(() => { frame = 0; observe(); });
+        const schedule = () => {
+            if (!frame) frame = requestAnimationFrame(() => { frame = 0; update(); });
         };
-        window.addEventListener("resize", resize, { passive: true });
+        update();
+        // Next restores route scroll after layout effects. Sample again after paint.
+        const cancelPaint = afterPaint(schedule);
+        window.addEventListener("scroll", schedule, { passive: true });
+        window.addEventListener("resize", schedule, { passive: true });
+        document.addEventListener("load", schedule, true);
+        window.visualViewport?.addEventListener("resize", schedule);
+        window.visualViewport?.addEventListener("scroll", schedule);
+        const resize = new ResizeObserver(schedule);
+        const main = document.querySelector("main");
+        if (main) resize.observe(main);
         return () => {
-            observer?.disconnect();
-            window.removeEventListener("resize", resize);
+            cancelPaint();
             cancelAnimationFrame(frame);
+            resize.disconnect();
+            window.removeEventListener("scroll", schedule);
+            window.removeEventListener("resize", schedule);
+            document.removeEventListener("load", schedule, true);
+            window.visualViewport?.removeEventListener("resize", schedule);
+            window.visualViewport?.removeEventListener("scroll", schedule);
         };
     }, [pathname]);
+    return tone;
 }
