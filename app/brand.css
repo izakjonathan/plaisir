@@ -140,8 +140,8 @@ summary:focus-visible {
   width: 100%;
   height: 60px;
   background: var(--amber);
-  mask: url("/brand/wordmark.webp") center/contain no-repeat;
-  -webkit-mask: url("/brand/wordmark.webp") center/contain no-repeat;
+  mask: url("/brand/wordmark-gold.svg") center/contain no-repeat;
+  -webkit-mask: url("/brand/wordmark-gold.svg") center/contain no-repeat;
 }
 .menu-button {
   gap: 24px;
@@ -1749,7 +1749,7 @@ body {
 .pl-financial-page .cost-track span { background: #2b3d1799; }
 .pl-financial-page .sensitivity-bars .highlight .cost-track span { background: #2b3d17; }
 body:has(.pl-financial-page) .floating-header { color: #2b3d17; }
-body:has(.pl-financial-page) .floating-header .brand-logo img { content: url('/brand/wordmark-green.png'); }
+body:has(.pl-financial-page) .floating-header .brand-logo img { content: url('/brand/wordmark-green.svg'); }
 html:has(.pl-financial-page) { --document-canvas-color: #d19c36; }
 body:has(.pl-financial-page) .floating-header .burger-button { color: #2b3d17; }
 /* Narrow fixed controls avoid a full-width fixed browser tint surface. */
@@ -1758,4 +1758,4 @@ body:has(.pl-financial-page) .floating-header .burger-button { color: #2b3d17; }
 .floating-header .brand-logo { left: max(var(--gutter),env(safe-area-inset-left,0px)); }
 .floating-header .burger-button { right: max(var(--gutter),env(safe-area-inset-right,0px)); }
 html.menu-open .floating-header .burger-button { color: #d19c36; }
-html.menu-open .floating-header .brand-logo img { content: url('/brand/wordmark-gold.png'); }
+html.menu-open .floating-header .brand-logo img { content: url('/brand/wordmark-gold.svg'); }

@@ -130,7 +130,7 @@ function MarketingShell({ children }: {
       <a className="skip-link" href="#main"><Copy field="shared.shell.text1"/></a>
       <header className="floating-header" data-page={(pathname === "/financials" || pathname === "/financials-v2") ? "financials" : "experience"}>
         <Link className="brand-logo" href="/" aria-label="Plaisir home" inert={mounted}>
-          <img src={(pathname === "/financials" || pathname === "/financials-v2") ? "/brand/wordmark-green.png" : "/brand/wordmark-gold.png"} width="900" height="380" alt="Plaisir" fetchPriority="high"/>
+          <img src={(pathname === "/financials" || pathname === "/financials-v2") ? "/brand/wordmark-green.svg" : "/brand/wordmark-gold.svg"} width="1911" height="660" alt="Plaisir" fetchPriority="high"/>
         </Link>
         <button ref={button} className="burger-button" type="button" aria-label={mounted ? "Close menu" : "Open menu"} aria-haspopup="dialog" aria-controls={mounted ? "site-menu" : undefined} aria-expanded={expanded} onPointerDown={() => { keyboard.current = false; }} onKeyDown={event => {
             if (event.key === "Enter" || event.key === " ")
@@ -168,7 +168,7 @@ function MarketingShell({ children }: {
         <div className="footer-heading">
           <h2 data-reveal><Copy field="shared.shell.text2"/></h2>
           <Link href="/" className="footer-signature" aria-label="Plaisir home">
-            <img src="/brand/wordmark-green.png" width="900" height="380" alt="Plaisir"/>
+            <img src="/brand/wordmark-green.svg" width="1911" height="660" alt="Plaisir"/>
           </Link>
         </div>
         <div className="footer-bottom">

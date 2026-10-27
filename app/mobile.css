@@ -39,9 +39,9 @@ p, dd, li { overflow-wrap: break-word; }
 html.menu-open, html.menu-open body { overflow: hidden; overscroll-behavior: none; }
 /* Dark ink on yellow sections, gold on photographs/green. No backdrop or shadow. */
 html[data-header-tone="dark"]:not(.menu-open) .floating-header .burger-button { color: #2b3d17; }
-html[data-header-tone="dark"]:not(.menu-open) .floating-header .brand-logo img { content: url('/brand/wordmark-green.png'); }
+html[data-header-tone="dark"]:not(.menu-open) .floating-header .brand-logo img { content: url('/brand/wordmark-green.svg'); }
 html[data-header-tone="gold"]:not(.menu-open) .floating-header .burger-button { color: #d19c36; }
-html[data-header-tone="gold"]:not(.menu-open) .floating-header .brand-logo img { content: url('/brand/wordmark-gold.png'); }
+html[data-header-tone="gold"]:not(.menu-open) .floating-header .brand-logo img { content: url('/brand/wordmark-gold.svg'); }
 /* Hover movement belongs to mouse pointers, not a sticky touch hover state. */
 @media (hover: none), (pointer: coarse) {
   .pill:hover, .pl-solid-link:hover { transform: none; }
@@ -141,6 +141,6 @@ html:not(.menu-open) .floating-header[data-page="financials"] .burger-button {
   transition: none;
 }
 html:not(.menu-open) .floating-header[data-page="financials"] .brand-logo img {
-  content: url('/brand/wordmark-green.png');
+  content: url('/brand/wordmark-green.svg');
   transition: none;
 }

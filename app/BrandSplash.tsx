@@ -21,7 +21,7 @@ export default function BrandSplash({ preview = false }: { preview?: boolean }) 
     <div className="splash-green" />
     <div className="splash-art">
       {settings.showBottle && <div className="splash-bottle"><Bottle /></div>}
-      {settings.showLogo && <img className="splash-logo" src="/brand/wordmark-gold.png" width="900" height="380" alt="" loading="eager" fetchPriority="high" />}
+      {settings.showLogo && <img className="splash-logo" src="/brand/wordmark-gold.svg" width="1911" height="660" alt="" loading="eager" fetchPriority="high" />}
     </div>
   </div>;
 }
