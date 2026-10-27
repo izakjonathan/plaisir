@@ -1,0 +1,29 @@
+/* A generous closing chapter, with a directory and oversized signature. */
+.brand-footer { padding: clamp(64px,8vw,120px) max(var(--gutter),env(safe-area-inset-left)) max(24px,env(safe-area-inset-bottom)); }
+.brand-footer .footer-top { display: grid; grid-template-columns: 1.2fr 1fr; gap: clamp(40px,8vw,140px); align-items: start; }
+.brand-footer .footer-heading { display: block; margin: 0; }
+.brand-footer .footer-heading .eyebrow { font-size: 13px; letter-spacing: .04em; margin-bottom: 28px; }
+.brand-footer .footer-heading h2 { font-size: clamp(56px,6vw,100px); line-height: 1.06; max-width: 10ch; }
+.footer-directory { display: grid; }
+.footer-directory a { position: relative; display: grid; gap: 6px; padding: 21px 38px 21px 0; border-bottom: 1px solid #2b3d1740; }
+.footer-directory a:first-child { padding-top: 0; }
+.footer-directory a > span:first-child { font-size: clamp(20px,2vw,28px); letter-spacing: -.03em; }
+.footer-directory small { font-size: 14px; line-height: 1.4; }
+.footer-link-arrow { position: absolute; right: 0; top: 28px; width: 26px; height: 18px; background: currentColor; mask: url('/brand/action-arrow.svg') center/contain no-repeat; transition: transform .2s ease; }
+.footer-directory a:first-child .footer-link-arrow { top: 7px; }
+.footer-directory a:hover .footer-link-arrow { transform: translateX(4px); }
+.brand-footer .footer-signature { display: block; width: min(100%,1100px); margin: clamp(56px,7vw,110px) auto clamp(40px,5vw,72px); }
+.brand-footer .footer-signature img { width: 100%; height: auto; }
+.brand-footer .footer-bottom { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px 28px; border-top: 1px solid #2b3d1740; padding-top: 20px; }
+.brand-footer .footer-bottom p, .brand-footer .footer-top-link { font-size: 13px; line-height: 1.4; }
+.footer-top-link { display: inline-flex; align-items: center; gap: 12px; min-height: 44px; }
+@media (max-width:600px) {
+ .brand-footer .footer-top { grid-template-columns: 1fr; gap: 42px; }
+ .brand-footer .footer-heading h2 { font-size: clamp(54px,14vw,76px); }
+ .brand-footer .footer-signature { margin-top: 52px; margin-bottom: 32px; }
+ .brand-footer .footer-bottom { gap: 6px 24px; }
+ .brand-footer .footer-bottom p { flex-basis: 100%; margin-bottom: 6px; }
+ .brand-footer .footer-bottom .motion-button { padding-left: 0; padding-right: 0; }
+}
+html[data-motion="reduced"] .footer-link-arrow { transition: none; }
+@media (prefers-reduced-motion:reduce) { .footer-link-arrow { transition:none; } }

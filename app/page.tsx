@@ -21,9 +21,10 @@ export default function Home() {
           <ContentLink data-reveal className="pill" field="experience.page.link2"><Copy field="experience.page.text7"/></ContentLink>
         </div>
       </section>
-      <section id="wine" className="scene wine-scene" aria-labelledby="wine-title">
+      <section id="wine" className="scene wine-scene bottle-art-section" aria-labelledby="wine-title">
         <ContentImage field="experience.page.image8" className="scene-photo" loading="lazy" sizes="100vw"/>
         <div className="scene-shade"/>
+        <BottleAccent variant="shoulder" />
         <div className="scene-content">
           <h2 id="wine-title" data-reveal><Copy field="experience.page.text9"/></h2>
           <p data-reveal><Copy field="experience.page.text10"/></p>
@@ -59,9 +60,10 @@ export default function Home() {
           </figure>
         </div>
       </section>
-      <section id="neighbourhood" className="scene visit-scene">
+      <section id="neighbourhood" className="scene visit-scene bottle-art-section">
         <ContentImage field="experience.page.image22" className="scene-photo" loading="lazy" sizes="100vw"/>
         <div className="scene-shade"/>
+        <BottleAccent variant="base" />
         <div className="scene-content">
           <h2 data-reveal><Copy field="experience.page.text23"/></h2>
           <p data-reveal><Copy field="experience.page.text24"/></p>

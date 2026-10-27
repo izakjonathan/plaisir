@@ -18,3 +18,13 @@
   .bottle-accent--edge svg { width: 220%; right: -199%; bottom: -55%; transform: rotate(-9deg); }
   .bottle-accent--loop svg { width: 230%; right: -185%; bottom: -24%; transform: rotate(-30deg); }
 }
+
+/* Larger, distinct shoulder and base crops: the rest of the bottle is off-canvas. */
+.bottle-accent--shoulder svg { width: 180%; right: -142%; bottom: -100%; transform: rotate(-8deg); }
+.bottle-accent--base svg { width: 160%; right: -105%; bottom: -22%; transform: rotate(34deg); transform-origin: 50% 90%; }
+.scene.bottle-art-section .bottle-accent { z-index: 1; clip-path: inset(0 0 0 78%); }
+.scene.bottle-art-section .scene-content { position: relative; z-index: 2; }
+@media (max-width: 600px) {
+ .bottle-accent--shoulder svg { width: 300%; right: -245%; bottom: -55%; transform: rotate(-12deg); }
+ .bottle-accent--base svg { width: 260%; right: -198%; bottom: -12%; transform: rotate(26deg); }
+}

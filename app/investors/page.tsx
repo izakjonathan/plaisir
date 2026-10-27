@@ -48,7 +48,8 @@ export default function Investors() {
         </div>
       </section>
       <section className="split-scene">
-        <figure className="split-photo">
+        <figure className="split-photo bottle-art-section">
+          <BottleAccent variant="shoulder" />
           <ContentImage field="story.page.image15" loading="lazy" sizes="(max-width: 600px) 100vw, 50vw"/>
         </figure>
         <div className="split-copy">
@@ -71,7 +72,7 @@ export default function Investors() {
         </div>
         <Note title="Leadership notes"><Copy field="story.page.text22"/></Note>
       </section>
-      <figure className="company-photo"><ContentImage field="story.page.image23" loading="lazy" sizes="100vw"/></figure>
+      <figure className="company-photo bottle-art-section"><BottleAccent variant="base" /><ContentImage field="story.page.image23" loading="lazy" sizes="100vw"/></figure>
       <section className="growth-section gold-section">
         <div>
           <h2 data-reveal="story-16"><Copy field="story.page.text24"/></h2>
