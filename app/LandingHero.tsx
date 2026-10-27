@@ -40,8 +40,11 @@ export default function LandingHero() {
       try { sessionStorage.setItem("plaisir-intro-v2", "seen"); } catch { /* Optional convenience only. */ }
       exit = setTimeout(() => { if (!cancelled) { root.dataset.introBoot = "ready"; setIntro("ready"); } }, 650);
     };
-    const logo = section.current?.querySelector<HTMLImageElement>(".splash-logo");
-    const ready = Promise.allSettled([document.fonts.ready, logo?.decode()]);
+    // The visible logo is a CSS mask. Decode its source separately; the mask
+    // element is not an HTMLImageElement and has no decode() method.
+    const logo = new Image();
+    logo.src = "/brand/wordmark-gold.svg";
+    const ready = Promise.allSettled([document.fonts.ready, logo.decode()]);
     cap = setTimeout(finish, settings.duration + 1750);
     // Give the separately loaded logo time to decode, without waiting indefinitely.
     Promise.race([ready, new Promise(resolve => { hold = setTimeout(resolve, 600); })]).then(() => {
