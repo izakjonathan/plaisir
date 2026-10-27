@@ -35,3 +35,17 @@ test('profitability thresholds reconcile without assuming further traffic growth
   close(FORECASTS.Base.years[1].visits,64800);close(FORECASTS.Base.years[2].visits,64800);
   assert.ok(FORECASTS.Upside.months[23].corePayroll>m.corePayroll);
 });
+
+test('investor ratios and profit-to-cash bridge use the issued forecast consistently', async()=>{
+  const { investorMetrics } = await import('../lib/investor-forecast.ts');
+  for(const c of CASES) for(const year of FORECASTS[c].years) {
+    const m=investorMetrics(year);
+    close(year.ebitda-year.tax+m.workingCapitalCash-year.capex,year.freeCashFlow);
+    close(m.primeCostRatio,m.payrollRatio+year.cogs/year.sales);
+    close(m.averageSpend*year.visits,year.sales);
+  }
+  const m=investorMetrics(FORECASTS.Base.years[1]);
+  close(m.paidVisitsPerDay,180);close(m.payrollRatio*100,46.1760670298);
+  close(m.occupancyRatio*100,12.012012012);close(m.primeCostRatio*100,76.5814724352);
+  close(m.costGapForTenPercent,136930.893797);
+});

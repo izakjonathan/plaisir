@@ -12,3 +12,19 @@
   .numbers-v2-year { flex-direction:column; }
   .numbers-v2-downloads { flex-direction:column; align-items:flex-start; }
 }
+/* Additional investor context keeps the existing Numbers panels and type scale. */
+.numbers-v2-metrics, .numbers-v2-terms { margin:0 0 26px; }
+.numbers-v2-metrics > div, .numbers-v2-terms > div { display:flex; justify-content:space-between; align-items:baseline; gap:20px; padding:16px 0; border-bottom:1px solid var(--rule); font-size:17px; line-height:1.45; }
+.numbers-v2-metrics dd, .numbers-v2-terms dd { margin:0; text-align:right; font-weight:500; font-variant-numeric:tabular-nums; }
+.numbers-v2-metrics dd { white-space:nowrap; }
+.numbers-v2-investment-read, .numbers-v2-outlook, .numbers-v2-request, .numbers-v2-milestones { margin-bottom:28px; }
+.numbers-v2-gates { margin:0; padding-left:24px; display:grid; gap:28px; }
+.numbers-v2-gates h3, .numbers-v2-responses h3 { font:500 23px/1.25 var(--sans); letter-spacing:-.025em; margin:0 0 12px; }
+.numbers-v2-gates p, .numbers-v2-responses p { font-size:17px; line-height:1.5!important; max-width:82ch; }
+.numbers-v2-responses { display:grid; gap:28px; }
+.numbers-v2-responses > div + div { padding-top:24px; border-top:1px solid var(--rule); }
+@media(max-width:600px) {
+  .numbers-v2-terms > div { flex-direction:column; gap:7px; }
+  .numbers-v2-terms dd { text-align:left; }
+  .numbers-v2-metrics > div { font-size:16px; gap:12px; }
+}

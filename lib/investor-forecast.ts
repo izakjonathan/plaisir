@@ -99,3 +99,17 @@ export function buildForecast(scenario: ForecastCase) {
     cashShortfall: months.find(m=>m.cash<0)?.month };
 }
 export const FORECASTS = Object.fromEntries(CASES.map(c=>[c,buildForecast(c)])) as Record<ForecastCase, ReturnType<typeof buildForecast>>;
+
+/** Investor-facing ratios and the cash bridge; no change to forecast assumptions. */
+export function investorMetrics(annual: ReturnType<typeof buildForecast>['years'][number]) {
+  return {
+    paidVisitsPerDay: annual.visits / 360,
+    averageSpend: annual.sales / annual.visits,
+    payrollRatio: annual.payroll / annual.sales,
+    occupancyRatio: annual.occupancy / annual.sales,
+    primeCostRatio: (annual.cogs + annual.payroll) / annual.sales,
+    // EBITDA less cash tax, working-capital investment and maintenance capex = FCF.
+    workingCapitalCash: annual.operatingCash - annual.ebitda + annual.tax,
+    costGapForTenPercent: Math.max(0, annual.sales * .1 - annual.ebitda),
+  };
+}
