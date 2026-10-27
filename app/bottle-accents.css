@@ -10,7 +10,7 @@
 .bottle-accent--edge { z-index: -1; }
 .bottle-accent--edge svg { width: 95%; right: -78%; bottom: -70%; transform: rotate(-12deg); }
 /* Only the loop at the foot of the bottle enters this invitation. */
-.bottle-accent--loop { z-index: -1; }
+.bottle-accent--loop { z-index: -1; clip-path: inset(0 0 0 85%); }
 .bottle-accent--loop svg { width: 125%; right: -64%; bottom: -17%; transform: rotate(-27deg); transform-origin: 50% 90%; }
 @media (max-width: 600px) {
   .bottle-accent path { stroke-width: 1.6px; }

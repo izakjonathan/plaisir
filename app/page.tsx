@@ -44,13 +44,13 @@ export default function Home() {
         <figure><ContentImage field="experience.page.image16" loading="lazy" sizes="(max-width: 600px) 100vw, 50vw"/></figure>
         <figure><ContentImage field="experience.page.image17" loading="lazy" sizes="(max-width: 600px) 100vw, 50vw"/></figure>
       </section>
-      <section className="brand-world bottle-art-section">
-        <BottleAccent variant="sweep" />
+      <section className="brand-world">
         <div className="world-heading">
           <h2 data-reveal><Copy field="experience.page.text18"/></h2>
           <p data-reveal><Copy field="experience.page.text19"/></p>
         </div>
-        <div className="world-images">
+        <div className="world-images bottle-art-section">
+          <BottleAccent variant="sweep" />
           <figure>
             <ContentImage field="experience.page.image20" loading="lazy" sizes="(max-width: 600px) 100vw, 50vw"/>
           </figure>
