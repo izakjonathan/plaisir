@@ -127,6 +127,7 @@ function MarketingShell({ children }: {
         router.push(href);
     };
     return (<>
+      <div className="brand-grain" aria-hidden="true"/>
       <a className="skip-link" href="#main"><Copy field="shared.shell.text1"/></a>
       <header className="floating-header" data-page={(pathname === "/financials" || pathname === "/financials-v2") ? "financials" : "experience"}>
         <Link className="brand-logo" style={{backgroundColor: !mounted && headerTone === "dark" ? "var(--brand-green)" : "var(--brand-gold)"}} href="/" aria-label="Plaisir home" inert={mounted}>

@@ -33,3 +33,12 @@ html:has(.content-editor){background:#f4f1e9;background-image:none}
 
 .content-editor .editor-overlay-toggle {display:flex;align-items:center;gap:12px;margin:18px 0;min-height:44px;}
 .content-editor .editor-overlay-toggle input {width:24px;height:24px;accent-color:var(--editor-ink);flex:none;}
+
+.editor-palette-swatch {height:100px;border-radius:10px;position:relative;overflow:hidden;border:1px solid var(--editor-rule);}
+.brand-grain-sample {position:absolute;inset:0;background:url('/brand/grain.svg') repeat;mix-blend-mode:soft-light;pointer-events:none;}
+.editor-color-tabs {display:flex;gap:8px;margin:18px 0;}
+.editor-color-tabs button {flex:1;min-height:44px;border:1px solid var(--editor-rule);border-radius:8px;background:transparent;}
+.editor-color-tabs button[aria-selected=true] {background:var(--editor-ink);color:var(--editor-card);}
+.editor-color-slider {display:block;margin:16px 0;}
+.editor-color-slider > span {display:flex;justify-content:space-between;gap:16px;}
+.editor-color-slider output {font-variant-numeric:tabular-nums;font-weight:400;}

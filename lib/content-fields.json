@@ -1342,5 +1342,18 @@
     "kind": "text",
     "control": "color",
     "default": "#D8B15B"
+  },
+  {
+    "id": "brand.grain",
+    "page": "brand",
+    "section": "Brand palette",
+    "label": "Grain level",
+    "kind": "text",
+    "control": "range",
+    "min": 0,
+    "max": 100,
+    "step": 1,
+    "default": "0",
+    "hidden": true
   }
 ]

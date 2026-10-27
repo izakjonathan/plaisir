@@ -11,3 +11,6 @@
   mask:url('/brand/wordmark-gold.svg') center / contain no-repeat;
   -webkit-mask:url('/brand/wordmark-gold.svg') center / contain no-repeat;
 }
+
+.brand-grain {position:fixed;inset:0;z-index:95;pointer-events:none;opacity:var(--brand-grain-opacity,0);background:url('/brand/grain.svg') repeat;mix-blend-mode:soft-light;}
+body:has(.content-editor) > .brand-grain {display:none;}
