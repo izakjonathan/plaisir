@@ -602,7 +602,7 @@
     "section": "Dashboard",
     "label": "Paragraph",
     "kind": "text",
-    "default": "The financial illustration",
+    "default": "The flagship investment overview",
     "multiline": true
   },
   {
@@ -1214,7 +1214,7 @@
     "section": "Menu",
     "label": "Description",
     "kind": "text",
-    "default": "The financial illustration",
+    "default": "The flagship investment overview",
     "multiline": false
   },
   {

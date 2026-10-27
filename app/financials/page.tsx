@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
-import FinancialDashboard from "../FinancialDashboard";
+import InvestmentOverview from "../InvestmentOverview";
+import "../financials-v2/forecast.css";
 
 export const metadata: Metadata = {
-  title: "Plaisir · Financial dashboard",
+  title: "Plaisir · Investment overview",
   description:
-    "Plaisir operating model, funding allocation and trading scenarios. Source-derived illustrations, not an approved forecast.",
+    "The Plaisir flagship investment overview: capital requirements, operating forecast, profitability thresholds and investment structure.",
 };
 export default function Financials() {
   return (
@@ -12,9 +13,9 @@ export default function Financials() {
       <section
         id="financials"
         className="financials pl-financials"
-        aria-label="Interactive financial illustration"
+        aria-label="Investment financial overview"
       >
-        <FinancialDashboard />
+        <InvestmentOverview />
       </section>
     </main>
   );
