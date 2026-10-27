@@ -76,3 +76,11 @@ test('image processing removes metadata, constrains large photographs and preser
  const output=await processImage(small);assert.equal(output.info.width,320);assert.equal(output.info.height,480);
  await assert.rejects(()=>processImage(Buffer.from('<not an image>')),/could not be read/);
 });
+
+test('image overlay preferences persist and legacy images retain the overlay',()=>{
+ const image={...(photo.default as object),overlay:false};
+ const document=validateDocument({text:{},images:{[photo.id]:image}});
+ assert.equal(document.images[photo.id].overlay,false);
+ assert.equal(validateDocument({text:{},images:{[photo.id]:photo.default}}).images[photo.id].overlay,undefined);
+ assert.throws(()=>validateDocument({text:{},images:{[photo.id]:{...image,overlay:'false'}}}));
+});

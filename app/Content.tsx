@@ -43,7 +43,7 @@ export function ContentImage({ field, style, ...props }: { field: string } & Omi
   const image = imageValue(document, field);
   const original = fieldMap.get(field)?.default as ContentImageValue;
   const customCrop = (document.images[field] || (field === 'splash.background' && document.images['experience.hero.image1'])) && (image.src !== original.src || image.x !== original.x || image.y !== original.y);
-  return <Image {...props} src={image.src} alt={image.alt} width={image.width} height={image.height} style={{...style, ...(customCrop ? {objectPosition:`${image.x}% ${image.y}%`} : {})}}/>;
+  return <Image {...props} data-overlay={image.overlay === false ? "off" : "on"} src={image.src} alt={image.alt} width={image.width} height={image.height} style={{...style, ...(customCrop ? {objectPosition:`${image.x}% ${image.y}%`} : {})}}/>;
 }
 export function ContentLink({ field, ...props }: { field: string } & AnchorHTMLAttributes<HTMLAnchorElement>) {
   const href = textValue(useContent(), field);

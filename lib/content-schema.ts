@@ -1,6 +1,6 @@
 import definitions from './content-fields.json' with { type: 'json' };
 
-export type ContentImageValue = { src: string; alt: string; width: number; height: number; x: number; y: number };
+export type ContentImageValue = { src: string; alt: string; width: number; height: number; x: number; y: number; overlay?: boolean };
 export type Field = { id: string; page: string; section: string; label: string; kind: 'text' | 'image' | 'link'; default: string | ContentImageValue; multiline?: boolean; hidden?: boolean; control?: 'toggle' | 'range' | 'color'; min?: number; max?: number; step?: number };
 export const fields = definitions as Field[];
 export const fieldMap = new Map(fields.map(field => [field.id, field]));
@@ -44,7 +44,8 @@ export function validateDocument(input: unknown): ContentDocument {
     const v = raw as ContentImageValue;
     const isExisting = fields.some(field => field.kind === 'image' && (field.default as ContentImageValue).src === v.src);
     if (typeof v.src !== 'string' || (!isExisting && !/^\/media\/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/.test(v.src)) || typeof v.alt !== 'string' || v.alt.length > 500 || ![v.width, v.height].every(n => Number.isInteger(n) && n > 0 && n <= 12000) || ![v.x,v.y].every(n => Number.isFinite(n) && n >= 0 && n <= 100)) throw new Error('Invalid image source, dimensions or crop.');
-    clean.images[id] = { src: v.src, alt: v.alt, width: v.width, height: v.height, x: v.x, y: v.y };
+    if (v.overlay !== undefined && typeof v.overlay !== 'boolean') throw new Error('Invalid image overlay setting.');
+    clean.images[id] = { ...(v.overlay === undefined ? {} : {overlay:v.overlay}), src: v.src, alt: v.alt, width: v.width, height: v.height, x: v.x, y: v.y };
   }
   return clean;
 }

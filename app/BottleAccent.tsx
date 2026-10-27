@@ -15,12 +15,12 @@ export default function BottleAccent() {
       frame = requestAnimationFrame(() => {
         if (!active) return;
         const bounds = page.getBoundingClientRect();
-        const holes = Array.from(page.querySelectorAll('h1,h2,h3,h4,p,dt,dd,li,figcaption,.pl-note > div,a,summary,button,label,input,textarea')).map(el => {
+        const holes = Array.from(page.querySelectorAll('h1,h2,h3,h4,p,span,dt,dd,li,figcaption,.pl-note > div,a,summary,button,label,input,textarea')).map(el => {
           const box = el.getBoundingClientRect();
           if (!box.width || !box.height) return '';
-          return `<rect x="${box.left-bounds.left-12}" y="${box.top-bounds.top-12}" width="${box.width+24}" height="${box.height+24}" rx="8" fill="black"/>`;
+          return `<rect x="${box.left-bounds.left-32}" y="${box.top-bounds.top-48}" width="${box.width+64}" height="${box.height+96}" rx="8" fill="black"/>`;
         }).join('');
-        const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${bounds.width}" height="${bounds.height}"><defs><mask id="clear"><rect width="100%" height="100%" fill="white"/>${holes}</mask></defs><rect width="100%" height="100%" fill="white" mask="url(#clear)"/></svg>`;
+        const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${bounds.width}" height="${bounds.height}"><defs><mask id="clear" mask-type="luminance"><rect width="100%" height="100%" fill="white"/>${holes}</mask></defs><rect width="100%" height="100%" fill="white" mask="url(#clear)"/></svg>`;
         setMask(`url("data:image/svg+xml,${encodeURIComponent(svg)}")`);
       });
     };
@@ -29,11 +29,12 @@ export default function BottleAccent() {
     const changes = new MutationObserver(measure);
     changes.observe(page, {childList:true, subtree:true, characterData:true});
     window.addEventListener('resize', measure);
+    window.addEventListener('scroll', measure, {passive:true});
     page.addEventListener('transitionend', measure, true);
     page.addEventListener('animationend', measure, true);
     document.fonts.ready.then(() => { if (active) measure(); });
     measure();
-    return () => { active=false; cancelAnimationFrame(frame); resize.disconnect(); changes.disconnect(); window.removeEventListener('resize',measure); page.removeEventListener('transitionend',measure,true); page.removeEventListener('animationend',measure,true); };
+    return () => { active=false; cancelAnimationFrame(frame); resize.disconnect(); changes.disconnect(); window.removeEventListener('resize',measure); window.removeEventListener('scroll',measure); page.removeEventListener('transitionend',measure,true); page.removeEventListener('animationend',measure,true); };
   }, []);
   return <div ref={art} className="bottle-page-art" aria-hidden="true" style={{maskImage:mask, WebkitMaskImage:mask, opacity:mask?1:0}}>{[0,1,2].map(index =>
     <svg key={index} className={`bottle-fragment bottle-fragment--${index}`} viewBox="0 0 260 590" fill="none" focusable="false">
