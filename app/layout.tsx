@@ -5,6 +5,7 @@ import "./motion.css";
 import "./mobile.css";
 import "./landing.css";
 import "./financial.css";
+import "./typography.css";
 import SiteShell from "./SiteShell";
 import { ContentProvider } from "./Content";
 import { readPublished } from "../lib/content-db";
