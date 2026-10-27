@@ -15,7 +15,7 @@ export default function BottleAccent() {
       frame = requestAnimationFrame(() => {
         if (!active) return;
         const bounds = page.getBoundingClientRect();
-        const holes = Array.from(page.querySelectorAll('h1,h2,h3,h4,p,dt,dd,a,summary,button,label,input,textarea')).map(el => {
+        const holes = Array.from(page.querySelectorAll('h1,h2,h3,h4,p,dt,dd,li,figcaption,.pl-note > div,a,summary,button,label,input,textarea')).map(el => {
           const box = el.getBoundingClientRect();
           if (!box.width || !box.height) return '';
           return `<rect x="${box.left-bounds.left-12}" y="${box.top-bounds.top-12}" width="${box.width+24}" height="${box.height+24}" rx="8" fill="black"/>`;
@@ -29,9 +29,11 @@ export default function BottleAccent() {
     const changes = new MutationObserver(measure);
     changes.observe(page, {childList:true, subtree:true, characterData:true});
     window.addEventListener('resize', measure);
+    page.addEventListener('transitionend', measure, true);
+    page.addEventListener('animationend', measure, true);
     document.fonts.ready.then(() => { if (active) measure(); });
     measure();
-    return () => { active=false; cancelAnimationFrame(frame); resize.disconnect(); changes.disconnect(); window.removeEventListener('resize',measure); };
+    return () => { active=false; cancelAnimationFrame(frame); resize.disconnect(); changes.disconnect(); window.removeEventListener('resize',measure); page.removeEventListener('transitionend',measure,true); page.removeEventListener('animationend',measure,true); };
   }, []);
   return <div ref={art} className="bottle-page-art" aria-hidden="true" style={{maskImage:mask, WebkitMaskImage:mask, opacity:mask?1:0}}>{[0,1,2].map(index =>
     <svg key={index} className={`bottle-fragment bottle-fragment--${index}`} viewBox="0 0 260 590" fill="none" focusable="false">
