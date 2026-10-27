@@ -1,5 +1,6 @@
 import { Copy, ContentImage, ContentLink } from "../Content";
 import type { Metadata } from "next";
+import BottleAccent from "../BottleAccent";
 import { Note } from "../BrandUI";
 export const metadata: Metadata = {
     title: "Plaisir · The story",
@@ -57,7 +58,8 @@ export default function Investors() {
           <ContentLink data-reveal="story-11" className="pill" field="story.page.link2"><Copy field="story.page.text19"/></ContentLink>
         </div>
       </section>
-      <section className="investor-people">
+      <section className="investor-people bottle-art-section">
+        <BottleAccent variant="edge" />
         <h2 data-reveal="story-12"><Copy field="story.page.text20"/></h2>
         <p data-reveal="story-13"><Copy field="story.page.text21"/></p>
         <div className="pl-team">
@@ -85,7 +87,8 @@ export default function Investors() {
           <Note title="Growth assumptions"><Copy field="story.page.text30"/></Note>
         </div>
       </section>
-      <section className="model-invitation">
+      <section className="model-invitation bottle-art-section">
+        <BottleAccent variant="loop" />
         <h2 data-reveal="story-22"><Copy field="story.page.text31"/></h2>
         <p data-reveal="story-23"><Copy field="story.page.text32"/></p>
         <ContentLink data-reveal="story-24" className="pill" field="story.page.link3"><Copy field="story.page.text33"/></ContentLink>

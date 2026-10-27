@@ -1,0 +1,20 @@
+/* Fine bottle fragments are clipped locally; they never widen the document. */
+.bottle-art-section { position: relative; isolation: isolate; overflow: clip; }
+.bottle-accent { position: absolute; inset: 0; overflow: hidden; pointer-events: none; z-index: 2; color: var(--amber); }
+.bottle-accent svg { position: absolute; max-width: none; height: auto; overflow: visible; }
+.bottle-accent path { stroke: currentColor; stroke-width: 1.8px; stroke-linecap: round; stroke-linejoin: round; }
+/* A diagonal side and a small piece of the base cross the photographic area. */
+.bottle-accent--sweep svg { width: 135%; right: -86%; bottom: -18%; transform: rotate(29deg); transform-origin: 50% 85%; }
+.brand-world.bottle-art-section .world-heading { position: relative; z-index: 3; }
+/* Almost all of the bottle sits beyond the right edge. */
+.bottle-accent--edge { z-index: -1; }
+.bottle-accent--edge svg { width: 95%; right: -78%; bottom: -70%; transform: rotate(-12deg); }
+/* Only the loop at the foot of the bottle enters this invitation. */
+.bottle-accent--loop { z-index: -1; }
+.bottle-accent--loop svg { width: 125%; right: -64%; bottom: -17%; transform: rotate(-27deg); transform-origin: 50% 90%; }
+@media (max-width: 600px) {
+  .bottle-accent path { stroke-width: 1.6px; }
+  .bottle-accent--sweep svg { width: 270%; right: -209%; bottom: -9%; transform: rotate(32deg); }
+  .bottle-accent--edge svg { width: 220%; right: -199%; bottom: -55%; transform: rotate(-9deg); }
+  .bottle-accent--loop svg { width: 230%; right: -185%; bottom: -24%; transform: rotate(-30deg); }
+}
