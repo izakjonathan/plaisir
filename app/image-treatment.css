@@ -1,0 +1,29 @@
+/* Share the hero's green wash with every editorial photograph. */
+:root {
+  --photo-overlay: linear-gradient(90deg, #172a22d9 0%, #172a2266 60%, #172a2222), linear-gradient(0deg, #172a229e, transparent 50%);
+}
+.scene-shade { background: var(--photo-overlay); }
+:is(.split-photo, .world-images figure, .photo-story figure, .company-photo) {
+  position: relative;
+  isolation: isolate;
+}
+:is(.split-photo, .world-images figure, .photo-story figure, .company-photo)::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: var(--photo-overlay);
+  pointer-events: none;
+}
+:is(.experience, [data-reveal-page="story"]) :is(.split-photo, .world-images figure, .photo-story figure, .company-photo) > img {
+  filter: brightness(.72);
+}
+:is(.split-photo, .world-images figure, .photo-story figure, .company-photo) > figcaption {
+  position: relative;
+  z-index: 2;
+}
+@media (max-width: 600px) {
+  :root {
+    --photo-overlay: linear-gradient(90deg, #172a22a8, #172a2233), linear-gradient(0deg, #172a22bb, transparent 75%);
+  }
+}

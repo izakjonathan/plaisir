@@ -9,6 +9,7 @@ import "./typography.css";
 import "./buttons.css";
 import "./bottle-accents.css";
 import "./footer.css";
+import "./image-treatment.css";
 import SiteShell from "./SiteShell";
 import { ContentProvider } from "./Content";
 import { readPublished } from "../lib/content-db";
