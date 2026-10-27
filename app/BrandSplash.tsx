@@ -1,11 +1,12 @@
 "use client";
+import { bottlePath } from "../lib/bottle-art";
 import type { CSSProperties } from "react";
 import { ContentImage, useContent } from "./Content";
 import { splashSettings } from "../lib/splash";
 
 // Shared by the hero, first-visit splash and editor splash preview.
 export function Bottle() {
-  return <span className="brand-bottle-mask" aria-hidden="true" />;
+  return <svg className="brand-bottle-vector" viewBox="0 0 553 1347" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path d={bottlePath} fill="currentColor" fillRule="evenodd" /></svg>;
 }
 
 export default function BrandSplash({ preview = false }: { preview?: boolean }) {
