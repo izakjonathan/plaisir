@@ -1324,5 +1324,23 @@
     "kind": "text",
     "default": "The investor forecast & funding plan",
     "multiline": true
+  },
+  {
+    "id": "brand.green",
+    "page": "brand",
+    "section": "Brand palette",
+    "label": "Deep olive",
+    "kind": "text",
+    "control": "color",
+    "default": "#263D32"
+  },
+  {
+    "id": "brand.gold",
+    "page": "brand",
+    "section": "Brand palette",
+    "label": "Warm ochre",
+    "kind": "text",
+    "control": "color",
+    "default": "#D8B15B"
   }
 ]

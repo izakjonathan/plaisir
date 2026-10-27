@@ -1,6 +1,6 @@
 /* Share the hero's green wash with every editorial photograph. */
 :root {
-  --photo-overlay: linear-gradient(90deg, #172a22d9 0%, #172a2266 60%, #172a2222), linear-gradient(0deg, #172a229e, transparent 50%);
+  --photo-overlay: linear-gradient(90deg, color-mix(in srgb, var(--brand-dark) 85.0980%, transparent) 0%, color-mix(in srgb, var(--brand-dark) 40.0000%, transparent) 60%, color-mix(in srgb, var(--brand-dark) 13.3333%, transparent)), linear-gradient(0deg, color-mix(in srgb, var(--brand-dark) 61.9608%, transparent), transparent 50%);
 }
 .scene-shade { background: var(--photo-overlay); }
 :is(.split-photo, .world-images figure, .photo-story figure, .company-photo) {
@@ -24,6 +24,6 @@
 }
 @media (max-width: 600px) {
   :root {
-    --photo-overlay: linear-gradient(90deg, #172a22a8, #172a2233), linear-gradient(0deg, #172a22bb, transparent 75%);
+    --photo-overlay: linear-gradient(90deg, color-mix(in srgb, var(--brand-dark) 65.8824%, transparent), color-mix(in srgb, var(--brand-dark) 20.0000%, transparent)), linear-gradient(0deg, color-mix(in srgb, var(--brand-dark) 73.3333%, transparent), transparent 75%);
   }
 }

@@ -4,6 +4,8 @@ import Image, { type ImageProps } from 'next/image';
 import { createContext, useContext, useEffect, useState, Fragment, type ReactNode, type AnchorHTMLAttributes, type CSSProperties } from 'react';
 import { emptyDocument, textValue, imageValue, fieldMap, validateDocument, type ContentDocument, type ContentImageValue } from '../lib/content-schema';
 
+import { brandStyle } from '../lib/brand';
+
 const Context = createContext<ContentDocument>(emptyDocument);
 export function ContentProvider({ value, children }: { value: ContentDocument; children: ReactNode }) {
   const [draft, setDraft] = useState<ContentDocument | null>(null);
@@ -20,7 +22,7 @@ export function ContentProvider({ value, children }: { value: ContentDocument; c
     if (window.parent !== window) window.parent.postMessage({ type:'plaisir-preview-ready' }, location.origin);
     return () => { controller.abort(); window.removeEventListener('message', receive); };
   }, []);
-  return <Context.Provider value={draft ?? value}>{children}</Context.Provider>;
+  return <Context.Provider value={draft ?? value}><style data-brand-palette>{brandStyle(draft ?? value)}</style>{children}</Context.Provider>;
 }
 export function useContent() { return useContext(Context); }
 export function Copy({ field }: { field: string }) {

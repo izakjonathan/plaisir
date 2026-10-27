@@ -6,7 +6,7 @@
 .brand-footer .footer-heading h2 { font-size: clamp(50px,5.5vw,82px); line-height: 1.06; max-width: 11ch; }
 .brand-footer .footer-signature { display: block; flex: 0 0 auto; width: 200px; margin: 0 0 5px; }
 .brand-footer .footer-signature img { width: 100%; height: auto; }
-.brand-footer .footer-bottom { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 24px; border-top: 1px solid #263d3240; padding-top: 18px; }
+.brand-footer .footer-bottom { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 24px; border-top: 1px solid color-mix(in srgb, var(--brand-green) 25.0980%, transparent); padding-top: 18px; }
 .brand-footer .footer-bottom p, .brand-footer .footer-top-link { font-size: 13px; line-height: 1.4; }
 .footer-top-link { display: inline-flex; align-items: center; gap: 12px; min-height: 44px; }
 @media (max-width:600px) {

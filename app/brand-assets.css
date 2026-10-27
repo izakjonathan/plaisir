@@ -1,0 +1,17 @@
+/* Alpha masks preserve the original artwork and fine bottle line at any palette. */
+.floating-header .brand-logo, .footer-signature {
+  background-color: var(--brand-green);
+  mask: url('/brand/wordmark-gold.svg') center / contain no-repeat;
+  -webkit-mask: url('/brand/wordmark-gold.svg') center / contain no-repeat;
+}
+.floating-header .brand-logo img, .footer-signature img { visibility: hidden; }
+.brand-bottle-mask {
+  display:block; width:100%; height:100%; background:var(--brand-gold);
+  mask:url('/brand/bottle.svg') center / contain no-repeat;
+  -webkit-mask:url('/brand/bottle.svg') center / contain no-repeat;
+}
+.splash-logo {
+  display:block; aspect-ratio:1911 / 660; flex-shrink:0; background:var(--brand-gold);
+  mask:url('/brand/wordmark-gold.svg') center / contain no-repeat;
+  -webkit-mask:url('/brand/wordmark-gold.svg') center / contain no-repeat;
+}

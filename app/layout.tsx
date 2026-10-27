@@ -10,6 +10,8 @@ import "./buttons.css";
 import "./bottle-accents.css";
 import "./footer.css";
 import "./image-treatment.css";
+import "./brand-assets.css";
+import { brandStyle } from "../lib/brand";
 import SiteShell from "./SiteShell";
 import { ContentProvider } from "./Content";
 import { readPublished } from "../lib/content-db";
@@ -33,6 +35,7 @@ export default async function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+        <style data-brand-palette dangerouslySetInnerHTML={{ __html: brandStyle(published) }}/>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&display=swap" rel="stylesheet" />

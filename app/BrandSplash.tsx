@@ -5,7 +5,7 @@ import { splashSettings } from "../lib/splash";
 
 // Shared by the hero, first-visit splash and editor splash preview.
 export function Bottle() {
-  return <img src="/brand/bottle.svg" width="553" height="1347" alt="" aria-hidden="true" loading="eager" fetchPriority="high" />;
+  return <span className="brand-bottle-mask" aria-hidden="true" />;
 }
 
 export default function BrandSplash({ preview = false }: { preview?: boolean }) {
@@ -19,7 +19,7 @@ export default function BrandSplash({ preview = false }: { preview?: boolean }) 
     <div className="splash-green" />
     <div className="splash-art">
       {settings.showBottle && <div className="splash-bottle"><Bottle /></div>}
-      {settings.showLogo && <img className="splash-logo" src="/brand/wordmark-gold.svg" width="1911" height="660" alt="" loading="eager" fetchPriority="high" />}
+      {settings.showLogo && <span className="splash-logo" />}
     </div>
   </div>;
 }
