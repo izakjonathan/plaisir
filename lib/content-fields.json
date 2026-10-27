@@ -1306,5 +1306,23 @@
     "kind": "text",
     "default": "true",
     "control": "toggle"
+  },
+  {
+    "id": "shared.menu.3.label",
+    "page": "shared",
+    "section": "menu",
+    "label": "Numbers v2 menu label",
+    "kind": "text",
+    "default": "The Numbers v2",
+    "multiline": true
+  },
+  {
+    "id": "shared.menu.3.description",
+    "page": "shared",
+    "section": "menu",
+    "label": "Numbers v2 menu description",
+    "kind": "text",
+    "default": "The investor forecast & funding plan",
+    "multiline": true
   }
 ]

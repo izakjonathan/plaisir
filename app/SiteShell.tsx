@@ -10,6 +10,7 @@ const areas = [
     { href: "/", label: "The experience", description: "Coffee, wine & good company" },
     { href: "/investors", label: "The story", description: "The business behind Plaisir" },
     { href: "/financials", label: "The numbers", description: "The financial illustration" },
+    { href: "/financials-v2", label: "The Numbers v2", description: "The investor forecast & funding plan" },
 ];
 type Phase = "closed" | "opening" | "open" | "closing";
 function MarketingShell({ children }: {
@@ -127,9 +128,9 @@ function MarketingShell({ children }: {
     };
     return (<>
       <a className="skip-link" href="#main"><Copy field="shared.shell.text1"/></a>
-      <header className="floating-header" data-page={pathname === "/financials" ? "financials" : "experience"}>
+      <header className="floating-header" data-page={(pathname === "/financials" || pathname === "/financials-v2") ? "financials" : "experience"}>
         <Link className="brand-logo" href="/" aria-label="Plaisir home" inert={mounted}>
-          <img src={pathname === "/financials" ? "/brand/wordmark-green.png" : "/brand/wordmark-gold.png"} width="900" height="380" alt="Plaisir" fetchPriority="high"/>
+          <img src={(pathname === "/financials" || pathname === "/financials-v2") ? "/brand/wordmark-green.png" : "/brand/wordmark-gold.png"} width="900" height="380" alt="Plaisir" fetchPriority="high"/>
         </Link>
         <button ref={button} className="burger-button" type="button" aria-label={mounted ? "Close menu" : "Open menu"} aria-haspopup="dialog" aria-controls={mounted ? "site-menu" : undefined} aria-expanded={expanded} onPointerDown={() => { keyboard.current = false; }} onKeyDown={event => {
             if (event.key === "Enter" || event.key === " ")

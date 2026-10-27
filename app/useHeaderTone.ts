@@ -6,7 +6,7 @@ export function useHeaderTone(pathname: string) {
         const root = document.documentElement;
         // The financial canvas is yellow throughout, including the gap above
         // its first section. Set it before paint without observing scroll.
-        if (pathname === "/financials") {
+        if ((pathname === "/financials" || pathname === "/financials-v2")) {
             root.dataset.headerTone = "dark";
             root.style.setProperty("--document-canvas-image", "none");
             root.style.setProperty("--document-canvas-color", "#d19c36");
