@@ -2,15 +2,12 @@
 import { useLayoutEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { afterPaint } from "../lib/motion";
-type Preference = "system" | "full" | "reduced";
 const SELECTOR = "[data-reveal]";
 // Tab lifetime: returning to Story never replays blocks already encountered.
 const storyArrivals = new Set<string>();
 export default function PageMotion() {
     const pathname = usePathname();
-    const [preference, setPreference] = useState<Preference>("system");
     const [systemReduced, setSystemReduced] = useState(false);
-    const reduced = preference === "reduced" || (preference === "system" && systemReduced);
     useLayoutEffect(() => {
         const query = matchMedia("(prefers-reduced-motion: reduce)");
         const update = () => setSystemReduced(query.matches);
@@ -20,8 +17,7 @@ export default function PageMotion() {
     }, []);
     useLayoutEffect(() => {
         const root = document.documentElement;
-        const reduce = preference === "reduced" ||
-            (preference === "system" && matchMedia("(prefers-reduced-motion: reduce)").matches);
+        const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
         root.dataset.motion = reduce ? "reduced" : "full";
         const tracked = new Set<HTMLElement>();
         let observer: IntersectionObserver | undefined;
@@ -46,7 +42,7 @@ export default function PageMotion() {
             if (element.matches("h1, h2, h3, .pl-display"))
                 element.dataset.revealKind = "heading";
             element.classList.remove("reveal-pending", "reveal-visible", "reveal-settled");
-            // Preserve one-shot arrivals across preference changes and observer restarts.
+            // Preserve one-shot arrivals across system motion changes and observer restarts.
             if (reduce || !observer || element.dataset.revealed === "true" || storyArrivals.has(storyKey(element) ?? "")) {
                 reveal(element);
                 return;
@@ -147,9 +143,6 @@ export default function PageMotion() {
                 element.style.removeProperty("--reveal-delay");
             });
         };
-    }, [pathname, preference, systemReduced]);
-    return (<button className="motion-button" onClick={() => setPreference(reduced ? "full" : "reduced")}>
-      {reduced ? "Enable animations" : "Reduce motion"}
-    </button>);
+    }, [pathname, systemReduced]);
+    return null;
 }
-

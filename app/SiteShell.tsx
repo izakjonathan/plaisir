@@ -164,13 +164,14 @@ function MarketingShell({ children }: {
           </nav>
         </div>)}
       {children}
+      <PageMotion />
       <footer className="brand-footer">
         <div className="footer-top">
           <div className="footer-heading"><p className="eyebrow">Coffee. Wine. Good company.</p><h2 data-reveal><Copy field="shared.shell.text2"/></h2></div>
         <Link href="/" className="footer-signature" aria-label="Plaisir home"><img src="/brand/wordmark-green.svg" width="1911" height="660" alt="Plaisir" loading="lazy"/></Link>
         </div>
 
-        <div className="footer-bottom"><p><Copy field="shared.shell.text3"/></p><PageMotion /><a href="#main" className="footer-top-link">Back to top <span aria-hidden="true">↑</span></a></div>
+        <div className="footer-bottom"><p><Copy field="shared.shell.text3"/></p><a href="#main" className="footer-top-link">Back to top <span aria-hidden="true">↑</span></a></div>
       </footer>
     </>);
 }
