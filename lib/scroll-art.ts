@@ -1,6 +1,6 @@
-export const BOTTLE_TRAVEL = 24;
+export const BOTTLE_TRAVEL = 12;
 export function bottleOffset(scrollY:number,viewportHeight:number,center:number,reduced=false) {
-  return reduced?0:Math.max(-BOTTLE_TRAVEL,Math.min(BOTTLE_TRAVEL,(center-scrollY-viewportHeight/2)*.08));
+  return reduced?0:Math.max(-BOTTLE_TRAVEL,Math.min(BOTTLE_TRAVEL,(center-scrollY-viewportHeight/2)*.04));
 }
 export type Surface={left:number;right:number;top:number;bottom:number;photo:boolean;gold:boolean};
 export function headerSurfaceTone(surfaces:Surface[],x:number,y:number):'dark'|'gold'|undefined {

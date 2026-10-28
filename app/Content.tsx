@@ -1,7 +1,7 @@
 'use client';
 import Link from 'next/link';
 import Image, { type ImageProps } from 'next/image';
-import { createContext, useContext, useEffect, useState, Fragment, type ReactNode, type AnchorHTMLAttributes, type CSSProperties } from 'react';
+import { createContext, useContext, useId, useEffect, useState, Fragment, type ReactNode, type AnchorHTMLAttributes, type CSSProperties } from 'react';
 import { emptyDocument, textValue, imageValue, fieldMap, validateDocument, type ContentDocument, type ContentImageValue } from '../lib/content-schema';
 
 import { brandStyle } from '../lib/brand';
@@ -40,10 +40,12 @@ export function TitleLines({ field }: { field: string }) {
 }
 export function ContentImage({ field, style, ...props }: { field: string } & Omit<ImageProps,'src'|'alt'|'width'|'height'>) {
   const document = useContent();
+  const treatmentId = useId();
   const image = imageValue(document, field);
   const original = fieldMap.get(field)?.default as ContentImageValue;
   const customCrop = (document.images[field] || (field === 'splash.background' && document.images['experience.hero.image1'])) && (image.src !== original.src || image.x !== original.x || image.y !== original.y);
-  return <Image {...props} data-overlay={image.overlay === false ? "off" : "on"} src={image.src} alt={image.alt} width={image.width} height={image.height} style={{...style, ...(customCrop ? {objectPosition:`${image.x}% ${image.y}%`} : {})}}/>;
+  const opacity = image.overlay === false ? 0 : (image.overlayOpacity ?? 100) / 100;
+  return <><style>{`:is(.scene,.split-photo,.world-images figure,.photo-story figure,.company-photo,.brand-splash):has(> img[data-image-treatment="${treatmentId}"]) { --image-overlay-strength: ${opacity}; }`}</style><Image {...props} data-image-treatment={treatmentId} data-overlay={image.overlay === false ? "off" : "on"} src={image.src} alt={image.alt} width={image.width} height={image.height} style={{...style, ...(customCrop ? {objectPosition:`${image.x}% ${image.y}%`} : {})}}/></>;
 }
 export function ContentLink({ field, ...props }: { field: string } & AnchorHTMLAttributes<HTMLAnchorElement>) {
   const href = textValue(useContent(), field);

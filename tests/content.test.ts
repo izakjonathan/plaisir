@@ -47,8 +47,8 @@ test('Postgres save, publish, stale revisions, duplicate publish and restore pre
  };
  try{
   await initStore(query);await initStore(query);
-  const first={text:{[text]:'First version'},images:{}};
-  const second={text:{[text]:'Second version'},images:{}};
+  const first=validateDocument({text:{[text]:'First version'},images:{[photo.id]:{...(photo.default as object),overlay:true,overlayOpacity:35}}});
+  const second=validateDocument({text:{[text]:'Second version'},images:{[photo.id]:{...(photo.default as object),overlay:false,overlayOpacity:70}}});
   assert.equal((await readStore(query)).revision,0);
   const saved=await writeStore(query,'save',0,first);
   assert.deepEqual(saved.published,emptyDocument);
@@ -95,4 +95,15 @@ test('editor JSON input enforces byte limits while streaming and returns useful 
  const body=new ReadableStream({pull(controller){controller.enqueue(new Uint8Array(160001));},cancel(){cancelled=true;}});
  await assert.rejects(()=>readJSON(new Request('https://plaisir.example/api/editor/content',{method:'POST',headers:{'content-type':'application/json'},body,duplex:'half'} as RequestInit)),/too large/);
  assert.equal(cancelled,true);
+});
+
+test('per-image overlay opacity accepts the endpoints and rejects invalid data',()=>{
+ for(const overlayOpacity of [0,35,100]){
+  const image={...(photo.default as object),overlayOpacity};
+  assert.equal(validateDocument({text:{},images:{[photo.id]:image}}).images[photo.id].overlayOpacity,overlayOpacity);
+ }
+ for(const overlayOpacity of [-1,101,'50',null,NaN,Infinity]){
+  assert.throws(()=>validateDocument({text:{},images:{[photo.id]:{...(photo.default as object),overlayOpacity}}}),/opacity/);
+ }
+ assert.equal(validateDocument({text:{},images:{[photo.id]:photo.default}}).images[photo.id].overlayOpacity,undefined);
 });
