@@ -17,3 +17,19 @@ test('a photo within a yellow split section keeps controls yellow until the cont
  assert.equal(headerSurfaceTone([{...photo,right:195},section],340,60),'dark');
  assert.equal(headerSurfaceTone([],340,60),undefined);
 });
+
+test('bottle anchors remain unique even when Story has only two photos',async()=>{
+ const {bottlePhotoIndex}=await import('../lib/scroll-art.ts');
+ for(let count=0;count<=8;count++){
+  const indices=[0,1,2].map(i=>bottlePhotoIndex(i,count)).filter(i=>i!==undefined);
+  assert.equal(new Set(indices).size,indices.length);
+  assert.ok(indices.every(i=>i<count));
+ }
+ assert.equal(bottlePhotoIndex(2,2),undefined);
+});
+test('decorative placement favors a cropped gesture and rejects near-complete bottles',async()=>{
+ const {bottleClipScore}=await import('../lib/scroll-art.ts');
+ assert.equal(bottleClipScore(180,240),undefined);
+ assert.equal(bottleClipScore(10,240),undefined);
+ assert.ok(bottleClipScore(65,240)!>bottleClipScore(100,240)!);
+});

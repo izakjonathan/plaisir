@@ -1,5 +1,5 @@
 "use client";
-import { BOTTLE_TRAVEL, bottleOffset } from "../lib/scroll-art";
+import { BOTTLE_TRAVEL, bottleOffset, bottlePhotoIndex, bottleClipScore } from "../lib/scroll-art";
 import { useLayoutEffect, useRef } from "react";
 
 /** Place whole, rotated outlines in photographic space; never cut holes around copy. */
@@ -45,8 +45,9 @@ export default function BottleAccent() {
   
       canvas.querySelectorAll<SVGSVGElement>('svg').forEach((svg,index) => {
         const prior=previous.get(svg);
-        const photo=photos[Math.round(index*(photos.length-1)/2)];
-        if (!photo) return;
+        const photoIndex=bottlePhotoIndex(index,photos.length);
+        const photo=photoIndex===undefined?undefined:photos[photoIndex];
+        if (!photo) {svg.style.opacity='0';return;}
         const r=photo.getBoundingClientRect();
         const anchor=r.top-bounds.top+r.height/2;
         const width=Math.min(1100,Math.max(360,r.height*.8));
@@ -58,7 +59,7 @@ export default function BottleAccent() {
         const keep=prior?.width===width?prior:undefined;
         for(const angle of [...(keep?[keep.angle]:[]),...(index%2 ? [-90,-65,-100,-35,90,65,100,35] : [90,65,100,35,-90,-65,-100,-35])]) {
           const rad=angle*Math.PI/180,c=Math.cos(rad),s=Math.sin(rad);
-          for(const x of [...(keep?[keep.x]:[]),-width*.32,bounds.width-width*.68,-width*.65,bounds.width-width*.35]) {
+          for(const x of [...(keep?[keep.x]:[]),-width*.32,bounds.width-width*.68,-width*.65,bounds.width-width*.35,-width,-width*1.3,bounds.width,bounds.width+width*.3]) {
             for(const shift of [...(keep?[keep.y-anchor+height/2]:[]),0,-r.height*.2,r.height*.2]) {
               const y=anchor-height/2+shift;
               const projected=points.map(p=>{const px=p.x*scale-width/2,py=p.y*scale-height/2;return {x:x+width/2+px*c-py*s,y:y+height/2+px*s+py*c};});
@@ -69,7 +70,9 @@ export default function BottleAccent() {
                 count++;
                 if(obstacles.some(o=>Math.max(a.x,b.x)>o.left&&Math.min(a.x,b.x)<o.right&&Math.max(a.y,b.y)>o.top&&Math.min(a.y,b.y)<o.bottom)){collision=true;break;}
               }
-              if(!collision&&count>12&&(!best||count>best.score))best={score:count+(keep&&angle===keep.angle&&x===keep.x&&Math.abs(y-keep.y)<.1?10000:0),x,y,angle};
+              const clipScore=bottleClipScore(count,points.length);
+              const score=(clipScore??0)+(keep&&angle===keep.angle&&x===keep.x&&Math.abs(y-keep.y)<.1?10000:0);
+              if(!collision&&clipScore!==undefined&&(!best||score>best.score))best={score,x,y,angle};
             }
           }
         }
