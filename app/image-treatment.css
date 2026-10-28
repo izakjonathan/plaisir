@@ -16,7 +16,7 @@
   pointer-events: none;
 }
 :is(.experience, [data-reveal-page="story"]) :is(.split-photo, .world-images figure, .photo-story figure, .company-photo) > img {
-  filter: brightness(.72);
+  filter: brightness(calc(1 - .28 * var(--image-overlay-strength,1)));
 }
 :is(.split-photo, .world-images figure, .photo-story figure, .company-photo) > figcaption {
   position: relative;
@@ -40,5 +40,5 @@ body :is(.scene-photo,.split-photo > img,.world-images figure > img,.photo-story
 .brand-splash > .splash-green { opacity:var(--image-overlay-strength,1); }
 .scene > .hero-light { opacity:var(--image-overlay-strength,1); }
 .scene > .hero-shadow { opacity:calc(.32 * var(--image-overlay-strength,1)); }
-body :is(.scene-photo,.split-photo > img,.world-images figure > img,.photo-story figure > img,.company-photo > img) { filter:brightness(calc(1 - .28 * var(--image-overlay-strength,1))); }
+body .scene-photo { filter:brightness(calc(1 - .28 * var(--image-overlay-strength,1))); }
 .brand-splash > .splash-photo { filter:saturate(calc(1 - .45 * var(--image-overlay-strength,1))); }
