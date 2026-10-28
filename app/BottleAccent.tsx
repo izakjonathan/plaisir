@@ -1,4 +1,5 @@
 "use client";
+import { BOTTLE_TRAVEL, bottleOffset } from "../lib/scroll-art";
 import { useLayoutEffect, useRef } from "react";
 
 /** Place whole, rotated outlines in photographic space; never cut holes around copy. */
@@ -8,13 +9,30 @@ export default function BottleAccent() {
     const canvas = art.current;
     const page = canvas?.parentElement;
     if (!canvas || !page) return;
-    let frame = 0;
+    let frame = 0, motionFrame = 0;
+    let active = true;
+    const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+    let placements: {svg:SVGSVGElement;center:number;offset:number}[]=[];
+    const animate = () => {
+      motionFrame=0;
+      let moving=false;
+      for(const item of placements) {
+        const target=bottleOffset(window.scrollY,window.innerHeight,item.center,reduced.matches);
+        item.offset=reduced.matches?0:item.offset+(target-item.offset)*.16;
+        if(Math.abs(target-item.offset)<.05)item.offset=target;else moving=true;
+        item.svg.style.translate=`0 ${item.offset.toFixed(2)}px`;
+      }
+      if(moving&&active)motionFrame=requestAnimationFrame(animate);
+    };
+    const scroll=()=>{if(active&&!motionFrame)motionFrame=requestAnimationFrame(animate);};
     const place = () => {
+      if(!active)return;
+      placements=[];
       const bounds = page.getBoundingClientRect();
       const photos = Array.from(page.querySelectorAll<HTMLElement>('.split-photo,.photo-story,.company-photo,.world-images'));
       const obstacles = Array.from(page.querySelectorAll<HTMLElement>('h1,h2,h3,h4,p,dt,dd,li,figcaption,.pl-team span,a,summary,button')).map(el => {
         const r=el.getBoundingClientRect();
-        return {left:r.left-bounds.left-36,right:r.right-bounds.left+36,top:r.top-bounds.top-70,bottom:r.bottom-bounds.top+70};
+        return {left:r.left-bounds.left-36,right:r.right-bounds.left+36,top:r.top-bounds.top-70-BOTTLE_TRAVEL,bottom:r.bottom-bounds.top+70+BOTTLE_TRAVEL};
       });
   
       canvas.querySelectorAll<SVGSVGElement>('svg').forEach((svg,index) => {
@@ -46,18 +64,22 @@ export default function BottleAccent() {
           }
         }
         svg.style.opacity=best?'1':'0';
+        if(best)placements.push({svg,center:window.scrollY+bounds.top+anchor,offset:0});
         if(best)Object.assign(svg.style,{width:`${width}px`,height:`${height}px`,left:`${best.x}px`,top:`${best.y}px`,transform:`rotate(${best.angle}deg)`});
       });
+      scroll();
     };
     const schedule=()=>{cancelAnimationFrame(frame);frame=requestAnimationFrame(place);};
     const resize=new ResizeObserver(schedule);resize.observe(page);
     const mutation=new MutationObserver(schedule);mutation.observe(page,{childList:true,subtree:true,characterData:true});
     window.addEventListener('resize',schedule);
+    window.addEventListener('scroll',scroll,{passive:true});
+    reduced.addEventListener('change',scroll);
     page.addEventListener('transitionend',schedule,true);
     page.addEventListener('animationend',schedule,true);
     document.fonts.ready.then(schedule);
     schedule();
-    return ()=>{cancelAnimationFrame(frame);resize.disconnect();mutation.disconnect();window.removeEventListener('resize',schedule);page.removeEventListener('transitionend',schedule,true);page.removeEventListener('animationend',schedule,true);};
+    return ()=>{active=false;cancelAnimationFrame(frame);cancelAnimationFrame(motionFrame);window.removeEventListener('scroll',scroll);reduced.removeEventListener('change',scroll);resize.disconnect();mutation.disconnect();window.removeEventListener('resize',schedule);page.removeEventListener('transitionend',schedule,true);page.removeEventListener('animationend',schedule,true);};
   }, []);
   return <div ref={art} className="bottle-page-art" aria-hidden="true">{[0,1,2].map(index =>
     <svg key={index} className="bottle-fragment" viewBox="0 0 260 590" fill="none" focusable="false">

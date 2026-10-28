@@ -1,5 +1,6 @@
 "use client";
 import { useLayoutEffect, useState } from "react";
+import { headerSurfaceTone } from "../lib/scroll-art";
 import { afterPaint } from "../lib/motion";
 /** Sample the section beneath the fixed controls after scroll and layout changes. */
 export function useHeaderTone(pathname: string) {
@@ -18,14 +19,21 @@ export function useHeaderTone(pathname: string) {
             const button = document.querySelector(".floating-header .burger-button");
             const rect = button?.getBoundingClientRect();
             const y = rect ? rect.top + rect.height / 2 : 44;
+            const x = rect ? rect.left + rect.width / 2 : innerWidth - 44;
             const sections = document.querySelectorAll<HTMLElement>("main > section, main > figure, .brand-footer");
             const section = Array.from(sections).find(element => {
                 const box = element.getBoundingClientRect();
                 return box.top <= y && box.bottom > y;
             });
             if (!section) return;
-            const dark = section.matches(".gold-section, .brand-footer");
-            const tone = dark ? "dark" : "gold";
+            // A mobile split section can be gold while its upper half is a photo.
+            // Sample the actual photo surface before inheriting the section color.
+            const surfaces = [section, ...Array.from(section.querySelectorAll<HTMLElement>('.split-photo,.world-images figure,.photo-story figure,.company-photo'))].map(element => {
+                const box=element.getBoundingClientRect();
+                return {...{left:box.left,right:box.right,top:box.top,bottom:box.bottom},photo:element!==section || element.matches('.company-photo,.scene'),gold:element.matches('.gold-section,.brand-footer')};
+            });
+            const tone = headerSurfaceTone(surfaces,x,y) ?? "gold";
+            const dark = tone === "dark";
             setTone(tone);
             if (root.dataset.headerTone !== tone) root.dataset.headerTone = tone;
             const photo = section.querySelector<HTMLImageElement>("img.scene-photo");
