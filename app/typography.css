@@ -47,3 +47,6 @@
   letter-spacing: var(--body-tracking);
   max-width: 36ch;
 }
+
+/* Line-reveal wrappers inherit the heading, including within team/data layouts. */
+.line-heading :is(.heading-source,.heading-visual,.heading-line,.heading-line-inner) { font:inherit; letter-spacing:inherit; }
