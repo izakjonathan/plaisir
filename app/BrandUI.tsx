@@ -1,3 +1,4 @@
+import Heading from "./Heading";
 import { Children, isValidElement, type ReactNode } from "react";
 
 export function Note({
@@ -30,12 +31,12 @@ export function Display({
     else lines[lines.length - 1].push(child);
   });
   return (
-    <h2 id={id} className="pl-display" data-reveal>
+    <Heading as="h2" id={id} className="pl-display" data-reveal>
       {lines.map((line, index) => (
         <span className="pl-display-line" key={index}>
           <span style={{ transitionDelay: `${index * 65}ms` }}>{line} </span>
         </span>
       ))}
-    </h2>
+    </Heading>
   );
 }

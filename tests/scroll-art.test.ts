@@ -3,10 +3,10 @@ import assert from 'node:assert/strict';
 import {bottleOffset,BOTTLE_TRAVEL,headerSurfaceTone} from '../lib/scroll-art.ts';
 test('bottle movement reverses with scrolling and stays inside reserved text clearance',()=>{
  assert.equal(bottleOffset(600,800,1000),0);
- assert.ok(bottleOffset(700,800,1000)>0);
- assert.ok(bottleOffset(500,800,1000)<0);
- assert.equal(bottleOffset(10000,800,1000),BOTTLE_TRAVEL);
- assert.equal(bottleOffset(0,800,1000),-BOTTLE_TRAVEL);
+ assert.ok(bottleOffset(700,800,1000)<0);
+ assert.ok(bottleOffset(500,800,1000)>0);
+ assert.equal(bottleOffset(10000,800,1000),-BOTTLE_TRAVEL);
+ assert.equal(bottleOffset(0,800,1000),BOTTLE_TRAVEL);
  assert.equal(bottleOffset(700,800,1000,true),0);
 });
 test('a photo within a yellow split section keeps controls yellow until the content surface reaches them',()=>{

@@ -36,7 +36,7 @@ export default function PageMotion() {
             observer?.unobserve(element);
         };
         const enroll = (element: HTMLElement) => {
-            if (element.parentElement?.closest(SELECTOR) || tracked.has(element))
+            if ((element.parentElement?.closest(SELECTOR) && !element.matches("h1,h2,h3,h4,h5,h6")) || tracked.has(element))
                 return;
             tracked.add(element);
             if (element.matches("h1, h2, h3, .pl-display"))

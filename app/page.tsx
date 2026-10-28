@@ -1,3 +1,4 @@
+import Heading from "./Heading";
 import { Copy, ContentImage, ContentLink } from "./Content";
 import BottleAccent from "./BottleAccent";
 import LandingHero from "./LandingHero";
@@ -6,7 +7,7 @@ export default function Home() {
       <BottleAccent />
       <LandingHero />
       <section id="welcome" className="manifesto gold-section">
-        <h2 data-reveal><Copy field="experience.page.text1"/></h2>
+        <Heading as="h2" data-reveal><Copy field="experience.page.text1"/></Heading>
         <div className="manifesto-bottom" data-reveal>
           <p><Copy field="experience.page.text2"/></p>
           <ContentLink className="pill" field="experience.page.link1"><Copy field="experience.page.text3"/></ContentLink>
@@ -17,7 +18,7 @@ export default function Home() {
           <ContentImage field="experience.page.image4" loading="lazy" sizes="(max-width: 600px) 100vw, 50vw"/>
         </figure>
         <div className="split-copy">
-          <h2 data-reveal><Copy field="experience.page.text5"/></h2>
+          <Heading as="h2" data-reveal><Copy field="experience.page.text5"/></Heading>
           <p data-reveal><Copy field="experience.page.text6"/></p>
           <ContentLink data-reveal className="pill" field="experience.page.link2"><Copy field="experience.page.text7"/></ContentLink>
         </div>
@@ -26,14 +27,14 @@ export default function Home() {
         <ContentImage field="experience.page.image8" className="scene-photo" loading="lazy" sizes="100vw"/>
         <div className="scene-shade"/>
         <div className="scene-content">
-          <h2 id="wine-title" data-reveal><Copy field="experience.page.text9"/></h2>
+          <Heading as="h2" id="wine-title" data-reveal><Copy field="experience.page.text9"/></Heading>
           <p data-reveal><Copy field="experience.page.text10"/></p>
           <ContentLink data-reveal className="pill" field="experience.page.link3"><Copy field="experience.page.text11"/></ContentLink>
         </div>
       </section>
       <section id="table" className="split-scene food-scene gold-section">
         <div className="split-copy">
-          <h2 data-reveal><Copy field="experience.page.text12"/></h2>
+          <Heading as="h2" data-reveal><Copy field="experience.page.text12"/></Heading>
           <p data-reveal><Copy field="experience.page.text13"/></p>
           <ContentLink data-reveal className="pill" field="experience.page.link4"><Copy field="experience.page.text14"/></ContentLink>
         </div>
@@ -47,7 +48,7 @@ export default function Home() {
       </section>
       <section className="brand-world">
         <div className="world-heading">
-          <h2 data-reveal><Copy field="experience.page.text18"/></h2>
+          <Heading as="h2" data-reveal><Copy field="experience.page.text18"/></Heading>
           <p data-reveal><Copy field="experience.page.text19"/></p>
         </div>
         <div className="world-images">
@@ -63,7 +64,7 @@ export default function Home() {
         <ContentImage field="experience.page.image22" className="scene-photo" loading="lazy" sizes="100vw"/>
         <div className="scene-shade"/>
         <div className="scene-content">
-          <h2 data-reveal><Copy field="experience.page.text23"/></h2>
+          <Heading as="h2" data-reveal><Copy field="experience.page.text23"/></Heading>
           <p data-reveal><Copy field="experience.page.text24"/></p>
           <ContentLink data-reveal className="pill" field="experience.page.link5"><Copy field="experience.page.text25"/></ContentLink>
         </div>

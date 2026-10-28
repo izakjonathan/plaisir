@@ -34,7 +34,12 @@ test('mobile chrome resize and content refresh preserve offsets; upward scroll r
  win.scrollY=100;events.get('scroll')!();tick();
  const first=Number(svg.style.translate.split(' ')[1].replace('px',''));
  assert.ok(first<24&&first>-24,'reversal interpolates without snapping');
- settle();assert.equal(svg.style.translate,'0 -24.00px');
+ const during=svg.style.translate;tick();
+ assert.notEqual(svg.style.translate,during,'the bottle keeps easing after scroll events stop');
+ settle();assert.equal(svg.style.translate,'0 24.00px');
+ assert.equal(queue.size,0,'settling must stop requesting frames at rest');
+ win.scrollY=1300;events.get('scroll')!();settle();
+ assert.equal(svg.style.translate,'0 -24.00px','downward scrolling moves the artwork upward');
  if(typeof cleanup==='function')cleanup();
  assert.equal(queue.size,0);assert.equal(events.size,0);
 });

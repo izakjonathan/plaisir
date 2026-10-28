@@ -1,4 +1,5 @@
 "use client";
+import Heading from "./Heading";
 import { Copy, ContentImage } from "./Content";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
@@ -168,7 +169,7 @@ function MarketingShell({ children }: {
       <PageMotion />
       <footer className="brand-footer">
         <div className="footer-top">
-          <div className="footer-heading"><p className="eyebrow">Coffee. Wine. Good company.</p><h2 data-reveal><Copy field="shared.shell.text2"/></h2></div>
+          <div className="footer-heading"><p className="eyebrow">Coffee. Wine. Good company.</p><Heading as="h2" data-reveal><Copy field="shared.shell.text2"/></Heading></div>
         <Link href="/" className="footer-signature" aria-label="Plaisir home"><img src="/brand/wordmark-green.svg" width="1911" height="660" alt="Plaisir" loading="lazy"/></Link>
         </div>
 

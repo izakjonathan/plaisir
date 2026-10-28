@@ -110,3 +110,16 @@ html[data-motion="reduced"] .burger-stroke { transition: none; }
 }
 
 html.reveal-enabled [data-reveal].reveal-visible.reveal-settled { transition: none; }
+
+/* The hero's masked, staggered line arrival is the shared heading vocabulary.
+   The untouched source preserves natural wrapping, layout and accessible text. */
+.line-heading { position:relative; }
+.heading-source { display:block; }
+.heading-visual { position:absolute; inset:0; pointer-events:none; }
+.heading-lines-ready > .heading-source { opacity:0; }
+.heading-line { position:absolute; display:block; white-space:nowrap; overflow:hidden; padding-bottom:.13em; box-sizing:content-box; }
+.heading-line-inner { display:block; }
+html.reveal-enabled .line-heading.heading-lines-ready:is(.reveal-pending,.reveal-visible) { opacity:1; transform:none; transition:none; }
+html.reveal-enabled .line-heading.reveal-pending .heading-line-inner { opacity:0; transform:translate3d(0,110%,0); }
+html.reveal-enabled .line-heading.reveal-visible:not(.reveal-settled) .heading-line-inner { animation:lineArrival 1000ms var(--ease-reveal) calc(var(--reveal-delay,0ms) + var(--line-delay,0ms)) backwards; }
+html[data-motion="reduced"] .heading-line-inner { animation:none !important; opacity:1 !important; transform:none !important; }

@@ -20,7 +20,7 @@ export default function BottleAccent() {
       const elapsed=lastTime?Math.min(64,time-lastTime):1000/60;
       lastTime=time;
       const scrollY=Math.max(0,Math.min(window.scrollY,Math.max(0,page.scrollHeight-viewportHeight)));
-      const blend=1-Math.exp(-elapsed/95);
+      const blend=1-Math.exp(-elapsed/120);
       motionFrame=0;
       let moving=false;
       for(const item of placements) {
