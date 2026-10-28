@@ -12,21 +12,29 @@ export default function BottleAccent() {
     let frame = 0, motionFrame = 0;
     let active = true;
     const reduced = matchMedia('(prefers-reduced-motion: reduce)');
-    let placements: {svg:SVGSVGElement;center:number;offset:number}[]=[];
-    const animate = () => {
+    let viewportWidth=window.innerWidth, viewportHeight=window.innerHeight;
+    let lastTime=0;
+    type Placement={svg:SVGSVGElement;center:number;offset:number;x:number;y:number;angle:number;width:number};
+    let placements: Placement[]=[];
+    const animate = (time:number) => {
+      const elapsed=lastTime?Math.min(64,time-lastTime):1000/60;
+      lastTime=time;
+      const scrollY=Math.max(0,Math.min(window.scrollY,Math.max(0,page.scrollHeight-viewportHeight)));
+      const blend=1-Math.exp(-elapsed/95);
       motionFrame=0;
       let moving=false;
       for(const item of placements) {
-        const target=bottleOffset(window.scrollY,window.innerHeight,item.center,reduced.matches);
-        item.offset=reduced.matches?0:item.offset+(target-item.offset)*.16;
+        const target=bottleOffset(scrollY,viewportHeight,item.center,reduced.matches);
+        item.offset=reduced.matches?0:item.offset+(target-item.offset)*blend;
         if(Math.abs(target-item.offset)<.05)item.offset=target;else moving=true;
         item.svg.style.translate=`0 ${item.offset.toFixed(2)}px`;
       }
       if(moving&&active)motionFrame=requestAnimationFrame(animate);
     };
-    const scroll=()=>{if(active&&!motionFrame)motionFrame=requestAnimationFrame(animate);};
+    const scroll=()=>{if(active&&!motionFrame){lastTime=0;motionFrame=requestAnimationFrame(animate);}};
     const place = () => {
       if(!active)return;
+      const previous=new Map(placements.map(item=>[item.svg,item]));
       placements=[];
       const bounds = page.getBoundingClientRect();
       const photos = Array.from(page.querySelectorAll<HTMLElement>('.split-photo,.photo-story,.company-photo,.world-images'));
@@ -36,6 +44,7 @@ export default function BottleAccent() {
       });
   
       canvas.querySelectorAll<SVGSVGElement>('svg').forEach((svg,index) => {
+        const prior=previous.get(svg);
         const photo=photos[Math.round(index*(photos.length-1)/2)];
         if (!photo) return;
         const r=photo.getBoundingClientRect();
@@ -46,10 +55,11 @@ export default function BottleAccent() {
         const length=path.getTotalLength();
         const points=Array.from({length:240},(_,i)=>path.getPointAtLength(length*i/239));
         let best: {score:number;x:number;y:number;angle:number}|undefined;
-        for(const angle of (index%2 ? [-90,-65,-100,-35,90,65,100,35] : [90,65,100,35,-90,-65,-100,-35])) {
+        const keep=prior?.width===width?prior:undefined;
+        for(const angle of [...(keep?[keep.angle]:[]),...(index%2 ? [-90,-65,-100,-35,90,65,100,35] : [90,65,100,35,-90,-65,-100,-35])]) {
           const rad=angle*Math.PI/180,c=Math.cos(rad),s=Math.sin(rad);
-          for(const x of [-width*.32,bounds.width-width*.68,-width*.65,bounds.width-width*.35]) {
-            for(const shift of [0,-r.height*.2,r.height*.2]) {
+          for(const x of [...(keep?[keep.x]:[]),-width*.32,bounds.width-width*.68,-width*.65,bounds.width-width*.35]) {
+            for(const shift of [...(keep?[keep.y-anchor+height/2]:[]),0,-r.height*.2,r.height*.2]) {
               const y=anchor-height/2+shift;
               const projected=points.map(p=>{const px=p.x*scale-width/2,py=p.y*scale-height/2;return {x:x+width/2+px*c-py*s,y:y+height/2+px*s+py*c};});
               let count=0,collision=false;
@@ -59,27 +69,39 @@ export default function BottleAccent() {
                 count++;
                 if(obstacles.some(o=>Math.max(a.x,b.x)>o.left&&Math.min(a.x,b.x)<o.right&&Math.max(a.y,b.y)>o.top&&Math.min(a.y,b.y)<o.bottom)){collision=true;break;}
               }
-              if(!collision&&count>12&&(!best||count>best.score))best={score:count,x,y,angle};
+              if(!collision&&count>12&&(!best||count>best.score))best={score:count+(keep&&angle===keep.angle&&x===keep.x&&Math.abs(y-keep.y)<.1?10000:0),x,y,angle};
             }
           }
         }
+        // Keep an existing valid composition instead of selecting a new rotation.
+        // Transient reveal transforms no longer trigger this search.
         svg.style.opacity=best?'1':'0';
-        if(best)placements.push({svg,center:window.scrollY+bounds.top+anchor,offset:0});
+        if(best)placements.push({svg,center:window.scrollY+bounds.top+anchor,offset:prior?.offset ?? bottleOffset(Math.max(0,window.scrollY),viewportHeight,window.scrollY+bounds.top+anchor,reduced.matches),x:best.x,y:best.y,angle:best.angle,width});
         if(best)Object.assign(svg.style,{width:`${width}px`,height:`${height}px`,left:`${best.x}px`,top:`${best.y}px`,transform:`rotate(${best.angle}deg)`});
       });
       scroll();
     };
     const schedule=()=>{cancelAnimationFrame(frame);frame=requestAnimationFrame(place);};
-    const resize=new ResizeObserver(schedule);resize.observe(page);
+    let layoutWidth=0,layoutHeight=0;
+    const resize=new ResizeObserver(entries=>{
+      const {width,height}=entries[0].contentRect;
+      if(Math.abs(width-layoutWidth)<1&&Math.abs(height-layoutHeight)<1)return;
+      layoutWidth=width;layoutHeight=height;schedule();
+    });resize.observe(page);
+    const viewportResize=()=>{
+      // Browser chrome/keyboard height changes must not restart the animation.
+      if(window.innerWidth===viewportWidth)return;
+      viewportWidth=window.innerWidth;viewportHeight=window.innerHeight;schedule();
+    };
     const mutation=new MutationObserver(schedule);mutation.observe(page,{childList:true,subtree:true,characterData:true});
-    window.addEventListener('resize',schedule);
+    window.addEventListener('resize',viewportResize);
     window.addEventListener('scroll',scroll,{passive:true});
     reduced.addEventListener('change',scroll);
-    page.addEventListener('transitionend',schedule,true);
-    page.addEventListener('animationend',schedule,true);
+    page.addEventListener('toggle',schedule,true);
+    page.addEventListener('load',schedule,true);
     document.fonts.ready.then(schedule);
     schedule();
-    return ()=>{active=false;cancelAnimationFrame(frame);cancelAnimationFrame(motionFrame);window.removeEventListener('scroll',scroll);reduced.removeEventListener('change',scroll);resize.disconnect();mutation.disconnect();window.removeEventListener('resize',schedule);page.removeEventListener('transitionend',schedule,true);page.removeEventListener('animationend',schedule,true);};
+    return ()=>{active=false;cancelAnimationFrame(frame);cancelAnimationFrame(motionFrame);window.removeEventListener('scroll',scroll);reduced.removeEventListener('change',scroll);resize.disconnect();mutation.disconnect();window.removeEventListener('resize',viewportResize);page.removeEventListener('toggle',schedule,true);page.removeEventListener('load',schedule,true);};
   }, []);
   return <div ref={art} className="bottle-page-art" aria-hidden="true">{[0,1,2].map(index =>
     <svg key={index} className="bottle-fragment" viewBox="0 0 260 590" fill="none" focusable="false">
