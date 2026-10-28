@@ -84,3 +84,15 @@ test('image overlay preferences persist and legacy images retain the overlay',()
  assert.equal(validateDocument({text:{},images:{[photo.id]:photo.default}}).images[photo.id].overlay,undefined);
  assert.throws(()=>validateDocument({text:{},images:{[photo.id]:{...image,overlay:'false'}}}));
 });
+
+test('editor JSON input enforces byte limits while streaming and returns useful invalid JSON errors',async()=>{
+ const {readJSON}=await import('../lib/editor-request.ts');
+ const request=(text:string)=>new Request('https://plaisir.example/api/editor/content',{method:'POST',headers:{'content-type':'application/json'},body:text});
+ assert.deepEqual(await readJSON(request('{"label":"café"}')),{label:'café'});
+ await assert.rejects(()=>readJSON(request('{')),/Invalid JSON/);
+ await assert.rejects(()=>readJSON(request(JSON.stringify({text:'é'.repeat(160001)}))),/too large/);
+ let cancelled=false;
+ const body=new ReadableStream({pull(controller){controller.enqueue(new Uint8Array(160001));},cancel(){cancelled=true;}});
+ await assert.rejects(()=>readJSON(new Request('https://plaisir.example/api/editor/content',{method:'POST',headers:{'content-type':'application/json'},body,duplex:'half'} as RequestInit)),/too large/);
+ assert.equal(cancelled,true);
+});

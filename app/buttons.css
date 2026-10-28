@@ -3,7 +3,6 @@
 .pl-solid-link,
 .outline-button,
 .quiet-button,
-.motion-button,
 .pl-financial-page .deck-dashboard .pill {
   display: inline-flex;
   align-items: center;
@@ -27,8 +26,7 @@
 .pill::after,
 .pl-solid-link::after,
 .outline-button::after,
-.quiet-button::after,
-.motion-button::after {
+.quiet-button::after {
   content: "";
   flex: 0 0 auto;
   width: 32px;
@@ -59,15 +57,8 @@
 .finance-views .pill {
   width: auto;
 }
-.motion-button {
-  font-size: 13px;
-}
-.motion-button::after {
-  width: 24px;
-  height: 17px;
-}
 @media (hover: hover) and (pointer: fine) {
-  :is(.pill, .pl-solid-link, .outline-button, .quiet-button, .motion-button):not(:disabled):hover::after {
+  :is(.pill, .pl-solid-link, .outline-button, .quiet-button):not(:disabled):hover::after {
     transform: translateX(5px);
   }
 }
@@ -83,12 +74,12 @@
   }
 }
 @media (prefers-reduced-motion: reduce) {
-  :is(.pill, .pl-solid-link, .outline-button, .quiet-button, .motion-button)::after {
+  :is(.pill, .pl-solid-link, .outline-button, .quiet-button)::after {
     transition: none;
     transform: none;
   }
 }
-html[data-motion="reduced"] :is(.pill, .pl-solid-link, .outline-button, .quiet-button, .motion-button)::after {
+html[data-motion="reduced"] :is(.pill, .pl-solid-link, .outline-button, .quiet-button)::after {
   transition: none;
   transform: none;
 }

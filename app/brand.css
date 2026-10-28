@@ -201,9 +201,6 @@ summary:focus-visible {
   position: absolute;
   inset: 0;
   z-index: -2;
-  background:
-    linear-gradient(90deg, color-mix(in srgb, var(--brand-dark) 85.0980%, transparent) 0%, color-mix(in srgb, var(--brand-dark) 40.0000%, transparent) 60%, color-mix(in srgb, var(--brand-dark) 13.3333%, transparent)),
-    linear-gradient(0deg, color-mix(in srgb, var(--brand-dark) 61.9608%, transparent), transparent 50%);
 }
 .scene-content {
   padding: 150px var(--gutter) 130px;
@@ -402,14 +399,6 @@ summary:focus-visible {
   display: flex;
   gap: 28px;
   font-size: 12px;
-}
-.motion-button {
-  border: 0;
-  background: none;
-  color: inherit;
-  padding: 0;
-  font-size: 11px;
-  min-height: 24px;
 }
 
 /* Investor pages share the same full-bleed editorial rhythm. */
@@ -781,11 +770,6 @@ summary:focus-visible {
   .hero .scene-photo {
     object-position: 57% center;
   }
-  .scene-shade {
-    background:
-      linear-gradient(90deg, color-mix(in srgb, var(--brand-dark) 65.8824%, transparent), color-mix(in srgb, var(--brand-dark) 20.0000%, transparent)),
-      linear-gradient(0deg, color-mix(in srgb, var(--brand-dark) 73.3333%, transparent), transparent 75%);
-  }
   .manifesto {
     min-height: 80svh;
     padding: 80px 24px;
@@ -1142,18 +1126,6 @@ body {
   font-size: 11px;
   line-height: 1.65;
 }
-.motion-button {
-  border: 1px solid color-mix(in srgb, var(--brand-green) 33.3333%, transparent);
-  padding: 8px 12px;
-  border-radius: 50px;
-  min-height: 0;
-  line-height: 1.2;
-  width: fit-content;
-  text-align: center;
-}
-.motion-button:disabled {
-  opacity: 0.65;
-}
 
 .split-photo,
 .world-images figure {
@@ -1499,9 +1471,6 @@ body {
   .footer-bottom {
     grid-template-columns: 1fr 1fr;
   }
-  .footer-bottom .motion-button {
-    grid-column: 1/-1;
-  }
   .finance-panel {
     padding: 24px;
   }
@@ -1749,7 +1718,6 @@ body {
 .pl-financial-page .cost-track span { background: color-mix(in srgb, var(--brand-green) 60.0000%, transparent); }
 .pl-financial-page .sensitivity-bars .highlight .cost-track span { background: var(--brand-green); }
 body:has(.pl-financial-page) .floating-header { color: var(--brand-green); }
-body:has(.pl-financial-page) .floating-header .brand-logo img { content: url('/brand/wordmark-green.svg'); }
 html:has(.pl-financial-page) { --document-canvas-color: var(--brand-gold); }
 body:has(.pl-financial-page) .floating-header .burger-button { color: var(--brand-green); }
 /* Narrow fixed controls avoid a full-width fixed browser tint surface. */
@@ -1758,4 +1726,3 @@ body:has(.pl-financial-page) .floating-header .burger-button { color: var(--bran
 .floating-header .brand-logo { left: max(var(--gutter),env(safe-area-inset-left,0px)); }
 .floating-header .burger-button { right: max(var(--gutter),env(safe-area-inset-right,0px)); }
 html.menu-open .floating-header .burger-button { color: var(--brand-gold); }
-html.menu-open .floating-header .brand-logo img { content: url('/brand/wordmark-gold.svg'); }

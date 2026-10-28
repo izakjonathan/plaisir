@@ -22,7 +22,8 @@ p, dd, li { overflow-wrap: break-word; }
   padding-right: max(clamp(18px,4.5vw,80px),env(safe-area-inset-right,0px));
 }
 .brand-footer { padding-bottom: max(36px,env(safe-area-inset-bottom,0px)); }
-.pill, .deck-dashboard .pill, .motion-button {
+.pill,
+.deck-dashboard .pill {
   min-height: 44px;
   font-size: 14px;
   align-items: center;
@@ -39,9 +40,7 @@ p, dd, li { overflow-wrap: break-word; }
 html.menu-open, html.menu-open body { overflow: hidden; overscroll-behavior: none; }
 /* Dark ink on yellow sections, gold on photographs/green. No backdrop or shadow. */
 html[data-header-tone="dark"]:not(.menu-open) .floating-header .burger-button { color: var(--brand-green); }
-html[data-header-tone="dark"]:not(.menu-open) .floating-header .brand-logo img { content: url('/brand/wordmark-green.svg'); }
 html[data-header-tone="gold"]:not(.menu-open) .floating-header .burger-button { color: var(--brand-gold); }
-html[data-header-tone="gold"]:not(.menu-open) .floating-header .brand-logo img { content: url('/brand/wordmark-gold.svg'); }
 /* Hover movement belongs to mouse pointers, not a sticky touch hover state. */
 @media (hover: none), (pointer: coarse) {
   .pill:hover, .pl-solid-link:hover { transform: none; }
@@ -73,7 +72,6 @@ html[data-header-tone="gold"]:not(.menu-open) .floating-header .brand-logo img {
   .footer-bottom { gap: 22px; }
   .footer-bottom nav { font-size: 14px; gap: 8px 20px; }
   .footer-bottom p { font-size: 12px; }
-  .motion-button { display: inline-flex; font-size: 13px; padding: 10px 16px; }
   .dashboard-heading h1 { font-size: clamp(48px,14vw,64px); }
   .dashboard-heading > p:not(.eyebrow) { font-size: 16px; }
   .dashboard-source { font-size: 12px; line-height: 1.5; }
@@ -141,6 +139,5 @@ html:not(.menu-open) .floating-header[data-page="financials"] .burger-button {
   transition: none;
 }
 html:not(.menu-open) .floating-header[data-page="financials"] .brand-logo img {
-  content: url('/brand/wordmark-green.svg');
   transition: none;
 }

@@ -8,9 +8,28 @@ export function requireSameOrigin(request: Request) {
 }
 export async function readJSON(request: Request) {
   if (!request.headers.get('content-type')?.includes('application/json')) throw new Error('Expected JSON.');
-  const text = await request.text();
-  if (text.length > 320000) throw new Error('Request is too large.');
-  return JSON.parse(text);
+  const limit = 320000;
+  const declared = Number(request.headers.get('content-length'));
+  if (Number.isFinite(declared) && declared > limit) throw new Error('Request is too large.');
+  if (!request.body) throw new Error('Invalid JSON request.');
+  const reader = request.body.getReader();
+  const decoder = new TextDecoder();
+  let bytes = 0, text = '';
+  try {
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      bytes += value.byteLength;
+      if (bytes > limit) {
+        await reader.cancel();
+        throw new Error('Request is too large.');
+      }
+      text += decoder.decode(value, { stream:true });
+    }
+    text += decoder.decode();
+  } finally { reader.releaseLock(); }
+  try { return JSON.parse(text); }
+  catch { throw new Error('Invalid JSON request.'); }
 }
 export function editorError(error: unknown) {
   const message = error instanceof Error ? error.message : 'The request could not be completed.';

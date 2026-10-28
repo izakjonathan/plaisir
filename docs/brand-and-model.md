@@ -1,3 +1,5 @@
+> Historical reference only. This deck illustration is superseded by the issued investor forecast. See [Plaisir project guide](plaisir-project.md). Do not use these figures for live investor pages.
+
 # Brand and financial model basis
 
 ## Source
