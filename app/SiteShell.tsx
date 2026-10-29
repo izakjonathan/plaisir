@@ -29,6 +29,23 @@ function MarketingShell({ children }: {
     const mounted = phase !== "closed";
     const visible = phase === "open";
     const expanded = phase === "opening" || visible;
+    // The menu is unmounted when closed, so its links cannot prefetch early.
+    // Warm the small route set after initial rendering; opening also refreshes
+    // the cache for visitors who have spent a long time on the current page.
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            areas.forEach(area => {
+                if (area.href !== pathname) router.prefetch(area.href);
+            });
+        }, 1500);
+        return () => clearTimeout(timer);
+    }, [router, pathname]);
+    useEffect(() => {
+        if (phase !== "opening") return;
+        areas.forEach(area => {
+            if (area.href !== pathname) router.prefetch(area.href);
+        });
+    }, [phase, router, pathname]);
     const finish = useCallback(() => {
         document.documentElement.classList.remove("menu-navigating");
         setPhase("closed");
@@ -168,7 +185,7 @@ function MarketingShell({ children }: {
                     finish();
             }}>
           <nav aria-label="Main navigation">
-            {areas.map((area, index) => (<Link key={area.href} href={area.href} aria-current={pathname === area.href ? "page" : undefined} onClick={event => navigate(event, area.href)} style={{ "--item": Math.min(index, 5) } as CSSProperties}>
+            {areas.map((area, index) => (<Link key={area.href} href={area.href} prefetch={true} aria-current={pathname === area.href ? "page" : undefined} onClick={event => navigate(event, area.href)} style={{ "--item": Math.min(index, 5) } as CSSProperties}>
                 <span><Copy field={`shared.menu.${index}.label`}/></span><small><Copy field={`shared.menu.${index}.description`}/></small>
               </Link>))}
           </nav>
