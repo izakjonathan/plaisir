@@ -39,7 +39,7 @@ export default function PageMotion() {
             if ((element.parentElement?.closest(SELECTOR) && !element.matches("h1,h2,h3,h4,h5,h6")) || tracked.has(element))
                 return;
             tracked.add(element);
-            if (element.matches("h1, h2, h3, .pl-display"))
+            if (element.matches("h1, h2, h3"))
                 element.dataset.revealKind = "heading";
             element.classList.remove("reveal-pending", "reveal-visible", "reveal-settled");
             // Preserve one-shot arrivals across system motion changes and observer restarts.
@@ -74,9 +74,9 @@ export default function PageMotion() {
                 element = element.parentElement?.closest<HTMLElement>(SELECTOR) ?? null;
             }
         };
-        // Next's route scroll restoration follows layout effects. Enroll after that
-        // paint boundary so a footer-origin navigation cannot mark the new page's
-        // entire content as already above the viewport. No SSR content is concealed.
+        // Enroll across a paint boundary after route layout and covered menu scroll
+        // resets. Footer-origin navigation must not mark the destination's entire
+        // content as already above the viewport. No SSR content is concealed.
         const cancelPaint = afterPaint(() => {
             if (cancelled)
                 return;

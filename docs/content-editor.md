@@ -16,7 +16,7 @@ Until the database is connected, the live website displays its original content.
 
 ## Edit from an iPhone
 
-Select a main page: all its section groups appear in one continuous editor. Change the heading, paragraph, button text or destination. Newlines preserve deliberate title breaks; `*italic*` and `**bold**` are supported without accepting HTML. Text and images are editable across Experience, Story, and the shared menu/footer. Numbers retains legacy copy fields for draft/history compatibility; they do not control the current dashboards. Live financial copy, amounts and formulas are maintained in the reviewed source model.
+Select a main page: all its section groups appear in one continuous editor. Change the heading, paragraph, button text or destination. Newlines preserve deliberate title breaks; `*italic*` and `**bold**` are supported without accepting HTML. Text and images are editable across Experience, Story, and the shared menu/footer. The legacy Numbers tab is removed; its registered field IDs remain valid for draft/history compatibility. Live financial copy, amounts and formulas are maintained in the reviewed source model.
 
 For images, select **Change image**, then choose an existing photograph or **Upload a photo**. A regular `input type=file accept=image/*` opens the native iPhone Photo Library / Take Photo / Choose File chooser. It deliberately has no `capture` attribute forcing camera-only input. Exact option wording depends on iOS. Browser-decodable alternative formats are converted to JPEG; unreadable HEIC files receive a clear instruction to choose a JPEG/PNG.
 

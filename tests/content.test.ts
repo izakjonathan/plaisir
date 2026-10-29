@@ -118,3 +118,11 @@ test('editor requests reject non-object JSON and validate the Blob issuance payl
  assert.deepEqual(presignedUploadBody(body),body);
  for(const payload of [null,[],{}, {pathname:'x',multipart:'false'}])assert.throws(()=>presignedUploadBody({...body,payload}),/Invalid upload/);
 });
+
+test('legacy Numbers controls are hidden while saved documents remain compatible',()=>{
+ const legacy=fields.filter(field=>field.page==='numbers');
+ assert.equal(legacy.length,33);
+ assert.ok(legacy.every(field=>field.hidden));
+ const document={text:Object.fromEntries(legacy.map(field=>[field.id,field.default])),images:{}};
+ assert.deepEqual(validateDocument(document),document);
+});

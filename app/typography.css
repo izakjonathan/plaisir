@@ -1,21 +1,7 @@
-/* Editorial body copy uses the larger left-aligned reference style. */
-:root {
-  --body-copy-size: clamp(14px, 3.6vw, 26px);
-  --body-statement-size: clamp(20px, 5.13vw, 38px);
-  --body-copy-leading: 1.14;
-  --body-statement-leading: 1.125;
-  --body-tracking: -0.025em;
-}
-/* Scope to editorial prose: headings, controls and editor retain their styles. */
-:is(.experience, [data-reveal-page="story"]) :is(
-  .scene-content > p:not(.eyebrow),
-  .manifesto-bottom > p,
-  .split-copy > p:not(.eyebrow),
-  .world-heading > p,
-  .investor-intro > div > p,
-  .investor-people > p,
-  .growth-section > div > p,
-  .model-invitation > p:not(.eyebrow):not(.pl-small-print)
+/* Editorial prose only: data, controls and the editor keep their own type scales. */
+
+:is(.experience, [data-reveal-page='story']) :is(
+  .scene-content > p:not(.eyebrow), .manifesto-bottom > p, .split-copy > p:not(.eyebrow), .world-heading > p, .investor-intro > div > p, .investor-people > p, .growth-section > div > p, .model-invitation > p:not(.eyebrow):not(.pl-small-print)
 ) {
   font-family: var(--sans);
   font-weight: 400;
@@ -26,27 +12,14 @@
   text-wrap: pretty;
   max-width: 32ch;
 }
-:is(.experience, [data-reveal-page="story"]) .model-invitation > p.pl-small-print {
+
+[data-reveal-page='story'] .model-invitation > p.pl-small-print {
   line-height: 1.3;
-  letter-spacing: -0.01em;
-}
-/* Supporting descriptions follow the compact rhythm without enlarging data. */
-[data-reveal-page="story"] :is(.pl-team p, .pl-operating-list dd, .pl-launch li, .pl-note > div) {
-  font-size: max(14px, calc(var(--body-copy-size) * .7));
-  line-height: 1.3;
-  letter-spacing: -0.02em;
-}
-/* Financial prose stays left aligned beside figures and charts. */
-.pl-financial-page .deck-dashboard p:not(.eyebrow) {
-  line-height: 1.3;
-  letter-spacing: -0.02em;
-}
-.pl-financial-page .dashboard-heading > p:not(.eyebrow) {
-  font-size: var(--body-statement-size);
-  line-height: var(--body-statement-leading);
-  letter-spacing: var(--body-tracking);
-  max-width: 36ch;
+  letter-spacing: -.01em;
 }
 
-/* Line-reveal wrappers inherit the heading, including within team/data layouts. */
-.line-heading :is(.heading-source,.heading-visual,.heading-line,.heading-line-inner) { font:inherit; letter-spacing:inherit; }
+[data-reveal-page='story'] :is(.pl-team p, .pl-operating-list dd, .pl-launch li, .pl-note > div) {
+  font-size: max(14px, calc(var(--body-copy-size) * .7));
+  line-height: 1.3;
+  letter-spacing: -.02em;
+}

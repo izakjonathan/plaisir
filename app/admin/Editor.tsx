@@ -9,7 +9,7 @@ import './editor.css';
 import {imageOverlayOpacity,imageOverlayStrength} from '../../lib/image-treatment';
 import BrandColorPicker from './BrandColorPicker';
 
-const pages=[{id:'brand',label:'Brand colors',route:'/'},{id:'splash',label:'Splash screen',route:'/'},{id:'experience',label:'The experience',route:'/'},{id:'story',label:'The story',route:'/investors'},{id:'numbers',label:'The numbers',route:'/financials'},{id:'shared',label:'Menu & footer',route:'/'}];
+const pages=[{id:'brand',label:'Brand colors',route:'/'},{id:'splash',label:'Splash screen',route:'/'},{id:'experience',label:'The experience',route:'/'},{id:'story',label:'The story',route:'/investors'},{id:'shared',label:'Menu & footer',route:'/'}];
 const sectionNames:Record<string,string>={'scene hero brand-hero':'Opening & hero',welcome:'Welcome',coffee:'Daytime',wine:'Wine',table:'Around the table','Wine and everyday rituals':'Photo pair','brand-world':'Brand details',neighbourhood:'First location','scene investor-hero':'Introduction','investor-people':'People','growth-section gold-section':'Growth','model-invitation':'Financial invitation','investor-intro gold-section':'The proposition','split-scene':'Flagship','Content':'Content'};
 async function jsonRequest(url:string,options?:RequestInit) {
   const response=await fetch(url,{...options,cache:'no-store'});
@@ -89,7 +89,6 @@ export default function Editor(){
    <div className="editor-controls"><span className="editor-state">{loading?'Loading…':dirty?'Unsaved changes':ready?'Draft up to date':'Exploring original content'}</span></div>
    {page==='splash'&&<><p className="editor-caption">Shown once per tab session. Preview lets you see it again while editing. Brand colors follow your palette settings.</p><ContentProvider value={document}><BrandSplash preview/></ContentProvider></>}
    {page==='brand'&&<p className="editor-caption">These two colors apply across every page, including logos, illustrations, charts and photo overlays. The global overlay opacity applies to images without a custom opacity. Images switched off stay off. Preview your draft, then publish to update the live site.</p>}
-   {page==='numbers'&&<p className="editor-caption">These are legacy Numbers copy fields retained for existing drafts and history. They do not change the current financial dashboards. Live dashboard copy, values and calculations are maintained in the reviewed source model.</p>}
    {sections.map(current=><section key={`${page}-${current}`} className="editor-section" aria-label={sectionNames[current]||current} aria-busy={loading}><h3 className="editor-section-title">{sectionNames[current]||current}</h3><div className="editor-fields">
     {pageFields.filter(field=>field.section===current).map(field=>field.kind==='image'?<article key={field.id} className="editor-card editor-image-card">
      <div className="editor-card-heading"><h3>{field.id==='splash.background'?field.label:'Photograph'}</h3><button type="button" className="editor-button" onClick={()=>void openImages(field)}>Change image</button></div>

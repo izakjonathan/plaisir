@@ -1,5 +1,4 @@
-import Heading from "./Heading";
-import { Children, isValidElement, type ReactNode } from "react";
+import { type ReactNode } from "react";
 
 export function Note({
   children,
@@ -16,27 +15,5 @@ export function Note({
       </summary>
       <div>{children}</div>
     </details>
-  );
-}
-export function Display({
-  children,
-  id,
-}: {
-  children: ReactNode;
-  id?: string;
-}) {
-  const lines: ReactNode[][] = [[]];
-  Children.toArray(children).forEach((child) => {
-    if (isValidElement(child) && child.type === "br") lines.push([]);
-    else lines[lines.length - 1].push(child);
-  });
-  return (
-    <Heading as="h2" id={id} className="pl-display" data-reveal>
-      {lines.map((line, index) => (
-        <span className="pl-display-line" key={index}>
-          <span style={{ transitionDelay: `${index * 65}ms` }}>{line} </span>
-        </span>
-      ))}
-    </Heading>
   );
 }

@@ -30,6 +30,7 @@ function MarketingShell({ children }: {
     const visible = phase === "open";
     const expanded = phase === "opening" || visible;
     const finish = useCallback(() => {
+        document.documentElement.classList.remove("menu-navigating");
         setPhase("closed");
         if (keyboard.current && !navigating.current)
             button.current?.focus({ preventScroll: true });
@@ -70,15 +71,21 @@ function MarketingShell({ children }: {
             document.documentElement.classList.remove("menu-open");
         };
     }, [mounted, pathname]);
-    useEffect(() => {
+    useLayoutEffect(() => {
         if (lastPathname.current === pathname)
             return;
         lastPathname.current = pathname;
-        // The menu covers the route switch. Its exit reveals the new page rather
-        // than the old page flashing back into view before navigation finishes.
+        if (navigating.current) {
+            // Next's automatic restoration is disabled for menu links. Jump while
+            // the menu still covers the destination, never with anchor smoothing.
+            window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+        }
         if (mounted)
-            setPhase("closing");
+            return afterPaint(() => setPhase("closing"));
     }, [pathname, mounted]);
+    useEffect(() => () => {
+        document.documentElement.classList.remove("menu-navigating");
+    }, []);
     useEffect(() => {
         if (!mounted)
             return;
@@ -125,7 +132,8 @@ function MarketingShell({ children }: {
         }
         navigating.current = true;
         (document.activeElement as HTMLElement | null)?.blur();
-        router.push(href);
+        document.documentElement.classList.add("menu-navigating");
+        router.push(href, { scroll: false });
     };
     return (<>
       <div className="brand-grain" aria-hidden="true"/>

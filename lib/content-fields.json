@@ -605,7 +605,8 @@
     "label": "Paragraph",
     "kind": "text",
     "default": "The flagship investment overview",
-    "multiline": true
+    "multiline": true,
+    "hidden": true
   },
   {
     "id": "numbers.page.text2",
@@ -614,7 +615,8 @@
     "label": "Heading",
     "kind": "text",
     "default": "Behind the feeling.\nThe figures.",
-    "multiline": true
+    "multiline": true,
+    "hidden": true
   },
   {
     "id": "numbers.page.text3",
@@ -623,7 +625,8 @@
     "label": "Paragraph",
     "kind": "text",
     "default": "One flagship. Source-derived figures, with the assumptions in view.",
-    "multiline": true
+    "multiline": true,
+    "hidden": true
   },
   {
     "id": "numbers.page.text4",
@@ -632,7 +635,8 @@
     "label": "Text",
     "kind": "text",
     "default": "USD \u00b7 Illustrative, not an approved forecast",
-    "multiline": false
+    "multiline": false,
+    "hidden": true
   },
   {
     "id": "numbers.page.text5",
@@ -641,7 +645,8 @@
     "label": "Text",
     "kind": "text",
     "default": "Annual revenue",
-    "multiline": false
+    "multiline": false,
+    "hidden": true
   },
   {
     "id": "numbers.page.text6",
@@ -650,7 +655,8 @@
     "label": "Text",
     "kind": "text",
     "default": "2026 base illustration",
-    "multiline": false
+    "multiline": false,
+    "hidden": true
   },
   {
     "id": "numbers.page.text7",
@@ -659,7 +665,8 @@
     "label": "Text",
     "kind": "text",
     "default": "Gross profit",
-    "multiline": false
+    "multiline": false,
+    "hidden": true
   },
   {
     "id": "numbers.page.text8",
@@ -668,7 +675,8 @@
     "label": "Text",
     "kind": "text",
     "default": "Annual EBITDA",
-    "multiline": false
+    "multiline": false,
+    "hidden": true
   },
   {
     "id": "numbers.page.text9",
@@ -677,7 +685,8 @@
     "label": "Heading",
     "kind": "text",
     "default": "Where revenue goes",
-    "multiline": true
+    "multiline": true,
+    "hidden": true
   },
   {
     "id": "numbers.page.text10",
@@ -686,7 +695,8 @@
     "label": "Text",
     "kind": "text",
     "default": "Annual USD",
-    "multiline": false
+    "multiline": false,
+    "hidden": true
   },
   {
     "id": "numbers.page.text11",
@@ -695,7 +705,8 @@
     "label": "Heading",
     "kind": "text",
     "default": "Sales, costs and earnings",
-    "multiline": true
+    "multiline": true,
+    "hidden": true
   },
   {
     "id": "numbers.page.text12",
@@ -704,7 +715,8 @@
     "label": "Text",
     "kind": "text",
     "default": "Annual USD",
-    "multiline": false
+    "multiline": false,
+    "hidden": true
   },
   {
     "id": "numbers.page.text13",
@@ -713,7 +725,8 @@
     "label": "Paragraph",
     "kind": "text",
     "default": "Other costs of $37,100 balance the source illustration; they are not an itemised expense budget.",
-    "multiline": true
+    "multiline": true,
+    "hidden": true
   },
   {
     "id": "numbers.page.text14",
@@ -722,7 +735,8 @@
     "label": "Paragraph",
     "kind": "text",
     "default": "Trading break-even",
-    "multiline": true
+    "multiline": true,
+    "hidden": true
   },
   {
     "id": "numbers.page.text15",
@@ -731,7 +745,8 @@
     "label": "Paragraph",
     "kind": "text",
     "default": "Annual revenue at 70% gross margin.",
-    "multiline": true
+    "multiline": true,
+    "hidden": true
   },
   {
     "id": "numbers.page.text16",
@@ -740,7 +755,8 @@
     "label": "Text",
     "kind": "text",
     "default": "Monthly equivalent",
-    "multiline": true
+    "multiline": true,
+    "hidden": true
   },
   {
     "id": "numbers.page.text17",
@@ -749,7 +765,8 @@
     "label": "Text",
     "kind": "text",
     "default": "Revenue cushion",
-    "multiline": true
+    "multiline": true,
+    "hidden": true
   },
   {
     "id": "numbers.page.text18",
@@ -758,7 +775,8 @@
     "label": "Heading",
     "kind": "text",
     "default": "Sales needed at each gross margin",
-    "multiline": true
+    "multiline": true,
+    "hidden": true
   },
   {
     "id": "numbers.page.text19",
@@ -767,7 +785,8 @@
     "label": "Paragraph",
     "kind": "text",
     "default": "The proposed $72,000 annual base rent differs from $216,000 model occupancy by $144,000. Cost completeness and payroll burden require validation. EBITDA excludes depreciation, interest and tax. Break-even excludes financing and capital recovery.",
-    "multiline": true
+    "multiline": true,
+    "hidden": true
   },
   {
     "id": "numbers.page.text20",
@@ -776,7 +795,8 @@
     "label": "Paragraph",
     "kind": "text",
     "default": "The separate bottom-up model of 220 daily transactions \u00d7 $25 \u00d7 351 days gives $1,930,500, not $833,000. At that transaction volume, $833,000 implies a $10.79 ticket. The two illustrations have not been combined.",
-    "multiline": true
+    "multiline": true,
+    "hidden": true
   },
   {
     "id": "numbers.page.text21",
@@ -785,7 +805,8 @@
     "label": "Paragraph",
     "kind": "text",
     "default": "Proposed capital raise",
-    "multiline": true
+    "multiline": true,
+    "hidden": true
   },
   {
     "id": "numbers.page.text22",
@@ -794,7 +815,8 @@
     "label": "Heading",
     "kind": "text",
     "default": "$500k\u2013$1m",
-    "multiline": true
+    "multiline": true,
+    "hidden": true
   },
   {
     "id": "numbers.page.text23",
@@ -803,7 +825,8 @@
     "label": "Heading",
     "kind": "text",
     "default": "Use of proceeds",
-    "multiline": true
+    "multiline": true,
+    "hidden": true
   },
   {
     "id": "numbers.page.text24",
@@ -812,7 +835,8 @@
     "label": "Paragraph",
     "kind": "text",
     "default": "Working capital allocation",
-    "multiline": true
+    "multiline": true,
+    "hidden": true
   },
   {
     "id": "numbers.page.text25",
@@ -821,7 +845,8 @@
     "label": "Heading",
     "kind": "text",
     "default": "A reserve still to be costed.",
-    "multiline": true
+    "multiline": true,
+    "hidden": true
   },
   {
     "id": "numbers.page.text26",
@@ -830,7 +855,8 @@
     "label": "Paragraph",
     "kind": "text",
     "default": "The 10% allocation does not establish runway. A monthly cash-flow forecast must cost deposits, launch losses, supplier timing, delays and the minimum opening reserve.",
-    "multiline": true
+    "multiline": true,
+    "hidden": true
   },
   {
     "id": "numbers.page.text27",
@@ -839,7 +865,8 @@
     "label": "Paragraph",
     "kind": "text",
     "default": "Source percentages are proposals. Final funding depends on the approved site and complete opening budget. No cash balance, confirmed runway or payback is established.",
-    "multiline": true
+    "multiline": true,
+    "hidden": true
   },
   {
     "id": "numbers.page.text28",
@@ -848,7 +875,8 @@
     "label": "Heading",
     "kind": "text",
     "default": "Three possible trading cases.",
-    "multiline": true
+    "multiline": true,
+    "hidden": true
   },
   {
     "id": "numbers.page.text29",
@@ -857,7 +885,8 @@
     "label": "Paragraph",
     "kind": "text",
     "default": "Annual USD. Source projections, rounded to the nearest $1,000.",
-    "multiline": true
+    "multiline": true,
+    "hidden": true
   },
   {
     "id": "numbers.page.text30",
@@ -866,7 +895,8 @@
     "label": "Text",
     "kind": "text",
     "default": "Annual revenue",
-    "multiline": false
+    "multiline": false,
+    "hidden": true
   },
   {
     "id": "numbers.page.text31",
@@ -875,7 +905,8 @@
     "label": "Paragraph",
     "kind": "text",
     "default": "All cases use $268k annual payroll. Occupancy is $216k / $219k / $222k in 2026 / 2027 / 2028. Other opex = gross profit \u2212 payroll \u2212 occupancy \u2212 EBITDA. Below-EBITDA deductions = EBITDA \u2212 net profit. These residuals have not been itemised.",
-    "multiline": true
+    "multiline": true,
+    "hidden": true
   },
   {
     "id": "numbers.page.text32",
@@ -884,7 +915,8 @@
     "label": "Paragraph",
     "kind": "text",
     "default": "Implied gross margins range from 69.83% to 70.31%. The rounded base 2026 gross profit of $583k differs from the detailed $583.1k illustration only by rounding. Downside remains loss-making in each year. Source net profit is not a verified cash return.",
-    "multiline": true
+    "multiline": true,
+    "hidden": true
   },
   {
     "id": "numbers.page.text33",
@@ -893,7 +925,8 @@
     "label": "Paragraph",
     "kind": "text",
     "default": "Source: Plaisir Investor Deck, pages 22\u201325, 32\u201333, 42 and 46\u201348. Figures are presented without an assumed investment return.",
-    "multiline": true
+    "multiline": true,
+    "hidden": true
   },
   {
     "id": "experience.hero.image1",

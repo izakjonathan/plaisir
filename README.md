@@ -32,7 +32,7 @@ Agilera headings and Bricolage Grotesque supporting text are self-hosted. Publis
 
 The home splash waits for assets, animates its photograph and separate brand marks, then hands over to the hero. It normally runs once per tab; `?intro=replay` supports review. Draft preview skips the public intro. Floating header controls adapt to photographs and section surfaces; financial views have their dedicated treatment.
 
-Neon stores draft, published and previous content with revision checks. Private Vercel Blob stores processed uploads; published content is not changed by code releases. See [editor setup and behavior](docs/content-editor.md). Legacy Numbers editor fields do not control the current financial dashboards.
+Neon stores draft, published and previous content with revision checks. Private Vercel Blob stores processed uploads; published content is not changed by code releases. See [editor setup and behavior](docs/content-editor.md). Legacy Numbers controls are removed from the editor; their registered IDs remain only for saved-document compatibility.
 
 ## Current review and limits
 
