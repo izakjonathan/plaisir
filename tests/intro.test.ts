@@ -49,3 +49,8 @@ test('a published disabled splash skips before hydration without a covering fram
   assert.equal(result.dataset.introBoot,'skip');
   assert.equal(result.timers.length,0);
 });
+
+test('explicit replay bypasses session memory but still respects reduced motion',()=>{
+ assert.equal(boot({seen:true,search:'?intro=replay'}).dataset.introBoot,'splash');
+ assert.equal(boot({seen:true,reduced:true,search:'?intro=replay'}).dataset.introBoot,'skip');
+});

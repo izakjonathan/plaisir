@@ -31,14 +31,14 @@
 /* Per-image preference follows the image through draft, publish and restore. */
 :is(.split-photo, .world-images figure, .photo-story figure, .company-photo,.collection-photos figure,.collection-paper figure):has(> img[data-overlay="off"])::after { background:none; }
 .scene:has(> img[data-overlay="off"]) > :is(.scene-shade,.hero-light,.hero-shadow) { background:none; }
-.brand-splash:has(> img[data-overlay="off"]) > .splash-green { background:none; }
+.splash-backdrop:has(> img[data-overlay="off"]) > .splash-green { background:none; }
 body :is(.scene-photo,.split-photo > img,.world-images figure > img,.photo-story figure > img,.company-photo > img,.collection-photos figure > img,.collection-paper figure > img,.splash-photo)[data-overlay="off"] { filter:none; }
 
 /* Strength is server-rendered per image and updates with the live draft. */
 .scene > .scene-shade,
 :is(.split-photo,.world-images figure,.photo-story figure,.company-photo,.collection-photos figure,.collection-paper figure)::after,
-.brand-splash > .splash-green { opacity:var(--image-overlay-strength,1); }
+.brand-splash .splash-green { opacity:var(--image-overlay-strength,1); }
 .scene > .hero-light { opacity:var(--image-overlay-strength,1); }
 .scene > .hero-shadow { opacity:calc(.32 * var(--image-overlay-strength,1)); }
 body .scene-photo { filter:brightness(calc(1 - .28 * var(--image-overlay-strength,1))); }
-.brand-splash > .splash-photo { filter:saturate(calc(1 - .45 * var(--image-overlay-strength,1))); }
+.brand-splash .splash-photo { filter:saturate(calc(1 - .45 * var(--image-overlay-strength,1))); }

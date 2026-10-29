@@ -1281,7 +1281,7 @@
     "id": "splash.duration",
     "page": "splash",
     "section": "Splash screen",
-    "label": "Display duration (milliseconds)",
+    "label": "Hold after reveal",
     "kind": "text",
     "default": "1450",
     "control": "range",

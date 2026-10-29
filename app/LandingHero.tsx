@@ -4,6 +4,7 @@ import { Copy, ContentImage, ContentLink, TitleLines, useContent } from "./Conte
 import { useLayoutEffect, useRef, useState } from "react";
 import { isReducedMotion } from "../lib/motion";
 import BrandSplash, { Bottle } from "./BrandSplash";
+import { runSplashSequence, type SplashTarget } from "../lib/splash-sequence";
 import { splashSettings } from "../lib/splash";
 
 export default function LandingHero() {
@@ -16,7 +17,8 @@ export default function LandingHero() {
     const root = document.documentElement;
     let seen = false;
     try { seen = sessionStorage.getItem("plaisir-intro-v2") === "seen"; } catch { /* Private storage can be unavailable. */ }
-    if (!settings.enabled || root.dataset.introBoot === "failed" || seen || isReducedMotion() || location.hash || new URLSearchParams(location.search).get('preview') === 'draft' || window.scrollY > 50) {
+    const replay = new URLSearchParams(location.search).get('intro') === 'replay';
+    if (!settings.enabled || root.dataset.introBoot === "failed" || (seen && !replay) || isReducedMotion() || location.hash || new URLSearchParams(location.search).get('preview') === 'draft' || window.scrollY > 50) {
       root.dataset.introBoot = "skip";
       setIntro("ready");
       return;
@@ -25,43 +27,55 @@ export default function LandingHero() {
     root.dataset.introBoot = "running";
     root.classList.add("brand-intro-active");
     let cancelled = false;
-    let finished = false;
-    let cap: ReturnType<typeof setTimeout>;
-    let hold: ReturnType<typeof setTimeout>;
-    let exit: ReturnType<typeof setTimeout>;
-    const finish = () => {
-      if (cancelled || finished) return;
-      finished = true;
-      clearTimeout(cap);
-      clearTimeout(hold);
-      root.classList.remove("brand-intro-active");
-      root.dataset.introBoot = "leaving";
-      setIntro("leaving");
-      try { sessionStorage.setItem("plaisir-intro-v2", "seen"); } catch { /* Optional convenience only. */ }
-      exit = setTimeout(() => { if (!cancelled) { root.dataset.introBoot = "ready"; setIntro("ready"); } }, 650);
+    const animations = new Set<Animation>();
+    const timers = new Set<ReturnType<typeof setTimeout>>();
+    const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+    const remember = () => {try {sessionStorage.setItem('plaisir-intro-v2','seen');} catch { /* Optional storage. */ }};
+    const complete = () => {
+      root.classList.remove('brand-intro-active');root.dataset.introBoot='ready';setIntro('ready');remember();
     };
-    // The visible logo is a CSS mask. Decode its source separately; the mask
-    // element is not an HTMLImageElement and has no decode() method.
-    const logo = new Image();
-    logo.src = "/brand/wordmark-gold.svg";
-    const ready = Promise.allSettled([document.fonts.ready, logo.decode()]);
-    cap = setTimeout(finish, settings.duration + 1750);
-    // Give the separately loaded logo time to decode, without waiting indefinitely.
-    Promise.race([ready, new Promise(resolve => { hold = setTimeout(resolve, 600); })]).then(() => {
-      if (!cancelled && !finished) hold = setTimeout(finish, settings.duration);
-    });
-    const skip = () => { clearTimeout(cap); finish(); };
-    document.addEventListener("keydown", skip, { once: true });
-    document.addEventListener("pointerdown", skip, { once: true });
+    const stop = () => {
+      if(cancelled)return;cancelled=true;
+      animations.forEach(animation=>animation.cancel());
+      timers.forEach(timer=>clearTimeout(timer));timers.clear();
+      complete();
+    };
+    const wait = (ms:number) => new Promise<void>(resolve=>{const timer=setTimeout(()=>{timers.delete(timer);resolve();},ms);timers.add(timer);});
+    const animate = async(target:SplashTarget,visible:boolean,duration:number,delay=0) => {
+      if(cancelled)return;
+      const selector={backdrop:'.splash-backdrop',bottle:'.splash-bottle',logo:'.splash-logo',plate:'.brand-splash'}[target];
+      const element=section.current?.querySelector<HTMLElement>(selector);
+      if(!element)return;
+      const movement=target==='bottle'||target==='logo';
+      const from=visible?{opacity:0,transform:movement?'translate3d(0,16px,0)':'none'}:{opacity:1,transform:'none'};
+      const to=visible?{opacity:1,transform:'none'}:{opacity:0,transform:movement?'translate3d(0,-10px,0)':'none'};
+      const animation=element.animate([from,to],{duration,delay,easing:'cubic-bezier(.22,1,.36,1)',fill:'forwards'});
+      animations.add(animation);
+      await animation.finished.catch(()=>{});
+    };
+    const start = async() => {
+      try {
+        // Decode the actual responsive images that will be painted, including the hero.
+        const photos=Array.from(section.current?.querySelectorAll<HTMLImageElement>('img.splash-photo,img.scene-photo')??[]);
+        const logo=new Image();logo.src='/brand/wordmark-gold.svg';
+        const assets=Promise.all([...photos.map(photo=>photo.decode()),logo.decode(),document.fonts.ready]).then(()=>true,()=>false);
+        const ready=await Promise.race([assets,wait(5000).then(()=>false)]);
+        if(cancelled)return;
+        if(!ready){stop();return;}
+        await runSplashSequence({active:()=>!cancelled,showBottle:settings.showBottle,showLogo:settings.showLogo,hold:settings.duration,animate,wait,
+          hero:()=>{root.dataset.introBoot='leaving';setIntro('leaving');},complete});
+      } catch {if(!cancelled)stop();}
+    };
+    void start();
+    document.addEventListener('keydown',stop,{once:true});
+    document.addEventListener('pointerdown',stop,{once:true});
+    reduced.addEventListener('change',stop);
     return () => {
-      cancelled = true;
-      clearTimeout(hold); clearTimeout(exit); clearTimeout(cap);
-      root.classList.remove("brand-intro-active");
-      root.dataset.introBoot = "skip";
-      document.removeEventListener("keydown", skip);
-      document.removeEventListener("pointerdown", skip);
+      cancelled=true;animations.forEach(animation=>animation.cancel());timers.forEach(timer=>clearTimeout(timer));
+      root.classList.remove('brand-intro-active');root.dataset.introBoot='skip';
+      document.removeEventListener('keydown',stop);document.removeEventListener('pointerdown',stop);reduced.removeEventListener('change',stop);
     };
-  }, [settings.enabled, settings.duration]);
+  }, [settings.enabled, settings.duration, settings.showBottle, settings.showLogo]);
 
   return <section ref={section} className="scene hero brand-hero" data-intro={intro} aria-labelledby="home-title">
     <ContentImage field="experience.hero.image1" className="scene-photo" fetchPriority="high" loading="eager" sizes="100vw"/>
