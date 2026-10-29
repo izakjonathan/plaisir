@@ -1,4 +1,6 @@
-# Plaisir consolidation review — 0.4.4
+# Historical Plaisir consolidation review — 0.4.4
+
+Current review: [0.4.15 audit](audit-0.4.15.md).
 
 Date: 28 October 2026. Baseline: 258eb21779601619c90cda5fe626ada3122ee65d. Scope: source consolidation, editor robustness, documentation; no visual redesign or content/database migration.
 

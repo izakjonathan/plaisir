@@ -28,11 +28,21 @@ export async function readJSON(request: Request) {
     }
     text += decoder.decode();
   } finally { reader.releaseLock(); }
-  try { return JSON.parse(text); }
+  let parsed: unknown;
+  try { parsed = JSON.parse(text); }
   catch { throw new Error('Invalid JSON request.'); }
+  if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed)) throw new Error('Invalid JSON request: expected an object.');
+  return parsed as Record<string, unknown>;
 }
 export function editorError(error: unknown) {
   const message = error instanceof Error ? error.message : 'The request could not be completed.';
   const known = /^(CONFLICT:|Invalid |Use |Content |An image |This request |Expected |Request |Connect |Upload |Choose |Image |Too many |No previous)/.test(message);
   return Response.json({ error: known ? message : 'Storage could not complete the request. Check the database and Blob connection in Vercel.' }, { status: message.startsWith('CONFLICT:') ? 409 : known ? 400 : 503, headers: { 'Cache-Control':'no-store' } });
+}
+
+export function presignedUploadBody(body:Record<string,unknown>) {
+ if(body.type!=='blob.generate-presigned-url' || !body.payload || typeof body.payload!=='object' || Array.isArray(body.payload)) throw new Error('Invalid upload request.');
+ const payload=body.payload as Record<string,unknown>;
+ if(typeof payload.pathname!=='string' || typeof payload.multipart!=='boolean' || (payload.clientPayload!==null && payload.clientPayload!==undefined && typeof payload.clientPayload!=='string')) throw new Error('Invalid upload request.');
+ return {type:'blob.generate-presigned-url' as const,payload:{pathname:payload.pathname,multipart:payload.multipart,clientPayload:typeof payload.clientPayload==='string'?payload.clientPayload:null}};
 }

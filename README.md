@@ -1,73 +1,39 @@
-# Plaisir 0.4.2 — mobile content editor
+# Plaisir
 
-A phone-friendly content editor is available at `/admin`, with no public navigation link and no login in this version. Connect Neon Postgres and a **private** Vercel Blob store in Vercel to activate saving and uploads. See [content editor setup](docs/content-editor.md).
+A Next.js hospitality concept website with an editorial Experience, the business Story, two investor views and a mobile content editor.
 
-# Plaisir — Next.js 0.3.6
-
-A brand-led hospitality website using the supplied 48-page Agilera investor presentation as the visual and financial reference.
-
-## Setup
-
-Node.js 20.9+ supported by this Next.js build.
+## Develop and verify
 
 ```sh
 npm ci
 npm run dev
+npm run check
 ```
 
-Production: `npm run build`, then `npm start`.
-Validation: `npm run typecheck` and `npm test`.
+`check` runs TypeScript, automated tests and a production build. It does not run lint or browser E2E checks; neither is configured. Run the production build with `npm start`. Use a Node release supported by Next.js 16 and the existing npm lockfile.
 
-## Routes and design
+## Project authority
 
-- `/`: public concept experience with full-bleed imagery, Agilera titles, clean olive/ochre sections and content-sized outline buttons.
-- `/investors`: proposed concept, site, leadership and launch story.
-- `/financials`: presentation-based dashboard with Overview, Funding and Scenarios. No sliders, editable assumptions or hypothetical opening-cash simulation.
+Read [the project guide](docs/plaisir-project.md) and [development constitution](docs/development-constitution.md) before changes. GitHub `izakjonathan/plaisir` main is authoritative and deploys to the existing Vercel project at https://plaisir-nu.vercel.app. ZIPs and historical documents are supplemental.
 
-Brand colours: olive #2B3D17 and ochre #D19C36. Original Agilera is self-hosted. Real transparent PNG wordmarks replace CSS masks for more reliable Safari rendering.
+## Routes
 
-The fixed header contains the logo and burger icon only, without a filled bar or menu-button border. Mounted-panel navigation has entrance/exit animations, staggered links, focus containment, Escape handling and scroll locking. Outline pills contain centred text only. The compact footer uses the ochre background and green wordmark.
+- `/`: The Experience.
+- `/investors`: The Story.
+- `/financials`: investor overview.
+- `/financials-v2`: detailed investor forecast dashboard.
+- `/admin`: direct-access content editor, deliberately without login in this phase.
 
-Small public/investor section labels remain removed. The three menu descriptions are restored. Paragraphs on photographs use exact brand ochre; the floating logo and controls have no shadows. The dashboard uses an ochre background and dark olive text, charts, rules and controls, including its fixed header controls.
+Both financial routes use `lib/investor-forecast.ts` and the issued documents in `public/forecasts`. Historical deck/calculation modules retain provenance and tests; they are not the live financial model. Preserve source assumptions and reconciliation tests. The venue remains a concept; investment terms are unconfirmed.
 
-## Motion and mobile optimization in 0.3.5
+## Brand, motion and content
 
-Scroll reveals are intentionally stronger: body blocks move 36px over 850ms on mobile; headings move 48px. Opacity takes 650ms, arrivals are staggered by 90ms (capped at 180ms), and the trigger is inset by 12% of viewport height, capped at 120px. Desktop movement is 44px with a 950ms duration. Only marked content animates; full-screen photographs remain stationary. Nested markers are not double-animated, and settled elements stop transitioning.
+Agilera headings and Bricolage Grotesque supporting text are self-hosted. Published editor settings control the two brand colors, grain and global image overlay strength; individual photographs can override the overlay. Legacy defaults are #263D32 and #D8B15B. Bottle artwork is vector, with subtle reverse parallax. Headings reveal by measured line. System reduced motion remains respected.
 
-The menu opens over 680ms with an ease-out finish, closes over 480ms with a separate curve, and keeps link text visible during exit. Its link wave is 520ms with 150ms + 65ms per-item delay. The burger strokes smoothly rotate into the X. Controls stay fixed; the panel moves behind them. Reduced motion remains immediate unless the user explicitly enables full animation.
+The home splash waits for assets, animates its photograph and separate brand marks, then hands over to the hero. It normally runs once per tab; `?intro=replay` supports review. Draft preview skips the public intro. Floating header controls adapt to photographs and section surfaces; financial views have their dedicated treatment.
 
-All nine public/investor photographs now use responsive Next Image delivery, correctly sized srcsets and explicit sizes. One hero per route loads eagerly with high priority; lower images remain lazy. Image widths include 360/480px for smaller screens, and the source images are retained. Run as a normal Next.js/Vercel project with its image optimizer; raw static hosting without the Next server is not supported by this configuration.
+Neon stores draft, published and previous content with revision checks. Private Vercel Blob stores processed uploads; published content is not changed by code releases. See [editor setup and behavior](docs/content-editor.md). Legacy Numbers editor fields do not control the current financial dashboards.
 
-The mobile pass adds 44px touch targets, safer portrait/landscape gutters, scalable 320px typography, more readable notes, compact financial tabs, more resilient KPI/table layouts, proper table captions and a one-column team layout on the narrowest screens. A thin IntersectionObserver band changes the floating controls to green over yellow sections, preserving their legibility without adding a bar or shadow. Zoom remains available.
+## Current review and limits
 
-See `docs/mobile-optimization.md` for scope, research links and verification limits.
-
-## Browser canvas corrections
-
-The forced black HTML/body background and black theme-colour metadata have been removed. Body is transparent; sections paint the page and the financial route has an ochre root fallback. Viewport-fit remains cover. The header no longer creates a full-width fixed box: only the logo and burger are fixed, with safe-area spacing. This avoids introducing a viewport-wide fixed surface for Safari's edge colour-extension heuristic.
-
-Native Safari chrome and overscroll cannot be fully verified in desktop Chromium. Test the resulting build on a physical iPhone with expanded/collapsed toolbars and scrolling in both directions. The implementation does not claim to control native toolbar transparency on every Safari release.
-
-## Financial provenance
-
-`lib/deck.ts` centralises the baseline, sensitivity and source-rounded scenario data. Baseline: $833,000 sales, $583,100 gross profit, $521,100 operating costs and $62,000 EBITDA. Break-even is $744,429/year or $62,036/month, nearest dollar.
-
-Funding uses the deck's 55% / 22% / 13% / 10% allocations at $500k and $1m. All nine 2026–2028 cases preserve the deck's revenue, gross profit, EBITDA and source net profit. Implied other operating costs and deductions below EBITDA remain labelled as unexplained residuals. The UI explains the source margin variation, rent discrepancy and bottom-up revenue inconsistency.
-
-Legacy calculation helpers remain in `lib/finance.ts` for reference and unit coverage; the website no longer exposes the old what-if inputs or cash-reserve simulation.
-
-## Verification
-
-Production build and TypeScript validation pass. All fourteen tests pass. `python3 scripts/audit_mobile.py` audits generated HTML after `npm run build`: one H1 per route, a working skip target, zoom-safe viewport, image dimensions/descriptions, eager high-priority hero and lazy responsive lower images. All three routes pass that audit.
-
-Live browser validation is incomplete: the managed preview exits before a browser connection. This pass is a source/asset/HTML optimization across all routes, not a measured mobile frame-rate, Lighthouse or physical-Safari certification. Native toolbar appearance, actual overflow at device sizes and touch smoothness still require deployed device checks. No new live deployment is included.
-
-The venue remains a concept preview. Images include renderings, no premises or opening date is confirmed, and financials are source-derived illustrations rather than an approved forecast or verified investment return.
-
-Deploy as a standard Next.js project. The GitHub-connected Vercel project builds commits on main.
-
-## 0.3.6 fullscreen and photography update
-
-Photo scenes use 100lvh (100vh fallback), so retracting browser controls cannot expose the next section due to 100svh sizing. Text can still expand the section when zoomed. Seven supplied photos are used across the public and investor routes, retaining the existing brightness filters and gradient overlays. The original home hero background remains. The supplied screenshot itself is not used as a photo.
-
-The root canvas no longer uses a permanent brand-green fallback: its neutral/photo surface follows the current section and reuses the selected hero image for overscroll. No opaque browser bar or theme-colour hint is added. Native Safari transparency still requires physical-device verification. The available source was 0.3.5; the later bottle-overlay/splash source shown in the screenshot was not present and is not recreated in this patch.
+See [0.4.15 audit](docs/audit-0.4.15.md) for corrections, constitution applicability and unresolved editorial/verification work. Release notes in `docs/release-*.md` describe their own historical versions. Desktop checks do not establish physical iPhone/Safari behavior, native upload-picker behavior or a full responsive/accessibility certification.

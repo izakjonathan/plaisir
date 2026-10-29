@@ -7,4 +7,4 @@ export function proxy(request: NextRequest) {
   }
   return response;
 }
-export const config = { matcher:['/admin/:path*','/api/editor/:path*','/','/investors','/financials'] };
+export const config = { matcher:['/admin/:path*','/api/editor/:path*','/','/investors','/financials','/financials-v2'] };

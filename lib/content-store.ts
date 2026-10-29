@@ -28,3 +28,10 @@ export async function writeStore(db: Query, action: 'save' | 'publish' | 'restor
   if (!rows.length) throw new Error('CONFLICT: Content changed on another device, or there is no previous version. Reload before saving again.');
   return readStore(db);
 }
+
+/** Public rendering must not depend on draft or restore-history validity. */
+export async function readPublishedStore(db:Query):Promise<ContentDocument> {
+ const [row]=await db`SELECT published FROM plaisir_content WHERE id=1`;
+ if(!row)throw new Error('Content row is missing.');
+ return validateDocument(row.published);
+}

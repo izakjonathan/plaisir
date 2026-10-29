@@ -12,8 +12,9 @@ export async function POST(request: Request) {
   try {
     requireSameOrigin(request);
     const body = await readJSON(request);
-    if (!['save','publish','restore'].includes(body.action)) throw new Error('Invalid action.');
-    const state = await writeContent(body.action, requireRevision(body.revision), body.action==='restore' ? undefined : validateDocument(body.document));
+    const action=body.action;
+    if (action!=='save' && action!=='publish' && action!=='restore') throw new Error('Invalid action.');
+    const state = await writeContent(action, requireRevision(body.revision), body.action==='restore' ? undefined : validateDocument(body.document));
     if (body.action !== 'save') revalidatePath('/', 'layout');
     return Response.json({ state }, { headers:{'Cache-Control':'no-store'} });
   } catch (error) { return editorError(error); }

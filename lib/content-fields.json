@@ -213,7 +213,8 @@
       "height": 1024,
       "x": 50,
       "y": 50
-    }
+    },
+    "hidden": true
   },
   {
     "id": "experience.page.image21",
@@ -228,7 +229,8 @@
       "height": 1024,
       "x": 50,
       "y": 50
-    }
+    },
+    "hidden": true
   },
   {
     "id": "experience.page.image22",

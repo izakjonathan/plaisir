@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { fields, validateDocument, emptyDocument, requireRevision, safeLink, textValue } from '../lib/content-schema.ts';
 import { requireSameOrigin } from '../lib/editor-request.ts';
 import { PGlite } from '@electric-sql/pglite';
-import { initStore, readStore, writeStore, type Query } from '../lib/content-store.ts';
+import { initStore, readStore, readPublishedStore, writeStore, type Query } from '../lib/content-store.ts';
 import { processImage } from '../lib/process-image.ts';
 import sharp from 'sharp';
 
@@ -64,6 +64,9 @@ test('Postgres save, publish, stale revisions, duplicate publish and restore pre
   assert.deepEqual(restored.published,first);
   assert.deepEqual(restored.draft,first);
   assert.deepEqual(restored.previous,second);
+  await pg.query("UPDATE plaisir_content SET draft='null'::jsonb, previous='null'::jsonb WHERE id=1");
+  assert.deepEqual(await readPublishedStore(query),first,'invalid draft/history must not replace valid public content');
+  await assert.rejects(()=>readStore(query),/invalid/i);
   const missing={text:{},images:{[photo.id]:{...(photo.default as object),src:'/media/00000000-0000-4000-8000-000000000001'}}};
   await assert.rejects(()=>writeStore(query,'save',restored.revision,validateDocument(missing)),/no longer available/);
  }finally{await pg.close();}
@@ -106,4 +109,12 @@ test('per-image overlay opacity accepts the endpoints and rejects invalid data',
   assert.throws(()=>validateDocument({text:{},images:{[photo.id]:{...(photo.default as object),overlayOpacity}}}),/opacity/);
  }
  assert.equal(validateDocument({text:{},images:{[photo.id]:photo.default}}).images[photo.id].overlayOpacity,undefined);
+});
+
+test('editor requests reject non-object JSON and validate the Blob issuance payload',async()=>{
+ const {readJSON,presignedUploadBody}=await import('../lib/editor-request.ts');
+ for(const value of [null,[],42,'hello',true])await assert.rejects(()=>readJSON(new Request('https://plaisir.example',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(value)})),/Invalid JSON request/);
+ const body={type:'blob.generate-presigned-url',payload:{pathname:'pending/example.jpg',multipart:false,clientPayload:null}};
+ assert.deepEqual(presignedUploadBody(body),body);
+ for(const payload of [null,[],{}, {pathname:'x',multipart:'false'}])assert.throws(()=>presignedUploadBody({...body,payload}),/Invalid upload/);
 });

@@ -46,7 +46,7 @@ export default function Heading({as:Tag='h2',children,...props}:HTMLAttributes<H
    });
    heading.classList.toggle('heading-lines-ready',lines.length>0);
   };
-  const schedule=()=>{cancelAnimationFrame(frame);frame=requestAnimationFrame(split);};
+  const schedule=()=>{if(!active)return;cancelAnimationFrame(frame);frame=requestAnimationFrame(split);};
   const resize=new ResizeObserver(entries=>{
    const width=entries[0].contentRect.width;
    if(Math.abs(width-lastWidth)<1)return;lastWidth=width;schedule();

@@ -26,21 +26,24 @@ export default function LandingHero() {
     setIntro("splash");
     root.dataset.introBoot = "running";
     root.classList.add("brand-intro-active");
-    let cancelled = false;
+    let cancelled = false, finished = false;
     const animations = new Set<Animation>();
-    const timers = new Set<ReturnType<typeof setTimeout>>();
+    const timers = new Map<ReturnType<typeof setTimeout>,()=>void>();
+    const releaseTimers = () => {timers.forEach((resolve,timer)=>{clearTimeout(timer);resolve();});timers.clear();};
     const reduced = matchMedia('(prefers-reduced-motion: reduce)');
     const remember = () => {try {sessionStorage.setItem('plaisir-intro-v2','seen');} catch { /* Optional storage. */ }};
     const complete = () => {
+      finished=true;releaseTimers();
+      document.removeEventListener('keydown',stop);document.removeEventListener('pointerdown',stop);reduced.removeEventListener('change',stop);
       root.classList.remove('brand-intro-active');root.dataset.introBoot='ready';setIntro('ready');remember();
     };
     const stop = () => {
-      if(cancelled)return;cancelled=true;
+      if(cancelled||finished)return;cancelled=true;
       animations.forEach(animation=>animation.cancel());
-      timers.forEach(timer=>clearTimeout(timer));timers.clear();
+      releaseTimers();
       complete();
     };
-    const wait = (ms:number) => new Promise<void>(resolve=>{const timer=setTimeout(()=>{timers.delete(timer);resolve();},ms);timers.add(timer);});
+    const wait = (ms:number) => new Promise<void>(resolve=>{const timer=setTimeout(()=>{timers.delete(timer);resolve();},ms);timers.set(timer,resolve);});
     const animate = async(target:SplashTarget,visible:boolean,duration:number,delay=0) => {
       if(cancelled)return;
       const selector={backdrop:'.splash-backdrop',bottle:'.splash-bottle',logo:'.splash-logo',plate:'.brand-splash'}[target];
@@ -71,7 +74,7 @@ export default function LandingHero() {
     document.addEventListener('pointerdown',stop,{once:true});
     reduced.addEventListener('change',stop);
     return () => {
-      cancelled=true;animations.forEach(animation=>animation.cancel());timers.forEach(timer=>clearTimeout(timer));
+      cancelled=true;animations.forEach(animation=>animation.cancel());releaseTimers();
       root.classList.remove('brand-intro-active');root.dataset.introBoot='skip';
       document.removeEventListener('keydown',stop);document.removeEventListener('pointerdown',stop);reduced.removeEventListener('change',stop);
     };

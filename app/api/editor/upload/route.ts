@@ -1,15 +1,14 @@
 import { issueSignedToken } from '@vercel/blob';
-import { handleUploadPresigned, type HandleUploadPresignedBody } from '@vercel/blob/client';
+import { handleUploadPresigned } from '@vercel/blob/client';
 import { ensureSchema, sql, mediaConfigured } from '../../../../lib/content-db';
-import { editorError, readJSON, requireSameOrigin } from '../../../../lib/editor-request';
+import { editorError, readJSON, requireSameOrigin, presignedUploadBody } from '../../../../lib/editor-request';
 export const runtime = 'nodejs';
 export async function POST(request: Request) {
   try {
     requireSameOrigin(request);
     if (!mediaConfigured()) throw new Error('Connect a private Vercel Blob store to enable image uploads.');
-    const body = await readJSON(request) as HandleUploadPresignedBody;
+    const body = presignedUploadBody(await readJSON(request));
     // Finalization is handled by /api/editor/assets, not a webhook.
-    if (body.type !== 'blob.generate-presigned-url') throw new Error('Invalid upload request. Reload the editor and try again.');
     const result = await handleUploadPresigned({ request, body, getSignedToken: async pathname => {
       const match = /^pending\/([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})\.(jpg|png|webp)$/.exec(pathname);
       if (!match) throw new Error('Invalid upload name.');

@@ -21,3 +21,6 @@ Respect system reduced motion; no public motion toggle. Preserve first-paint spl
 
 ## Verification
 npm run check runs TypeScript, all automated tests and the production build. There is currently no configured lint command or full automated browser suite. Manually check affected live routes and editor preview. For visual changes, use the constitution's width/state matrix and actual iPhone/Safari where available. Mark unavailable checks honestly. Never publish test content to production to validate a code release.
+
+## Latest audit
+See [0.4.15](audit-0.4.15.md). Legacy Numbers editor fields are compatibility data, not live dashboard copy. Story premises assumptions require editorial reconciliation with the issued forecast before representing them as aligned.
