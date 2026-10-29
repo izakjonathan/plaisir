@@ -4,6 +4,7 @@ import Image, { type ImageProps } from 'next/image';
 import { createContext, useContext, useId, useEffect, useState, Fragment, type ReactNode, type AnchorHTMLAttributes, type CSSProperties } from 'react';
 import { emptyDocument, textValue, imageValue, fieldMap, validateDocument, type ContentDocument, type ContentImageValue } from '../lib/content-schema';
 
+import { imageOverlayStrength } from '../lib/image-treatment';
 import { brandStyle } from '../lib/brand';
 
 const Context = createContext<ContentDocument>(emptyDocument);
@@ -46,7 +47,7 @@ export function ContentImage({ field, style, ...props }: { field: string } & Omi
   const customCrop = (document.images[field] || (field === 'splash.background' && document.images['experience.hero.image1'])) && (image.src !== original.src || image.x !== original.x || image.y !== original.y);
   // Version the restored-alpha artwork URL so existing optimized JPEG mattes expire.
   const displaySrc = /^\/brand\/collection\/(menu-(not-wine|wine|food)|coaster-(script|bottle))\.webp$/.test(image.src) ? image.src.replace(/\.webp$/, "-cutout.webp") : image.src;
-  const opacity = image.overlay === false ? 0 : (image.overlayOpacity ?? 100) / 100;
+  const opacity = imageOverlayStrength(document,image);
   return <><style>{`:is(.scene,.split-photo,.world-images figure,.photo-story figure,.company-photo,.brand-splash,.collection-photos figure,.collection-paper figure,.collection-backdrop):has(> img[data-image-treatment="${treatmentId}"]) { --image-overlay-strength: ${opacity}; }`}</style><Image {...props} data-image-treatment={treatmentId} data-overlay={image.overlay === false ? "off" : "on"} src={displaySrc} alt={image.alt} width={image.width} height={image.height} style={{...style, ...(customCrop ? {objectPosition:`${image.x}% ${image.y}%`} : {})}}/></>;
 }
 export function ContentLink({ field, ...props }: { field: string } & AnchorHTMLAttributes<HTMLAnchorElement>) {

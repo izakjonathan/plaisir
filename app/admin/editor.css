@@ -50,3 +50,8 @@ html:has(.content-editor){background:#f4f1e9;background-image:none}
 .editor-color-slider {display:block;margin:16px 0;}
 .editor-color-slider > span {display:flex;justify-content:space-between;gap:16px;}
 .editor-color-slider output {font-variant-numeric:tabular-nums;font-weight:400;}
+
+.content-editor .editor-section {margin-top:36px;}
+.content-editor .editor-section-title {font-size:22px;border-top:1px solid var(--editor-rule);padding-top:24px;margin-bottom:18px;}
+.editor-overlay-inheritance {display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:16px;font-size:12px;color:var(--editor-muted);}
+.editor-overlay-inheritance .editor-reset {flex:none;}

@@ -1522,8 +1522,19 @@
       "height": 1600,
       "x": 50,
       "y": 50,
-      "overlay": true,
-      "overlayOpacity": 100
+      "overlay": true
     }
+  },
+  {
+    "id": "brand.overlayOpacity",
+    "page": "brand",
+    "section": "Image treatment",
+    "label": "Global overlay / gradient opacity",
+    "kind": "text",
+    "control": "range",
+    "min": 0,
+    "max": 100,
+    "step": 1,
+    "default": "100"
   }
 ]
