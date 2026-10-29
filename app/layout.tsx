@@ -18,7 +18,8 @@ import { ContentProvider } from "./Content";
 import { readPublished } from "../lib/content-db";
 import { createIntroBootstrap, INTRO_CRITICAL_CSS, INTRO_NO_SCRIPT_CSS } from "../lib/intro-bootstrap";
 import { splashSettings } from "../lib/splash";
-export const dynamic = "force-dynamic";
+// Published pages are reusable; editor publish/restore invalidates this layout.
+export const revalidate = 60;
 export const metadata: Metadata = {
   title: "Plaisir · coffee & wine",
   description:

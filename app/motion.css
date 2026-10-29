@@ -3,7 +3,7 @@
 
 :root {
   --duration-menu: 680ms;
-  --duration-menu-exit: 480ms;
+  --duration-menu-exit: 220ms;
   --duration-reveal: 850ms;
   --ease-menu: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-reveal: cubic-bezier(0.22, 1, 0.36, 1);
@@ -103,7 +103,7 @@ html.reveal-enabled [data-reveal]:focus-within {
 @media (min-width: 760px) {
   :root {
     --duration-menu: 720ms;
-    --duration-menu-exit: 520ms;
+    --duration-menu-exit: 240ms;
     --duration-reveal: 950ms;
     --reveal-distance: 44px;
   }

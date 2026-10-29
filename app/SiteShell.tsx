@@ -69,7 +69,7 @@ function MarketingShell({ children }: {
             finish();
             return;
         }
-        const timer = setTimeout(finish, cssTimeMs("--duration-menu-exit", 480) + 100);
+        const timer = setTimeout(finish, cssTimeMs("--duration-menu-exit", 220) + 100);
         return () => clearTimeout(timer);
     }, [phase, finish]);
     useLayoutEffect(() => {

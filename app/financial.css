@@ -239,19 +239,25 @@ html:has(.pl-financial-page) {
   margin-top: 9px;
 }
 
-.cost-track {
-  height: 12px;
-  background: color-mix(in srgb, var(--brand-green) 12.1569%, transparent);
-  border-radius: 20px;
-  margin-top: 12px;
+:is(.cost-track, .comparison-track) {
+  position: relative;
+  height: 18px;
+  background: color-mix(in srgb, var(--brand-green) 10.1961%, transparent);
+  border-radius: 3px;
   overflow: hidden;
 }
 
-.cost-track span {
+.cost-track {
+  margin-top: 12px;
+}
+
+:is(.cost-track, .comparison-track) > span {
+  position: absolute;
+  top: 0;
   display: block;
   height: 100%;
-  background: color-mix(in srgb, var(--brand-green) 60%, transparent);
-  border-radius: 20px;
+  background: var(--brand-green);
+  border-radius: 2px;
 }
 
 .finance-table {
@@ -578,22 +584,6 @@ html:has(.pl-financial-page) {
   font-weight: 600;
   font-variant-numeric: tabular-nums;
   white-space: nowrap;
-}
-
-.comparison-track {
-  position: relative;
-  height: 18px;
-  border-radius: 3px;
-  background: color-mix(in srgb, var(--brand-green) 10.1961%, transparent);
-  overflow: hidden;
-}
-
-.comparison-track > span {
-  position: absolute;
-  height: 100%;
-  top: 0;
-  background: var(--brand-green);
-  border-radius: 2px;
 }
 
 .comparison-track.diverging::after {
