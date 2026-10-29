@@ -32,9 +32,7 @@ export function useHeaderTone(pathname: string) {
                 const box=element.getBoundingClientRect();
                 return {...{left:box.left,right:box.right,top:box.top,bottom:box.bottom},photo:element!==section || element.matches('.company-photo,.scene'),gold:element.matches('.gold-section,.brand-footer')};
             });
-            const paper = section.querySelector('.collection-paper')?.getBoundingClientRect();
-            const onPaper = paper && paper.left <= x && paper.right > x && paper.top <= y && paper.bottom > y;
-            const tone = onPaper ? "dark" : headerSurfaceTone(surfaces,x,y) ?? "gold";
+            const tone = headerSurfaceTone(surfaces,x,y) ?? "gold";
             const dark = tone === "dark";
             setTone(tone);
             if (root.dataset.headerTone !== tone) root.dataset.headerTone = tone;

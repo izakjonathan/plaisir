@@ -14,7 +14,7 @@
     "section": "welcome",
     "label": "Paragraph",
     "kind": "text",
-    "default": "French café influences. New York personality. A warm room shaped by Danish design. Come for something good. Stay for the feeling.",
+    "default": "French caf\u00e9 influences. New York personality. A warm room shaped by Danish design. Come for something good. Stay for the feeling.",
     "multiline": true
   },
   {
@@ -98,7 +98,7 @@
     "section": "wine",
     "label": "Paragraph",
     "kind": "text",
-    "default": "“What do you usually enjoy?”\nA simple conversation. A few good suggestions. Your next favourite, by the glass or bottle.",
+    "default": "\u201cWhat do you usually enjoy?\u201d\nA simple conversation. A few good suggestions. Your next favourite, by the glass or bottle.",
     "multiline": true
   },
   {
@@ -260,7 +260,7 @@
     "section": "neighbourhood",
     "label": "Paragraph",
     "kind": "text",
-    "default": "Imagined for the East Village.\nWe’re not open yet. Our address, hours and final menu will follow.",
+    "default": "Imagined for the East Village.\nWe\u2019re not open yet. Our address, hours and final menu will follow.",
     "multiline": true
   },
   {
@@ -392,7 +392,7 @@
     "section": "proposition",
     "label": "Text",
     "kind": "text",
-    "default": "French café influences. New York personality. Danish design. Olive green, ochre and the original bottle and script.",
+    "default": "French caf\u00e9 influences. New York personality. Danish design. Olive green, ochre and the original bottle and script.",
     "multiline": true
   },
   {
@@ -443,7 +443,7 @@
     "section": "split-scene",
     "label": "Text",
     "kind": "text",
-    "default": "Other modelling assumes 900–1,200 sq ft and 35–45 seats. The proposed $72k annual rent has not been reconciled with $216k annual model occupancy: a $144k difference. Lease, usable area, permissions, capacity and full occupancy costs require confirmation.",
+    "default": "Other modelling assumes 900\u20131,200 sq ft and 35\u201345 seats. The proposed $72k annual rent has not been reconciled with $216k annual model occupancy: a $144k difference. Lease, usable area, permissions, capacity and full occupancy costs require confirmation.",
     "multiline": true
   },
   {
@@ -486,11 +486,11 @@
     "id": "story.page.image23",
     "page": "story",
     "section": "Content",
-    "label": "Friends sharing an evening around a café table; atmosphere reference",
+    "label": "Friends sharing an evening around a caf\u00e9 table; atmosphere reference",
     "kind": "image",
     "default": {
       "src": "/brand/good-company.jpg",
-      "alt": "Friends sharing an evening around a café table; atmosphere reference",
+      "alt": "Friends sharing an evening around a caf\u00e9 table; atmosphere reference",
       "width": 1200,
       "height": 1593,
       "x": 50,
@@ -557,7 +557,7 @@
     "section": "growth-section gold-section",
     "label": "Text",
     "kind": "text",
-    "default": "Three sites at $1.2–1.5m annual sales each imply $3.6–4.5m combined revenue. This is an illustration without a validated timetable or profitability assumption. Funding terms, benefits and investor rights remain to be agreed.",
+    "default": "Three sites at $1.2\u20131.5m annual sales each imply $3.6\u20134.5m combined revenue. This is an illustration without a validated timetable or profitability assumption. Funding terms, benefits and investor rights remain to be agreed.",
     "multiline": true
   },
   {
@@ -629,7 +629,7 @@
     "section": "Dashboard",
     "label": "Text",
     "kind": "text",
-    "default": "USD · Illustrative, not an approved forecast",
+    "default": "USD \u00b7 Illustrative, not an approved forecast",
     "multiline": false
   },
   {
@@ -773,7 +773,7 @@
     "section": "Operating overview",
     "label": "Paragraph",
     "kind": "text",
-    "default": "The separate bottom-up model of 220 daily transactions × $25 × 351 days gives $1,930,500, not $833,000. At that transaction volume, $833,000 implies a $10.79 ticket. The two illustrations have not been combined.",
+    "default": "The separate bottom-up model of 220 daily transactions \u00d7 $25 \u00d7 351 days gives $1,930,500, not $833,000. At that transaction volume, $833,000 implies a $10.79 ticket. The two illustrations have not been combined.",
     "multiline": true
   },
   {
@@ -791,7 +791,7 @@
     "section": "Funding overview",
     "label": "Heading",
     "kind": "text",
-    "default": "$500k–$1m",
+    "default": "$500k\u2013$1m",
     "multiline": true
   },
   {
@@ -872,7 +872,7 @@
     "section": "Source scenarios",
     "label": "Paragraph",
     "kind": "text",
-    "default": "All cases use $268k annual payroll. Occupancy is $216k / $219k / $222k in 2026 / 2027 / 2028. Other opex = gross profit − payroll − occupancy − EBITDA. Below-EBITDA deductions = EBITDA − net profit. These residuals have not been itemised.",
+    "default": "All cases use $268k annual payroll. Occupancy is $216k / $219k / $222k in 2026 / 2027 / 2028. Other opex = gross profit \u2212 payroll \u2212 occupancy \u2212 EBITDA. Below-EBITDA deductions = EBITDA \u2212 net profit. These residuals have not been itemised.",
     "multiline": true
   },
   {
@@ -890,7 +890,7 @@
     "section": "Dashboard",
     "label": "Paragraph",
     "kind": "text",
-    "default": "Source: Plaisir Investor Deck, pages 22–25, 32–33, 42 and 46–48. Figures are presented without an assumed investment return.",
+    "default": "Source: Plaisir Investor Deck, pages 22\u201325, 32\u201333, 42 and 46\u201348. Figures are presented without an assumed investment return.",
     "multiline": true
   },
   {
@@ -1364,7 +1364,7 @@
     "kind": "image",
     "default": {
       "src": "/brand/collection/cups-scattered.webp",
-      "alt": "Plaisir cups scattered — brand concept",
+      "alt": "Plaisir cups scattered \u2014 brand concept",
       "width": 1536,
       "height": 1024,
       "x": 50,
@@ -1380,7 +1380,7 @@
     "kind": "image",
     "default": {
       "src": "/brand/collection/cups-stacked.webp",
-      "alt": "Plaisir cups stacked — brand concept",
+      "alt": "Plaisir cups stacked \u2014 brand concept",
       "width": 1254,
       "height": 1254,
       "x": 50,
@@ -1396,7 +1396,7 @@
     "kind": "image",
     "default": {
       "src": "/brand/collection/takeaway-bag.webp",
-      "alt": "Plaisir takeaway bag — brand concept",
+      "alt": "Plaisir takeaway bag \u2014 brand concept",
       "width": 1122,
       "height": 1402,
       "x": 50,
@@ -1412,7 +1412,7 @@
     "kind": "image",
     "default": {
       "src": "/brand/collection/coaster-script.webp",
-      "alt": "Plaisir coaster script — brand concept",
+      "alt": "Plaisir coaster script \u2014 brand concept",
       "width": 1254,
       "height": 1254,
       "x": 50,
@@ -1428,7 +1428,7 @@
     "kind": "image",
     "default": {
       "src": "/brand/collection/menu-not-wine.webp",
-      "alt": "Plaisir menu not wine — brand concept",
+      "alt": "Plaisir menu not wine \u2014 brand concept",
       "width": 1049,
       "height": 1499,
       "x": 50,
@@ -1444,7 +1444,7 @@
     "kind": "image",
     "default": {
       "src": "/brand/collection/menu-food.webp",
-      "alt": "Plaisir menu food — brand concept",
+      "alt": "Plaisir menu food \u2014 brand concept",
       "width": 1049,
       "height": 1499,
       "x": 50,
@@ -1460,7 +1460,7 @@
     "kind": "image",
     "default": {
       "src": "/brand/collection/coaster-bottle.webp",
-      "alt": "Plaisir coaster bottle — brand concept",
+      "alt": "Plaisir coaster bottle \u2014 brand concept",
       "width": 1254,
       "height": 1254,
       "x": 50,
@@ -1476,7 +1476,7 @@
     "kind": "image",
     "default": {
       "src": "/brand/collection/menu-wine.webp",
-      "alt": "Plaisir menu wine — brand concept",
+      "alt": "Plaisir menu wine \u2014 brand concept",
       "width": 1050,
       "height": 1498,
       "x": 50,
@@ -1508,5 +1508,22 @@
     "label": "Caption",
     "kind": "text",
     "default": "Brand concepts. Menu items and prices shown are illustrative, not a confirmed offer."
+  },
+  {
+    "id": "story.collection.background",
+    "page": "story",
+    "section": "Brand identity",
+    "label": "Collection background photograph",
+    "kind": "image",
+    "default": {
+      "src": "/brand/neighbourhood-evening.jpg",
+      "alt": "Friends gathered outside a neighbourhood bar; atmosphere reference",
+      "width": 1200,
+      "height": 1600,
+      "x": 50,
+      "y": 50,
+      "overlay": true,
+      "overlayOpacity": 100
+    }
   }
 ]

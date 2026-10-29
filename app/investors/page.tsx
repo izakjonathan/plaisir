@@ -52,6 +52,7 @@ export default function Investors() {
       <section className="collection-identity" aria-labelledby="identity-title">
         <div className="collection-intro"><Heading as="h2" id="identity-title" data-reveal="story-identity"><Copy field="story.collection.heading"/></Heading><p data-reveal><Copy field="story.collection.copy"/></p></div>
         <div className="collection-paper">
+          <div className="collection-backdrop" aria-hidden="true"><ContentImage field="story.collection.background" loading="lazy" sizes="100vw"/><div className="collection-backdrop-shade"/></div>
           <div className="collection-menus" role="region" aria-label="Menu design concepts" tabIndex={0}>
             {['not-wine','wine','food'].map(name=><figure key={name}><ContentImage field={`story.collection.menu-${name}`} loading="lazy" sizes="(max-width: 600px) 78vw, 33vw"/></figure>)}
           </div>
