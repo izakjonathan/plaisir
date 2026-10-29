@@ -39,7 +39,7 @@ export default function PageMotion() {
             if ((element.parentElement?.closest(SELECTOR) && !element.matches("h1,h2,h3,h4,h5,h6")) || tracked.has(element))
                 return;
             tracked.add(element);
-            if (element.matches("h1, h2, h3, .pl-display"))
+            if (element.matches("h1, h2, h3"))
                 element.dataset.revealKind = "heading";
             element.classList.remove("reveal-pending", "reveal-visible", "reveal-settled");
             // Preserve one-shot arrivals across system motion changes and observer restarts.

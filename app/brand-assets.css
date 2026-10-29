@@ -1,16 +1,19 @@
 /* Alpha masks preserve the original artwork and fine bottle line at any palette. */
-.floating-header .brand-logo, .footer-signature {
-  background-color: var(--brand-green);
-  mask: url('/brand/wordmark-gold.svg') center / contain no-repeat;
-  -webkit-mask: url('/brand/wordmark-gold.svg') center / contain no-repeat;
-}
-.floating-header .brand-logo img, .footer-signature img { visibility: hidden; }
-.brand-bottle-vector { display:block; width:100%; height:100%; color:var(--brand-gold); overflow:visible; }
-.splash-logo {
-  display:block; aspect-ratio:1911 / 660; flex-shrink:0; background:var(--brand-gold);
-  mask:url('/brand/wordmark-gold.svg') center / contain no-repeat;
-  -webkit-mask:url('/brand/wordmark-gold.svg') center / contain no-repeat;
+
+.brand-bottle-vector {
+  display: block;
+  width: 100%;
+  height: 100%;
+  color: var(--brand-gold);
+  overflow: visible;
 }
 
-.brand-grain {position:fixed;inset:0;z-index:95;pointer-events:none;opacity:var(--brand-grain-opacity,0);background:url('/brand/grain.svg') repeat;mix-blend-mode:soft-light;}
-body:has(.content-editor) > .brand-grain {display:none;}
+.brand-grain {
+  position: fixed;
+  inset: 0;
+  z-index: 95;
+  pointer-events: none;
+  opacity: var(--brand-grain-opacity,0);
+  background: url('/brand/grain.svg') repeat;
+  mix-blend-mode: soft-light;
+}

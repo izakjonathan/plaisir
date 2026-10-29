@@ -28,7 +28,7 @@ export function useHeaderTone(pathname: string) {
             if (!section) return;
             // A mobile split section can be gold while its upper half is a photo.
             // Sample the actual photo surface before inheriting the section color.
-            const surfaces = [section, ...Array.from(section.querySelectorAll<HTMLElement>('.split-photo,.world-images figure,.photo-story figure,.company-photo'))].map(element => {
+            const surfaces = [section, ...Array.from(section.querySelectorAll<HTMLElement>('.split-photo,.photo-story figure,.company-photo'))].map(element => {
                 const box=element.getBoundingClientRect();
                 return {...{left:box.left,right:box.right,top:box.top,bottom:box.bottom},photo:element!==section || element.matches('.company-photo,.scene'),gold:element.matches('.gold-section,.brand-footer')};
             });

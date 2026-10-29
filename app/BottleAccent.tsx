@@ -37,7 +37,7 @@ export default function BottleAccent() {
       const previous=new Map(placements.map(item=>[item.svg,item]));
       placements=[];
       const bounds = page.getBoundingClientRect();
-      const photos = Array.from(page.querySelectorAll<HTMLElement>('.split-photo,.photo-story,.company-photo,.world-images'));
+      const photos = Array.from(page.querySelectorAll<HTMLElement>('.split-photo,.photo-story,.company-photo'));
       const obstacles = Array.from(page.querySelectorAll<HTMLElement>('h1,h2,h3,h4,p,dt,dd,li,figcaption,.pl-team span,a,summary,button')).map(el => {
         const r=el.getBoundingClientRect();
         return {left:r.left-bounds.left-36,right:r.right-bounds.left+36,top:r.top-bounds.top-70-BOTTLE_TRAVEL,bottom:r.bottom-bounds.top+70+BOTTLE_TRAVEL};
