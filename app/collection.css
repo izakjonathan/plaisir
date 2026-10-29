@@ -25,3 +25,10 @@
  .collection-menus figure {flex:0 0 88%;scroll-snap-align:center;}
  .collection-coasters figure {width:45%;}
 }
+
+/* Let media reach the page edges; inset only the editorial copy. */
+.experience .brand-world,.collection-identity {padding-inline:0;}
+.brand-world > .world-heading,.collection-intro,.collection-caption {
+ padding-left:max(var(--gutter),env(safe-area-inset-left,0px));
+ padding-right:max(var(--gutter),env(safe-area-inset-right,0px));
+}
