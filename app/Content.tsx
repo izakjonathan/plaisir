@@ -45,7 +45,7 @@ export function ContentImage({ field, style, ...props }: { field: string } & Omi
   const original = fieldMap.get(field)?.default as ContentImageValue;
   const customCrop = (document.images[field] || (field === 'splash.background' && document.images['experience.hero.image1'])) && (image.src !== original.src || image.x !== original.x || image.y !== original.y);
   const opacity = image.overlay === false ? 0 : (image.overlayOpacity ?? 100) / 100;
-  return <><style>{`:is(.scene,.split-photo,.world-images figure,.photo-story figure,.company-photo,.brand-splash):has(> img[data-image-treatment="${treatmentId}"]) { --image-overlay-strength: ${opacity}; }`}</style><Image {...props} data-image-treatment={treatmentId} data-overlay={image.overlay === false ? "off" : "on"} src={image.src} alt={image.alt} width={image.width} height={image.height} style={{...style, ...(customCrop ? {objectPosition:`${image.x}% ${image.y}%`} : {})}}/></>;
+  return <><style>{`:is(.scene,.split-photo,.world-images figure,.photo-story figure,.company-photo,.brand-splash,.collection-photos figure,.collection-paper figure):has(> img[data-image-treatment="${treatmentId}"]) { --image-overlay-strength: ${opacity}; }`}</style><Image {...props} data-image-treatment={treatmentId} data-overlay={image.overlay === false ? "off" : "on"} src={image.src} alt={image.alt} width={image.width} height={image.height} style={{...style, ...(customCrop ? {objectPosition:`${image.x}% ${image.y}%`} : {})}}/></>;
 }
 export function ContentLink({ field, ...props }: { field: string } & AnchorHTMLAttributes<HTMLAnchorElement>) {
   const href = textValue(useContent(), field);

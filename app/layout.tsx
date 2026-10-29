@@ -10,6 +10,7 @@ import "./buttons.css";
 import "./bottle-accents.css";
 import "./footer.css";
 import "./image-treatment.css";
+import "./collection.css";
 import "./brand-assets.css";
 import { brandStyle } from "../lib/brand";
 import SiteShell from "./SiteShell";

@@ -1355,5 +1355,158 @@
     "step": 1,
     "default": "0",
     "hidden": true
+  },
+  {
+    "id": "experience.collection.cups-scattered",
+    "page": "experience",
+    "section": "brand-world",
+    "label": "cups scattered",
+    "kind": "image",
+    "default": {
+      "src": "/brand/collection/cups-scattered.webp",
+      "alt": "Plaisir cups scattered — brand concept",
+      "width": 1536,
+      "height": 1024,
+      "x": 50,
+      "y": 50,
+      "overlay": false
+    }
+  },
+  {
+    "id": "experience.collection.cups-stacked",
+    "page": "experience",
+    "section": "brand-world",
+    "label": "cups stacked",
+    "kind": "image",
+    "default": {
+      "src": "/brand/collection/cups-stacked.webp",
+      "alt": "Plaisir cups stacked — brand concept",
+      "width": 1254,
+      "height": 1254,
+      "x": 50,
+      "y": 50,
+      "overlay": false
+    }
+  },
+  {
+    "id": "experience.collection.takeaway-bag",
+    "page": "experience",
+    "section": "brand-world",
+    "label": "takeaway bag",
+    "kind": "image",
+    "default": {
+      "src": "/brand/collection/takeaway-bag.webp",
+      "alt": "Plaisir takeaway bag — brand concept",
+      "width": 1122,
+      "height": 1402,
+      "x": 50,
+      "y": 50,
+      "overlay": false
+    }
+  },
+  {
+    "id": "story.collection.coaster-script",
+    "page": "story",
+    "section": "Brand identity",
+    "label": "coaster script",
+    "kind": "image",
+    "default": {
+      "src": "/brand/collection/coaster-script.webp",
+      "alt": "Plaisir coaster script — brand concept",
+      "width": 1254,
+      "height": 1254,
+      "x": 50,
+      "y": 50,
+      "overlay": false
+    }
+  },
+  {
+    "id": "story.collection.menu-not-wine",
+    "page": "story",
+    "section": "Brand identity",
+    "label": "menu not wine",
+    "kind": "image",
+    "default": {
+      "src": "/brand/collection/menu-not-wine.webp",
+      "alt": "Plaisir menu not wine — brand concept",
+      "width": 1049,
+      "height": 1499,
+      "x": 50,
+      "y": 50,
+      "overlay": false
+    }
+  },
+  {
+    "id": "story.collection.menu-food",
+    "page": "story",
+    "section": "Brand identity",
+    "label": "menu food",
+    "kind": "image",
+    "default": {
+      "src": "/brand/collection/menu-food.webp",
+      "alt": "Plaisir menu food — brand concept",
+      "width": 1049,
+      "height": 1499,
+      "x": 50,
+      "y": 50,
+      "overlay": false
+    }
+  },
+  {
+    "id": "story.collection.coaster-bottle",
+    "page": "story",
+    "section": "Brand identity",
+    "label": "coaster bottle",
+    "kind": "image",
+    "default": {
+      "src": "/brand/collection/coaster-bottle.webp",
+      "alt": "Plaisir coaster bottle — brand concept",
+      "width": 1254,
+      "height": 1254,
+      "x": 50,
+      "y": 50,
+      "overlay": false
+    }
+  },
+  {
+    "id": "story.collection.menu-wine",
+    "page": "story",
+    "section": "Brand identity",
+    "label": "menu wine",
+    "kind": "image",
+    "default": {
+      "src": "/brand/collection/menu-wine.webp",
+      "alt": "Plaisir menu wine — brand concept",
+      "width": 1050,
+      "height": 1498,
+      "x": 50,
+      "y": 50,
+      "overlay": false
+    }
+  },
+  {
+    "id": "story.collection.heading",
+    "page": "story",
+    "section": "Brand identity",
+    "label": "Heading",
+    "kind": "text",
+    "default": "A recognisable\nritual.",
+    "multiline": true
+  },
+  {
+    "id": "story.collection.copy",
+    "page": "story",
+    "section": "Brand identity",
+    "label": "Paragraph",
+    "kind": "text",
+    "default": "The same identity, from the first coffee to the last glass. Proposed menus and coasters bring the Plaisir bottle, script and colours to the table."
+  },
+  {
+    "id": "story.collection.caption",
+    "page": "story",
+    "section": "Brand identity",
+    "label": "Caption",
+    "kind": "text",
+    "default": "Brand concepts. Menu items and prices shown are illustrative, not a confirmed offer."
   }
 ]

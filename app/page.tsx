@@ -51,13 +51,10 @@ export default function Home() {
           <Heading as="h2" data-reveal><Copy field="experience.page.text18"/></Heading>
           <p data-reveal><Copy field="experience.page.text19"/></p>
         </div>
-        <div className="world-images">
-          <figure>
-            <ContentImage field="experience.page.image20" loading="lazy" sizes="(max-width: 600px) 100vw, 50vw"/>
-          </figure>
-          <figure>
-            <ContentImage field="experience.page.image21" loading="lazy" sizes="(max-width: 600px) 100vw, 50vw"/>
-          </figure>
+        <div className="collection-photos">
+          <figure className="collection-wide"><ContentImage field="experience.collection.cups-scattered" loading="lazy" sizes="100vw"/></figure>
+          <figure><ContentImage field="experience.collection.cups-stacked" loading="lazy" sizes="(max-width: 600px) 100vw, 50vw"/></figure>
+          <figure><ContentImage field="experience.collection.takeaway-bag" loading="lazy" sizes="(max-width: 600px) 100vw, 50vw"/></figure>
         </div>
       </section>
       <section id="neighbourhood" className="scene visit-scene">

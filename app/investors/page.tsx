@@ -49,6 +49,18 @@ export default function Investors() {
           <Note title="Concept & source notes"><Copy field="story.page.text14"/></Note>
         </div>
       </section>
+      <section className="collection-identity" aria-labelledby="identity-title">
+        <div className="collection-intro"><Heading as="h2" id="identity-title" data-reveal="story-identity"><Copy field="story.collection.heading"/></Heading><p data-reveal><Copy field="story.collection.copy"/></p></div>
+        <div className="collection-paper">
+          <div className="collection-menus" role="region" aria-label="Menu design concepts" tabIndex={0}>
+            {['not-wine','wine','food'].map(name=><figure key={name}><ContentImage field={`story.collection.menu-${name}`} loading="lazy" sizes="(max-width: 600px) 78vw, 33vw"/></figure>)}
+          </div>
+          <div className="collection-coasters">
+            {['script','bottle'].map(name=><figure key={name}><ContentImage field={`story.collection.coaster-${name}`} loading="lazy" sizes="(max-width: 600px) 42vw, 22vw"/></figure>)}
+          </div>
+        </div>
+        <p className="collection-caption"><Copy field="story.collection.caption"/></p>
+      </section>
       <section className="split-scene">
         <figure className="split-photo">
           <ContentImage field="story.page.image15" loading="lazy" sizes="(max-width: 600px) 100vw, 50vw"/>
