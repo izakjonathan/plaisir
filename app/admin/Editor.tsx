@@ -82,7 +82,6 @@ export default function Editor(){
  return <main id="main" className="content-editor">
   <header className="editor-header"><div><span className="editor-brand">Plaisir</span><h1>Content editor</h1></div><a href="/" className="editor-button" onClick={e=>{if(dirty&&!window.confirm('Leave without saving your draft?'))e.preventDefault();}}>View site</a></header>
   <div className="editor-body">
-   <div className="editor-intro"><h2>Make it yours.</h2><p>Edit the brand colors, words and photographs. Press Return in any text field to start a new line.</p></div>
    {!ready&&!loading&&<aside className="editor-setup"><strong>Storage setup needed</strong><p>Connect Neon Postgres and a private Blob store to the Plaisir project in Vercel, then redeploy. You can explore fields and preview changes now; saving and new uploads become available after setup.</p><button onClick={()=>void load()} className="editor-button">Check connection</button></aside>}
    {ready&&!mediaReady&&<aside className="editor-setup"><strong>Image uploads need a Blob store</strong><p>Text editing and the existing image library are available. Connect a private Vercel Blob store to upload new photos.</p></aside>}
    <nav className="editor-tabs" aria-label="Pages">{pages.map(item=><button key={item.id} aria-pressed={page===item.id} onClick={()=>{setPage(item.id);}}>{item.label}</button>)}</nav>

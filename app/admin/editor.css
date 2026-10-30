@@ -87,16 +87,6 @@ html:has(.content-editor) {
   padding: 28px 20px;
 }
 
-.editor-intro {
-  margin-bottom: 24px;
-}
-
-.editor-intro p {
-  color: var(--editor-muted);
-  margin-top: 10px;
-  max-width: 38em;
-}
-
 .content-editor button {
   font: inherit;
   color: inherit;
