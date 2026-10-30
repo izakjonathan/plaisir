@@ -16,7 +16,7 @@ export default function BrandSplash({ preview = false }: { preview?: boolean }) 
     "--splash-logo-scale": settings.logoScale / 100,
     "--splash-bottle-scale": settings.bottleScale / 100,
   } as CSSProperties}>
-    <div className="splash-backdrop"><ContentImage field="splash.background" className="splash-photo" loading="eager" sizes="100vw"/>
+    <div className="splash-backdrop"><ContentImage field="splash.background" className="splash-photo" fetchPriority="high" loading="eager" sizes="100vw"/>
     <div className="splash-green" /></div>
     <div className="splash-art">
       {settings.showBottle && <div className="splash-bottle"><Bottle /></div>}

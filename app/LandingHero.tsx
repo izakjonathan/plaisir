@@ -58,14 +58,19 @@ export default function LandingHero() {
     };
     const start = async() => {
       try {
-        // Decode the actual responsive images that will be painted, including the hero.
-        const photos=Array.from(section.current?.querySelectorAll<HTMLImageElement>('img.splash-photo,img.scene-photo')??[]);
+        // Start the splash as soon as its own artwork is decoded. Prepare the
+        // hero concurrently, without blocking the first splash frame on fonts.
+        const decodePhotos = (selector:string) => Promise.all(Array.from(section.current?.querySelectorAll<HTMLImageElement>(selector)??[]).map(photo=>photo.decode()));
+        const heroReady=Promise.race([
+          Promise.all([decodePhotos('img.scene-photo'),document.fonts.ready]).catch(()=>{}),
+          wait(5000),
+        ]).then(()=>{});
         const logo=new Image();logo.src='/brand/wordmark-gold.svg';
-        const assets=Promise.all([...photos.map(photo=>photo.decode()),logo.decode(),document.fonts.ready]).then(()=>true,()=>false);
+        const assets=Promise.all([decodePhotos('img.splash-photo'),settings.showLogo?logo.decode():Promise.resolve()]).then(()=>true,()=>false);
         const ready=await Promise.race([assets,wait(5000).then(()=>false)]);
         if(cancelled)return;
         if(!ready){stop();return;}
-        await runSplashSequence({active:()=>!cancelled,showBottle:settings.showBottle,showLogo:settings.showLogo,hold:settings.duration,animate,wait,
+        await runSplashSequence({active:()=>!cancelled,showBottle:settings.showBottle,showLogo:settings.showLogo,hold:settings.duration,animate,wait,prepareHero:()=>heroReady,
           hero:()=>{root.dataset.introBoot='leaving';setIntro('leaving');},complete});
       } catch {if(!cancelled)stop();}
     };

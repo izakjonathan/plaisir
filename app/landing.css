@@ -235,23 +235,6 @@ html.brand-intro-active .floating-header > * {
   }
 }
 
-[data-intro="leaving"] > .scene-photo {
-  animation: heroSceneArrival 1000ms ease-out backwards;
-}
-
-[data-intro="ready"] > .scene-photo {
-  animation: heroSceneArrival 1000ms ease-out backwards;
-}
-
-@keyframes heroSceneArrival {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
 @media (max-width:600px) {
   .hero.brand-hero {
     align-items: flex-end;
