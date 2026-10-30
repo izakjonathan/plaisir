@@ -3,7 +3,6 @@
 
 :root {
   --duration-menu: 680ms;
-  --duration-menu-exit: 220ms;
   --duration-reveal: 850ms;
   --ease-menu: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-reveal: cubic-bezier(0.22, 1, 0.36, 1);
@@ -30,11 +29,6 @@
 
 .site-menu[data-phase="open"] {
   transform: translate3d(0, 0, 0);
-}
-
-.site-menu[data-phase="closing"] {
-  transition-duration: var(--duration-menu-exit);
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .site-menu nav {
@@ -103,7 +97,6 @@ html.reveal-enabled [data-reveal]:focus-within {
 @media (min-width: 760px) {
   :root {
     --duration-menu: 720ms;
-    --duration-menu-exit: 240ms;
     --duration-reveal: 950ms;
     --reveal-distance: 44px;
   }
