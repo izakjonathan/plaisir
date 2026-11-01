@@ -1,12 +1,15 @@
 "use client";
 import { useLayoutEffect, useState } from "react";
 import { usePathname } from "next/navigation";
+import {useContent} from "./Content";
+import {animationSettings} from "../lib/animation-settings";
 import { afterPaint } from "../lib/motion";
 const SELECTOR = "[data-reveal]";
 // Tab lifetime: returning to Story never replays blocks already encountered.
 const storyArrivals = new Set<string>();
 export default function PageMotion() {
     const pathname = usePathname();
+    const settings=animationSettings(useContent());
     const [systemReduced, setSystemReduced] = useState(false);
     useLayoutEffect(() => {
         const query = matchMedia("(prefers-reduced-motion: reduce)");
@@ -17,8 +20,10 @@ export default function PageMotion() {
     }, []);
     useLayoutEffect(() => {
         const root = document.documentElement;
-        const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
-        root.dataset.motion = reduce ? "reduced" : "full";
+        const reducedSystem = matchMedia("(prefers-reduced-motion: reduce)").matches;
+        const reduce = reducedSystem || !settings.enabled || !settings.reveals;
+        root.dataset.motion = reducedSystem || !settings.enabled ? "reduced" : "full";
+        const covered = () => root.classList.contains("menu-open") || root.classList.contains("route-covered");
         const tracked = new Set<HTMLElement>();
         let observer: IntersectionObserver | undefined;
         let mutationObserver: MutationObserver | undefined;
@@ -30,6 +35,7 @@ export default function PageMotion() {
             element.style.setProperty("--reveal-delay", `${delay}ms`);
             element.classList.remove("reveal-pending");
             element.classList.add("reveal-visible");
+            if(reduce)element.classList.add("reveal-settled");
             element.dataset.revealed = "true";
             const key = storyKey(element);
             if (key) storyArrivals.add(key);
@@ -52,7 +58,7 @@ export default function PageMotion() {
             // Story's visible hero also arrives; content above a restored scroll
             // position stays readable. Other routes retain their current behavior.
             const skipArrival = storyKey(element) ? bounds.bottom <= 0 : bounds.top <= viewport;
-            if (skipArrival || element.contains(document.activeElement)) {
+            if ((!covered() && skipArrival) || element.contains(document.activeElement)) {
                 reveal(element);
             }
             else {
@@ -84,15 +90,15 @@ export default function PageMotion() {
                 observer = new IntersectionObserver(entries => {
                     // Navigation keeps the menu over the incoming route. Do not
                     // spend its first arrivals while the content is still covered.
-                    if (root.classList.contains("menu-open")) return;
+                    if (covered()) return;
                     entries.filter(entry => entry.isIntersecting)
                         .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top)
-                        .forEach((entry, index) => reveal(entry.target as HTMLElement, Math.min(index * 90, 180)));
-                }, { threshold: 0, rootMargin: `0px 0px -${Math.min(120, Math.round((window.visualViewport?.height ?? innerHeight) * 0.12))}px 0px` });
+                        .forEach((entry, index) => reveal(entry.target as HTMLElement, Math.min(index * settings.revealStagger, settings.revealStagger * 2)));
+                }, { threshold: 0, rootMargin: `0px 0px -${Math.round((window.visualViewport?.height ?? innerHeight) * settings.revealTrigger / 100)}px 0px` });
             }
-            let menuWasOpen = root.classList.contains("menu-open");
+            let menuWasOpen = covered();
             menuObserver = new MutationObserver(() => {
-                const menuIsOpen = root.classList.contains("menu-open");
+                const menuIsOpen = covered();
                 if (menuIsOpen === menuWasOpen) return;
                 menuWasOpen = menuIsOpen;
                 if (!menuIsOpen) tracked.forEach(element => {
@@ -126,6 +132,13 @@ export default function PageMotion() {
             if (event.propertyName === "transform" && event.target instanceof HTMLElement && event.target.matches(SELECTOR))
                 event.target.classList.add("reveal-settled");
         };
+        const headingSettled = (event: AnimationEvent) => {
+            const target = event.target;
+            if (!(target instanceof HTMLElement) || !target.matches('.heading-char-inner,.heading-line-inner')) return;
+            const visual = target.closest('.heading-visual');
+            if (target.parentElement === visual?.lastElementChild) target.closest('[data-reveal]')?.classList.add('reveal-settled');
+        };
+        document.addEventListener("animationend", headingSettled);
         document.addEventListener("transitionend", settle);
         document.addEventListener("focusin", focus);
         return () => {
@@ -137,12 +150,13 @@ export default function PageMotion() {
             pendingPaints.forEach(cancel => cancel());
             document.removeEventListener("focusin", focus);
             document.removeEventListener("transitionend", settle);
+            document.removeEventListener("animationend", headingSettled);
             root.classList.remove("reveal-enabled");
             tracked.forEach(element => {
                 element.classList.remove("reveal-pending", "reveal-visible", "reveal-settled");
                 element.style.removeProperty("--reveal-delay");
             });
         };
-    }, [pathname, systemReduced]);
+    }, [pathname, systemReduced, settings.enabled, settings.reveals, settings.revealTrigger, settings.revealStagger]);
     return null;
 }

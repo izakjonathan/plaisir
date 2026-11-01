@@ -17,6 +17,7 @@
   left: max(var(--gutter), env(safe-area-inset-left, 0px));
   width: 130px;
   display: block;
+  transform-origin: top left;
   background-color: var(--brand-green);
   mask: url('/brand/wordmark-gold.svg') center / contain no-repeat;
   -webkit-mask: url('/brand/wordmark-gold.svg') center / contain no-repeat;

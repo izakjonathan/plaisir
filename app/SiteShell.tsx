@@ -7,6 +7,11 @@ import { useEffect, useLayoutEffect, useRef, useState, useCallback, type ReactNo
 import { afterPaint, cssTimeMs, isReducedMotion } from "../lib/motion";
 import PageMotion from "./PageMotion";
 import { useHeaderTone } from "./useHeaderTone";
+import RouteCurtain from "./RouteCurtain";
+import EditorialPhotos from "./EditorialPhotos";
+import MenuLabel from "./MenuLabel";
+import PhotoParallax from "./PhotoParallax";
+import { useFooterEntrance } from "./useFooterEntrance";
 const areas = [
     { href: "/", label: "The experience", description: "Coffee, wine & good company" },
     { href: "/investors", label: "The story", description: "The business behind Plaisir" },
@@ -20,6 +25,7 @@ function MarketingShell({ children }: {
     const pathname = usePathname();
     const router = useRouter();
     const headerTone = useHeaderTone(pathname);
+    useFooterEntrance(pathname);
     const panel = useRef<HTMLDivElement>(null);
     const button = useRef<HTMLButtonElement>(null);
     const keyboard = useRef(false);
@@ -69,7 +75,7 @@ function MarketingShell({ children }: {
             finish();
             return;
         }
-        const timer = setTimeout(finish, cssTimeMs("--duration-menu", 680) + 100);
+        const timer = setTimeout(finish, cssTimeMs(navigating.current ? "--route-menu-duration" : "--duration-menu", 680) + 100);
         return () => clearTimeout(timer);
     }, [phase, finish]);
     useLayoutEffect(() => {
@@ -186,12 +192,15 @@ function MarketingShell({ children }: {
             }}>
           <nav aria-label="Main navigation">
             {areas.map((area, index) => (<Link key={area.href} href={area.href} prefetch={true} aria-current={pathname === area.href ? "page" : undefined} onClick={event => navigate(event, area.href)} style={{ "--item": Math.min(index, 5) } as CSSProperties}>
-                <span><Copy field={`shared.menu.${index}.label`}/></span><small><Copy field={`shared.menu.${index}.description`}/></small>
+                <MenuLabel field={`shared.menu.${index}.label`}/><small><Copy field={`shared.menu.${index}.description`}/></small>
               </Link>))}
           </nav>
         </div>)}
+      <RouteCurtain />
       {children}
       <PageMotion />
+      <PhotoParallax />
+      <EditorialPhotos />
       <footer className="brand-footer">
         <div className="footer-top">
           <div className="footer-heading"><p className="eyebrow">Coffee. Wine. Good company.</p><Heading as="h2" data-reveal><Copy field="shared.shell.text2"/></Heading></div>

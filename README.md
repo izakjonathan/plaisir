@@ -28,7 +28,7 @@ Both financial routes use `lib/investor-forecast.ts` and the issued documents in
 
 ## Brand, motion and content
 
-Agilera headings and Bricolage Grotesque supporting text are self-hosted. Published editor settings control the two brand colors, grain and global image overlay strength; individual photographs can override the overlay. Legacy defaults are #263D32 and #D8B15B. Bottle artwork is vector, with subtle reverse parallax. Headings reveal by measured line. System reduced motion remains respected.
+Agilera headings and Bricolage Grotesque supporting text are self-hosted. Published editor settings control the two brand colors, grain and global image overlay strength; individual photographs can override the overlay. Legacy defaults are #263D32 and #D8B15B. Bottle artwork is vector, with subtle reverse parallax. Headings reveal by measured line. System reduced motion remains respected. The motion system matches Blågårds Apotek 1.7.0: masked heading letters, a scroll-expanding wide collection photo, photo zoom and parallax, rolling menu labels with drawn dividers, the footer arrival and logo pulse, and a short branded page curtain. **Admin → Animations** exposes 62 registered controls with draft preview, replay and reset; see [docs/motion-port.md](docs/motion-port.md).
 
 The home splash waits for assets, animates its photograph and separate brand marks, then hands over to the hero. It normally runs once per tab; `?intro=replay` supports review. Draft preview skips the public intro. Floating header controls adapt to photographs and section surfaces; financial views have their dedicated treatment.
 
