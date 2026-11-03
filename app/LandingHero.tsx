@@ -6,12 +6,9 @@ import { isReducedMotion } from "../lib/motion";
 import BrandSplash, { Bottle } from "./BrandSplash";
 import { runSplashSequence, type SplashTarget } from "../lib/splash-sequence";
 import { splashSettings } from "../lib/splash";
-import { animationSettings } from "../lib/animation-settings";
 
 export default function LandingHero() {
-  const content = useContent();
-  const settings = splashSettings(content);
-  const { splashSpeed, splashEase } = animationSettings(content);
+  const settings = splashSettings(useContent());
   // Server HTML already includes the covering splash. Never wait for hydration
   // to turn a previously visible page into a splash screen.
   const [intro, setIntro] = useState<"splash" | "leaving" | "ready">("splash");
@@ -21,7 +18,7 @@ export default function LandingHero() {
     let seen = false;
     try { seen = sessionStorage.getItem("plaisir-intro-v2") === "seen"; } catch { /* Private storage can be unavailable. */ }
     const replay = new URLSearchParams(location.search).get('intro') === 'replay';
-    if (root.classList.contains("route-covered") || !settings.enabled || root.dataset.introBoot === "failed" || (seen && !replay) || isReducedMotion() || location.hash || new URLSearchParams(location.search).get('preview') === 'draft' || window.scrollY > 50) {
+    if (!settings.enabled || root.dataset.introBoot === "failed" || (seen && !replay) || isReducedMotion() || location.hash || new URLSearchParams(location.search).get('preview') === 'draft' || window.scrollY > 50) {
       root.dataset.introBoot = "skip";
       setIntro("ready");
       return;
@@ -55,7 +52,7 @@ export default function LandingHero() {
       const movement=target==='bottle'||target==='logo';
       const from=visible?{opacity:0,transform:movement?'translate3d(0,16px,0)':'none'}:{opacity:1,transform:'none'};
       const to=visible?{opacity:1,transform:'none'}:{opacity:0,transform:movement?'translate3d(0,-10px,0)':'none'};
-      const animation=element.animate([from,to],{duration:duration*100/splashSpeed,delay:delay*100/splashSpeed,easing:splashEase,fill:'forwards'});
+      const animation=element.animate([from,to],{duration,delay,easing:'cubic-bezier(.22,1,.36,1)',fill:'forwards'});
       animations.add(animation);
       await animation.finished.catch(()=>{});
     };
@@ -86,7 +83,7 @@ export default function LandingHero() {
       root.classList.remove('brand-intro-active');root.dataset.introBoot='skip';
       document.removeEventListener('keydown',stop);document.removeEventListener('pointerdown',stop);reduced.removeEventListener('change',stop);
     };
-  }, [settings.enabled, settings.duration, settings.showBottle, settings.showLogo, splashSpeed, splashEase]);
+  }, [settings.enabled, settings.duration, settings.showBottle, settings.showLogo]);
 
   return <section ref={section} className="scene hero brand-hero" data-intro={intro} aria-labelledby="home-title">
     <ContentImage field="experience.hero.image1" className="scene-photo" fetchPriority="high" loading="eager" sizes="100vw"/>

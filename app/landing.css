@@ -183,20 +183,20 @@ html.brand-intro-active .floating-header > * {
 }
 
 [data-intro="leaving"] .hero-line > * {
-  animation: lineArrival var(--hero-line-duration,1000ms) var(--hero-ease,var(--ease-reveal)) var(--hero-line-delay,300ms) both;
+  animation: lineArrival 1000ms var(--ease-reveal) var(--hero-line-delay,300ms) both;
 }
 
 [data-intro="ready"] .hero-line > * {
-  animation: lineArrival var(--hero-line-duration,1000ms) var(--hero-ease,var(--ease-reveal)) var(--hero-line-delay,300ms) both;
+  animation: lineArrival 1000ms var(--ease-reveal) var(--hero-line-delay,300ms) both;
   animation-fill-mode: backwards;
 }
 
 [data-intro="leaving"] .hero-discover {
-  animation: brandArrival var(--hero-button-duration,800ms) var(--hero-ease,var(--ease-reveal)) var(--hero-button-delay,850ms) both;
+  animation: brandArrival 800ms var(--ease-reveal) 850ms both;
 }
 
 [data-intro="ready"] .hero-discover {
-  animation: brandArrival var(--hero-button-duration,800ms) var(--hero-ease,var(--ease-reveal)) var(--hero-button-delay,850ms) both;
+  animation: brandArrival 800ms var(--ease-reveal) 850ms both;
   animation-fill-mode: backwards;
 }
 

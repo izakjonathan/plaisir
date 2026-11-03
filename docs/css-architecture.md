@@ -11,9 +11,6 @@ The root layout imports each shared stylesheet once. Page-local financial detail
 | footer.css | Footer layout, signature, type and responsive behavior |
 | typography.css | Shared editorial prose scale, distinct from finance and editor typography |
 | motion.css | Menu, reveal, heading-line and icon motion; shared reduced-motion policy |
-| editorial-motion.css | Masked heading letters, editorial photo frame/zoom, rolling menu labels and drawn menu dividers |
-| photo-parallax.css | Clipping and transform ownership for the moving photo bitmap |
-| route-curtain.css | Page-transition curtain, scroll lock and covered-menu timing |
 | landing.css | Hero, readiness-gated splash layers, hero arrivals and static splash preview |
 | financial.css | Shared issued-forecast dashboard components and responsive layouts |
 | financials-v2/forecast.css | Forecast-specific metrics, tables, context and source lists used by both financial views |

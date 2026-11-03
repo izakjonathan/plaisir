@@ -6,7 +6,6 @@ import { emptyDocument, textValue, imageValue, fieldMap, validateDocument, type 
 
 import { imageOverlayStrength } from '../lib/image-treatment';
 import { brandStyle } from '../lib/brand';
-import { animationStyle } from '../lib/animation-settings';
 
 const Context = createContext<ContentDocument>(emptyDocument);
 export function ContentProvider({ value, children }: { value: ContentDocument; children: ReactNode }) {
@@ -24,7 +23,7 @@ export function ContentProvider({ value, children }: { value: ContentDocument; c
     if (window.parent !== window) window.parent.postMessage({ type:'plaisir-preview-ready' }, location.origin);
     return () => { controller.abort(); window.removeEventListener('message', receive); };
   }, []);
-  return <Context.Provider value={draft ?? value}><style data-brand-palette>{brandStyle(draft ?? value)+animationStyle(draft ?? value)}</style>{children}</Context.Provider>;
+  return <Context.Provider value={draft ?? value}><style data-brand-palette>{brandStyle(draft ?? value)}</style>{children}</Context.Provider>;
 }
 export function useContent() { return useContext(Context); }
 export function Copy({ field }: { field: string }) {
@@ -38,7 +37,7 @@ function FormattedText({ value }: { value: string }) {
 }
 export function TitleLines({ field }: { field: string }) {
   const lines = textValue(useContent(), field).replace(/\r\n?/g,'\n').split('\n');
-  return <>{lines.map((line,index)=><span className="hero-line" key={index} style={{'--hero-line-delay':`calc(var(--hero-line-delay-base,300ms) + ${Math.min(index,8)} * var(--hero-line-stagger,140ms))`} as CSSProperties}><span><FormattedText value={line || '\u00a0'}/></span></span>)}</>;
+  return <>{lines.map((line,index)=><span className="hero-line" key={index} style={{'--hero-line-delay':`${300+Math.min(index,8)*140}ms`} as CSSProperties}><span><FormattedText value={line || '\u00a0'}/></span></span>)}</>;
 }
 export function ContentImage({ field, style, ...props }: { field: string } & Omit<ImageProps,'src'|'alt'|'width'|'height'>) {
   const document = useContent();

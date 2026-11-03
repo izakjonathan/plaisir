@@ -12,16 +12,12 @@ import "./footer.css";
 import "./image-treatment.css";
 import "./collection.css";
 import "./brand-assets.css";
-import "./editorial-motion.css";
-import "./photo-parallax.css";
-import "./route-curtain.css";
 import { brandStyle } from "../lib/brand";
 import SiteShell from "./SiteShell";
 import { ContentProvider } from "./Content";
 import { readPublished } from "../lib/content-db";
 import { createIntroBootstrap, INTRO_CRITICAL_CSS, INTRO_NO_SCRIPT_CSS } from "../lib/intro-bootstrap";
 import { splashSettings } from "../lib/splash";
-import { animationSettings } from "../lib/animation-settings";
 // Published pages are reusable; editor publish/restore invalidates this layout.
 export const revalidate = 60;
 export const metadata: Metadata = {
@@ -39,7 +35,7 @@ export default async function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   const published = await readPublished();
   return (
-    <html lang="en" data-motion={!animationSettings(published).enabled ? "reduced" : undefined} suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning>
       <head>
         <style data-brand-palette dangerouslySetInnerHTML={{ __html: brandStyle(published) }}/>
         <link rel="preconnect" href="https://fonts.googleapis.com" />

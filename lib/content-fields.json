@@ -14,7 +14,7 @@
     "section": "welcome",
     "label": "Paragraph",
     "kind": "text",
-    "default": "French café influences. New York personality. A warm room shaped by Danish design. Come for something good. Stay for the feeling.",
+    "default": "French caf\u00e9 influences. New York personality. A warm room shaped by Danish design. Come for something good. Stay for the feeling.",
     "multiline": true
   },
   {
@@ -98,7 +98,7 @@
     "section": "wine",
     "label": "Paragraph",
     "kind": "text",
-    "default": "“What do you usually enjoy?”\nA simple conversation. A few good suggestions. Your next favourite, by the glass or bottle.",
+    "default": "\u201cWhat do you usually enjoy?\u201d\nA simple conversation. A few good suggestions. Your next favourite, by the glass or bottle.",
     "multiline": true
   },
   {
@@ -262,7 +262,7 @@
     "section": "neighbourhood",
     "label": "Paragraph",
     "kind": "text",
-    "default": "Imagined for the East Village.\nWe’re not open yet. Our address, hours and final menu will follow.",
+    "default": "Imagined for the East Village.\nWe\u2019re not open yet. Our address, hours and final menu will follow.",
     "multiline": true
   },
   {
@@ -394,7 +394,7 @@
     "section": "proposition",
     "label": "Text",
     "kind": "text",
-    "default": "French café influences. New York personality. Danish design. Olive green, ochre and the original bottle and script.",
+    "default": "French caf\u00e9 influences. New York personality. Danish design. Olive green, ochre and the original bottle and script.",
     "multiline": true
   },
   {
@@ -445,7 +445,7 @@
     "section": "split-scene",
     "label": "Text",
     "kind": "text",
-    "default": "Other modelling assumes 900–1,200 sq ft and 35–45 seats. The proposed $72k annual rent has not been reconciled with $216k annual model occupancy: a $144k difference. Lease, usable area, permissions, capacity and full occupancy costs require confirmation.",
+    "default": "Other modelling assumes 900\u20131,200 sq ft and 35\u201345 seats. The proposed $72k annual rent has not been reconciled with $216k annual model occupancy: a $144k difference. Lease, usable area, permissions, capacity and full occupancy costs require confirmation.",
     "multiline": true
   },
   {
@@ -488,11 +488,11 @@
     "id": "story.page.image23",
     "page": "story",
     "section": "Content",
-    "label": "Friends sharing an evening around a café table; atmosphere reference",
+    "label": "Friends sharing an evening around a caf\u00e9 table; atmosphere reference",
     "kind": "image",
     "default": {
       "src": "/brand/good-company.jpg",
-      "alt": "Friends sharing an evening around a café table; atmosphere reference",
+      "alt": "Friends sharing an evening around a caf\u00e9 table; atmosphere reference",
       "width": 1200,
       "height": 1593,
       "x": 50,
@@ -559,7 +559,7 @@
     "section": "growth-section gold-section",
     "label": "Text",
     "kind": "text",
-    "default": "Three sites at $1.2–1.5m annual sales each imply $3.6–4.5m combined revenue. This is an illustration without a validated timetable or profitability assumption. Funding terms, benefits and investor rights remain to be agreed.",
+    "default": "Three sites at $1.2\u20131.5m annual sales each imply $3.6\u20134.5m combined revenue. This is an illustration without a validated timetable or profitability assumption. Funding terms, benefits and investor rights remain to be agreed.",
     "multiline": true
   },
   {
@@ -634,7 +634,7 @@
     "section": "Dashboard",
     "label": "Text",
     "kind": "text",
-    "default": "USD · Illustrative, not an approved forecast",
+    "default": "USD \u00b7 Illustrative, not an approved forecast",
     "multiline": false,
     "hidden": true
   },
@@ -794,7 +794,7 @@
     "section": "Operating overview",
     "label": "Paragraph",
     "kind": "text",
-    "default": "The separate bottom-up model of 220 daily transactions × $25 × 351 days gives $1,930,500, not $833,000. At that transaction volume, $833,000 implies a $10.79 ticket. The two illustrations have not been combined.",
+    "default": "The separate bottom-up model of 220 daily transactions \u00d7 $25 \u00d7 351 days gives $1,930,500, not $833,000. At that transaction volume, $833,000 implies a $10.79 ticket. The two illustrations have not been combined.",
     "multiline": true,
     "hidden": true
   },
@@ -814,7 +814,7 @@
     "section": "Funding overview",
     "label": "Heading",
     "kind": "text",
-    "default": "$500k–$1m",
+    "default": "$500k\u2013$1m",
     "multiline": true,
     "hidden": true
   },
@@ -904,7 +904,7 @@
     "section": "Source scenarios",
     "label": "Paragraph",
     "kind": "text",
-    "default": "All cases use $268k annual payroll. Occupancy is $216k / $219k / $222k in 2026 / 2027 / 2028. Other opex = gross profit − payroll − occupancy − EBITDA. Below-EBITDA deductions = EBITDA − net profit. These residuals have not been itemised.",
+    "default": "All cases use $268k annual payroll. Occupancy is $216k / $219k / $222k in 2026 / 2027 / 2028. Other opex = gross profit \u2212 payroll \u2212 occupancy \u2212 EBITDA. Below-EBITDA deductions = EBITDA \u2212 net profit. These residuals have not been itemised.",
     "multiline": true,
     "hidden": true
   },
@@ -924,7 +924,7 @@
     "section": "Dashboard",
     "label": "Paragraph",
     "kind": "text",
-    "default": "Source: Plaisir Investor Deck, pages 22–25, 32–33, 42 and 46–48. Figures are presented without an assumed investment return.",
+    "default": "Source: Plaisir Investor Deck, pages 22\u201325, 32\u201333, 42 and 46\u201348. Figures are presented without an assumed investment return.",
     "multiline": true,
     "hidden": true
   },
@@ -1399,7 +1399,7 @@
     "kind": "image",
     "default": {
       "src": "/brand/collection/cups-scattered.webp",
-      "alt": "Plaisir cups scattered — brand concept",
+      "alt": "Plaisir cups scattered \u2014 brand concept",
       "width": 1536,
       "height": 1024,
       "x": 50,
@@ -1415,7 +1415,7 @@
     "kind": "image",
     "default": {
       "src": "/brand/collection/cups-stacked.webp",
-      "alt": "Plaisir cups stacked — brand concept",
+      "alt": "Plaisir cups stacked \u2014 brand concept",
       "width": 1254,
       "height": 1254,
       "x": 50,
@@ -1431,7 +1431,7 @@
     "kind": "image",
     "default": {
       "src": "/brand/collection/takeaway-bag.webp",
-      "alt": "Plaisir takeaway bag — brand concept",
+      "alt": "Plaisir takeaway bag \u2014 brand concept",
       "width": 1122,
       "height": 1402,
       "x": 50,
@@ -1447,7 +1447,7 @@
     "kind": "image",
     "default": {
       "src": "/brand/collection/coaster-script.webp",
-      "alt": "Plaisir coaster script — brand concept",
+      "alt": "Plaisir coaster script \u2014 brand concept",
       "width": 1254,
       "height": 1254,
       "x": 50,
@@ -1463,7 +1463,7 @@
     "kind": "image",
     "default": {
       "src": "/brand/collection/menu-not-wine.webp",
-      "alt": "Plaisir menu not wine — brand concept",
+      "alt": "Plaisir menu not wine \u2014 brand concept",
       "width": 1049,
       "height": 1499,
       "x": 50,
@@ -1479,7 +1479,7 @@
     "kind": "image",
     "default": {
       "src": "/brand/collection/menu-food.webp",
-      "alt": "Plaisir menu food — brand concept",
+      "alt": "Plaisir menu food \u2014 brand concept",
       "width": 1049,
       "height": 1499,
       "x": 50,
@@ -1495,7 +1495,7 @@
     "kind": "image",
     "default": {
       "src": "/brand/collection/coaster-bottle.webp",
-      "alt": "Plaisir coaster bottle — brand concept",
+      "alt": "Plaisir coaster bottle \u2014 brand concept",
       "width": 1254,
       "height": 1254,
       "x": 50,
@@ -1511,7 +1511,7 @@
     "kind": "image",
     "default": {
       "src": "/brand/collection/menu-wine.webp",
-      "alt": "Plaisir menu wine — brand concept",
+      "alt": "Plaisir menu wine \u2014 brand concept",
       "width": 1050,
       "height": 1498,
       "x": 50,
@@ -1571,891 +1571,5 @@
     "max": 100,
     "step": 1,
     "default": "100"
-  },
-  {
-    "id": "motion.enabled",
-    "page": "animations",
-    "section": "General",
-    "label": "Enable site animations",
-    "kind": "text",
-    "control": "toggle",
-    "default": "true"
-  },
-  {
-    "id": "motion.reveals",
-    "page": "animations",
-    "section": "Scroll reveals",
-    "label": "Enable page reveals",
-    "kind": "text",
-    "control": "toggle",
-    "default": "true"
-  },
-  {
-    "id": "motion.revealDuration",
-    "page": "animations",
-    "section": "Scroll reveals",
-    "label": "Movement duration",
-    "kind": "text",
-    "control": "range",
-    "default": "850",
-    "min": 100,
-    "max": 3000,
-    "step": 50,
-    "unit": "ms"
-  },
-  {
-    "id": "motion.revealFade",
-    "page": "animations",
-    "section": "Scroll reveals",
-    "label": "Fade duration",
-    "kind": "text",
-    "control": "range",
-    "default": "650",
-    "min": 100,
-    "max": 3000,
-    "step": 50,
-    "unit": "ms"
-  },
-  {
-    "id": "motion.revealDistance",
-    "page": "animations",
-    "section": "Scroll reveals",
-    "label": "Movement distance",
-    "kind": "text",
-    "control": "range",
-    "default": "36",
-    "min": 0,
-    "max": 120,
-    "step": 1,
-    "unit": "px"
-  },
-  {
-    "id": "motion.revealTrigger",
-    "page": "animations",
-    "section": "Scroll reveals",
-    "label": "Distance from viewport bottom before reveal",
-    "kind": "text",
-    "control": "range",
-    "default": "12",
-    "min": 0,
-    "max": 40,
-    "step": 1,
-    "unit": "%"
-  },
-  {
-    "id": "motion.revealStagger",
-    "page": "animations",
-    "section": "Scroll reveals",
-    "label": "Delay between arriving blocks",
-    "kind": "text",
-    "control": "range",
-    "default": "90",
-    "min": 0,
-    "max": 500,
-    "step": 10,
-    "unit": "ms"
-  },
-  {
-    "id": "motion.lineDuration",
-    "page": "animations",
-    "section": "Scroll reveals",
-    "label": "Heading line duration",
-    "kind": "text",
-    "control": "range",
-    "default": "1000",
-    "min": 100,
-    "max": 3000,
-    "step": 50,
-    "unit": "ms"
-  },
-  {
-    "id": "motion.lineStagger",
-    "page": "animations",
-    "section": "Scroll reveals",
-    "label": "Delay between heading lines",
-    "kind": "text",
-    "control": "range",
-    "default": "140",
-    "min": 0,
-    "max": 500,
-    "step": 10,
-    "unit": "ms"
-  },
-  {
-    "id": "motion.revealEase",
-    "page": "animations",
-    "section": "Scroll reveals",
-    "label": "Reveal easing",
-    "kind": "text",
-    "control": "select",
-    "default": "soft",
-    "options": [
-      {
-        "value": "soft",
-        "label": "Soft ease out"
-      },
-      {
-        "value": "ease-in-out",
-        "label": "Ease in and out"
-      },
-      {
-        "value": "ease-out",
-        "label": "Ease out"
-      },
-      {
-        "value": "linear",
-        "label": "Linear"
-      }
-    ]
-  },
-  {
-    "id": "motion.menuDuration",
-    "page": "animations",
-    "section": "Menu",
-    "label": "Menu open / close duration",
-    "kind": "text",
-    "control": "range",
-    "default": "680",
-    "min": 100,
-    "max": 2500,
-    "step": 10,
-    "unit": "ms"
-  },
-  {
-    "id": "motion.menuLinkDuration",
-    "page": "animations",
-    "section": "Menu",
-    "label": "Menu link arrival duration",
-    "kind": "text",
-    "control": "range",
-    "default": "520",
-    "min": 100,
-    "max": 2500,
-    "step": 10,
-    "unit": "ms"
-  },
-  {
-    "id": "motion.menuLinkDelay",
-    "page": "animations",
-    "section": "Menu",
-    "label": "First menu link delay",
-    "kind": "text",
-    "control": "range",
-    "default": "150",
-    "min": 0,
-    "max": 1000,
-    "step": 10,
-    "unit": "ms"
-  },
-  {
-    "id": "motion.menuLinkStagger",
-    "page": "animations",
-    "section": "Menu",
-    "label": "Delay between menu links",
-    "kind": "text",
-    "control": "range",
-    "default": "65",
-    "min": 0,
-    "max": 300,
-    "step": 5,
-    "unit": "ms"
-  },
-  {
-    "id": "motion.menuEase",
-    "page": "animations",
-    "section": "Menu",
-    "label": "Menu easing",
-    "kind": "text",
-    "control": "select",
-    "default": "soft",
-    "options": [
-      {
-        "value": "soft",
-        "label": "Soft ease out"
-      },
-      {
-        "value": "ease-in-out",
-        "label": "Ease in and out"
-      },
-      {
-        "value": "ease-out",
-        "label": "Ease out"
-      },
-      {
-        "value": "linear",
-        "label": "Linear"
-      }
-    ]
-  },
-  {
-    "id": "motion.hero",
-    "page": "animations",
-    "section": "Hero text",
-    "label": "Enable hero text arrivals",
-    "kind": "text",
-    "control": "toggle",
-    "default": "true"
-  },
-  {
-    "id": "motion.heroDuration",
-    "page": "animations",
-    "section": "Hero text",
-    "label": "Hero line duration",
-    "kind": "text",
-    "control": "range",
-    "default": "1000",
-    "min": 100,
-    "max": 3000,
-    "step": 50,
-    "unit": "ms"
-  },
-  {
-    "id": "motion.heroDelay",
-    "page": "animations",
-    "section": "Hero text",
-    "label": "First hero line delay",
-    "kind": "text",
-    "control": "range",
-    "default": "300",
-    "min": 0,
-    "max": 2000,
-    "step": 50,
-    "unit": "ms"
-  },
-  {
-    "id": "motion.heroStagger",
-    "page": "animations",
-    "section": "Hero text",
-    "label": "Delay between hero lines",
-    "kind": "text",
-    "control": "range",
-    "default": "140",
-    "min": 0,
-    "max": 500,
-    "step": 10,
-    "unit": "ms"
-  },
-  {
-    "id": "motion.heroButtonDuration",
-    "page": "animations",
-    "section": "Hero text",
-    "label": "Hero button duration",
-    "kind": "text",
-    "control": "range",
-    "default": "800",
-    "min": 100,
-    "max": 3000,
-    "step": 50,
-    "unit": "ms"
-  },
-  {
-    "id": "motion.heroButtonDelay",
-    "page": "animations",
-    "section": "Hero text",
-    "label": "Hero button delay",
-    "kind": "text",
-    "control": "range",
-    "default": "850",
-    "min": 0,
-    "max": 3000,
-    "step": 50,
-    "unit": "ms"
-  },
-  {
-    "id": "motion.footerAuto",
-    "page": "animations",
-    "section": "Footer scroll",
-    "label": "Enable automatic footer arrival",
-    "kind": "text",
-    "control": "toggle",
-    "default": "true"
-  },
-  {
-    "id": "motion.footerDuration",
-    "page": "animations",
-    "section": "Footer scroll",
-    "label": "Footer scroll duration",
-    "kind": "text",
-    "control": "range",
-    "default": "1500",
-    "min": 300,
-    "max": 5000,
-    "step": 100,
-    "unit": "ms"
-  },
-  {
-    "id": "motion.footerTrigger",
-    "page": "animations",
-    "section": "Footer scroll",
-    "label": "Visible footer before automatic arrival",
-    "kind": "text",
-    "control": "range",
-    "default": "28",
-    "min": 10,
-    "max": 80,
-    "step": 1,
-    "unit": "%"
-  },
-  {
-    "id": "motion.footerEase",
-    "page": "animations",
-    "section": "Footer scroll",
-    "label": "Footer scroll easing",
-    "kind": "text",
-    "control": "select",
-    "default": "cosine",
-    "options": [
-      {
-        "value": "cosine",
-        "label": "Smooth ease in and out"
-      },
-      {
-        "value": "cubic",
-        "label": "Strong ease in and out"
-      },
-      {
-        "value": "ease-out",
-        "label": "Ease out"
-      },
-      {
-        "value": "linear",
-        "label": "Linear"
-      }
-    ]
-  },
-  {
-    "id": "motion.footerReveal",
-    "page": "animations",
-    "section": "Footer content",
-    "label": "Enable footer content reveal",
-    "kind": "text",
-    "control": "toggle",
-    "default": "true"
-  },
-  {
-    "id": "motion.footerRevealDuration",
-    "page": "animations",
-    "section": "Footer content",
-    "label": "Footer reveal duration",
-    "kind": "text",
-    "control": "range",
-    "default": "550",
-    "min": 100,
-    "max": 3000,
-    "step": 50,
-    "unit": "ms"
-  },
-  {
-    "id": "motion.footerRevealDistance",
-    "page": "animations",
-    "section": "Footer content",
-    "label": "Footer reveal distance",
-    "kind": "text",
-    "control": "range",
-    "default": "12",
-    "min": 0,
-    "max": 100,
-    "step": 1,
-    "unit": "px"
-  },
-  {
-    "id": "motion.logoPulse",
-    "page": "animations",
-    "section": "Footer logo",
-    "label": "Enable logo pulse at footer arrival",
-    "kind": "text",
-    "control": "toggle",
-    "default": "true"
-  },
-  {
-    "id": "motion.logoDuration",
-    "page": "animations",
-    "section": "Footer logo",
-    "label": "Logo pulse duration",
-    "kind": "text",
-    "control": "range",
-    "default": "650",
-    "min": 100,
-    "max": 2500,
-    "step": 50,
-    "unit": "ms"
-  },
-  {
-    "id": "motion.logoScale",
-    "page": "animations",
-    "section": "Footer logo",
-    "label": "Logo enlargement",
-    "kind": "text",
-    "control": "range",
-    "default": "10",
-    "min": 0,
-    "max": 40,
-    "step": 1,
-    "unit": "%"
-  },
-  {
-    "id": "motion.splashSpeed",
-    "page": "animations",
-    "section": "Splash transition",
-    "label": "Splash transition speed",
-    "kind": "text",
-    "control": "range",
-    "default": "100",
-    "min": 50,
-    "max": 200,
-    "step": 10,
-    "unit": "%"
-  },
-  {
-    "id": "motion.menu",
-    "page": "animations",
-    "section": "Menu",
-    "label": "Enable menu animations",
-    "kind": "text",
-    "control": "toggle",
-    "default": "true"
-  },
-  {
-    "id": "motion.heroEase",
-    "page": "animations",
-    "section": "Hero text",
-    "label": "Hero easing",
-    "kind": "text",
-    "control": "select",
-    "default": "soft",
-    "options": [
-      {
-        "value": "soft",
-        "label": "Soft ease out"
-      },
-      {
-        "value": "ease-in-out",
-        "label": "Ease in and out"
-      },
-      {
-        "value": "ease-out",
-        "label": "Ease out"
-      },
-      {
-        "value": "linear",
-        "label": "Linear"
-      }
-    ]
-  },
-  {
-    "id": "motion.footerRevealEase",
-    "page": "animations",
-    "section": "Footer content",
-    "label": "Footer reveal easing",
-    "kind": "text",
-    "control": "select",
-    "default": "soft",
-    "options": [
-      {
-        "value": "soft",
-        "label": "Soft ease out"
-      },
-      {
-        "value": "ease-in-out",
-        "label": "Ease in and out"
-      },
-      {
-        "value": "ease-out",
-        "label": "Ease out"
-      },
-      {
-        "value": "linear",
-        "label": "Linear"
-      }
-    ]
-  },
-  {
-    "id": "motion.logoEase",
-    "page": "animations",
-    "section": "Footer logo",
-    "label": "Logo pulse easing",
-    "kind": "text",
-    "control": "select",
-    "default": "soft",
-    "options": [
-      {
-        "value": "soft",
-        "label": "Soft ease out"
-      },
-      {
-        "value": "ease-in-out",
-        "label": "Ease in and out"
-      },
-      {
-        "value": "ease-out",
-        "label": "Ease out"
-      },
-      {
-        "value": "linear",
-        "label": "Linear"
-      }
-    ]
-  },
-  {
-    "id": "motion.splashEase",
-    "page": "animations",
-    "section": "Splash transition",
-    "label": "Splash transition easing",
-    "kind": "text",
-    "control": "select",
-    "default": "soft",
-    "options": [
-      {
-        "value": "soft",
-        "label": "Soft ease out"
-      },
-      {
-        "value": "ease-in-out",
-        "label": "Ease in and out"
-      },
-      {
-        "value": "ease-out",
-        "label": "Ease out"
-      },
-      {
-        "value": "linear",
-        "label": "Linear"
-      }
-    ]
-  },
-  {
-    "id": "motion.parallax",
-    "page": "animations",
-    "section": "Photo parallax",
-    "label": "Enable photo parallax",
-    "kind": "text",
-    "control": "toggle",
-    "default": "true"
-  },
-  {
-    "id": "motion.parallaxMobile",
-    "page": "animations",
-    "section": "Photo parallax",
-    "label": "Mobile photo travel",
-    "kind": "text",
-    "control": "range",
-    "default": "20",
-    "min": 0,
-    "max": 80,
-    "step": 1,
-    "unit": "px"
-  },
-  {
-    "id": "motion.parallaxDesktop",
-    "page": "animations",
-    "section": "Photo parallax",
-    "label": "Desktop photo travel",
-    "kind": "text",
-    "control": "range",
-    "default": "32",
-    "min": 0,
-    "max": 120,
-    "step": 1,
-    "unit": "px"
-  },
-  {
-    "id": "motion.parallaxSmoothing",
-    "page": "animations",
-    "section": "Photo parallax",
-    "label": "Parallax smoothing",
-    "kind": "text",
-    "control": "range",
-    "default": "120",
-    "min": 0,
-    "max": 400,
-    "step": 10,
-    "unit": "ms"
-  },
-  {
-    "id": "motion.headingLetters",
-    "page": "animations",
-    "section": "Heading letters",
-    "label": "Reveal headings letter by letter",
-    "kind": "text",
-    "control": "toggle",
-    "default": "true"
-  },
-  {
-    "id": "motion.headingDuration",
-    "page": "animations",
-    "section": "Heading letters",
-    "label": "Letter reveal duration",
-    "kind": "text",
-    "control": "range",
-    "default": "750",
-    "min": 200,
-    "max": 1500,
-    "step": 50,
-    "unit": "ms"
-  },
-  {
-    "id": "motion.headingStagger",
-    "page": "animations",
-    "section": "Heading letters",
-    "label": "Letter stagger",
-    "kind": "text",
-    "control": "range",
-    "default": "18",
-    "min": 0,
-    "max": 40,
-    "step": 1,
-    "unit": "ms"
-  },
-  {
-    "id": "motion.photoFrames",
-    "page": "animations",
-    "section": "Photo frames",
-    "label": "Expand selected editorial photo frames",
-    "kind": "text",
-    "control": "toggle",
-    "default": "true"
-  },
-  {
-    "id": "motion.frameInset",
-    "page": "animations",
-    "section": "Photo frames",
-    "label": "Starting frame inset",
-    "kind": "text",
-    "control": "range",
-    "default": "24",
-    "min": 0,
-    "max": 60,
-    "step": 1,
-    "unit": "px"
-  },
-  {
-    "id": "motion.frameRadius",
-    "page": "animations",
-    "section": "Photo frames",
-    "label": "Starting frame corner radius",
-    "kind": "text",
-    "control": "range",
-    "default": "18",
-    "min": 0,
-    "max": 40,
-    "step": 1,
-    "unit": "px"
-  },
-  {
-    "id": "motion.frameEnd",
-    "page": "animations",
-    "section": "Photo frames",
-    "label": "Finish expansion at viewport position",
-    "kind": "text",
-    "control": "range",
-    "default": "35",
-    "min": 10,
-    "max": 70,
-    "step": 5,
-    "unit": "%"
-  },
-  {
-    "id": "motion.photoZoom",
-    "page": "animations",
-    "section": "Photo frames",
-    "label": "Gentle photo zoom settling",
-    "kind": "text",
-    "control": "toggle",
-    "default": "true"
-  },
-  {
-    "id": "motion.photoZoomAmount",
-    "page": "animations",
-    "section": "Photo frames",
-    "label": "Extra starting photo zoom",
-    "kind": "text",
-    "control": "range",
-    "default": "5",
-    "min": 0,
-    "max": 10,
-    "step": 1,
-    "unit": "%"
-  },
-  {
-    "id": "motion.photoZoomDuration",
-    "page": "animations",
-    "section": "Photo frames",
-    "label": "Photo zoom duration",
-    "kind": "text",
-    "control": "range",
-    "default": "1100",
-    "min": 300,
-    "max": 1800,
-    "step": 50,
-    "unit": "ms"
-  },
-  {
-    "id": "motion.menuRoll",
-    "page": "animations",
-    "section": "Menu details",
-    "label": "Rolling menu labels on hover and focus",
-    "kind": "text",
-    "control": "toggle",
-    "default": "true"
-  },
-  {
-    "id": "motion.menuRollDuration",
-    "page": "animations",
-    "section": "Menu details",
-    "label": "Letter roll duration",
-    "kind": "text",
-    "control": "range",
-    "default": "300",
-    "min": 100,
-    "max": 600,
-    "step": 25,
-    "unit": "ms"
-  },
-  {
-    "id": "motion.menuRollStagger",
-    "page": "animations",
-    "section": "Menu details",
-    "label": "Letter roll stagger",
-    "kind": "text",
-    "control": "range",
-    "default": "14",
-    "min": 0,
-    "max": 30,
-    "step": 1,
-    "unit": "ms"
-  },
-  {
-    "id": "motion.menuDividers",
-    "page": "animations",
-    "section": "Menu details",
-    "label": "Draw menu dividers",
-    "kind": "text",
-    "control": "toggle",
-    "default": "true"
-  },
-  {
-    "id": "motion.menuDividerDuration",
-    "page": "animations",
-    "section": "Menu details",
-    "label": "Divider drawing duration",
-    "kind": "text",
-    "control": "range",
-    "default": "600",
-    "min": 200,
-    "max": 1200,
-    "step": 50,
-    "unit": "ms"
-  },
-  {
-    "page": "animations",
-    "section": "Page transitions",
-    "kind": "text",
-    "id": "motion.routeTransition",
-    "label": "Enable page transition curtain",
-    "control": "toggle",
-    "default": "true"
-  },
-  {
-    "page": "animations",
-    "section": "Page transitions",
-    "kind": "text",
-    "id": "motion.routeCover",
-    "label": "Curtain cover duration",
-    "control": "range",
-    "default": "300",
-    "min": 100,
-    "max": 1000,
-    "step": 50,
-    "unit": "ms"
-  },
-  {
-    "page": "animations",
-    "section": "Page transitions",
-    "kind": "text",
-    "id": "motion.routeReveal",
-    "label": "Curtain reveal duration",
-    "control": "range",
-    "default": "400",
-    "min": 100,
-    "max": 1000,
-    "step": 50,
-    "unit": "ms"
-  },
-  {
-    "page": "animations",
-    "section": "Page transitions",
-    "kind": "text",
-    "id": "motion.routeColor",
-    "label": "Curtain colour",
-    "control": "select",
-    "default": "green",
-    "options": [
-      {
-        "value": "green",
-        "label": "Primary brand colour"
-      },
-      {
-        "value": "gold",
-        "label": "Accent brand colour"
-      },
-      {
-        "value": "dark",
-        "label": "Deep brand colour"
-      }
-    ]
-  },
-  {
-    "page": "animations",
-    "section": "Page transitions",
-    "kind": "text",
-    "id": "motion.routeCoverEase",
-    "label": "Curtain cover easing",
-    "control": "select",
-    "default": "ease-in-out",
-    "options": [
-      {
-        "value": "soft",
-        "label": "Soft settle"
-      },
-      {
-        "value": "ease-in-out",
-        "label": "Ease in and out"
-      },
-      {
-        "value": "ease-out",
-        "label": "Ease out"
-      },
-      {
-        "value": "linear",
-        "label": "Linear"
-      }
-    ]
-  },
-  {
-    "page": "animations",
-    "section": "Page transitions",
-    "kind": "text",
-    "id": "motion.routeRevealEase",
-    "label": "Curtain reveal easing",
-    "control": "select",
-    "default": "soft",
-    "options": [
-      {
-        "value": "soft",
-        "label": "Soft settle"
-      },
-      {
-        "value": "ease-in-out",
-        "label": "Ease in and out"
-      },
-      {
-        "value": "ease-out",
-        "label": "Ease out"
-      },
-      {
-        "value": "linear",
-        "label": "Linear"
-      }
-    ]
   }
 ]

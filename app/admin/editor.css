@@ -792,9 +792,3 @@ html:has(.content-editor) {
 .editor-overlay-inheritance .editor-reset {
   flex: none;
 }
-
-.editor-motion-intro {display:grid;gap:20px;margin-bottom:28px;}
-.editor-motion-intro .editor-button {justify-self:start;}
-
-.editor-splash-sample {padding:20px;overflow:auto;}
-.editor-splash-sample > p {padding:16px 0;color:var(--editor-muted);font-size:14px;}
