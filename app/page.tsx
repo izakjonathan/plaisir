@@ -1,8 +1,11 @@
+import { redirect } from "next/navigation";
+import { EXPERIENCE_VISIBLE } from "../lib/public-pages";
 import Heading from "./Heading";
 import { Copy, ContentImage, ContentLink } from "./Content";
 import BottleAccent from "./BottleAccent";
 import LandingHero from "./LandingHero";
 export default function Home() {
+    if (!EXPERIENCE_VISIBLE) redirect("/investors");
     return (<main id="main" className="experience bottle-art-page">
       <BottleAccent />
       <LandingHero />

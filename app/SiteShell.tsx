@@ -1,6 +1,6 @@
 "use client";
 import Heading from "./Heading";
-import { isPublicLinkVisible } from "../lib/public-pages";
+import { isPublicLinkVisible, MENU_VISIBLE } from "../lib/public-pages";
 import { Copy, ContentImage } from "./Content";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
@@ -160,7 +160,7 @@ function MarketingShell({ children }: {
         <Link className="brand-logo" style={{backgroundColor: !mounted && headerTone === "dark" ? "var(--brand-green)" : "var(--brand-gold)"}} href="/" aria-label="Plaisir home" inert={mounted}>
           <img src={!mounted && headerTone === "dark" ? "/brand/wordmark-green.svg" : "/brand/wordmark-gold.svg"} width="1911" height="660" alt="Plaisir" fetchPriority="high"/>
         </Link>
-        <button ref={button} className="burger-button" style={{color: !mounted && headerTone === "dark" ? "var(--brand-green)" : "var(--brand-gold)"}} type="button" aria-label={mounted ? "Close menu" : "Open menu"} aria-haspopup="dialog" aria-controls={mounted ? "site-menu" : undefined} aria-expanded={expanded} onPointerDown={() => { keyboard.current = false; }} onKeyDown={event => {
+        {MENU_VISIBLE && <button ref={button} className="burger-button" style={{color: !mounted && headerTone === "dark" ? "var(--brand-green)" : "var(--brand-gold)"}} type="button" aria-label={mounted ? "Close menu" : "Open menu"} aria-haspopup="dialog" aria-controls={mounted ? "site-menu" : undefined} aria-expanded={expanded} onPointerDown={() => { keyboard.current = false; }} onKeyDown={event => {
             if (event.key === "Enter" || event.key === " ")
                 keyboard.current = true;
         }} onClick={event => {
@@ -179,7 +179,7 @@ function MarketingShell({ children }: {
             <path className="burger-stroke burger-top" d="M3 10H25"/>
             <path className="burger-stroke burger-bottom" d="M3 18H25"/>
           </svg>
-        </button>
+        </button>}
       </header>
       {mounted && (<div ref={panel} id="site-menu" className="site-menu" data-phase={phase} role="dialog" aria-modal="true" aria-label="Explore Plaisir" aria-hidden={!visible} inert={!visible} onPointerDown={() => { keyboard.current = false; }} onTransitionEnd={event => {
                 if (phase === "closing" && event.target === event.currentTarget && event.propertyName === "transform")
