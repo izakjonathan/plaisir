@@ -1,3 +1,5 @@
+import { redirect } from "next/navigation";
+import { FINANCIALS_VISIBLE } from "../../lib/public-pages";
 import type { Metadata } from "next";
 import InvestmentOverview from "../InvestmentOverview";
 import "../financials-v2/forecast.css";
@@ -8,6 +10,7 @@ export const metadata: Metadata = {
     "The Plaisir flagship investment overview: capital requirements, operating forecast, profitability thresholds and investment structure.",
 };
 export default function Financials() {
+  if (!FINANCIALS_VISIBLE) redirect("/");
   return (
     <main id="main" className="pl-main pl-financial-page">
       <section

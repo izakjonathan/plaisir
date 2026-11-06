@@ -1,4 +1,5 @@
 import Heading from "../Heading";
+import { FINANCIALS_VISIBLE } from "../../lib/public-pages";
 import { Copy, ContentImage, ContentLink } from "../Content";
 import type { Metadata } from "next";
 import BottleAccent from "../BottleAccent";
@@ -101,12 +102,12 @@ export default function Investors() {
           <Note title="Growth assumptions"><Copy field="story.page.text30"/></Note>
         </div>
       </section>
-      <section className="model-invitation">
+      {FINANCIALS_VISIBLE && <section className="model-invitation">
         <Heading as="h2" data-reveal="story-22"><Copy field="story.page.text31"/></Heading>
         <p data-reveal="story-23"><Copy field="story.page.text32"/></p>
         <ContentLink data-reveal="story-24" className="pill" field="story.page.link3"><Copy field="story.page.text33"/></ContentLink>
         <p className="pl-small-print"><Copy field="story.page.text34"/></p>
-      </section>
+      </section>}
     </main>);
 }
 

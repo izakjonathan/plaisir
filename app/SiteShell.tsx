@@ -1,5 +1,6 @@
 "use client";
 import Heading from "./Heading";
+import { isPublicLinkVisible } from "../lib/public-pages";
 import { Copy, ContentImage } from "./Content";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
@@ -12,7 +13,7 @@ const areas = [
     { href: "/investors", label: "The story", description: "The business behind Plaisir" },
     { href: "/financials", label: "The numbers", description: "The financial illustration" },
     { href: "/financials-v2", label: "The Numbers v2", description: "The investor forecast & funding plan" },
-];
+].filter(area => isPublicLinkVisible(area.href));
 type Phase = "closed" | "opening" | "open" | "closing";
 function MarketingShell({ children }: {
     children: ReactNode;

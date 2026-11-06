@@ -1,5 +1,6 @@
 'use client';
 import Link from 'next/link';
+import { isPublicLinkVisible } from '../lib/public-pages';
 import Image, { type ImageProps } from 'next/image';
 import { createContext, useContext, useId, useEffect, useState, Fragment, type ReactNode, type AnchorHTMLAttributes, type CSSProperties } from 'react';
 import { emptyDocument, textValue, imageValue, fieldMap, validateDocument, type ContentDocument, type ContentImageValue } from '../lib/content-schema';
@@ -52,5 +53,6 @@ export function ContentImage({ field, style, ...props }: { field: string } & Omi
 }
 export function ContentLink({ field, ...props }: { field: string } & AnchorHTMLAttributes<HTMLAnchorElement>) {
   const href = textValue(useContent(), field);
+  if (!isPublicLinkVisible(href)) return null;
   return href.startsWith('/') ? <Link {...props} href={href}/> : <a {...props} href={href}/>;
 }
