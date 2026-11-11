@@ -1,6 +1,6 @@
 "use client";
 import Heading from "./Heading";
-import { isPublicLinkVisible, MENU_VISIBLE } from "../lib/public-pages";
+import { isPublicLinkVisible, MENU_VISIBLE, SEED_PRESENTATION_PATH } from "../lib/public-pages";
 import { Copy, ContentImage } from "./Content";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
@@ -206,5 +206,5 @@ function MarketingShell({ children }: {
 
 export default function SiteShell({children}:{children:ReactNode}) {
  const pathname=usePathname();
- return pathname.startsWith("/admin") ? <>{children}</> : <MarketingShell>{children}</MarketingShell>;
+ return (pathname.startsWith("/admin") || pathname === SEED_PRESENTATION_PATH) ? <>{children}</> : <MarketingShell>{children}</MarketingShell>;
 }

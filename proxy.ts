@@ -1,6 +1,12 @@
 import { NextResponse, type NextRequest } from 'next/server';
 import { COMING_SOON, comingSoonHTML } from './lib/maintenance';
+import { SEED_PRESENTATION_PATH } from './lib/public-pages';
 export function proxy(request: NextRequest) {
+  if (request.nextUrl.pathname === SEED_PRESENTATION_PATH) {
+    const response = NextResponse.next();
+    response.headers.set('X-Robots-Tag', 'noindex, nofollow, noarchive');
+    return response;
+  }
   if (COMING_SOON) {
     const hiddenResource = /^\/(api|media|forecasts)(?:\/|$)/.test(request.nextUrl.pathname);
     return new NextResponse(hiddenResource ? 'Temporarily unavailable' : comingSoonHTML, {

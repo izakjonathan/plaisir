@@ -1,3 +1,5 @@
+export const SEED_PRESENTATION_PATH = "/seed";
+
 // Temporary public visibility switch. Keep forecasts and editor data intact.
 export const FINANCIALS_VISIBLE = false;
 export const EXPERIENCE_VISIBLE = false;
