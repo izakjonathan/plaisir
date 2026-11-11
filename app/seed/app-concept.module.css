@@ -1,0 +1,182 @@
+.appShowcase {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(300px, .8fr);
+  align-items: center;
+  gap: clamp(30px, 6vw, 108px);
+}
+.appPicker {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: clamp(18px, 4vh, 34px);
+}
+:is(.appPicker, .appOptions, .appDock) button {
+  font: inherit;
+  color: inherit;
+}
+.appPicker button {
+  border: 1px solid currentColor;
+  background: transparent;
+  padding: 9px 15px;
+  font-size: clamp(14px, 1.25vw, 18px);
+}
+.appPicker button[aria-pressed="true"] { color: var(--brand-green); background: var(--brand-gold); }
+.appDetail {
+  min-height: 3em;
+  max-width: 43ch;
+  margin-top: 16px;
+  font-size: clamp(15px, 1.25vw, 19px);
+  line-height: 1.35;
+}
+.appDevice {
+  --app-paper: #f5f0e5;
+  width: min(100%, 330px);
+  margin-inline: auto;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  min-height: 496px;
+  border: 5px solid var(--brand-dark);
+  border-radius: 30px;
+  overflow: clip;
+  background: var(--app-paper);
+  color: var(--brand-dark);
+  box-shadow: 0 25px 65px #0004;
+}
+.appTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 11px 17px;
+  border-bottom: 1px solid #263d3230;
+  font-size: 11px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+.appMark {
+  width: 80px;
+  aspect-ratio: 1911 / 660;
+  background: currentColor;
+  mask: url("/brand/wordmark-green.svg") center / contain no-repeat;
+}
+.appScreen { display: grid; min-width: 0; }
+.appView {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 0;
+  padding: 20px 18px;
+  animation: seed-app-reveal 330ms var(--seed-ease) both;
+}
+.appView[data-screen="home"] { padding: 0; }
+.appView h3 {
+  font: 400 34px/.98 var(--display);
+  letter-spacing: -.035em;
+  color: inherit;
+}
+.appView p { font-size: 14px; line-height: 1.35; }
+.appWelcome {
+  display: flex;
+  min-height: 100%;
+  flex-direction: column;
+  justify-content: end;
+  align-items: start;
+  gap: 15px;
+  padding: 24px 18px;
+  color: var(--brand-gold);
+  background: linear-gradient(0deg, #18271df5, #18271d25), url("/brand/table.webp") center / cover;
+}
+.appEyebrow { font-size: 10px; letter-spacing: .095em; text-transform: uppercase; }
+.appAction {
+  align-self: start;
+  padding: 4px 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-size: 14px;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.appOptions { display: flex; gap: 6px; flex-wrap: wrap; }
+.appOptions button {
+  border: 1px solid currentColor;
+  background: transparent;
+  padding: 5px 8px;
+  font-size: 12px;
+}
+.appOptions button[aria-pressed="true"] { color: var(--app-paper); background: var(--brand-dark); }
+.appRows > div {
+  border-top: 1px solid #263d3240;
+  padding: 7px 0;
+}
+.appRows dt { font-size: 14px; font-weight: 600; }
+.appRows dd { margin: 2px 0 0; font-size: 13px; line-height: 1.25; }
+:is(.appPass, .appGifts > div, .appScan) {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  border-radius: 9px;
+  color: var(--brand-gold);
+  background: var(--brand-dark);
+}
+.appPass strong { display: block; font: 400 35px/1 var(--display); }
+.appPass div span { display: block; font-size: 11px; }
+.appBottle {
+  flex: none;
+  width: 22px;
+  aspect-ratio: 553 / 1347;
+  background: currentColor;
+  mask: url("/brand/bottle.svg") center / contain no-repeat;
+}
+.appScan {
+  justify-content: center;
+  min-height: 154px;
+  outline: 1px dashed currentColor;
+  outline-offset: -14px;
+}
+.appScan .appBottle { width: 40px; }
+.appGifts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+.appGifts > div { justify-content: space-between; padding: 13px; }
+.appGifts strong { font-size: 20px; }
+.appMembership {
+  display: grid;
+  align-content: end;
+  min-height: 135px;
+  padding: 15px;
+  gap: 3px;
+  border-radius: 8px;
+  color: var(--brand-gold);
+  background: linear-gradient(0deg, #17291df5, #17291d55), url("/brand/wine-conversation.jpg") center / cover;
+}
+.appMembership strong { font: 400 28px/1 var(--display); }
+.appDock {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  padding: 4px 6px;
+  border-top: 1px solid #263d3230;
+}
+.appDock button {
+  display: grid;
+  justify-items: center;
+  gap: 4px;
+  padding: 6px 1px;
+  border: 0;
+  background: transparent;
+  font-size: 10px;
+  border-radius: 6px;
+}
+.appDock button[aria-pressed="true"] { background: color-mix(in srgb, var(--brand-gold) 30%, var(--app-paper)); }
+.appDock svg { width: 19px; height: 19px; }
+
+@keyframes seed-app-reveal {
+  from { opacity: .35; transform: translateY(5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@media (max-width: 850px) {
+  .appShowcase { grid-template-columns: minmax(0, 1fr); gap: 22px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .appView { animation: none; }
+}

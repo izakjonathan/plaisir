@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { Fragment, type CSSProperties, type ReactNode } from "react";
 import { DAYPARTS, FORECASTS, FUNDING } from "../../lib/investor-forecast";
+import AppConcept from "./AppConcept";
 import DeckNavigation from "./DeckNavigation";
 import s from "./seed.module.css";
 
@@ -13,6 +14,7 @@ export const metadata: Metadata = {
 
 const contents = [
   ["concept", "The concept", "Coffee, wine and the people who come for both"],
+  ["app", "The Plaisir app", "An interactive preview of the guest and staff experience"],
   ["demand", "The flagship", "Demand, the New York site and the team"],
   ["sales", "The economics", "Daypart sales, operating costs and cash flow"],
   ["funding", "Seed funding", "Use of funds and the milestones ahead"],
@@ -149,7 +151,14 @@ export default function SeedPage() {
           </div>
         </Slide>
 
-        <Slide id="demand" number={7} chapter="Demand">
+        <Slide id="app" number={7} chapter="The Plaisir app">
+          <AppConcept>
+            <Title>The Plaisir app.</Title>
+            <p className={s.lead}>Guests can explore the menu, track rewards and send gifts. Staff have a workspace for shifts, training and daily operations.</p>
+          </AppConcept>
+        </Slide>
+
+        <Slide id="demand" number={8} chapter="Demand">
           <div className={s.editorial}>
             <div><Title>Demand before a lease.</Title><p className={s.lead}>The first tests should measure paid demand near candidate locations.</p></div>
             <Notes items={[
@@ -160,7 +169,7 @@ export default function SeedPage() {
           </div>
         </Slide>
 
-        <Slide id="flagship" number={8} chapter="The flagship" tone="photo"
+        <Slide id="flagship" number={9} chapter="The flagship" tone="photo"
           image={{ src: "/brand/flagship-front.jpg", alt: "Illustrative Plaisir storefront concept" }}>
           <div className={s.hero}><p className={s.kicker}>Storefront concept</p><Title>The New York flagship.</Title>
             <p className={s.lead}>The model assumes one site of about 1,000 sq ft at {usd(base.months[0].occupancy)} monthly occupancy cost.</p>
@@ -168,7 +177,7 @@ export default function SeedPage() {
           </div>
         </Slide>
 
-        <Slide id="team" number={9} chapter="The team">
+        <Slide id="team" number={10} chapter="The team">
           <div className={s.editorial}>
             <Title>The team.</Title>
             <Notes items={[
@@ -180,7 +189,7 @@ export default function SeedPage() {
           </div>
         </Slide>
 
-        <Slide id="sales" number={10} chapter="Sales assumptions" tone="gold">
+        <Slide id="sales" number={11} chapter="Sales assumptions" tone="gold">
           <div className={s.data}><Title>Sales by time of day.</Title>
             <p className={s.lead}>Base case assumptions after the opening ramp, at starting prices.</p>
             <Figures columns={["Daypart", "Visits per day", "Avg. spend", "Daily net sales"]} rows={[
@@ -191,7 +200,7 @@ export default function SeedPage() {
           </div>
         </Slide>
 
-        <Slide id="economics" number={11} chapter="Flagship economics">
+        <Slide id="economics" number={12} chapter="Flagship economics">
           <div className={s.data}><Title>Flagship economics.</Title>
             <p className={s.lead}>Three-year base case, USD. Trading years begin at opening.</p>
             <Figures columns={["Metric", "Year 1", "Year 2", "Year 3"]} rows={[
@@ -204,7 +213,7 @@ export default function SeedPage() {
           </div>
         </Slide>
 
-        <Slide id="funding" number={12} chapter="Seed funding" tone="gold">
+        <Slide id="funding" number={13} chapter="Seed funding" tone="gold">
           <div className={s.editorial}>
             <div><Title>Seed funding and use of funds.</Title><p className={s.amount}>{millions(FUNDING, 2)}</p><p className={s.aside}>Funding assumed in the flagship model.</p></div>
             <div><Figures columns={["Modeled use", "USD"]} rows={[
@@ -217,7 +226,7 @@ export default function SeedPage() {
           </div>
         </Slide>
 
-        <Slide id="milestones" number={13} chapter="Flagship milestones">
+        <Slide id="milestones" number={14} chapter="Flagship milestones">
           <div className={s.split}>
             <div className={s.copy}><Title>Flagship milestones.</Title>
               <Notes items={[
