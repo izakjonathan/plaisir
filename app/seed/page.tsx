@@ -361,19 +361,25 @@ export default function SeedPage() {
 
         {competitors.map(({ id, number, title, introduction, venues }) => (
           <Slide key={id} id={id} number={number} chapter="Appendix · East Village competition" tone={number === 19 ? "gold" : "green"}>
-            <div className={s.data}>
+            <div className={s.comparison}>
               <Title>{title}</Title>
-              <p className={s.analysisIntro}>{introduction}</p>
-              <div className={s.competitorGrid}>
+              <p className={s.comparisonIntro}>{introduction}</p>
+              <div className={s.comparisonLabels} aria-hidden="true">
+                <span>Venue</span><span>What guests get</span><span>What Plaisir has to prove</span>
+              </div>
+              <div className={s.comparisonRows}>
                 {venues.map(([name, url, role, offering, hypothesis]) => (
-                  <section key={name}>
-                    <h3><a href={url} target="_blank" rel="noreferrer">{name}</a></h3>
-                    <p><strong>{role}</strong>{offering}</p>
-                    <p><strong>What Plaisir has to prove</strong>{hypothesis}</p>
+                  <section className={s.comparisonRow} key={name}>
+                    <div>
+                      <h3><a href={url} target="_blank" rel="noreferrer">{name} <span aria-hidden="true">↗</span></a></h3>
+                      <p className={s.comparisonRole}>{role}</p>
+                    </div>
+                    <p>{offering}</p>
+                    <p><span className={s.comparisonPrompt}>What Plaisir has to prove</span>{hypothesis}</p>
                   </section>
                 ))}
               </div>
-              {number === 20 && <p className={s.analysisSource}>Plaisir’s opportunity is to earn both the morning coffee and the evening wine visit from the same regular. The Plaisir Bible’s wider Manhattan comparisons provide context. Venue links document the local offerings.</p>}
+              {number === 20 && <p className={s.comparisonSource}>Plaisir’s opportunity is to earn both the morning coffee and the evening wine visit from the same regular. The Plaisir Bible’s wider Manhattan comparisons provide context. Venue links document the local offerings.</p>}
             </div>
           </Slide>
         ))}

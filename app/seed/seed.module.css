@@ -7,6 +7,8 @@
   padding: var(--seed-inset);
   background: var(--brand-dark);
   color: var(--brand-gold);
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
 
 .track {
@@ -199,7 +201,7 @@
   line-height: 1.35;
 }
 
-:is(.swotMatrix, .daypartTargets, .validationGrid, .competitorGrid) {
+:is(.swotMatrix, .daypartTargets, .validationGrid) {
   display: grid;
   margin-top: clamp(14px, 2.4vh, 30px);
   font-size: clamp(15px, 1.15vw, 19px);
@@ -240,12 +242,12 @@
 
 .swotMatrix dd { margin: 0; }
 
-:is(.daypartTargets, .competitorGrid) {
+.daypartTargets {
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: clamp(14px, 2.2vw, 36px);
 }
 
-:is(.daypartTargets > div, .validationGrid > div, .competitorGrid > section) {
+:is(.daypartTargets, .validationGrid) > div {
   border-top: 1px solid color-mix(in srgb, currentColor 50%, transparent);
   padding-top: clamp(10px, 1.5vh, 20px);
 }
@@ -254,20 +256,72 @@
 .daypartTargets strong { font-size: clamp(26px, 3.1vw, 48px); font-variant-numeric: tabular-nums; }
 .validationGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(14px, 2.2vw, 36px); }
 
-:is(.validationGrid, .competitorGrid) h3 {
+.validationGrid h3 {
   font-size: clamp(19px, 1.75vw, 29px);
   line-height: 1.15;
   margin-bottom: 8px;
 }
 
-.competitorGrid a { text-decoration: underline; text-underline-offset: .15em; }
-.competitorGrid p + p { margin-top: 14px; }
-.competitorGrid p strong { display: block; margin-bottom: 3px; }
+.comparison {
+  --comparison-rule: color-mix(in srgb, currentColor 42%, transparent);
+  max-width: 1420px;
+  margin-inline: auto;
+}
+
+.comparison .title { font-size: clamp(39px, 5.3vw, 88px); }
+
+.comparisonIntro {
+  max-width: 67ch;
+  margin-top: 12px;
+  font-size: clamp(16px, 1.5vw, 23px);
+  line-height: 1.3;
+}
+
+:is(.comparisonLabels, .comparisonRow) {
+  display: grid;
+  grid-template-columns: minmax(0, .8fr) minmax(0, 1fr) minmax(0, 1.15fr);
+  column-gap: clamp(15px, 3vw, 52px);
+}
+
+:is(.comparisonLabels, .comparisonRole, .comparisonPrompt) {
+  font-size: clamp(11px, .92vw, 14px);
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+.comparisonLabels {
+  margin-top: clamp(16px, 3.4vh, 35px);
+  padding-bottom: 8px;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+}
+
+.comparisonRows { border-bottom: 1px solid var(--comparison-rule); }
+.comparisonRow {
+  align-items: baseline;
+  padding-block: clamp(11px, 2vh, 24px);
+  border-top: 1px solid var(--comparison-rule);
+}
+
+.comparisonRow h3 { font: 400 clamp(24px, 3vw, 48px)/1.03 var(--display); }
+.comparisonRow h3 a:hover { text-decoration: underline; text-underline-offset: .14em; }
+.comparisonRow h3 span { font: 400 .48em/1 var(--sans); }
+.comparisonRole { margin-top: 4px; }
+.comparisonRow > p { font-size: clamp(15px, 1.25vw, 20px); line-height: 1.33; }
+.comparisonPrompt { display: none; }
+.comparisonSource { margin-top: 12px; font-size: clamp(12px, .95vw, 15px); line-height: 1.28; }
 
 @media (max-width: 600px) {
-  :is(.swotMatrix, .daypartTargets, .validationGrid, .competitorGrid) {
+  :is(.swotMatrix, .daypartTargets, .validationGrid) {
     grid-template-columns: minmax(0, 1fr);
   }
+}
+
+@media (max-width: 660px) {
+  .comparisonLabels { display: none; }
+  .comparisonRows { margin-top: 18px; }
+  .comparisonRow { grid-template-columns: minmax(0, 1fr); gap: 9px; padding-block: 15px; }
+  .comparisonPrompt { display: block; margin-bottom: 3px; }
 }
 
 .figures { width: 100%; margin-top: clamp(19px, 3vh, 36px); border-collapse: collapse; font-variant-numeric: tabular-nums; }
@@ -348,6 +402,37 @@
   .scenePhoto { min-height: 0; aspect-ratio: 16 / 9; }
   .split .scenePhoto:first-child { order: 1; }
   .bottle { display: none; }
+}
+
+@media (max-width: 850px), (max-height: 540px) {
+  .deck { display: grid; grid-template-rows: auto minmax(0, 1fr); }
+  .chrome {
+    position: relative;
+    inset: auto;
+    padding: 6px var(--seed-gutter);
+    border-radius: 12px 12px 0 0;
+    background: var(--brand-green);
+  }
+  .chrome[data-tone="gold"] { background: var(--brand-gold); }
+  .chrome[data-tone="photo"] { background: var(--brand-dark); }
+  .track { border-radius: 0 0 12px 12px; }
+  .slide:has(.comparison) { padding-block: 24px 52px; }
+}
+
+@media (max-height: 540px) and (min-width: 661px) {
+  .deck { --seed-gutter: clamp(20px, 3.5vw, 54px); }
+  .chrome .wordmark { width: clamp(86px, 10vw, 115px); }
+  .chrome .step { width: 32px; height: 32px; font-size: 17px; }
+  .slide:has(.comparison) { padding-block: 12px 29px; }
+  .comparison .title { font-size: clamp(28px, 9.8dvh, 49px); }
+  .comparisonIntro { margin-top: 5px; font-size: 13px; }
+  .comparisonLabels { margin-top: 10px; padding-bottom: 4px; }
+  .comparisonRow { padding-block: 6px; }
+  .comparisonRow h3 { font-size: clamp(20px, 5.7dvh, 27px); }
+  .comparisonRole { margin-top: 2px; }
+  .comparisonRow > p { font-size: 13px; line-height: 1.24; }
+  .comparisonSource { margin-top: 6px; font-size: 11px; }
+  .slide:has(.comparison) .folio { bottom: 7px; padding-top: 4px; font-size: 10px; }
 }
 
 @media (max-width: 410px) {
