@@ -16,15 +16,15 @@ const contents = [
   ["guests", "Customer & concept", "The occasions Plaisir is designed around"],
   ["flagship", "Market & competition", "The East Village and the venues guests choose today"],
   ["demand", "Progress & economics", "What exists today and what the flagship needs to prove"],
-  ["team", "Team & milestones", "Who will open the flagship and how progress will be measured"],
+  ["team", "Team & milestones", "Who will open the flagship, how staff train and what the first site must prove"],
   ["funding", "Seed funding", "The model’s capital assumption and use of funds"],
-  ["app", "Appendix", "App prototype, menu, operations, financial detail and market analysis"],
+  ["app", "Appendix", "App, menu, operations, financial detail, market analysis and growth options"],
 ];
 
 const competitors = [
   {
     id: "competitor-analysis",
-    number: 19,
+    number: 20,
     title: "All-day neighbours.",
     introduction: "East Village cafés already serve several of the occasions Plaisir is designed for, from the morning coffee run to drinks with friends.",
     venues: [
@@ -35,7 +35,7 @@ const competitors = [
   },
   {
     id: "competitor-benchmarks",
-    number: 20,
+    number: 21,
     title: "Coffee and wine specialists.",
     introduction: "The East Village also has specialists that set the bar for coffee quality, wine discovery and a glass with food.",
     venues: [
@@ -139,7 +139,11 @@ export default function SeedPage() {
           <div className={s.split}>
             <div className={s.copy}>
               <Title>One room, from coffee to wine.</Title>
-              <p className={s.lead}>A quick morning coffee, a light lunch, then wine by the glass, guided flights and boards to share.</p>
+              <Notes items={[
+                ["Morning", "A quick espresso and pastry on the way to work. Staff keep the counter moving and learn what regulars order."],
+                ["Afternoon", "Serve light lunch and coffee. As the day shifts, change the lighting and music, set the bar for wine and adjust staffing."],
+                ["Evening", "Pour wine by the glass, guide guests through flights and serve boards to share. Explain the wines in everyday language and keep the room quiet enough for conversation."],
+              ]}/>
               <a className={s.textLink} href="#app">Explore the app prototype <i className={s.arrow} aria-hidden="true" /></a>
             </div>
             <Scene src="/brand/sharing-table.webp" alt="Wine, cheese and charcuterie on a table" />
@@ -174,9 +178,9 @@ export default function SeedPage() {
           <div className={s.editorial}>
             <div><Title>Test demand before a lease.</Title><p className={s.lead}>The brand, service plan and interactive app prototype are in place. The flagship is pre-launch.</p></div>
             <Notes items={[
-              ["Paid coffee pop-ups and wine tastings", "Record paid visits and spend per guest by daypart."],
-              ["Neighbourhood partnerships", "Test collaborations and track how guests find Plaisir."],
-              ["Repeat visits", "Measure return rates and the cost of rewards during pilots."],
+              ["Run two paid pilots", "Work with a neighbourhood partner to host a morning coffee pop-up and a small guided wine tasting. Use the morning receipt to invite guests back for the tasting."],
+              ["Measure the return visit", "Track paid visits by daypart, average spend, morning service speed, how guests heard about us and how many coffee guests pay to return. Record the cost of any reward."],
+              ["Decide what to repeat", "Use the results to choose which offers to carry into the flagship. A winemaker’s night is one format to test for repeat visits."],
             ]}/>
           </div>
         </Slide>
@@ -211,7 +215,21 @@ export default function SeedPage() {
           </div>
         </Slide>
 
-        <Slide id="milestones" number={9} chapter="Flagship milestones">
+        <Slide id="team-model" number={9} chapter="Training and team development" tone="gold">
+          <div className={s.editorial}>
+            <div><Title>How we build the team.</Title>
+              <p className={s.lead}>Train staff to run a fast morning counter and help evening guests choose a wine and pairing.</p>
+              <p className={s.aside}>The flagship forecast includes paid training, leave cover, health and dental/vision coverage allowances, and retirement and incentive provisions.</p>
+            </div>
+            <Notes items={[
+              ["Learn the offer", "Start with onboarding, coffee and wine tastings, and the service standards for each part of the day."],
+              ["Practise on shift", "Build hands-on skills in espresso, service during a rush, wine recommendations and pairings in plain language."],
+              ["Develop shift leaders", "Use peer mentoring and regular feedback to give staff a route into shift leadership."],
+            ]}/>
+          </div>
+        </Slide>
+
+        <Slide id="milestones" number={10} chapter="Flagship milestones">
           <div className={s.split}>
             <div className={s.copy}><Title>What the flagship must prove.</Title>
               <Notes items={[
@@ -219,12 +237,13 @@ export default function SeedPage() {
                 ["At opening", "Complete the build-out, train the team and track service, sales and cash against the budget."],
                 ["Before a second lease", "Require evidence of repeat demand, positive cash flow and an operating playbook the team can repeat."],
               ]}/>
+              <a className={s.textLink} href="#second-location">See the second-location playbook <i className={s.arrow} aria-hidden="true" /></a>
             </div>
             <Scene src="/brand/good-company.jpg" alt="Guests sharing a table outside a wine bar" />
           </div>
         </Slide>
 
-        <Slide id="funding" number={10} chapter="Seed funding" tone="gold">
+        <Slide id="funding" number={11} chapter="Seed funding" tone="gold">
           <div className={s.editorial}>
             <div><Title>Capital for the first location.</Title><p className={s.amount}>{millions(FUNDING, 2)}</p><p className={s.aside}>Modeled funding for the flagship.</p></div>
             <div><Figures columns={["Modeled use", "USD"]} rows={[
@@ -237,7 +256,7 @@ export default function SeedPage() {
           </div>
         </Slide>
 
-        <Slide id="overview" number={11} chapter="Overview" tone="gold">
+        <Slide id="overview" number={12} chapter="Overview" tone="gold">
           <div className={s.editorial}>
             <div><Title>Presentation index.</Title><p className={s.lead}>Jump to a section of the pitch or explore the supporting material.</p></div>
             <nav aria-label="Presentation chapters" className={s.chapters}>
@@ -248,28 +267,28 @@ export default function SeedPage() {
           </div>
         </Slide>
 
-        <Slide id="app" number={12} chapter="Appendix · The Plaisir app">
+        <Slide id="app" number={13} chapter="Appendix · The Plaisir app">
           <AppConcept>
             <Title>The Plaisir app.</Title>
-            <p className={s.lead}>Guests can explore the menu, track rewards and send gifts. Staff have a workspace for shifts, training and daily operations.</p>
+            <p className={s.lead}>Guests can explore the menu, track rewards and send gifts. Shared coffee and wine rewards could help bring a morning guest back for an evening tasting. Staff have a workspace for shifts, training and daily operations.</p>
           </AppConcept>
         </Slide>
 
-        <Slide id="menu" number={13} chapter="Appendix · The menu">
+        <Slide id="menu" number={14} chapter="Appendix · The menu">
           <div className={s.split}>
             <div className={s.copy}><Title>A menu that changes with the day.</Title>
               <p className={s.lead}>The same room serves different occasions as the menu, lighting and music change.</p>
               <Notes items={[
                 ["Morning", "Espresso, brewed coffee and pastries, with fast counter service."],
                 ["Afternoon", "Coffee, light lunch and small plates, with wine available as service transitions."],
-                ["Evening", "Wine by the glass, guided flights, cheese and charcuterie boards."],
+                ["Evening", "A rotating selection of wines by the glass, including lesser-known varieties. Guided flights and approachable pairings with cheese and charcuterie boards."],
               ]}/>
             </div>
             <Scene src="/brand/sharing-table.webp" alt="Wine, cheese and charcuterie on a table" />
           </div>
         </Slide>
 
-        <Slide id="service" number={14} chapter="Appendix · Operations" tone="gold">
+        <Slide id="service" number={15} chapter="Appendix · Operations" tone="gold">
           <div className={s.split}>
             <Scene src="/brand/wine-pouring.jpg" alt="Wine poured by the glass" />
             <div className={s.copy}><Title>Service and staffing.</Title>
@@ -283,7 +302,7 @@ export default function SeedPage() {
           </div>
         </Slide>
 
-        <Slide id="sales" number={15} chapter="Appendix · Sales assumptions" tone="gold">
+        <Slide id="sales" number={16} chapter="Appendix · Sales assumptions" tone="gold">
           <div className={s.data}><Title>Sales by time of day.</Title>
             <p className={s.lead}>Base case assumptions after the opening ramp, at starting prices.</p>
             <Figures columns={["Daypart", "Visits per day", "Avg. spend", "Daily net sales"]} rows={[
@@ -294,7 +313,7 @@ export default function SeedPage() {
           </div>
         </Slide>
 
-        <Slide id="economics" number={16} chapter="Appendix · Flagship economics">
+        <Slide id="economics" number={17} chapter="Appendix · Flagship economics">
           <div className={s.data}><Title>Flagship economics.</Title>
             <p className={s.lead}>Three-year base case, USD. Trading years begin at opening.</p>
             <Figures columns={["Metric", "Year 1", "Year 2", "Year 3"]} rows={[
@@ -308,7 +327,7 @@ export default function SeedPage() {
           </div>
         </Slide>
 
-        <Slide id="swot" number={17} chapter="Appendix · SWOT analysis">
+        <Slide id="swot" number={18} chapter="Appendix · SWOT analysis">
           <div className={s.data}>
             <Title>SWOT analysis.</Title>
             <p className={s.analysisIntro}>The flagship has to prove that two repeat occasions work at the same address.</p>
@@ -333,7 +352,7 @@ export default function SeedPage() {
           </div>
         </Slide>
 
-        <Slide id="swot-validation" number={18} chapter="Appendix · SWOT and validation" tone="gold">
+        <Slide id="swot-validation" number={19} chapter="Appendix · SWOT and validation" tone="gold">
           <div className={s.data}>
             <Title>What to prove before a lease.</Title>
             <p className={s.analysisIntro}>Paid visits per day at established trade, with net spend per visit at opening prices. Wine and food includes afternoon and evening service.</p>
@@ -360,7 +379,7 @@ export default function SeedPage() {
         </Slide>
 
         {competitors.map(({ id, number, title, introduction, venues }) => (
-          <Slide key={id} id={id} number={number} chapter="Appendix · East Village competition" tone={number === 19 ? "gold" : "green"}>
+          <Slide key={id} id={id} number={number} chapter="Appendix · East Village competition" tone={id === "competitor-analysis" ? "gold" : "green"}>
             <div className={s.comparison}>
               <Title>{title}</Title>
               <p className={s.comparisonIntro}>{introduction}</p>
@@ -379,10 +398,38 @@ export default function SeedPage() {
                   </section>
                 ))}
               </div>
-              {number === 20 && <p className={s.comparisonSource}>Plaisir’s opportunity is to earn both the morning coffee and the evening wine visit from the same regular. The Plaisir Bible’s wider Manhattan comparisons provide context. Venue links document the local offerings.</p>}
+              {id === "competitor-benchmarks" && <p className={s.comparisonSource}>Plaisir’s opportunity is to earn both the morning coffee and the evening wine visit from the same regular. The Plaisir Bible’s wider Manhattan comparisons provide context. Venue links document the local offerings.</p>}
             </div>
           </Slide>
         ))}
+
+        <Slide id="additional-revenue" number={22} chapter="Appendix · Future revenue tests" tone="gold">
+          <div className={s.editorial}>
+            <div><Title>Additional revenue to test.</Title>
+              <p className={s.lead}>Once daily service is established, test a defined event package and track bookings, staff hours and contribution per event.</p>
+              <p className={s.aside}>The flagship sales forecast excludes membership, private events and catering.</p>
+            </div>
+            <Notes items={[
+              ["Private tastings", "Test a small guided tasting with wine and food pairings."],
+              ["Milestone Moments", "Approach companies ahead of an anniversary with a tailored event package. Follow up for repeat bookings and referrals."],
+              ["Off-site hospitality", "Test coffee or wine service for offices and conferences."],
+            ]}/>
+          </div>
+        </Slide>
+
+        <Slide id="second-location" number={23} chapter="Appendix · Expansion playbook">
+          <div className={s.editorial}>
+            <div><Title>What a second site would inherit.</Title>
+              <p className={s.lead}>The flagship would build the playbook. A second site would use it once the flagship shows repeat demand and positive cash flow.</p>
+              <p className={s.aside}>Franchising is a longer-term option.</p>
+            </div>
+            <Notes items={[
+              ["Service and handover", "Document how the room, bar and staffing change from coffee to wine, along with the service standards for each shift."],
+              ["Training and sourcing", "Record how staff learn both services and what suppliers need to deliver, including seasonal sourcing specifications."],
+              ["Stock and waste", "Document weekly inventory audits, stock rotation and how the team records waste."],
+            ]}/>
+          </div>
+        </Slide>
       </div>
     </main>
   );
