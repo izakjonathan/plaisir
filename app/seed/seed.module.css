@@ -186,19 +186,90 @@
 
 .textLink:hover { text-decoration: underline; text-underline-offset: 5px; }
 .data { max-width: 1500px; }
-.analysisGrid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0 clamp(28px, 4vw, 78px);
-  margin-top: clamp(14px, 2.4vh, 30px);
+.analysisIntro {
+  max-width: 64ch;
+  margin-top: 14px;
+  font-size: clamp(17px, 1.55vw, 25px);
+  line-height: 1.25;
 }
-.analysisGrid h3 {
-  font-size: clamp(15px, 1.25vw, 20px);
+
+.analysisSource {
+  margin-top: 18px;
+  font-size: clamp(13px, 1.05vw, 16px);
+  line-height: 1.35;
+}
+
+:is(.swotMatrix, .daypartTargets, .validationGrid, .competitorGrid) {
+  display: grid;
+  margin-top: clamp(14px, 2.4vh, 30px);
+  font-size: clamp(15px, 1.15vw, 19px);
+  line-height: 1.34;
+}
+
+.swotMatrix {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  border: 1px solid color-mix(in srgb, currentColor 38%, transparent);
+  gap: 1px;
+  background: color-mix(in srgb, currentColor 38%, var(--slide-bg));
+}
+
+.swotMatrix > div {
+  display: grid;
+  align-content: start;
+  gap: 8px;
+  padding: clamp(14px, 2vw, 28px);
+  background: var(--slide-bg);
+}
+
+.swotMatrix > div:is(:nth-child(2), :nth-child(3)) {
+  background: color-mix(in srgb, var(--slide-bg) 94%, var(--slide-ink));
+}
+
+.swotMatrix dt {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: clamp(18px, 1.55vw, 25px);
   font-weight: 600;
 }
-.analysisGrid .notes { margin-top: 0; }
-.analysisGrid h3 + .notes { margin-top: 10px; }
-.analysisGrid a { text-decoration: underline; text-underline-offset: .15em; }
+
+.swotMatrix dt span {
+  min-width: 1em;
+  font: 400 clamp(30px, 3vw, 54px)/1 var(--display);
+}
+
+.swotMatrix dd { margin: 0; }
+
+:is(.daypartTargets, .competitorGrid) {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(14px, 2.2vw, 36px);
+}
+
+:is(.daypartTargets > div, .validationGrid > div, .competitorGrid > section) {
+  border-top: 1px solid color-mix(in srgb, currentColor 50%, transparent);
+  padding-top: clamp(10px, 1.5vh, 20px);
+}
+
+.daypartTargets dd { margin: 4px 0 0; }
+.daypartTargets strong { font-size: clamp(26px, 3.1vw, 48px); font-variant-numeric: tabular-nums; }
+.validationGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(14px, 2.2vw, 36px); }
+
+:is(.validationGrid, .competitorGrid) h3 {
+  font-size: clamp(19px, 1.75vw, 29px);
+  line-height: 1.15;
+  margin-bottom: 8px;
+}
+
+.competitorGrid a { text-decoration: underline; text-underline-offset: .15em; }
+.competitorGrid p + p { margin-top: 14px; }
+.competitorGrid p strong { display: block; margin-bottom: 3px; }
+
+@media (max-width: 600px) {
+  :is(.swotMatrix, .daypartTargets, .validationGrid, .competitorGrid) {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
 .figures { width: 100%; margin-top: clamp(19px, 3vh, 36px); border-collapse: collapse; font-variant-numeric: tabular-nums; }
 .figures :is(th, td) {
   border-bottom: 1px solid color-mix(in srgb, currentColor 47%, transparent);
@@ -277,11 +348,6 @@
   .scenePhoto { min-height: 0; aspect-ratio: 16 / 9; }
   .split .scenePhoto:first-child { order: 1; }
   .bottle { display: none; }
-}
-
-@media (max-width: 600px) {
-  .analysisGrid { grid-template-columns: minmax(0, 1fr); }
-  .analysisGrid > div + div { margin-top: 16px; }
 }
 
 @media (max-width: 410px) {

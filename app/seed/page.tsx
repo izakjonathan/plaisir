@@ -18,24 +18,30 @@ const contents = [
   ["demand", "Progress & economics", "What exists today and what the flagship needs to prove"],
   ["team", "Team & milestones", "Who will open the flagship and how progress will be measured"],
   ["funding", "Seed funding", "The model’s capital assumption and use of funds"],
-  ["app", "Appendix", "App prototype, menu, operations and financial detail"],
+  ["app", "Appendix", "App prototype, menu, operations, financial detail and market analysis"],
 ];
 
 const competitors = [
   {
-    category: "All-day cafés",
+    id: "competitor-analysis",
+    number: 19,
+    title: "All-day neighbours.",
+    introduction: "East Village cafés already serve several of the occasions Plaisir is designed for, from the morning coffee run to drinks with friends.",
     venues: [
-      ["Café Maud", "https://www.cafemaud.com/", "Morning coffee window, brunch, dinner and late cocktails. Plaisir has to earn the same all-day loyalty with a wine-led evening."],
-      ["MUD / Mudspot", "https://www.mudnyc.com/pages/mudspot", "Neighbourhood coffee, all-day brunch, beer and wine. The benchmark for becoming part of a local routine."],
-      ["Marylou", "https://marylou.nyc/", "French-inspired bistro, sharing plates and a speakeasy. Competes for the evening social visit."],
+      ["Café Maud", "https://www.cafemaud.com/", "Direct all-day competitor", "A morning coffee window, breakfast and brunch, dinner, cocktails and a speakeasy.", "Can fast specialty coffee and a wine-led evening earn visits when guests already have a morning-to-late-night option?"],
+      ["MUD / Mudspot", "https://www.mudnyc.com/pages/mudspot", "Direct all-day competitor", "An established neighbourhood coffee brand with all-day brunch, beer and wine, and garden seating.", "Can Plaisir build a morning routine of its own and give those regulars a reason to return for wine and boards?"],
+      ["Marylou", "https://marylou.nyc/", "Direct social-occasion competitor", "A French-inspired café, bistro and speakeasy with lunch from noon, weekend brunch, sharing plates, wine and cocktails.", "Can early coffee lead to evening visits, and will a glass and a board suit guests who want a shorter visit?"],
     ],
   },
   {
-    category: "Coffee and wine specialists",
+    id: "competitor-benchmarks",
+    number: 20,
+    title: "Coffee and wine specialists.",
+    introduction: "The East Village also has specialists that set the bar for coffee quality, wine discovery and a glass with food.",
     venues: [
-      ["La Cabra", "https://us.lacabra.com/pages/east-village", "Specialty coffee and bakery. The benchmark for coffee quality, speed and a pastry worth coming back for."],
-      ["Ruffian", "https://ruffiannyc.com/", "Eastern European natural wine, seasonal dishes and pairings. The benchmark for helping guests discover a new wine."],
-      ["DiVin", "https://www.divinwinebar.com/", "French wine and tapas. A direct alternative for a glass and something to share."],
+      ["La Cabra", "https://us.lacabra.com/pages/east-village", "Morning benchmark", "Specialty coffee, a bakery and a design identity rooted in Aarhus.", "Can coffee quality, queue speed and the value of a coffee-and-pastry pairing earn repeat morning visits?"],
+      ["Ruffian", "https://ruffiannyc.com/", "Wine discovery benchmark", "A deep Eastern European natural-wine list, seasonal food and guided pairings.", "Can staff help a guest find a glass they’ll enjoy in a short conversation and give them a reason to return?"],
+      ["DiVin", "https://www.divinwinebar.com/", "Wine and small plates competitor", "A French-focused cellar and tapas on Second Avenue.", "Will by-the-glass guidance, shareable boards and familiarity from daytime visits bring guests back after work?"],
     ],
   },
 ] as const;
@@ -99,6 +105,10 @@ const thousands = (value: number) => (value < 0 ? "−" : "") + "$" + Math.round
 const millions = (value: number, precision: number) => "$" + (value / 1_000_000).toFixed(precision) + "m";
 const visits = DAYPARTS.reduce((sum, part) => sum + part.visits, 0);
 const sales = DAYPARTS.reduce((sum, part) => sum + part.visits * part.spend, 0);
+const yearTwo = base.years[1];
+const breakEvenVisits = (yearTwo.breakEven / yearTwo.spend / 360).toFixed(1);
+const eveningShare = Math.round(DAYPARTS[2].visits * DAYPARTS[2].spend / sales * 100);
+const downside = FORECASTS.Downside;
 
 export default function SeedPage() {
   return (
@@ -174,7 +184,7 @@ export default function SeedPage() {
         <Slide id="business" number={7} chapter="Business model" tone="gold">
           <div className={s.editorial}>
             <div><Title>How one site earns.</Title>
-              <p className={s.lead}>Coffee and breakfast bring morning traffic. Wine and sharing food account for {Math.round(DAYPARTS[2].visits * DAYPARTS[2].spend / sales * 100)}% of modeled daily sales.</p>
+              <p className={s.lead}>Coffee and breakfast bring morning traffic. Wine and sharing food account for {eveningShare}% of modeled daily sales.</p>
               <a className={s.textLink} href="#economics">See the three-year forecast <i className={s.arrow} aria-hidden="true" /></a>
             </div>
             <div>
@@ -280,7 +290,7 @@ export default function SeedPage() {
               ...DAYPARTS.map(part => [part.name, String(part.visits), usd(part.spend), usd(part.visits * part.spend)]),
               ["Total", String(visits), "$" + (sales / visits).toFixed(2) + " blended", usd(sales)],
             ]}/>
-            <p className={s.aside}>Evening wine and food account for {Math.round(DAYPARTS[2].visits * DAYPARTS[2].spend / sales * 100)}% of modeled daily sales.</p>
+            <p className={s.aside}>Evening wine and food account for {eveningShare}% of modeled daily sales.</p>
           </div>
         </Slide>
 
@@ -301,40 +311,72 @@ export default function SeedPage() {
         <Slide id="swot" number={17} chapter="Appendix · SWOT analysis">
           <div className={s.data}>
             <Title>SWOT analysis.</Title>
-            <div className={s.analysisGrid}>
-              <Notes items={[
-                ["Strengths", "Fast specialty coffee and guided wine service give guests two reasons to visit. Staff training covers both dayparts, and the assembly-led menu limits kitchen complexity."],
-                ["Weaknesses", `The base case assumes ${visits} paid visits a day at established trade. Year 2 EBITDA break-even requires ${(base.years[1].breakEven / base.years[1].spend / 360).toFixed(1)}. Free cash flow is negative in all three years, and demand at a specific site is untested.`],
-              ]}/>
-              <Notes items={[
-                ["Opportunities", "Use tastings, neighbourhood partnerships and loyalty to turn coffee regulars into evening guests. Measure repeat visits across dayparts in paid pilots before signing a lease."],
-                ["Threats", `Established cafés and wine bars compete for both visits. With 20% fewer visits and 20% higher build-out and equipment costs, the forecast falls below its cash reserve in month ${FORECASTS.Downside.reserveBreach} and runs out of cash in month ${FORECASTS.Downside.cashShortfall} at ${millions(FUNDING, 2)} of funding.`],
-              ]}/>
-            </div>
+            <p className={s.analysisIntro}>The flagship has to prove that two repeat occasions work at the same address.</p>
+            <dl className={s.swotMatrix}>
+              <div>
+                <dt><span aria-hidden="true">S</span>Strengths</dt>
+                <dd><strong>Two reasons to return.</strong> Fast specialty coffee and breakfast give commuters a weekday ritual. Guided wine by the glass and shareable boards give neighbours a reason to return after work. The workflow and training cover the shift from quick counter service to personal evening service. An assembly-led menu limits kitchen complexity.</dd>
+              </div>
+              <div>
+                <dt><span aria-hidden="true">W</span>Weaknesses</dt>
+                <dd><strong>{visits} vs {breakEvenVisits} paid visits/day.</strong> The first is the established base case. The second is Year 2 EBITDA break-even at the modelled spend, mix and staffing. Free cash flow stays negative in all three base-case years. Site-specific demand is untested, and 40 seats is a design target.</dd>
+              </div>
+              <div>
+                <dt><span aria-hidden="true">O</span>Opportunities</dt>
+                <dd><strong>Turn coffee regulars into wine regulars.</strong> Coffee-and-pastry pairings can build morning frequency. Staff recommendations, tastings and neighbourhood partnerships can bring guests back in the evening. Loyalty can track how often they return across dayparts.</dd>
+              </div>
+              <div>
+                <dt><span aria-hidden="true">T</span>Threats</dt>
+                <dd><strong>{eveningShare}% of modelled sales come from afternoon and evening wine and food.</strong> East Village cafés and bars already compete for coffee, all-day social visits and evening wine. Lower traffic and higher opening costs put the cash reserve at risk.</dd>
+              </div>
+            </dl>
           </div>
         </Slide>
 
-        <Slide id="competitor-analysis" number={18} chapter="Appendix · Competitor analysis" tone="gold">
+        <Slide id="swot-validation" number={18} chapter="Appendix · SWOT and validation" tone="gold">
           <div className={s.data}>
-            <Title>East Village competition.</Title>
-            <p className={s.aside}>Plaisir’s opportunity is to earn both the morning coffee and the evening wine visit from the same regular.</p>
-            <div className={s.analysisGrid}>
-              {competitors.map(({ category, venues }) => (
-                <div key={category}>
-                  <h3>{category}</h3>
-                  <dl className={s.notes}>
-                    {venues.map(([name, url, description]) => (
-                      <div key={name}>
-                        <dt><a href={url} target="_blank" rel="noreferrer">{name}</a></dt>
-                        <dd>{description}</dd>
-                      </div>
-                    ))}
-                  </dl>
+            <Title>What to prove before a lease.</Title>
+            <p className={s.analysisIntro}>Paid visits per day at established trade, with net spend per visit at opening prices. Wine and food includes afternoon and evening service.</p>
+            <dl className={s.daypartTargets}>
+              {DAYPARTS.map(({ name, visits, spend }) => (
+                <div key={name}>
+                  <dt>{name}</dt>
+                  <dd><strong>{visits}</strong> visits at <strong>{usd(spend)}</strong></dd>
                 </div>
               ))}
+            </dl>
+            <div className={s.validationGrid}>
+              <div>
+                <h3>Measure demand and service</h3>
+                <p>Count traffic at candidate addresses. Use paid pop-ups to test purchase volumes, actual checks, morning service speed, evening labour needs and how many guests return across dayparts.</p>
+              </div>
+              <div>
+                <h3>Stress-test the cash reserve</h3>
+                <p>With 20% fewer visits, 20% higher opening capex and staffing held constant, the forecast falls below its three-month reserve in <strong>month {downside.reserveBreach}</strong> and cash turns negative in <strong>month {downside.cashShortfall}</strong> at {millions(FUNDING, 2)} of modelled funding.</p>
+              </div>
             </div>
+            <p className={s.analysisSource}>Plaisir Investor Forecast, pp. 2 and 5. Flagship sales exclude membership, private events, catering, retail wine, franchising and expansion.</p>
           </div>
         </Slide>
+
+        {competitors.map(({ id, number, title, introduction, venues }) => (
+          <Slide key={id} id={id} number={number} chapter="Appendix · East Village competition" tone={number === 19 ? "gold" : "green"}>
+            <div className={s.data}>
+              <Title>{title}</Title>
+              <p className={s.analysisIntro}>{introduction}</p>
+              <div className={s.competitorGrid}>
+                {venues.map(([name, url, role, offering, hypothesis]) => (
+                  <section key={name}>
+                    <h3><a href={url} target="_blank" rel="noreferrer">{name}</a></h3>
+                    <p><strong>{role}</strong>{offering}</p>
+                    <p><strong>What Plaisir has to prove</strong>{hypothesis}</p>
+                  </section>
+                ))}
+              </div>
+              {number === 20 && <p className={s.analysisSource}>Plaisir’s opportunity is to earn both the morning coffee and the evening wine visit from the same regular. The Plaisir Bible’s wider Manhattan comparisons provide context. Venue links document the local offerings.</p>}
+            </div>
+          </Slide>
+        ))}
       </div>
     </main>
   );
