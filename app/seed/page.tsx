@@ -63,12 +63,12 @@ function Title({ children, cover = false }: { children: string; cover?: boolean 
   );
 }
 
-function Slide({ id, number, chapter, tone = "green", image, children }: {
+function Slide({ id, number, chapter, tone = "green", image, className, children }: {
   id: string; number: number; chapter: string; tone?: "green" | "gold" | "photo";
-  image?: { src: string; alt?: string }; children: ReactNode;
+  image?: { src: string; alt?: string }; className?: string; children: ReactNode;
 }) {
   return (
-    <section id={id} data-seed-slide={number} data-tone={tone} className={s.slide} tabIndex={-1} aria-label={chapter}>
+    <section id={id} data-seed-slide={number} data-tone={tone} className={className ? `${s.slide} ${className}` : s.slide} tabIndex={-1} aria-label={chapter}>
       {image && (
         <div className={s.backdrop}>
           <Image src={image.src} alt={image.alt ?? ""} fill sizes="100vw" preload={number === 1} />
@@ -360,20 +360,26 @@ export default function SeedPage() {
         </Slide>
 
         {competitors.map(({ id, number, title, introduction, venues }) => (
-          <Slide key={id} id={id} number={number} chapter="Appendix · East Village competition" tone={number === 19 ? "gold" : "green"}>
+          <Slide key={id} id={id} number={number} chapter="Appendix · East Village competition" tone={number === 19 ? "gold" : "green"} className={s.competitorSlide}>
             <div className={s.data}>
               <Title>{title}</Title>
-              <p className={s.analysisIntro}>{introduction}</p>
+              <p className={s.competitorIntro}>{introduction}</p>
               <div className={s.competitorGrid}>
                 {venues.map(([name, url, role, offering, hypothesis]) => (
                   <section key={name}>
-                    <h3><a href={url} target="_blank" rel="noreferrer">{name}</a></h3>
-                    <p><strong>{role}</strong>{offering}</p>
-                    <p><strong>What Plaisir has to prove</strong>{hypothesis}</p>
+                    <header>
+                      <p className={s.competitorLabel}>{role}</p>
+                      <h3><a href={url} target="_blank" rel="noreferrer">{name}</a></h3>
+                    </header>
+                    <p className={s.competitorCopy}>{offering}</p>
+                    <div className={s.competitorHypothesis}>
+                      <p className={s.competitorLabel}>What Plaisir has to prove</p>
+                      <p className={s.competitorCopy}>{hypothesis}</p>
+                    </div>
                   </section>
                 ))}
               </div>
-              {number === 20 && <p className={s.analysisSource}>Plaisir’s opportunity is to earn both the morning coffee and the evening wine visit from the same regular. The Plaisir Bible’s wider Manhattan comparisons provide context. Venue links document the local offerings.</p>}
+              {number === 20 && <p className={s.competitorSource}>Plaisir’s opportunity is to earn both the morning coffee and the evening wine visit from the same regular. The Plaisir Bible’s wider Manhattan comparisons provide context. Venue links document the local offerings.</p>}
             </div>
           </Slide>
         ))}
