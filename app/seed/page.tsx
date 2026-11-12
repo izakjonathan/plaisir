@@ -21,6 +21,25 @@ const contents = [
   ["app", "Appendix", "App prototype, menu, operations and financial detail"],
 ];
 
+const competitors = [
+  {
+    category: "All-day cafés",
+    venues: [
+      ["Café Maud", "https://www.cafemaud.com/", "Morning coffee window, brunch, dinner and late cocktails. Plaisir has to earn the same all-day loyalty with a wine-led evening."],
+      ["MUD / Mudspot", "https://www.mudnyc.com/pages/mudspot", "Neighbourhood coffee, all-day brunch, beer and wine. The benchmark for becoming part of a local routine."],
+      ["Marylou", "https://marylou.nyc/", "French-inspired bistro, sharing plates and a speakeasy. Competes for the evening social visit."],
+    ],
+  },
+  {
+    category: "Coffee and wine specialists",
+    venues: [
+      ["La Cabra", "https://us.lacabra.com/pages/east-village", "Specialty coffee and bakery. The benchmark for coffee quality, speed and a pastry worth coming back for."],
+      ["Ruffian", "https://ruffiannyc.com/", "Eastern European natural wine, seasonal dishes and pairings. The benchmark for helping guests discover a new wine."],
+      ["DiVin", "https://www.divinwinebar.com/", "French wine and tapas. A direct alternative for a glass and something to share."],
+    ],
+  },
+] as const;
+
 function Title({ children, cover = false }: { children: string; cover?: boolean }) {
   const Heading = cover ? "h1" : "h2";
   return (
@@ -276,6 +295,44 @@ export default function SeedPage() {
             ]}/>
             <p className={s.aside}>Downside assumptions. {CASE_NOTES.Downside} At the modeled funding level, cash runs out in trading month {FORECASTS.Downside.cashShortfall}.</p>
             <a className={s.textLink} href="#funding">Back to the funding slide <i className={s.arrow} aria-hidden="true" /></a>
+          </div>
+        </Slide>
+
+        <Slide id="swot" number={17} chapter="Appendix · SWOT analysis">
+          <div className={s.data}>
+            <Title>SWOT analysis.</Title>
+            <div className={s.analysisGrid}>
+              <Notes items={[
+                ["Strengths", "Fast specialty coffee and guided wine service give guests two reasons to visit. Staff training covers both dayparts, and the assembly-led menu limits kitchen complexity."],
+                ["Weaknesses", `The base case assumes ${visits} paid visits a day at established trade. Year 2 EBITDA break-even requires ${(base.years[1].breakEven / base.years[1].spend / 360).toFixed(1)}. Free cash flow is negative in all three years, and demand at a specific site is untested.`],
+              ]}/>
+              <Notes items={[
+                ["Opportunities", "Use tastings, neighbourhood partnerships and loyalty to turn coffee regulars into evening guests. Measure repeat visits across dayparts in paid pilots before signing a lease."],
+                ["Threats", `Established cafés and wine bars compete for both visits. With 20% fewer visits and 20% higher build-out and equipment costs, the forecast falls below its cash reserve in month ${FORECASTS.Downside.reserveBreach} and runs out of cash in month ${FORECASTS.Downside.cashShortfall} at ${millions(FUNDING, 2)} of funding.`],
+              ]}/>
+            </div>
+          </div>
+        </Slide>
+
+        <Slide id="competitor-analysis" number={18} chapter="Appendix · Competitor analysis" tone="gold">
+          <div className={s.data}>
+            <Title>East Village competition.</Title>
+            <p className={s.aside}>Plaisir’s opportunity is to earn both the morning coffee and the evening wine visit from the same regular.</p>
+            <div className={s.analysisGrid}>
+              {competitors.map(({ category, venues }) => (
+                <div key={category}>
+                  <h3>{category}</h3>
+                  <dl className={s.notes}>
+                    {venues.map(([name, url, description]) => (
+                      <div key={name}>
+                        <dt><a href={url} target="_blank" rel="noreferrer">{name}</a></dt>
+                        <dd>{description}</dd>
+                      </div>
+                    ))}
+                  </dl>
+                </div>
+              ))}
+            </div>
           </div>
         </Slide>
       </div>
