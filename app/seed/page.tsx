@@ -371,7 +371,7 @@ export default function SeedPage() {
                 {venues.map(([name, url, role, offering, hypothesis]) => (
                   <section className={s.comparisonRow} key={name}>
                     <div>
-                      <h3><a href={url} target="_blank" rel="noreferrer">{name} <span aria-hidden="true">↗</span></a></h3>
+                      <h3><a href={url} target="_blank" rel="noreferrer">{name}<i className={s.arrow} aria-hidden="true" /></a></h3>
                       <p className={s.comparisonRole}>{role}</p>
                     </div>
                     <p>{offering}</p>

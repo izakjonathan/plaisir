@@ -305,7 +305,13 @@
 
 .comparisonRow h3 { font: 400 clamp(24px, 3vw, 48px)/1.03 var(--display); }
 .comparisonRow h3 a:hover { text-decoration: underline; text-underline-offset: .14em; }
-.comparisonRow h3 span { font: 400 .48em/1 var(--sans); }
+.comparisonRow h3 .arrow {
+  display: inline-block;
+  width: .42em;
+  margin-inline-start: .24em;
+  vertical-align: .1em;
+  transform: rotate(-40deg);
+}
 .comparisonRole { margin-top: 4px; }
 .comparisonRow > p { font-size: clamp(15px, 1.25vw, 20px); line-height: 1.33; }
 .comparisonPrompt { display: none; }
