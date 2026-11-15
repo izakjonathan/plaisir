@@ -47,11 +47,14 @@ test('Postgres save, publish, stale revisions, duplicate publish and restore pre
  };
  try{
   await initStore(query);await initStore(query);
-  const first=validateDocument({text:{[text]:'First version'},images:{[photo.id]:{...(photo.default as object),overlay:true,overlayOpacity:35}}});
+  const seedPhoto = fields.find(field => field.id === "seed.cover.image")!;
+  const first=validateDocument({text:{[text]:'First version','seed.cover.heading':'Edited seed cover','seed.cover.link.1.url':'#funding'},images:{[photo.id]:{...(photo.default as object),overlay:true,overlayOpacity:35},[seedPhoto.id]:{...(seedPhoto.default as object),alt:"Seed cover",overlayOpacity:45}}});
   const second=validateDocument({text:{[text]:'Second version'},images:{[photo.id]:{...(photo.default as object),overlay:false,overlayOpacity:70}}});
   assert.equal((await readStore(query)).revision,0);
   const saved=await writeStore(query,'save',0,first);
   assert.deepEqual(saved.published,emptyDocument);
+  assert.equal(textValue(saved.published,'seed.cover.heading'),'Coffee by day,\nwine by night.');
+  assert.equal(textValue(saved.draft,'seed.cover.heading'),'Edited seed cover');
   assert.deepEqual(saved.draft,first);
   await assert.rejects(()=>writeStore(query,'publish',0,second),/CONFLICT/);
   const published=await writeStore(query,'publish',saved.revision,first);

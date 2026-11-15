@@ -46,6 +46,13 @@ export default function DeckNavigation() {
         slide.scrollIntoView({ block: "start" });
       }
     };
+    const requested = slides[ids.indexOf(location.hash.slice(1))];
+    if (requested) {
+      track.scrollTo({
+        top: track.scrollTop + requested.getBoundingClientRect().top - track.getBoundingClientRect().top,
+        behavior: "instant",
+      });
+    }
     update();
     track.addEventListener("scroll", schedule, { passive: true });
     window.addEventListener("resize", schedule);

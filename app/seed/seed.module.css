@@ -43,6 +43,7 @@
 
 .slide:focus:not(:focus-visible) { outline: none; }
 .slideContent { position: relative; min-width: 0; }
+.slideContent :is(p, dd) { white-space: pre-line; }
 .slide :is(.title, .coverTitle) {
   color: inherit;
   font: 400 clamp(50px, 5.7vw, 118px)/.98 var(--display);
@@ -95,6 +96,7 @@
   inset: 0;
   content: "";
   background: var(--photo-overlay);
+  opacity: var(--seed-overlay);
   pointer-events: none;
 }
 
@@ -105,7 +107,6 @@
 }
 
 .scenePhoto { position: relative; min-height: clamp(390px, 57vh, 760px); }
-.scenePhoto::after { opacity: .68; }
 .hero { max-width: min(77vw, 1150px); }
 .hero .title { max-width: 8em; }
 .hero .lead { max-width: 25ch; }

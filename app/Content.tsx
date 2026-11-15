@@ -31,7 +31,7 @@ export function Copy({ field }: { field: string }) {
   const value = textValue(useContent(), field);
   return <FormattedText value={value}/>;
 }
-function FormattedText({ value }: { value: string }) {
+export function FormattedText({ value }: { value: string }) {
   // Deliberately limited formatting; never render stored HTML.
   const breaks = (text: string) => text.split('\n').map((line,index)=><Fragment key={index}>{index>0 ? <br/> : null}{line}</Fragment>);
   return <>{value.replace(/\r\n?/g,'\n').split(/(\*\*[^*]+\*\*|\*[^*]+\*|\n)/g).map((part, i) => part === '\n' ? <br key={i}/> : part.startsWith('**') ? <strong key={i}>{breaks(part.slice(2,-2))}</strong> : part.startsWith('*') && part.endsWith('*') ? <em key={i}>{breaks(part.slice(1,-1))}</em> : <Fragment key={i}>{part}</Fragment>)}</>;

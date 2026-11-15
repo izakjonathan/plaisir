@@ -1,8 +1,9 @@
 import definitions from './content-fields.json' with { type: 'json' };
+import seedDefinitions from './seed-fields.json' with { type: 'json' };
 
 export type ContentImageValue = { src: string; alt: string; width: number; height: number; x: number; y: number; overlay?: boolean; overlayOpacity?: number };
 export type Field = { id: string; page: string; section: string; label: string; kind: 'text' | 'image' | 'link'; default: string | ContentImageValue; multiline?: boolean; hidden?: boolean; control?: 'toggle' | 'range' | 'color'; min?: number; max?: number; step?: number };
-export const fields = definitions as Field[];
+export const fields = [...definitions, ...seedDefinitions] as Field[];
 export const fieldMap = new Map(fields.map(field => [field.id, field]));
 export type ContentDocument = { text: Record<string, string>; images: Record<string, ContentImageValue> };
 export const emptyDocument: ContentDocument = { text: {}, images: {} };

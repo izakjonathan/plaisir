@@ -2,13 +2,20 @@ import { NextResponse, type NextRequest } from 'next/server';
 import { COMING_SOON, comingSoonHTML } from './lib/maintenance';
 import { SEED_PRESENTATION_PATH } from './lib/public-pages';
 export function proxy(request: NextRequest) {
-  if (request.nextUrl.pathname === SEED_PRESENTATION_PATH) {
+  const { pathname, searchParams } = request.nextUrl;
+  const draftPreview = searchParams.get('preview') === 'draft';
+  const editor = pathname === '/admin' || ['/api/editor/content', '/api/editor/assets', '/api/editor/upload'].includes(pathname);
+  const embeddedPreview = draftPreview && (pathname === '/' || pathname === '/investors')
+    && request.headers.get('sec-fetch-site') === 'same-origin' && request.headers.get('sec-fetch-dest') === 'iframe';
+  if (pathname === SEED_PRESENTATION_PATH || editor || embeddedPreview) {
     const response = NextResponse.next();
     response.headers.set('X-Robots-Tag', 'noindex, nofollow, noarchive');
+    if (editor || draftPreview) response.headers.set('Cache-Control', 'private, no-store');
     return response;
   }
-  if (COMING_SOON) {
-    const hiddenResource = /^\/(api|media|forecasts)(?:\/|$)/.test(request.nextUrl.pathname);
+  // The image picker and published deck share the existing media route.
+  if (COMING_SOON && !/^\/media\/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/.test(pathname)) {
+    const hiddenResource = /^\/(api|media|forecasts)(?:\/|$)/.test(pathname);
     return new NextResponse(hiddenResource ? 'Temporarily unavailable' : comingSoonHTML, {
       status: hiddenResource ? 503 : 200,
       headers: {
@@ -19,7 +26,7 @@ export function proxy(request: NextRequest) {
     });
   }
   const response = NextResponse.next();
-  if (request.nextUrl.pathname.startsWith('/admin') || request.nextUrl.pathname.startsWith('/api/editor') || request.nextUrl.searchParams.get('preview')==='draft') {
+  if (pathname.startsWith('/admin') || pathname.startsWith('/api/editor') || draftPreview) {
     response.headers.set('X-Robots-Tag','noindex, nofollow, noarchive');
     response.headers.set('Cache-Control','private, no-store');
   }
