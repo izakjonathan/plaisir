@@ -1,181 +1,236 @@
 .appShowcase {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(300px, .8fr);
+  grid-template-columns: minmax(0, 1fr) minmax(300px, 1fr);
   align-items: center;
-  gap: clamp(30px, 6vw, 108px);
+  gap: clamp(32px, 5vw, 96px);
 }
+.appIntro { max-width: 670px; }
 .appPicker {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
-  margin-top: clamp(18px, 4vh, 34px);
+  gap: 7px;
+  margin-top: 10px;
 }
-:is(.appPicker, .appOptions, .appDock) button {
-  font: inherit;
+.appPicker:first-of-type { margin-top: clamp(16px, 3vh, 30px); }
+:is(.appPicker, .appChoices) button {
+  border: 1px solid var(--app-line, currentColor);
+  border-radius: 100px;
+  background: transparent;
   color: inherit;
+  font: inherit;
 }
 .appPicker button {
-  border: 1px solid currentColor;
-  background: transparent;
-  padding: 9px 15px;
-  font-size: clamp(14px, 1.25vw, 18px);
+  min-height: 38px;
+  padding: 6px 13px;
+  font-size: clamp(13px, 1.1vw, 17px);
 }
-.appPicker button[aria-pressed="true"] { color: var(--brand-green); background: var(--brand-gold); }
+:is(.appPicker, .appChoices, .appDock) button[aria-pressed="true"] {
+  background: var(--brand-gold);
+  color: var(--brand-dark);
+}
 .appDetail {
-  min-height: 3em;
-  max-width: 43ch;
-  margin-top: 16px;
-  font-size: clamp(15px, 1.25vw, 19px);
+  min-height: 2.7em;
+  max-width: 42ch;
+  margin-top: 13px;
+  font-size: clamp(14px, 1.16vw, 19px);
   line-height: 1.35;
 }
-.appDevice {
-  --app-paper: #f5f0e5;
-  width: min(100%, 330px);
-  margin-inline: auto;
+.appStage {
+  position: relative;
+  isolation: isolate;
   display: grid;
-  grid-template-rows: auto 1fr auto;
-  min-height: 496px;
-  border: 5px solid var(--brand-dark);
-  border-radius: 30px;
+  justify-items: center;
+}
+.appStage::before {
+  position: absolute;
+  z-index: -1;
+  inset: 7% 0;
+  border: 1px solid color-mix(in srgb, var(--brand-gold) 35%, transparent);
+  border-radius: 5px;
+  background:
+    linear-gradient(110deg, var(--brand-dark), color-mix(in srgb, var(--brand-green) 62%, transparent)),
+    url("/brand/interior-spread.webp") center / cover;
+  content: "";
+}
+.appDevice {
+  --app-line: color-mix(in srgb, var(--brand-gold) 44%, transparent);
+  --app-surface: color-mix(in srgb, var(--brand-green) 67%, var(--brand-dark));
+  width: min(100%, 370px, max(190px, calc((100dvh - 156px) * .46)));
+  aspect-ratio: 440 / 956;
+  grid-template-rows: auto auto minmax(0, 1fr) auto auto;
+  display: grid;
   overflow: clip;
-  background: var(--app-paper);
-  color: var(--brand-dark);
-  box-shadow: 0 25px 65px #0004;
+  border: 4px solid var(--brand-dark);
+  border-radius: clamp(29px, 3vw, 53px);
+  background: var(--brand-deep);
+  color: var(--brand-gold);
+  box-shadow: 0 0 0 1px var(--app-line), 0 20px 54px var(--brand-dark);
+  container-type: inline-size;
+}
+.appStatus {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 31px;
+  padding-inline: 12%;
+  font: 600 11px/1 var(--sans);
+  font-variant-numeric: tabular-nums;
+}
+.appStatus i {
+  position: absolute;
+  left: 50%;
+  width: 24%;
+  height: 48%;
+  border-radius: 20px;
+  background: var(--brand-dark);
+  transform: translateX(-50%);
+}
+.appBattery {
+  width: 15px;
+  height: 7px;
+  border: 1px solid currentColor;
+  border-radius: 2px;
+  background: linear-gradient(90deg, currentColor 73%, transparent 73%);
 }
 .appTop {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
-  padding: 11px 17px;
-  border-bottom: 1px solid #263d3230;
-  font-size: 11px;
-  letter-spacing: .08em;
-  text-transform: uppercase;
+  gap: 8px;
+  padding: 6px 7% 9px;
+  border-bottom: 1px solid var(--app-line);
 }
 .appMark {
-  width: 80px;
+  width: clamp(70px, 25cqw, 98px);
   aspect-ratio: 1911 / 660;
   background: currentColor;
-  mask: url("/brand/wordmark-green.svg") center / contain no-repeat;
+  mask: url("/brand/wordmark-gold.svg") center / contain no-repeat;
 }
-.appScreen { display: grid; min-width: 0; }
+.appScreen {
+  overflow: auto;
+  overscroll-behavior-y: contain;
+  scrollbar-width: thin;
+  scrollbar-color: var(--brand-gold) var(--brand-green);
+}
+.appScreen:focus-visible { outline-offset: -3px; outline-color: var(--brand-gold); }
 .appView {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  min-width: 0;
-  padding: 20px 18px;
-  animation: seed-app-reveal 330ms var(--seed-ease) both;
-}
-.appView[data-screen="home"] { padding: 0; }
-.appView h3 {
-  font: 400 34px/.98 var(--display);
-  letter-spacing: -.035em;
-  color: inherit;
-}
-.appView p { font-size: 14px; line-height: 1.35; }
-.appWelcome {
+  --app-photo: url("/brand/table.webp");
+  --app-photo-size: clamp(66px, 27cqw, 110px);
   display: flex;
   min-height: 100%;
   flex-direction: column;
-  justify-content: end;
-  align-items: start;
-  gap: 15px;
-  padding: 24px 18px;
-  color: var(--brand-gold);
-  background: linear-gradient(0deg, #18271df5, #18271d25), url("/brand/table.webp") center / cover;
+  gap: clamp(7px, 3cqw, 13px);
+  padding: 7%;
+  animation: seed-app-reveal 280ms var(--seed-ease) both;
 }
-.appEyebrow { font-size: 10px; letter-spacing: .095em; text-transform: uppercase; }
-.appAction {
-  align-self: start;
-  padding: 4px 0;
-  border: 0;
-  background: transparent;
+.appView[data-screen="home"] { padding: 0; }
+.appView[data-screen="pickup"] { --app-photo: url("/brand/coffee.webp"); }
+.appView[data-screen="table"], .appView[data-screen="guide"] { --app-photo: url("/brand/wine-pouring.jpg"); }
+.appView[data-screen="staff"] { --app-photo: url("/brand/morning-service.webp"); }
+.appView:is([data-screen="pickup"], [data-screen="table"], [data-screen="guide"], [data-screen="staff"])::before {
+  flex: none;
+  height: var(--app-photo-size);
+  border-radius: 5px;
+  background: linear-gradient(0deg, color-mix(in srgb, var(--brand-dark) 46%, transparent), transparent), var(--app-photo) center / cover;
+  content: "";
+}
+.appView h3 {
   color: inherit;
-  font: inherit;
-  font-size: 14px;
-  text-decoration: underline;
-  text-underline-offset: 4px;
+  font: 400 clamp(28px, 12cqw, 47px)/.97 var(--display);
+  letter-spacing: -.04em;
 }
-.appOptions { display: flex; gap: 6px; flex-wrap: wrap; }
-.appOptions button {
-  border: 1px solid currentColor;
-  background: transparent;
-  padding: 5px 8px;
-  font-size: 12px;
+.appView p:not(.appEyebrow) { font-size: clamp(12px, 4.6cqw, 16px); line-height: 1.33; }
+.appEyebrow {
+  font-size: clamp(9px, 3.1cqw, 12px);
+  letter-spacing: .095em;
+  text-transform: uppercase;
 }
-.appOptions button[aria-pressed="true"] { color: var(--app-paper); background: var(--brand-dark); }
-.appRows > div {
-  border-top: 1px solid #263d3240;
-  padding: 7px 0;
+.appHero {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: start;
+  justify-content: end;
+  gap: clamp(8px, 3.4cqw, 15px);
+  padding: 10% 8% 8%;
+  background: linear-gradient(0deg, var(--brand-dark) 17%, color-mix(in srgb, var(--brand-deep) 56%, transparent) 52%, transparent 95%), var(--app-photo) 57% center / cover;
 }
-.appRows dt { font-size: 14px; font-weight: 600; }
-.appRows dd { margin: 2px 0 0; font-size: 13px; line-height: 1.25; }
-:is(.appPass, .appGifts > div, .appScan) {
+.appHero h3 { max-width: 9ch; font-size: clamp(35px, 15.5cqw, 58px); }
+.appAction {
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 16px;
-  border-radius: 9px;
-  color: var(--brand-gold);
-  background: var(--brand-dark);
+  gap: 10px;
+  align-self: start;
+  padding: 5px 0;
+  border: 0;
+  border-bottom: 1px solid currentColor;
+  border-radius: 0;
+  background: transparent;
+  color: inherit;
+  font: 600 clamp(12px, 4.45cqw, 15px)/1.2 var(--sans);
 }
-.appPass strong { display: block; font: 400 35px/1 var(--display); }
+.appChoices { display: flex; flex-wrap: wrap; gap: 5px; }
+.appChoices button { min-height: 32px; padding: 4px 8px; font-size: clamp(11px, 4cqw, 14px); }
+.appRows > div { border-top: 1px solid var(--app-line); padding: 7px 0; }
+.appRows dt { font-size: clamp(13px, 4.9cqw, 17px); font-weight: 600; }
+.appRows dd { margin: 2px 0 0; font-size: clamp(12px, 4.45cqw, 15px); line-height: 1.28; }
+:is(.appPass, .appScan, .appFeedback) {
+  border: 1px solid var(--app-line);
+  border-radius: 8px;
+  padding: 12px;
+  background: var(--app-surface);
+}
+:is(.appPass, .appScan) { display: flex; align-items: center; gap: 13px; }
+.appPass strong { display: block; margin-block: 4px; font: 400 clamp(24px, 10cqw, 35px)/1 var(--display); }
 .appPass div span { display: block; font-size: 11px; }
 .appBottle {
   flex: none;
-  width: 22px;
+  width: 30px;
   aspect-ratio: 553 / 1347;
   background: currentColor;
   mask: url("/brand/bottle.svg") center / contain no-repeat;
 }
-.appScan {
-  justify-content: center;
-  min-height: 154px;
-  outline: 1px dashed currentColor;
-  outline-offset: -14px;
-}
-.appScan .appBottle { width: 40px; }
-.appGifts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
-.appGifts > div { justify-content: space-between; padding: 13px; }
-.appGifts strong { font-size: 20px; }
-.appMembership {
-  display: grid;
-  align-content: end;
-  min-height: 135px;
-  padding: 15px;
-  gap: 3px;
-  border-radius: 8px;
-  color: var(--brand-gold);
-  background: linear-gradient(0deg, #17291df5, #17291d55), url("/brand/wine-conversation.jpg") center / cover;
-}
-.appMembership strong { font: 400 28px/1 var(--display); }
+.appScan { min-height: 118px; justify-content: center; outline: 1px dashed var(--app-line); outline-offset: -10px; }
 .appDock {
   display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
-  padding: 4px 6px;
-  border-top: 1px solid #263d3230;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin: 5px 5% 0;
+  padding: 3px;
+  border: 1px solid var(--app-line);
+  border-radius: 100px;
+  background: var(--brand-dark);
 }
 .appDock button {
   display: grid;
   justify-items: center;
-  gap: 4px;
-  padding: 6px 1px;
+  align-content: center;
+  gap: 2px;
+  min-height: 40px;
   border: 0;
+  border-radius: 100px;
   background: transparent;
-  font-size: 10px;
-  border-radius: 6px;
+  color: inherit;
+  font: 600 10px/1.15 var(--sans);
 }
-.appDock button[aria-pressed="true"] { background: color-mix(in srgb, var(--brand-gold) 30%, var(--app-paper)); }
-.appDock svg { width: 19px; height: 19px; }
-
+.appDock svg { width: 17px; height: 17px; }
+.appHomeBar {
+  justify-self: center;
+  grid-row: 5;
+  width: 27%;
+  height: 3px;
+  margin: 6px 0;
+  border-radius: 10px;
+  background: var(--brand-gold);
+}
+.appDevice :is(button, [tabindex]):focus-visible { outline-color: var(--brand-gold); }
 @keyframes seed-app-reveal {
-  from { opacity: .35; transform: translateY(5px); }
+  from { opacity: .35; transform: translateY(4px); }
   to { opacity: 1; transform: translateY(0); }
 }
 @media (max-width: 850px) {
-  .appShowcase { grid-template-columns: minmax(0, 1fr); gap: 22px; }
+  .appShowcase { grid-template-columns: minmax(0, 1fr); gap: 24px; }
+  .appDevice { width: min(100%, 320px); }
 }
 @media (prefers-reduced-motion: reduce) {
   .appView { animation: none; }

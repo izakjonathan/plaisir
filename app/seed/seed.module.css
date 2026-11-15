@@ -29,7 +29,7 @@
   display: grid;
   align-items: center;
   min-height: 100%;
-  padding: clamp(106px, 14vh, 158px) var(--seed-gutter) clamp(90px, 12vh, 125px);
+  padding: clamp(74px, 11vh, 126px) var(--seed-gutter) clamp(60px, 8vh, 94px);
   overflow: clip;
   scroll-snap-align: start;
   background: var(--slide-bg);
@@ -42,16 +42,16 @@
 }
 
 .slide:focus:not(:focus-visible) { outline: none; }
-.slideContent { position: relative; min-width: 0; }
+.slideContent { position: relative; width: min(100%, 1680px); min-width: 0; justify-self: center; }
 .slideContent :is(p, dd) { white-space: pre-line; }
 .slide :is(.title, .coverTitle) {
   color: inherit;
-  font: 400 clamp(50px, 5.7vw, 118px)/.98 var(--display);
+  font: 400 clamp(48px, min(5.7vw, 10vh), 118px)/.98 var(--display);
   letter-spacing: -.04em;
   text-wrap: balance;
 }
 
-.slide .coverTitle { font-size: clamp(76px, 9.8vw, 184px); max-width: 10em; text-wrap: initial; }
+.slide .coverTitle { font-size: clamp(76px, min(9.8vw, 18vh), 184px); max-width: 10em; text-wrap: initial; }
 .word { display: inline-block; overflow: clip; vertical-align: bottom; overflow-clip-margin: .16em; }
 .word > span { display: block; }
 .slide[data-active] .word > span {
@@ -106,7 +106,7 @@
     linear-gradient(180deg, #14241dcc, transparent 31%);
 }
 
-.scenePhoto { position: relative; min-height: clamp(390px, 57vh, 760px); }
+.scenePhoto { position: relative; min-height: clamp(290px, 53vh, 700px); }
 .hero { max-width: min(77vw, 1150px); }
 .hero .title { max-width: 8em; }
 .hero .lead { max-width: 25ch; }
@@ -357,7 +357,7 @@
 
 .chrome {
   z-index: 2;
-  top: calc(var(--seed-inset) + clamp(13px, 3vh, 34px));
+  top: calc(var(--seed-inset) + clamp(10px, 2.2vh, 30px));
   color: var(--brand-gold);
   pointer-events: none;
 }
@@ -365,7 +365,7 @@
 .chrome[data-tone="gold"] { color: var(--brand-green); }
 .chrome a { pointer-events: auto; }
 .wordmark {
-  width: clamp(104px, 10vw, 171px);
+  width: clamp(104px, min(10vw, 18vh), 171px);
   aspect-ratio: 1911 / 660;
   background: currentColor;
   mask: url("/brand/wordmark-gold.svg") center / contain no-repeat;
@@ -390,7 +390,7 @@
 .step[aria-disabled="true"] { opacity: .35; pointer-events: none; }
 .step[href]:hover { transform: translateY(-2px); }
 .folio {
-  bottom: clamp(23px, 4vh, 47px);
+  bottom: clamp(15px, 2.5vh, 36px);
   left: var(--seed-gutter);
   right: var(--seed-gutter);
   border-top: 1px solid color-mix(in srgb, currentColor 38%, transparent);
@@ -398,6 +398,16 @@
   font-size: 13px;
   letter-spacing: .055em;
   font-variant-numeric: tabular-nums;
+}
+
+@media (min-width: 851px) {
+  .slide[data-seed-slide="13"] { padding-block: 72px 56px; }
+}
+
+@media (min-width: 851px) and (max-height: 900px) {
+  .copy .title { font-size: clamp(44px, min(4.9vw, 8.6vh), 80px); }
+  .comparison .title { font-size: clamp(39px, min(5.3vw, 8.6vh), 76px); }
+  .notes > div { padding-block: clamp(8px, 1.45vh, 14px); }
 }
 
 @media (max-width: 850px) {

@@ -126,7 +126,7 @@
   {"id": "seed.overview.index.6.detail", "page": "seed", "section": "overview", "label": "Index entry 6 description", "kind": "text", "default": "App, menu, operations, financial detail, market analysis and growth options"},
   {"id": "seed.app.chapter", "page": "seed", "section": "app", "label": "Slide label", "kind": "text", "default": "Appendix · The Plaisir app"},
   {"id": "seed.app.heading", "page": "seed", "section": "app", "label": "Slide heading", "kind": "text", "default": "The Plaisir app."},
-  {"id": "seed.app.p.1", "page": "seed", "section": "app", "label": "Paragraph 1", "kind": "text", "default": "The prototype shows menus, rewards and gifting for guests, and shifts, training and daily operations for staff. A next test is whether order-ahead shortens the morning queue and whether shared rewards bring coffee guests back for wine."},
+  {"id": "seed.app.p.1", "page": "seed", "section": "app", "label": "Paragraph 1", "kind": "text", "default": "Try a morning pickup, find an evening wine or explore the Plaisir Pass. The prototype also shows how the team could manage shifts, training and daily checks."},
   {"id": "seed.menu.chapter", "page": "seed", "section": "menu", "label": "Slide label", "kind": "text", "default": "Appendix · The menu"},
   {"id": "seed.menu.heading", "page": "seed", "section": "menu", "label": "Slide heading", "kind": "text", "default": "A menu that changes with the day."},
   {"id": "seed.menu.p.1", "page": "seed", "section": "menu", "label": "Paragraph 1", "kind": "text", "default": "The same room serves different occasions as the menu, lighting and music change."},
