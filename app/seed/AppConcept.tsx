@@ -20,11 +20,31 @@ const screens = {
   scan: { label: "Scan", detail: "A preview of presenting the Pass at the counter." },
   gift: { label: "Gifting", detail: "Choose an amount for a digital Plaisir gift." },
   subscriptions: { label: "Membership", detail: "See example coffee and wine benefits and a stored-bottle concept." },
-  staff: { label: "Staff", detail: "A staff workspace for shifts, training and daily checks." },
+  staff: { label: "Staff", detail: "Shifts, training, waste logging and performance reviews." },
+  insights: { label: "Pilot metrics", detail: "How the team could measure pickup, repeat visits, average order value and membership." },
 } as const;
 
 type ScreenId = keyof typeof screens;
 type Choose = (screen: ScreenId) => void;
+
+const wineSuggestions = {
+  Bright: ["A crisp white", "Fresh acidity. Try it with a soft cheese."],
+  Soft: ["A light red", "Juicy and easy-drinking. Try it with charcuterie."],
+  Bold: ["A fuller red", "Rich and structured. Try it with an aged cheese."],
+} as const;
+
+const occasionSuggestions = {
+  "Date night": "Start with one glass each and a board to share.",
+  "After work": "Try a glass with a small plate.",
+  Solo: "Ask what’s open by the glass at the counter.",
+} as const;
+
+const staffViews = {
+  Schedule: [["Today’s shift", "Morning counter · 7 AM–12 PM"], ["Leave", "Review upcoming time off and cover."]],
+  Academy: [["Coffee", "Espresso recipes and rush workflow"], ["Wine", "Guided tastings and plain-language recommendations"]],
+  Waste: [["Coffee", "Log dial-in and unsold batches."], ["Wine", "Log open bottles and discarded pours."]],
+  Review: [["Service", "Review pickup wait and evening service times."], ["Weekly manager meeting", "Review results, training and stock variance."]],
+} as const;
 
 const guestScreens: ScreenId[] = ["home", "menu", "pickup", "table", "guide", "loyalty", "scan", "gift", "subscriptions"];
 
@@ -39,7 +59,7 @@ function Icon({ path }: { path: string }) {
 }
 
 function Action({ children, onClick }: { children: ReactNode; onClick: () => void }) {
-  return <button className={styles.appAction} type="button" onClick={onClick}>{children}<span aria-hidden="true">↗</span></button>;
+  return <button className={`pill ${styles.appAction}`} type="button" onClick={onClick}>{children}</button>;
 }
 
 function Choices<T extends string>({ label, options, value, onChange }: {
@@ -54,11 +74,16 @@ function Rows({ rows }: { rows: readonly (readonly [string, string])[] }) {
   return <dl className={styles.appRows}>{rows.map(([label, copy]) => <div key={label}><dt>{label}</dt><dd>{copy}</dd></div>)}</dl>;
 }
 
-function ScreenPreview({ id, choose }: { id: ScreenId; choose: Choose }) {
+function ScreenPreview({ id, choose, favourite, onFavourite }: {
+  id: ScreenId; choose: Choose; favourite: string; onFavourite: (drink: string) => void;
+}) {
   const [category, setCategory] = useState<keyof typeof menus>("Coffee");
   const [drink, setDrink] = useState("Flat white");
   const [time, setTime] = useState("8:25");
-  const [taste, setTaste] = useState("Bright");
+  const [taste, setTaste] = useState<keyof typeof wineSuggestions>("Bright");
+  const [occasion, setOccasion] = useState<keyof typeof occasionSuggestions>("Date night");
+  const [staffView, setStaffView] = useState<keyof typeof staffViews>("Schedule");
+  const [scanMode, setScanMode] = useState("Earn & redeem");
   const [gift, setGift] = useState("$25");
   const [plan, setPlan] = useState("Wine");
   const [review, setReview] = useState(false);
@@ -66,11 +91,15 @@ function ScreenPreview({ id, choose }: { id: ScreenId; choose: Choose }) {
   switch (id) {
     case "home":
       return <div className={styles.appHero}>
-        <p className={styles.appEyebrow}>East Village, New York</p>
-        <h3>A little everyday plaisir.</h3>
-        <p>Coffee by day. Wine by night.</p>
-        <Action onClick={() => choose("pickup")}>Order coffee</Action>
-        <Action onClick={() => choose("guide")}>Find a wine</Action>
+        <div>
+          <p className={styles.appEyebrow}>East Village, New York</p>
+          <h3>A little everyday plaisir.</h3>
+        </div>
+        <span className={styles.appBottle} aria-hidden="true" />
+        <div className={styles.appHomeActions}>
+          <Action onClick={() => choose("pickup")}>Order coffee</Action>
+          <Action onClick={() => choose("guide")}>Find a wine</Action>
+        </div>
       </div>;
     case "menu":
       return <>
@@ -97,15 +126,20 @@ function ScreenPreview({ id, choose }: { id: ScreenId; choose: Choose }) {
       </>;
     case "guide":
       return <>
-        <h3>What do you like?</h3>
+        <p className={styles.appEyebrow}>AI wine guide concept</p><h3>What do you like?</h3>
+        <Choices label="Occasion" options={["Date night", "After work", "Solo"]} value={occasion} onChange={setOccasion} />
         <Choices label="Wine taste" options={["Bright", "Soft", "Bold"]} value={taste} onChange={setTaste} />
-        <Rows rows={taste === "Bright" ? [["A crisp white", "Fresh acidity. Try it with a soft cheese."]] : taste === "Soft" ? [["A light red", "Juicy and easy-drinking. Try it with charcuterie."]] : [["A fuller red", "Rich and structured. Try it with an aged cheese."]]} />
+        <Rows rows={[wineSuggestions[taste], ["For your visit", occasionSuggestions[occasion]]]} />
+        <Action onClick={() => onFavourite(wineSuggestions[taste][0])}>{favourite === wineSuggestions[taste][0] ? "Saved to your Pass" : "Save as a favourite"}</Action>
         <Action onClick={() => choose("table")}>See the table preview</Action>
       </>;
     case "loyalty":
       return <>
         <h3>Plaisir Pass.</h3>
         <div className={styles.appPass}><span className={styles.appBottle} aria-hidden="true" /><div><span className={styles.appEyebrow}>Example balance</span><strong>4 rewards</strong><span>Three visits to the next reward</span></div></div>
+        <Rows rows={[["Bourgogne tier", "Earn points on visits for drinks or upgrades. Grand Cru is the top tier."], ["Your favourite", favourite || "Save a drink from the wine guide."]]} />
+        <Action onClick={() => setReview(true)}>Preview a referral invite</Action>
+        {review && <p className={styles.appFeedback} role="status">Invite a friend and earn a reward after their first paid visit. Example only.</p>}
         <Action onClick={() => choose("scan")}>Open your Pass</Action>
         <Action onClick={() => choose("subscriptions")}>Explore membership</Action>
         <Action onClick={() => choose("gift")}>Send a gift</Action>
@@ -113,8 +147,9 @@ function ScreenPreview({ id, choose }: { id: ScreenId; choose: Choose }) {
     case "scan":
       return <>
         <h3>At the counter.</h3>
+        <Choices label="Pass mode" options={["Earn & redeem", "Pay"]} value={scanMode} onChange={setScanMode} />
         <div className={styles.appScan}><span className={styles.appBottle} aria-hidden="true" /></div>
-        <p>Pass preview. A working code would appear here.</p>
+        <p>{scanMode === "Pay" ? "Payment code preview · Demo only" : "Rewards code preview · Demo only"}</p>
         <Action onClick={() => choose("loyalty")}>Back to Pass</Action>
       </>;
     case "gift":
@@ -129,19 +164,32 @@ function ScreenPreview({ id, choose }: { id: ScreenId; choose: Choose }) {
       return <>
         <h3>Make it a ritual.</h3>
         <Choices label="Membership type" options={["Wine", "Coffee"]} value={plan} onChange={setPlan} />
-        <Rows rows={plan === "Wine" ? [["Weekly wine plan", "One glass remaining this week in this example"], ["1er Cru", "A potential stored-bottle programme"]] : [["Coffee plan", "An example subscription for your daily coffee"], ["Pickup", "Use it when ordering ahead"]]} />
+        <Rows rows={plan === "Wine" ? [["Weekly wine plan", "Plan options include 2–4 glasses per week. One glass remaining in this example."], ["1er Cru", "A potential stored-bottle programme"]] : [["Coffee plan", "An example subscription for your daily coffee"], ["Pickup", "Use it when ordering ahead"]]} />
         <Action onClick={() => choose("loyalty")}>Back to Pass</Action>
       </>;
     case "staff":
       return <>
         <p className={styles.appEyebrow}>Plaisir Family</p><h3>On shift.</h3>
-        <Rows rows={[["Today’s shift", "Morning counter · 7 AM–12 PM"], ["Training Academy", "Espresso workflow and guided wine service"], ["Daily checks", "Stock, cleaning and coffee and wine waste"], ["Weekly review", "Discuss service times and waste with the manager"]]} />
+        <Choices label="Staff workspace" options={["Schedule", "Academy", "Waste", "Review"]} value={staffView} onChange={setStaffView} />
+        <Rows rows={staffViews[staffView]} />
+      </>;
+    case "insights":
+      return <>
+        <p className={styles.appEyebrow}>Manager preview</p><h3>What we’d measure.</h3>
+        <Rows rows={[
+          ["Pickup", "Queue time and orders collected on time"],
+          ["Retention and spend", "Track repeat visits, average order value and recurring membership revenue."],
+          ["Pilot hypotheses", "Test the brief’s targets of 25–40% more visits and 15–25% higher average order value."],
+          ["Menu and pricing", "Use aggregate favourites and order patterns to test changes."],
+          ["Guest campaigns", "Test targeted offers for guests who opt in, then measure return visits."],
+        ]} />
       </>;
   }
 }
 
 export default function AppConcept({ children }: { children: ReactNode }) {
   const [selected, setSelected] = useState<ScreenId>("home");
+  const [favourite, setFavourite] = useState("");
   const viewport = useRef<HTMLDivElement>(null);
   const current = screens[selected];
   const choose: Choose = id => {
@@ -160,23 +208,21 @@ export default function AppConcept({ children }: { children: ReactNode }) {
     <div className={styles.appIntro}>
       {children}
       <div className={styles.appPicker} role="group" aria-label="Guest app screens">{guestScreens.map(picker)}</div>
-      <div className={styles.appPicker} role="group" aria-label="Staff app screens">{picker("staff")}</div>
+      <div className={styles.appPicker} role="group" aria-label="Staff app screens">{picker("staff")}{picker("insights")}</div>
       <p className={styles.appDetail} aria-live="polite">{current.detail}</p>
     </div>
-    <div className={styles.appStage}>
-      <div className={styles.appDevice} role="group" aria-label="iPhone 18 Pro Max app prototype">
-        <div className={styles.appStatus} aria-hidden="true"><span>9:41</span><i /><span className={styles.appBattery} /></div>
-        <div className={styles.appTop}><span className={styles.appMark} role="img" aria-label="Plaisir" /><span className={styles.appEyebrow}>Prototype</span></div>
-        <div ref={viewport} id="app-concept-screen" className={styles.appScreen} role="region" aria-label={current.label + " screen"} tabIndex={0}>
-          <div key={selected} className={styles.appView} data-screen={selected}>
-            <ScreenPreview id={selected} choose={choose} />
-          </div>
+    <div className={styles.appDevice} role="group" aria-label="iPhone 18 Pro Max app prototype">
+      <div className={styles.appStatus} aria-hidden="true"><span>9:41</span><i /><span className={styles.appBattery} /></div>
+      <div className={styles.appTop}><span className={styles.appMark} role="img" aria-label="Plaisir" /><span className={styles.appEyebrow}>Prototype</span></div>
+      <div ref={viewport} id="app-concept-screen" className={styles.appScreen} role="region" aria-label={current.label + " screen"} tabIndex={0}>
+        <div key={selected} className={styles.appView} data-screen={selected}>
+          <ScreenPreview id={selected} choose={choose} favourite={favourite} onFavourite={setFavourite} />
         </div>
-        {selected !== "staff" && <nav className={styles.appDock} aria-label="App preview navigation">
-          {navigation.map(screen => <button key={screen.id} type="button" aria-pressed={activeTab === screen.id} onClick={() => choose(screen.id)}><Icon path={screen.icon} />{screen.label}</button>)}
-        </nav>}
-        <span className={styles.appHomeBar} aria-hidden="true" />
       </div>
+      {selected !== "staff" && selected !== "insights" && <nav className={styles.appDock} aria-label="App preview navigation">
+        {navigation.map(screen => <button key={screen.id} type="button" aria-pressed={activeTab === screen.id} onClick={() => choose(screen.id)}><Icon path={screen.icon} />{screen.label}</button>)}
+      </nav>}
+      <span className={styles.appHomeBar} aria-hidden="true" />
     </div>
   </div>;
 }

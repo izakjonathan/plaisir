@@ -35,27 +35,11 @@
   font-size: clamp(14px, 1.16vw, 19px);
   line-height: 1.35;
 }
-.appStage {
-  position: relative;
-  isolation: isolate;
-  display: grid;
-  justify-items: center;
-}
-.appStage::before {
-  position: absolute;
-  z-index: -1;
-  inset: 7% 0;
-  border: 1px solid color-mix(in srgb, var(--brand-gold) 35%, transparent);
-  border-radius: 5px;
-  background:
-    linear-gradient(110deg, var(--brand-dark), color-mix(in srgb, var(--brand-green) 62%, transparent)),
-    url("/brand/interior-spread.webp") center / cover;
-  content: "";
-}
 .appDevice {
   --app-line: color-mix(in srgb, var(--brand-gold) 44%, transparent);
   --app-surface: color-mix(in srgb, var(--brand-green) 67%, var(--brand-dark));
-  width: min(100%, 370px, max(190px, calc((100dvh - 156px) * .46)));
+  width: min(100%, 312px, max(180px, calc((100dvh - 216px) * .46)));
+  justify-self: center;
   aspect-ratio: 440 / 956;
   grid-template-rows: auto auto minmax(0, 1fr) auto auto;
   display: grid;
@@ -64,7 +48,7 @@
   border-radius: clamp(29px, 3vw, 53px);
   background: var(--brand-deep);
   color: var(--brand-gold);
-  box-shadow: 0 0 0 1px var(--app-line), 0 20px 54px var(--brand-dark);
+  box-shadow: 0 0 0 1px var(--app-line), 0 12px 30px color-mix(in srgb, var(--brand-dark) 52%, transparent);
   container-type: inline-size;
 }
 .appStatus {
@@ -115,7 +99,6 @@
 }
 .appScreen:focus-visible { outline-offset: -3px; outline-color: var(--brand-gold); }
 .appView {
-  --app-photo: url("/brand/table.webp");
   --app-photo-size: clamp(66px, 27cqw, 110px);
   display: flex;
   min-height: 100%;
@@ -147,29 +130,45 @@
   text-transform: uppercase;
 }
 .appHero {
-  display: flex;
+  display: grid;
   flex: 1;
-  flex-direction: column;
-  align-items: start;
-  justify-content: end;
-  gap: clamp(8px, 3.4cqw, 15px);
-  padding: 10% 8% 8%;
-  background: linear-gradient(0deg, var(--brand-dark) 17%, color-mix(in srgb, var(--brand-deep) 56%, transparent) 52%, transparent 95%), var(--app-photo) 57% center / cover;
-}
-.appHero h3 { max-width: 9ch; font-size: clamp(35px, 15.5cqw, 58px); }
-.appAction {
-  display: flex;
+  grid-template-rows: auto minmax(70px, 1fr) auto;
   align-items: center;
-  gap: 10px;
-  align-self: start;
-  padding: 5px 0;
-  border: 0;
-  border-bottom: 1px solid currentColor;
-  border-radius: 0;
-  background: transparent;
-  color: inherit;
-  font: 600 clamp(12px, 4.45cqw, 15px)/1.2 var(--sans);
+  gap: clamp(9px, 4cqw, 15px);
+  padding: 8%;
+  background: var(--brand-gold);
+  color: var(--brand-dark);
 }
+.appHero .appEyebrow { margin-bottom: 8px; }
+.appHero h3 { max-width: 9ch; font-size: clamp(32px, 16cqw, 53px); }
+.appHero .appBottle {
+  justify-self: center;
+  width: auto;
+  height: clamp(58px, 33cqw, 106px);
+  transform: rotate(-13deg);
+}
+.appHomeActions {
+  display: grid;
+  justify-items: stretch;
+  padding: 4px 10px;
+  border-radius: 14px;
+  background: var(--brand-dark);
+  color: var(--brand-gold);
+}
+.appHomeActions .appAction {
+  width: 100%;
+  justify-content: space-between;
+}
+.appHomeActions .appAction + .appAction { border-top: 1px solid var(--app-line); }
+.appDevice .appAction {
+  gap: 9px;
+  align-self: start;
+  min-height: 34px;
+  padding: 5px 0;
+  font-size: clamp(12px, 4.45cqw, 15px);
+  font-weight: 600;
+}
+.appDevice .appAction::after { width: 22px; height: 15px; }
 .appChoices { display: flex; flex-wrap: wrap; gap: 5px; }
 .appChoices button { min-height: 32px; padding: 4px 8px; font-size: clamp(11px, 4cqw, 14px); }
 .appRows > div { border-top: 1px solid var(--app-line); padding: 7px 0; }
@@ -230,7 +229,7 @@
 }
 @media (max-width: 850px) {
   .appShowcase { grid-template-columns: minmax(0, 1fr); gap: 24px; }
-  .appDevice { width: min(100%, 320px); }
+  .appDevice { width: min(100%, 285px); }
 }
 @media (prefers-reduced-motion: reduce) {
   .appView { animation: none; }
