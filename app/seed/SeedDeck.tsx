@@ -217,6 +217,7 @@ export default function SeedDeck() {
               <div><Title>{copy("heading")}</Title><p className={s.lead}>{copy("p.1")}</p></div>
               <Notes items={[
                 [copy("item.1.heading"), copy("item.1.text")],
+                [copy("item.5.heading"), copy("item.5.text")],
                 [copy("item.2.heading"), copy("item.2.text")],
                 [copy("item.3.heading"), copy("item.3.text")],
                 [copy("item.4.heading"), copy("item.4.text")],
